@@ -6,7 +6,7 @@
 	olcPixelGameEngine_Mobile.h
 
 	//////////////////////////////////////////////////////////////////
-	// Pixel Game Engine Mobile Release 2.2.2,                      //
+	// Pixel Game Engine Mobile Release 2.2.2                       //
 	// John Galvin aka Johnngy63: 14-Nov-2023                       //
 	// Full production release                                      //
 	// Please report all bugs to https://discord.com/invite/WhwHUMV //

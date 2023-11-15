@@ -1,5 +1,5 @@
 //
-// Created by jgalv on 22/10/2023.
+// Created by jgalv on 14/11/2023.
 //
 
 #ifndef OLCASTEMPLATE_SSE2NEON_H

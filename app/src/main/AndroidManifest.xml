@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-package="com.example.olcastemplate"
+package="com.example.OLCPGEMobileAndroidStudio"
 android:versionCode="1"
 android:versionName="1.0">
 <application
@@ -15,7 +15,7 @@ android:versionName="1.0">
         android:screenOrientation="landscape">
 
         <meta-data android:name="android.app.lib_name"
-            android:value="olcastemplate" />
+            android:value="OLCPGEMobileAndroidStudio" />
 
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />

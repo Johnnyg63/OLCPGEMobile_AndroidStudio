@@ -1,10 +1,10 @@
-package com.example.olcastemplate;
+package com.example.OLCPGEMobileAndroidStudio;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class olcastemplate extends Activity
+public class OLCPGEMobileAndroidStudio extends Activity
 {
     /** Called when the activity is first created. */
     @Override

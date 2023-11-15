@@ -1,3 +1,4 @@
+# Pixel Game Engine Mobile 2.2.2
 # For more information about using CMake with Android Studio, read the
 # documentation: https://d.android.com/studio/projects/add-native-code.html
 
@@ -7,7 +8,7 @@ cmake_minimum_required(VERSION 3.22.1)
 
 # Declares and names the project.
 
-project("olcastemplate")
+project("OLCPGEMobileAndroidStudio")
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -15,7 +16,7 @@ project("olcastemplate")
 # Gradle automatically packages shared libraries with your APK.
 
 add_library( # Sets the name of the library.
-        olcastemplate
+        OLCPGEMobileAndroidStudio
 
         # Sets the library as a shared library.
         SHARED
@@ -50,7 +51,7 @@ find_library(EGL EGL)
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-        olcastemplate
+        OLCPGEMobileAndroidStudio
 
         # Links the target library to the log library
         # included in the NDK.
