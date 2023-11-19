@@ -22,9 +22,7 @@ add_library( # Sets the name of the library.
         SHARED
 
         # Provides a relative path to your source file(s).
-        main.cpp
-        GLError.h
-        GLError.cpp)
+        main.cpp)
 
 # Searches for a specified prebuilt library and stores the path as a
 # variable. Because CMake includes system libraries in the search path by
@@ -43,7 +41,7 @@ find_library(android-lib android)
 
 find_library(GLESv2 GLESv2)
 find_library(GLESv3 GLESv3)
-
+find_library(OpenSLES OpenSLES)
 find_library(EGL EGL)
 
 # Specifies libraries CMake should link to your target library. You
@@ -59,4 +57,5 @@ target_link_libraries( # Specifies the target library.
         ${android-lib}
         ${GLESv2}
         ${GLESv3}
-        ${EGL})
+        ${EGL}
+        ${OpenSLES})

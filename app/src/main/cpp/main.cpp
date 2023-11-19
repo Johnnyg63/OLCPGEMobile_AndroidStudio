@@ -8,6 +8,7 @@
 #include "pch.h"
 
 #include <malloc.h>
+
 #define OLC_PGE_APPLICATION
 #define OLC_IMAGE_STB
 //#define STBI_NO_SIMD
@@ -16,17 +17,20 @@
 // Default is SSE2 (x86)
 #define STBI_NEON
 #endif
+
 #include "olcPixelGameEngine_Mobile.h"
+
+#define OLC_PGEX_MINIAUDIO
+
+#include "olcPGEX_MiniAudio.h"  // Checkout https://github.com/Moros1138/olcPGEX_MiniAudio Thanks Moros1138
 #include <fstream> // Used for saving the savestate to a file
 
 
-class PGE_Mobile : public olc::PixelGameEngine
-{
+class PGE_Mobile : public olc::PixelGameEngine {
 
 public:
-    PGE_Mobile()
-    {
-        sAppName = "Default Demo";
+    PGE_Mobile() {
+        sAppName = "Demo MiniAudio";
     }
 
     /* Vectors */
@@ -37,11 +41,11 @@ public:
     int nStep = 20;
 
     /* Sprites */
-    olc::Sprite* sprTouchTester = nullptr;
+    olc::Sprite *sprTouchTester = nullptr;
     /* END Sprites*/
 
     /* Decals */
-    olc::Decal* decTouchTester = nullptr;
+    olc::Decal *decTouchTester = nullptr;
     /* End Decals */
 
 
@@ -49,31 +53,119 @@ public:
     std::vector<olc::SensorInformation> vecSensorInfos;
     /*End Sensors*/
 
+    // To keep track of our sample ID
+    // Ensure that all sound IDs are set to -1 stop memory leak when Android/iOS takes
+    // the app out of focus
+    int32_t song1 = -1;
+
+    // For demonstration controls, with sensible default values
+    float pan = 0.0f;
+    float pitch = 1.0f;
+    float seek = 0.0f;
+    float volume = 1.0f;
+
+    // The instance of the audio engine, no fancy config required.
+    olc::MiniAudio ma;
+
 
 public:
     //Example Save State Struct and Vector for when your app is paused
-    struct MySaveState
-    {
+    struct MySaveState {
         std::string key;
         int value;
     };
 
     std::vector<MySaveState> vecLastState;
 
+    std::string sampleAFullPath; // Holds the full path to sampleA.wav
 
 public:
-    bool OnUserCreate() override
-    {
+    bool OnUserCreate() override {
         //NOTE: To access the features with your phone device use:
 #if defined(__ANDROID__)
         // Access android directly
         //android_app* pMyAndroid = this->pOsEngine.app;
 
+        // USE OF SOUND olcPGE_MiniAudio
+        /*
+         * For Android and iOS you cannot play the sounds directly from the assets as you would
+         * on a Windows/Mac/Linux system. Android/iOS compress your assets in a compress file to
+         * save on valuable phone storage. AndroidAudio (AAudio), miniAudio, and most others need
+         * to be able to stream the music data, in short they are not very good at streaming for
+         * a compress file.
+         * Therefore you will need to extract these sound files to internal storage so the sounds
+         * can be played.
+         *
+         * In short, as I know you didn't read the above, you cannot stream from an asset in Android
+         * or iOS
+         */
+
+        std::string songFullPath = (std::string) app_GetInternalAppStorage() + "/sounds/song1.mp3";
+        olc::rcode fileRes = olc::filehandler->ExtractFileFromAssets("sounds/song1.mp3",
+                                                                     songFullPath);
+
+        switch (fileRes) {
+
+            case olc::rcode::NO_FILE:
+            {break;}
+            case olc::rcode::FAIL:
+            {break;}
+            case olc::rcode::OK:
+            {
+                // only load the song if it is not already loaded
+                song1 = ma.LoadSound(songFullPath);
+
+                break;
+            }
+        }
+
+        sampleAFullPath = (std::string) app_GetInternalAppStorage() + "/sounds/SampleA.wav";
+        olc::rcode result = olc::filehandler->ExtractFileFromAssets("sounds/SampleA.wav",
+                                                                    songFullPath);
+
+
 #endif
 
 #if defined(__APPLE__)
         // Access iOS directly
-		//apple_app* pMyApple = this->pOsEngine.app;
+        //apple_app* pMyApple = this->pOsEngine.app;
+
+                // USE OF SOUND olcPGE_MiniAudio
+        /*
+         * For Android and iOS you cannot play the sounds directly from the assets as you would
+         * on a Windows/Mac/Linux system. Android/iOS compress your assets in a compress file to
+         * save on valuable phone storage. AndroidAudio (AAudio), miniAudio, and most others need
+         * to be able to stream the music data, in short they are not very good at streaming for
+         * a compress file.
+         * Therefore you will need to extract these sound files to internal storage so the sounds
+         * can be played.
+         *
+         * In short, as I know you didn't read the above, you cannot stream from an asset in Android
+         * or iOS
+         */
+        std::string songFullPath = (std::string)app_GetInternalAppStorage() + "/sounds/song1.mp3";
+        olc::rcode fileRes =  olc::filehandler->ExtractFileFromAssets("sounds/song1.mp3", songFullPath);
+
+        switch (fileRes) {
+
+            case olc::rcode::NO_FILE:
+                {break;}
+            case olc::rcode::FAIL:
+                {break;}
+            case olc::rcode::OK:
+            {
+                if(song1 < 0)
+                {
+                    song1 = ma.LoadSound(songFullPath);
+                 }
+
+                break;
+            }
+        }
+
+        sampleAFullPath = (std::string)app_GetInternalAppStorage() + "/sounds/SampleA.wav";
+        olc::rcode result =  olc::filehandler->ExtractFileFromAssets("sounds/SampleA.wav", songFullPath);
+
 #endif
 
         sprTouchTester = new olc::Sprite("images/north_south_east_west_logo.png");
@@ -82,27 +174,54 @@ public:
         return true;
     }
 
-    bool OnUserUpdate(float fElapsedTime) override
-    {
+    bool OnUserUpdate(float fElapsedTime) override {
 
         SetDrawTarget(nullptr);
+
         Clear(olc::BLUE);
 
         nFrameCount = GetFPS();
 
         std::string sLineBreak = "-------------------------";
 
-        std::string sTitle = "OneLoneCoder.com";
-        vecMessages.push_back(sTitle);
+        std::string sMessage = "OneLoneCoder.com";
+        vecMessages.push_back(sMessage);
 
-        std::string sPGEMobile = "PGE Mobile 2.2.2";
-        vecMessages.push_back(sPGEMobile);
+        sMessage = "PGE Mobile Release 2.2.2.001";
+        vecMessages.push_back(sMessage);
 
-        std::string sFps = sAppName + " - FPS: " + std::to_string(nFrameCount);
-        vecMessages.push_back(sFps);
+        sMessage = "Now With Sound!! olcPGE_MiniAudio.h";
+        vecMessages.push_back(sMessage);
 
-        std::string sThankYou = "Thanks to @TechnicJelle, @SlicEnDice";
-        vecMessages.push_back(sThankYou);
+        sMessage = sAppName + " - FPS: " + std::to_string(nFrameCount);
+        vecMessages.push_back(sMessage);
+
+        sMessage = "Thanks to @TechnicJelle, @SlicEnDice";
+        vecMessages.push_back(sMessage);
+
+        sMessage = "Thanks to @Moros1138";
+        vecMessages.push_back(sMessage);
+
+        sMessage = "Volume <" + std::to_string(volume) + "> Btn Up, Btn Down";
+        vecMessages.push_back(sMessage);
+
+        if (ma.IsPlaying(song1))
+        {
+            sMessage = "Touch Screen:  Pause";
+            vecMessages.push_back(sMessage);
+        }
+        else
+        {
+            sMessage = "Touch Screen:  Play";
+            vecMessages.push_back(sMessage);
+        }
+
+        sMessage = "Music: Joy Ride [Full version] by MusicLFiles";
+        vecMessages.push_back(sMessage);
+        sMessage = "Free download: https://filmmusic.io/song/11627-joy-ride-full-version";
+        vecMessages.push_back(sMessage);
+        sMessage = "Licensed under CC BY 4.0: https://filmmusic.io/standard-license";
+        vecMessages.push_back(sMessage);
 
         vecMessages.push_back(sLineBreak);
 
@@ -120,16 +239,96 @@ public:
         }
         vecMessages.clear();
 
+
+        if (GetKey(olc::S).bPressed) {
+            //ma.Play("sounds/SampleA.wav"); // Streaming from Assets is not supported
+            ma.Play(sampleAFullPath);
+        }
+
+        if (GetTouch(1).bPressed) {
+            ma.Play(sampleAFullPath);
+        }
+
+        if (GetTouch(0).bPressed) {
+            // Toggle takes a sample ID (int) and either starts playback or pauses playback
+            // depending on whether the sample is currently playing, or not.
+            ma.Toggle(song1);
+        }
+
+        if (GetKey(olc::SPACE).bPressed) {
+            // Toggle takes a sample ID (int) and either starts playback or pauses playback
+            // depending on whether the sample is currently playing, or not.
+            ma.Toggle(song1);
+        }
+
+        if (GetKey(olc::MINUS).bHeld) {
+            pan -= 1.0f * fElapsedTime;
+            if (pan < -1.0f) pan = -1.0f;
+        }
+
+        if (GetKey(olc::EQUALS).bHeld) {
+            pan += 1.0f * fElapsedTime;
+            if (pan > 1.0f) pan = 1.0f;
+        }
+
+        if (GetKey(olc::OEM_4).bHeld)
+            pitch -= 1.0f * fElapsedTime;
+
+        if (GetKey(olc::OEM_6).bHeld)
+            pitch += 1.0f * fElapsedTime;
+
+        if (GetKey(olc::VOLUME_DOWN).bHeld) {
+            volume -= 1.0f * fElapsedTime;
+            if (volume < 0.0f) volume = 0.0f;
+        }
+
+        if (GetKey(olc::VOLUME_UP).bHeld) {
+            volume += 1.0f * fElapsedTime;
+            if (volume > 1.0f) volume = 1.0f;
+        }
+
+        // Reset pan, pitch, and volume
+        if (GetKey(olc::R).bPressed) {
+            pan = 0.0f;
+            pitch = 1.0f;
+            volume = 1.0f;
+        }
+
+        // Set pan, takes a sample ID (int), and a float
+        // -1.0 to 1.0 where 0 is center
+        ma.SetPan(song1, pan);
+
+        // Set pitch, takes a sample ID (int), and a float
+        // 1.0 is normal pitch
+        ma.SetPitch(song1, pitch);
+
+        // Set volume, takes a sample ID (int), and a float
+        // 0.0 to 1.0 where 1.0 is full volume
+        ma.SetVolume(song1, volume);
+
+        // Gets the current playback position in the provided sample ID (int),
+        // returns float 0.0 to 1.0, nearer 1.0 is near the end
+        seek = ma.GetCursorFloat(song1);
+
+//        DrawStringDecal({ 5, 160 }, \
+//			"Music: Joy Ride [Full version] by MusicLFiles\n"
+//            "Free download: https://filmmusic.io/song/11627-joy-ride-full-version\n"
+//            "Licensed under CC BY 4.0: https://filmmusic.io/standard-license\n", \
+//			olc::WHITE, { 0.5f, 0.5f });
+
+        // Draw The Playback Cursor (aka the position in the sound file)
+        FillRect({0, ScreenHeight() - 10}, {(int) (ScreenWidth() * seek), 10}, olc::YELLOW);
+
+
+
         return true;
     }
 
-    bool OnUserDestroy() override
-    {
+    bool OnUserDestroy() override {
         return true;
     }
 
-    void OnSaveStateRequested() override
-    {
+    void OnSaveStateRequested() override {
         // Fires when the OS is about to put your game into pause mode
         // You have, at best 30 Seconds before your game will be fully shutdown
         // It depends on why the OS is pausing your game tho, Phone call, etc
@@ -137,13 +336,18 @@ public:
         // NOTE: The OS can terminate all of your data, pointers, sprites, layers can be freed
         // Therefore do not save sprites, pointers etc
 
+        // Unload sound events
+        for (size_t i = 0; i < ma.GetSounds().size(); ++i) {
+            ma.UnloadSound(i);
+        }
+
         // Example 1: vector
         vecLastState.clear();
-        vecLastState.push_back({ "MouseX", 55 });
-        vecLastState.push_back({ "MouseY", 25 });
-        vecLastState.push_back({ "GameLevel", 5 });
+        vecLastState.push_back({"MouseX", 55});
+        vecLastState.push_back({"MouseY", 25});
+        vecLastState.push_back({"GameLevel", 5});
 
-        const char* internalPath = app_GetInternalAppStorage();
+        const char *internalPath = app_GetInternalAppStorage();
         std::string dataPath(internalPath);
 
         // internalDataPath points directly to the files/ directory
@@ -151,13 +355,11 @@ public:
 
         std::ofstream file(lastStateFile, std::ios::out | std::ios::binary);
 
-        if (file)
-        {
+        if (file) {
             float fVecSize = vecLastState.size();
-            file.write((char*)&fVecSize, sizeof(long));
-            for (auto& vSS : vecLastState)
-            {
-                file.write((char*)&vSS, sizeof(MySaveState));
+            file.write((char *) &fVecSize, sizeof(long));
+            for (auto &vSS: vecLastState) {
+                file.write((char *) &vSS, sizeof(MySaveState));
             }
 
             file.close();
@@ -166,12 +368,11 @@ public:
 
     }
 
-    void OnRestoreStateRequested() override
-    {
+    void OnRestoreStateRequested() override {
         // This will fire every time your game launches
         // OnUserCreate will be fired again as the OS may have terminated all your data
 
-        const char* internalPath = app_GetInternalAppStorage();
+        const char *internalPath = app_GetInternalAppStorage();
         std::string dataPath(internalPath);
         std::string lastStateFile = dataPath + "/lastStateFile.bin";
 
@@ -181,13 +382,11 @@ public:
 
         MySaveState saveState;
 
-        if (file)
-        {
+        if (file) {
             float fVecSize;
-            file.read((char*)&fVecSize, sizeof(long));
-            for (long i = 0; i < fVecSize; i++)
-            {
-                file.read((char*)&saveState, sizeof(MySaveState));
+            file.read((char *) &fVecSize, sizeof(long));
+            for (long i = 0; i < fVecSize; i++) {
+                file.read((char *) &saveState, sizeof(MySaveState));
                 vecLastState.push_back(saveState);
             }
 
@@ -209,7 +408,7 @@ public:
 * event loop for receiving input events and doing other things.
 * This is now what drives the engine, the thread is controlled from the OS
 */
-void android_main(struct android_app* initialstate) {
+void android_main(struct android_app *initialstate) {
 
     /*
         initalstate allows you to make some more edits
@@ -228,7 +427,7 @@ void android_main(struct android_app* initialstate) {
         without affecting performance... well it will have a very small affect, it will depend on your pixel size
         Note: cohesion is currently not working
     */
-    demo.Construct(1280, 720, 4, 4, true, false, false);
+    demo.Construct(1280, 720,2, 2, true, false, false);
 
     demo.Start(); // Lets get the party started
 

@@ -6,7 +6,7 @@
 	olcPixelGameEngine_Mobile.h
 
 	//////////////////////////////////////////////////////////////////
-	// Pixel Game Engine Mobile Release 2.2.2                       //
+	// Pixel Game Engine Mobile Release 2.2.2,                      //
 	// John Galvin aka Johnngy63: 14-Nov-2023                       //
 	// Full production release                                      //
 	// Please report all bugs to https://discord.com/invite/WhwHUMV //
@@ -228,7 +228,7 @@
 	2.06a: Basic mouse support for Android Emulator
 	2.07: Updated SIMD_SSE for Intel Atom devices, Updated GetTouch() to default to touch point zero when no touch piont selected
 	2.08: Added ClearTouchPoints(int8_t startIndex = 0) for clearing of touch points at index x, some bug fixes too
-	2.09: Added: FileManager: for gaining acccess to the Andriod Assets APK and iOS Zip Packages
+	2.09: Added: FileManager: for gaining access to the Android Assets APK and iOS Zip Packages
 				+ app_LoadFileFromAssets()
 				+ app_ExtractFileFromAssets()
 				+ app_GetInternalAppStorage()
@@ -243,7 +243,7 @@
 				++ GetPublicAppStorage()
 	2.10: Removed ASensor_getHandle() as it only supports SDK 29 and higher. Updated project to support SDK 21 to SDK32. Thank you @VasCoder :)
 	2.11: Corrected small bug in DrawFillLine
-	2.20: Pre-Reslease. Includes Android Key mapping for GetKey();
+	2.20: Pre-Release. Includes Android Key mapping for GetKey();
 	2.21: Full Production Release
 	2.22: Full support for newer Android Devices AKA TechJellie's Mom's Nokia
 
@@ -374,7 +374,7 @@ void android_main(struct android_app* initialstate)
 #pragma GCC diagnostic pop
 
 /*
-	We only support Android (min ver 23 -> 33) and iOS (8.1 - 16.4)
+	We now support Android (min ver 23 -> 33 and beyond) and iOS (8.1 - 16.4)
 	however new versions of Android (33 example) and iOS are backward compatible within the range above
 	you might get a message warning you tho when debugging.
 
@@ -526,6 +526,9 @@ namespace olc {
         DOWN = AKEYCODE_DPAD_DOWN,
         LEFT = AKEYCODE_DPAD_LEFT,
         RIGHT = AKEYCODE_DPAD_RIGHT,
+        VOLUME_UP = AKEYCODE_VOLUME_UP,
+        VOLUME_DOWN = AKEYCODE_VOLUME_DOWN,
+        VOLUME_MUTE =  AKEYCODE_VOLUME_MUTE,
         A = AKEYCODE_A,
         B = AKEYCODE_B,
         C = AKEYCODE_C,
@@ -762,7 +765,7 @@ namespace olc {
         /**
 		 * reporting-mode: on-change
 		 *
-		 * The ambient temperature sensor value is returned in Celcius.
+		 * The ambient temperature sensor value is returned in Celsius.
 		 */
         ASENSOR_TYPE_AMBIENT_TEMPERATURE = 13,
 
@@ -830,7 +833,7 @@ namespace olc {
         ASENSOR_TYPE_HEART_RATE = 21,
 
         /**
-		 * reporting-mode: continous
+		 * reporting-mode: continuous
 		 * 6D Pose Estimation using RGB refers to the task of determining the six degree-of-freedom (6D) pose of an object in 3D space based on RGB images.
 		 * This involves estimating the position and orientation of an object in a scene, and is a fundamental problem in computer vision and robotics.
 		 */
@@ -1009,7 +1012,7 @@ namespace olc {
         float RelativeHumidity;
 
         /// <summary>
-        /// The ambient temperature sensor value is returned in Celcius.
+        /// The ambient temperature sensor value is returned in Celsius.
         /// </summary>
         float AmbientTemperature;
 
@@ -1489,24 +1492,24 @@ namespace olc {
         /// Extracts a compressed file from the assests APK to a depcompressed app storage file
         /// </summary>
         /// <param name="sAssetFilePath">Full assets file path name excudling the assets dir and leading "/": Example: "images/test.png" "maps/example1.city"</param>
-        /// <param name="sAppStorageFilePath">Full app storage path. Use GetInternalAppStorage(), GetExteralAppStorage() and GetPublicAppStorage() to get the storage path</param>
+        /// <param name="sAppStorageFilePath">Full app storage path. Use GetInternalAppStorage(), GetExternalAppStorage() and GetPublicAppStorage() to get the storage path</param>
         /// <returns>FAIL = 0, OK = 1, NO_FILE = -1,</returns>
         virtual olc::rcode ExtractFileFromAssets(const std::string& sAssetFilePath, const std::string& sAppStorageFilePath) = 0;
 
         /// <summary>
         /// Get the App Internal storage path where you can save,  editing, deleting files
         /// Internal Storage is private and non volatile
-        /// RECOMMANDED: Use this storage for saving, editing, deleting files
+        /// RECOMENDED: Use this storage for saving, editing, deleting files
         /// </summary>
         /// <returns>The full Android/iOS path to internal storage. FAIL: NULL</returns>
         virtual const char* GetInternalAppStorage() = 0;
 
         /// <summary>
-        /// Get the App Exteral storage where you can save files
+        /// Get the App External storage where you can save files
         /// WARNING: MAY NOT EXIST. May be volatile
         /// </summary>
         /// <returns>SUCCESS: The full Android/iOS path to external storage. FAIL: NULL</returns>
-        virtual const char* GetExteralAppStorage() = 0;
+        virtual const char* GetExternalAppStorage() = 0;
 
         /// <summary>
         /// Get the App public storage where you can save files
@@ -3670,7 +3673,7 @@ namespace olc {
         /// Extracts a compressed file from the assests APK to a depcompressed app storage file
         /// </summary>
         /// <param name="sAssetFilePath">Full assets file path name excudling the assets dir: Example: "images/test.png" "maps/example1.city"</param>
-        /// <param name="sAppStorageFilePath">Full app storage path. Use app_GetInternalAppStorage(), app_GetExteralAppStorage() and app_GetPublicAppStorage() to get the storage path</param>
+        /// <param name="sAppStorageFilePath">Full app storage path. Use app_GetInternalAppStorage(), app_GetExternalAppStorage() and app_GetPublicAppStorage() to get the storage path</param>
         /// <returns>FAIL = 0, OK = 1, NO_FILE = -1,</returns>
         olc::rcode app_ExtractFileFromAssets(const std::string& sAssetFilePath, const std::string& sAppStorageFilePath);
 
@@ -3687,7 +3690,7 @@ namespace olc {
         /// WARNING: MAY NOT EXIST. May be volatile
         /// </summary>
         /// <returns>SUCCESS: The full Android/iOS path to external storage. FAIL: NULL</returns>
-        const char* app_GetExteralAppStorage();
+        const char* app_GetExternalAppStorage();
 
         /// <summary>
         /// Get the App public storage where you can save files
@@ -7089,9 +7092,9 @@ namespace olc {
         return filehandler->GetInternalAppStorage();
     }
 
-    const char* PixelGameEngine::app_GetExteralAppStorage()
+    const char* PixelGameEngine::app_GetExternalAppStorage()
     {
-        return filehandler->GetExteralAppStorage();
+        return filehandler->GetExternalAppStorage();
     }
 
     const char* PixelGameEngine::app_GetPublicAppStorage()
@@ -10316,6 +10319,35 @@ namespace olc
             AAsset* pAsset = AAssetManager_open(pAssetManager, sAssetFilePath.c_str(), AASSET_MODE_BUFFER);
             if (pAsset == nullptr) return rcode::NO_FILE;
 
+            // Lets check if the file has already been extracted
+            std::filesystem::path filePath(sAppStorageFilePath);
+            if(std::filesystem::exists(sAppStorageFilePath))
+            {
+                // Lets check if the file has changed
+                size_t assetLength = (size_t)AAsset_getLength(pAsset);
+                size_t myfileLength = (size_t)std::filesystem::file_size(sAppStorageFilePath);
+                if (assetLength == myfileLength)
+                {
+                    // Both files are the same, we are outta here
+                    return olc::rcode::OK;
+
+                }
+                else
+                {
+                    // There is a difference , remove and recreate
+                    std::filesystem::remove(sAppStorageFilePath);
+                }
+
+            }
+            else
+            {
+                // right lets check if the dir exist
+                if(!std::filesystem::exists(filePath.parent_path()))
+                {
+                    std::filesystem::create_directory(filePath.parent_path());
+                }
+            }
+
             char cChunk[BUFSIZ];
             int currChunk = 0;
             FILE* out = fopen(sAppStorageFilePath.c_str(), "w");
@@ -10342,7 +10374,7 @@ namespace olc
             return cPath;
         }
 
-        virtual const char* GetExteralAppStorage() override
+        virtual const char* GetExternalAppStorage() override
         {
             android_app* pMyAndroid = platform->ptrPGE->pOsEngine.app;
             ANativeActivity* nativeActivity = pMyAndroid->activity;
@@ -10443,7 +10475,7 @@ namespace olc
 			return cPath;
 		}
 
-		virtual const char* GetExteralAppStorage() override
+		virtual const char* GetExternalAppStorage() override
 		{
 			const char* cPath = nullptr;
 
