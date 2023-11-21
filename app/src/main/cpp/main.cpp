@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////
-// Pixel Game Engine Mobile Release 2.2.2,                      //
-// John Galvin aka Johnngy63: 14-Nov-2023                       //
-// Full production release                                      //
+// Pixel Game Engine Mobile Release 2.2.3,                      //
+// John Galvin aka Johnngy63: 21-Nov-2023                       //
+// Now with Sound!!                                             //
 // Please report all bugs to https://discord.com/invite/WhwHUMV //
 // Or on Github: https://github.com/Johnnyg63					//
 //////////////////////////////////////////////////////////////////
@@ -41,11 +41,13 @@ public:
     int nStep = 20;
 
     /* Sprites */
-    olc::Sprite *sprTouchTester = nullptr;
+    olc::Sprite* sprTouchTester = nullptr;
+    olc::Sprite* sprOLCPGEMobLogo = nullptr;
     /* END Sprites*/
 
     /* Decals */
-    olc::Decal *decTouchTester = nullptr;
+    olc::Decal* decTouchTester = nullptr;
+    olc::Decal* decOLCPGEMobLogo = nullptr;
     /* End Decals */
 
 
@@ -100,16 +102,16 @@ public:
          * or iOS
          */
 
-        std::string songFullPath = (std::string) app_GetInternalAppStorage() + "/sounds/song1.mp3";
+        std::string songFullPath = (std::string)app_GetInternalAppStorage() + "/sounds/song1.mp3";
         olc::rcode fileRes = olc::filehandler->ExtractFileFromAssets("sounds/song1.mp3",
                                                                      songFullPath);
 
         switch (fileRes) {
 
             case olc::rcode::NO_FILE:
-            {break;}
+            {break; }
             case olc::rcode::FAIL:
-            {break;}
+            {break; }
             case olc::rcode::OK:
             {
                 // only load the song if it is not already loaded
@@ -119,9 +121,8 @@ public:
             }
         }
 
-        sampleAFullPath = (std::string) app_GetInternalAppStorage() + "/sounds/SampleA.wav";
-        olc::rcode result = olc::filehandler->ExtractFileFromAssets("sounds/SampleA.wav",
-                                                                    songFullPath);
+        sampleAFullPath = (std::string)app_GetInternalAppStorage() + "/sounds/SampleA.wav";
+        olc::rcode result = olc::filehandler->ExtractFileFromAssets("sounds/SampleA.wav", sampleAFullPath);
 
 
 #endif
@@ -144,32 +145,36 @@ public:
          * or iOS
          */
         std::string songFullPath = (std::string)app_GetInternalAppStorage() + "/sounds/song1.mp3";
-        olc::rcode fileRes =  olc::filehandler->ExtractFileFromAssets("sounds/song1.mp3", songFullPath);
+        olc::rcode fileRes = olc::filehandler->ExtractFileFromAssets("sounds/song1.mp3", songFullPath);
 
         switch (fileRes) {
 
-            case olc::rcode::NO_FILE:
-                {break;}
-            case olc::rcode::FAIL:
-                {break;}
-            case olc::rcode::OK:
+        case olc::rcode::NO_FILE:
+        {break; }
+        case olc::rcode::FAIL:
+        {break; }
+        case olc::rcode::OK:
+        {
+            if (song1 < 0)
             {
-                if(song1 < 0)
-                {
-                    song1 = ma.LoadSound(songFullPath);
-                 }
-
-                break;
+                song1 = ma.LoadSound(songFullPath);
             }
+
+            break;
+        }
         }
 
         sampleAFullPath = (std::string)app_GetInternalAppStorage() + "/sounds/SampleA.wav";
-        olc::rcode result =  olc::filehandler->ExtractFileFromAssets("sounds/SampleA.wav", songFullPath);
+        olc::rcode result = olc::filehandler->ExtractFileFromAssets("sounds/SampleA.wav", sampleAFullPath);
 
 #endif
 
         sprTouchTester = new olc::Sprite("images/north_south_east_west_logo.png");
         decTouchTester = new olc::Decal(sprTouchTester);
+
+        sprOLCPGEMobLogo = new olc::Sprite("images/olcpgemobilelogo.png");
+        decOLCPGEMobLogo = new olc::Decal(sprOLCPGEMobLogo);
+
 
         return true;
     }
@@ -187,7 +192,7 @@ public:
         std::string sMessage = "OneLoneCoder.com";
         vecMessages.push_back(sMessage);
 
-        sMessage = "PGE Mobile Release 2.2.2.001";
+        sMessage = "PGE Mobile Release 2.2.3";
         vecMessages.push_back(sMessage);
 
         sMessage = "Now With Sound!! olcPGE_MiniAudio.h";
@@ -196,40 +201,49 @@ public:
         sMessage = sAppName + " - FPS: " + std::to_string(nFrameCount);
         vecMessages.push_back(sMessage);
 
-        sMessage = "Thanks to @TechnicJelle, @SlicEnDice";
+        sMessage = "Thanks to @Moros1138 @TechnicJelle, @SlicEnDice";
         vecMessages.push_back(sMessage);
 
-        sMessage = "Thanks to @Moros1138";
+        sMessage = "---";
         vecMessages.push_back(sMessage);
+
 
         sMessage = "Volume <" + std::to_string(volume) + "> Btn Up, Btn Down";
         vecMessages.push_back(sMessage);
 
         if (ma.IsPlaying(song1))
         {
-            sMessage = "Touch Screen:  Pause";
+            sMessage = "Touch Screen: Pause";
             vecMessages.push_back(sMessage);
         }
         else
         {
-            sMessage = "Touch Screen:  Play";
+            sMessage = "Touch Screen: Play";
             vecMessages.push_back(sMessage);
         }
 
-        sMessage = "Music: Joy Ride [Full version] by MusicLFiles";
-        vecMessages.push_back(sMessage);
-        sMessage = "Free download: https://filmmusic.io/song/11627-joy-ride-full-version";
-        vecMessages.push_back(sMessage);
-        sMessage = "Licensed under CC BY 4.0: https://filmmusic.io/standard-license";
+        sMessage = "---";
         vecMessages.push_back(sMessage);
 
+        sMessage = "Music: Joy Ride [Full version] by MusicLFiles";
+        vecMessages.push_back(sMessage);
+        sMessage = "Free download:";
+        vecMessages.push_back(sMessage);
+        sMessage = "https://filmmusic.io/song/11627-joy-ride-full-version";
+        vecMessages.push_back(sMessage);
+        sMessage = "Licensed under CC BY 4.0:";
+        vecMessages.push_back(sMessage);
+        sMessage = "https://filmmusic.io/standard-license";
+        vecMessages.push_back(sMessage);
         vecMessages.push_back(sLineBreak);
 
 
         // Called once per frame, draws random coloured pixels
-        for (int x = 0; x < ScreenWidth(); x++)
+        // Uncomment me if you dare
+        /*for (int x = 0; x < ScreenWidth(); x++)
             for (int y = 0; y < ScreenHeight(); y++)
                 Draw(x, y, olc::Pixel(rand() % 256, rand() % 256, rand() % 256));
+        */
 
         nStep = 10;
         for (auto& s : vecMessages)
@@ -239,15 +253,9 @@ public:
         }
         vecMessages.clear();
 
+        // Draw Logo
+        DrawDecal({ 5.0f, nStep + 5.0f }, decOLCPGEMobLogo, { 0.5f, 0.5f });
 
-        if (GetKey(olc::S).bPressed) {
-            //ma.Play("sounds/SampleA.wav"); // Streaming from Assets is not supported
-            ma.Play(sampleAFullPath);
-        }
-
-        if (GetTouch(1).bPressed) {
-            ma.Play(sampleAFullPath);
-        }
 
         if (GetTouch(0).bPressed) {
             // Toggle takes a sample ID (int) and either starts playback or pauses playback
@@ -255,27 +263,9 @@ public:
             ma.Toggle(song1);
         }
 
-        if (GetKey(olc::SPACE).bPressed) {
-            // Toggle takes a sample ID (int) and either starts playback or pauses playback
-            // depending on whether the sample is currently playing, or not.
-            ma.Toggle(song1);
+        if (GetTouch(1).bPressed) {
+            ma.Play(sampleAFullPath);
         }
-
-        if (GetKey(olc::MINUS).bHeld) {
-            pan -= 1.0f * fElapsedTime;
-            if (pan < -1.0f) pan = -1.0f;
-        }
-
-        if (GetKey(olc::EQUALS).bHeld) {
-            pan += 1.0f * fElapsedTime;
-            if (pan > 1.0f) pan = 1.0f;
-        }
-
-        if (GetKey(olc::OEM_4).bHeld)
-            pitch -= 1.0f * fElapsedTime;
-
-        if (GetKey(olc::OEM_6).bHeld)
-            pitch += 1.0f * fElapsedTime;
 
         if (GetKey(olc::VOLUME_DOWN).bHeld) {
             volume -= 1.0f * fElapsedTime;
@@ -287,21 +277,6 @@ public:
             if (volume > 1.0f) volume = 1.0f;
         }
 
-        // Reset pan, pitch, and volume
-        if (GetKey(olc::R).bPressed) {
-            pan = 0.0f;
-            pitch = 1.0f;
-            volume = 1.0f;
-        }
-
-        // Set pan, takes a sample ID (int), and a float
-        // -1.0 to 1.0 where 0 is center
-        ma.SetPan(song1, pan);
-
-        // Set pitch, takes a sample ID (int), and a float
-        // 1.0 is normal pitch
-        ma.SetPitch(song1, pitch);
-
         // Set volume, takes a sample ID (int), and a float
         // 0.0 to 1.0 where 1.0 is full volume
         ma.SetVolume(song1, volume);
@@ -310,16 +285,8 @@ public:
         // returns float 0.0 to 1.0, nearer 1.0 is near the end
         seek = ma.GetCursorFloat(song1);
 
-//        DrawStringDecal({ 5, 160 }, \
-//			"Music: Joy Ride [Full version] by MusicLFiles\n"
-//            "Free download: https://filmmusic.io/song/11627-joy-ride-full-version\n"
-//            "Licensed under CC BY 4.0: https://filmmusic.io/standard-license\n", \
-//			olc::WHITE, { 0.5f, 0.5f });
-
         // Draw The Playback Cursor (aka the position in the sound file)
-        FillRect({0, ScreenHeight() - 10}, {(int) (ScreenWidth() * seek), 10}, olc::YELLOW);
-
-
+        FillRect({ 0, ScreenHeight() - 10 }, { (int)(ScreenWidth() * seek), 10 }, olc::YELLOW);
 
         return true;
     }
@@ -343,11 +310,11 @@ public:
 
         // Example 1: vector
         vecLastState.clear();
-        vecLastState.push_back({"MouseX", 55});
-        vecLastState.push_back({"MouseY", 25});
-        vecLastState.push_back({"GameLevel", 5});
+        vecLastState.push_back({ "MouseX", 55 });
+        vecLastState.push_back({ "MouseY", 25 });
+        vecLastState.push_back({ "GameLevel", 5 });
 
-        const char *internalPath = app_GetInternalAppStorage();
+        const char* internalPath = app_GetInternalAppStorage();
         std::string dataPath(internalPath);
 
         // internalDataPath points directly to the files/ directory
@@ -357,9 +324,9 @@ public:
 
         if (file) {
             float fVecSize = vecLastState.size();
-            file.write((char *) &fVecSize, sizeof(long));
-            for (auto &vSS: vecLastState) {
-                file.write((char *) &vSS, sizeof(MySaveState));
+            file.write((char*)&fVecSize, sizeof(long));
+            for (auto& vSS : vecLastState) {
+                file.write((char*)&vSS, sizeof(MySaveState));
             }
 
             file.close();
@@ -372,7 +339,7 @@ public:
         // This will fire every time your game launches
         // OnUserCreate will be fired again as the OS may have terminated all your data
 
-        const char *internalPath = app_GetInternalAppStorage();
+        const char* internalPath = app_GetInternalAppStorage();
         std::string dataPath(internalPath);
         std::string lastStateFile = dataPath + "/lastStateFile.bin";
 
@@ -384,18 +351,16 @@ public:
 
         if (file) {
             float fVecSize;
-            file.read((char *) &fVecSize, sizeof(long));
+            file.read((char*)&fVecSize, sizeof(long));
             for (long i = 0; i < fVecSize; i++) {
-                file.read((char *) &saveState, sizeof(MySaveState));
+                file.read((char*)&saveState, sizeof(MySaveState));
                 vecLastState.push_back(saveState);
             }
 
             file.close();
             // Note this is a temp file, we must delete it
             std::remove(lastStateFile.c_str());
-
         }
-
 
     }
 
@@ -408,7 +373,7 @@ public:
 * event loop for receiving input events and doing other things.
 * This is now what drives the engine, the thread is controlled from the OS
 */
-void android_main(struct android_app *initialstate) {
+void android_main(struct android_app* initialstate) {
 
     /*
         initalstate allows you to make some more edits
@@ -427,11 +392,10 @@ void android_main(struct android_app *initialstate) {
         without affecting performance... well it will have a very small affect, it will depend on your pixel size
         Note: cohesion is currently not working
     */
-    demo.Construct(1280, 720,2, 2, true, false, false);
+    demo.Construct(1280, 720, 3, 3, true, false, false);
 
     demo.Start(); // Lets get the party started
 
 
 }
-
 
