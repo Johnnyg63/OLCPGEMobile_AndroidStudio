@@ -1,4 +1,6 @@
-# OLC Pixel Game Engine Mobile 2.2.2 for Android Studio
+# OLC Pixel Game Engine Mobile 2.2.3 for Android Studio
+<p><b><i>!!! NOW WITH SOUND !!!</i></b></p>
+<p><b>Supports olcPGEX_MiniAudio.h</b><br/><a href="https://github.com/Moros1138/olcPGEX_MiniAudio/">https://github.com/Moros1138/olcPGEX_MiniAudio/</a> thanks @Moros1138</p>
 <p><b>Supports: Windows, Linux and Apple MAC</b></p>
 <p><b>This project supports Android devices</b><br/> SDK 23 --> 33 and beyond</p>
 <p><img src='https://github.com/Johnnyg63/OLCPGEMobileAndroidProjectBeta20/assets/96908304/b5e9e72e-73cf-4fe1-ba66-7df31790fce9' /></p>
@@ -12,7 +14,7 @@
 <p>To rename this project please see:<br/> Please see: <a href="https://www.delasign.com/blog/android-studio-rename-project/">How to rename an Android Studio Project</a> for steps</p>  
 <p>To use the Project Template please see: <i>currently creating this folks</i> </p>
 
- <p><b>Release 2.2.2 Support Details</b></p>
+ <p><b>Release 2.2.3 Support Details</b></p>
 <p>
 <ul>
   <li>2.01: BETA Port code from olcPixelGameEngine.h to olcPixelGameEngine_mobile.h</li>
@@ -44,7 +46,10 @@
   <li>2.20 <b>Pre-Release!</b> Can now be used in Production Environment, have fun! <br/> Android Keyboard mapping completed for GetKey() <br/>Note if using a MacOS, Linux or Windows for debuging, some keys may not map correctly, directionaly keys will be out of sync as Andriod is mapped to a Direction Pad by default</i>
   <li>2.21 <b>Full Production Release</b> </i>
   <li>2.22 Better support for the latest Android phones<br/>
-			The Engine will now detect the correct OpenGLES setting for your Android phone and apply the correct settings			</i>
+			The Engine will now detect the correct OpenGLES setting for your Android phone and apply the correct settings</i>
+  <li>2.23 Now with Sound, supports olcPGE_MiniAudio <a href="https://github.com/Moros1138/olcPGEX_MiniAudio/">https://github.com/Moros1138/olcPGEX_MiniAudio/</a> thanks @Moros1138
+		   <br/>Updated EventManager::HandleInput to ensure Volume UP/Down/Mute, Camera and Power Buttons are released back to the OS after execution
+  </i>
 </ul>
 	
 </p>
