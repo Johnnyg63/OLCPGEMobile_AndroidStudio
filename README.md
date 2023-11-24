@@ -51,6 +51,7 @@
 		   <br/>Updated EventManager::HandleInput to ensure Volume UP/Down/Mute, Camera and Power Buttons are released back to the OS after execution
   </li>
 </ul>
+
 </p>
 <p>
 	<b>Apple Platforms will not see these updates immediately</b><br/>
