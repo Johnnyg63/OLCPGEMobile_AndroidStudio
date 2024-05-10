@@ -54,8 +54,5 @@
 </ul>
 
 </p>
-<p>
-	<b>Apple Platforms will not see these updates immediately</b><br/>
-	<b>iOS port in progress. Beta release due soon</b>
-</p>
+
  
