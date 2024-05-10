@@ -1,4 +1,4 @@
-# OLC Pixel Game Engine Mobile 2.2.3 for Android Studio
+# OLC Pixel Game Engine Mobile 2.2.4 for Android Studio
 <p><b><i>!!! NOW WITH SOUND !!!</i></b></p>
 <p><b>Supports olcPGEX_MiniAudio.h</b><br/><a href="https://github.com/Moros1138/olcPGEX_MiniAudio/">https://github.com/Moros1138/olcPGEX_MiniAudio/</a> thanks @Moros1138</p>
 <p><b>Supports: Windows, Linux and Apple MAC</b></p>
@@ -50,6 +50,7 @@
   <li>2.23 Now with Sound, supports olcPGE_MiniAudio <a href="https://github.com/Moros1138/olcPGEX_MiniAudio/">https://github.com/Moros1138/olcPGEX_MiniAudio/</a> thanks @Moros1138
 		   <br/>Updated EventManager::HandleInput to ensure Volume UP/Down/Mute, Camera and Power Buttons are released back to the OS after execution
   </li>
+  <li>2.24 <b>iOS Beta support. Sensors not supported. Anything you develop for Android will work on the iOS</b> <l/i>
 </ul>
 
 </p>
