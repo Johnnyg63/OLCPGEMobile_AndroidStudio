@@ -1,5 +1,5 @@
 # OLC Pixel Game Engine Mobile 2.2.7 for Android Studio
-<p><b><i>!!! NOW EVENT FASTER !!!</i></b></p>
+<p><b><i>!!! NOW EVEN FASTER !!!</i></b></p>
 
 <p><b>Supports: Windows, Linux and Apple MAC</b></p>
 <p><b>This project supports Android devices</b><br/> SDK 21 --> 33 and beyond <br>
