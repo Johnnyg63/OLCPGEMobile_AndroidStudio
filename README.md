@@ -1,8 +1,14 @@
-# OLC Pixel Game Engine Mobile 2.2.5 for Android Studio
-<p><b><i>!!! NOW WITH SOUND !!!</i></b></p>
-<p><b>Supports olcPGEX_MiniAudio.h</b><br/><a href="https://github.com/Moros1138/olcPGEX_MiniAudio/">https://github.com/Moros1138/olcPGEX_MiniAudio/</a> thanks @Moros1138</p>
+# OLC Pixel Game Engine Mobile 2.2.7 for Android Studio
+<p><b><i>!!! NOW EVENT FASTER !!!</i></b></p>
+
 <p><b>Supports: Windows, Linux and Apple MAC</b></p>
-<p><b>This project supports Android devices</b><br/> SDK 23 --> 33 and beyond</p>
+<p><b>This project supports Android devices</b><br/> SDK 21 --> 33 and beyond <br>
+ A super big <b><i>THANK YOU</i></b> to <a href='https://github.com/vitoralmeidasilva'>@VasCoder</a> without your testing this would not have been possible!
+</p>
+
+
+<p><b>Supports olcPGEX_MiniAudio.h</b><br/><a href="https://github.com/Moros1138/olcPGEX_MiniAudio/">https://github.com/Moros1138/olcPGEX_MiniAudio/</a> thanks @Moros1138</p>
+
 <p><img src='https://github.com/Johnnyg63/OLCPGEMobileAndroidProjectBeta20/assets/96908304/b5e9e72e-73cf-4fe1-ba66-7df31790fce9' /></p>
 <p><i>iOS is under development and will be released ASAP</i></p>
 <p><i>OLC Pixel Game Engine Mobile supports PGE 2.0 games created for Windows, Linux and Apple MAC.<br/>Please see:<br/>
@@ -14,7 +20,7 @@
 <p>To rename this project please see:<br/> Please see: <a href="https://www.delasign.com/blog/android-studio-rename-project/">How to rename an Android Studio Project</a> for steps</p>  
 <p>To use the Project Template please see: <i>currently creating this folks</i> </p>
 
- <p><b>Release 2.2.3 Support Details</b></p>
+ <p><b>Release 2.2.7 Support Details</b></p>
 <p>
 <ul>
   <li>2.01: BETA Port code from olcPixelGameEngine.h to olcPixelGameEngine_mobile.h</li>
@@ -51,7 +57,9 @@
 		   <br/>Updated EventManager::HandleInput to ensure Volume UP/Down/Mute, Camera and Power Buttons are released back to the OS after execution
   </li>
   <li>2.24 <b>iOS Beta support. Sensors not supported. Anything you develop for Android will work on the iOS</b> <l/i>
-  <li>2.25 Corrected Fatal signal 11 (SIGSEGV), code 2 (SEGV_ACCERR), fault, forgot to take (subtract) the 1</i>	
+  <li>2.25 Corrected Fatal signal 11 (SIGSEGV), code 2 (SEGV_ACCERR), fault, forgot to take (subtract) the 1</i>
+  <li>2.26 Updated olc_Configure to set OGLES_20 to use SDK 26->33. A big thanks you to @VasCoder for all his testing!!!!</i>
+  <li>2.27 Removed mutexTouchPoints from main engine thread, the engine will run as fast as possiable now!!! </li>
 </ul>
 
 </p>
