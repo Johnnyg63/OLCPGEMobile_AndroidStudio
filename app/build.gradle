@@ -112,6 +112,7 @@ android {
         includeInApk false
     }
     ndkVersion '23.1.7779620'
+    namespace 'com.example.OLCPGEMobileAndroidStudio'
 }
 
 dependencies {
