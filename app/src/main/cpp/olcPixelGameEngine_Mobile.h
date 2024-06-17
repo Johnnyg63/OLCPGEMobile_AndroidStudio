@@ -7199,74 +7199,74 @@ namespace olc {
         size_t sensorCount = 0;
 
         while (bAtomActive) {
+            while(bAtomActive) {
+              ident = ALooper_pollAll(0, NULL, &events, (void**)&source);
 
-            if (!bAtomActive) break;
-            ident = ALooper_pollAll(0, NULL, &events, (void**)&source);
+              // If we have an event, let process it
+              if (ident >= 0)
+              {
+                  if (source != NULL) {
+                      source->process(renderer->ptrPGE->pOsEngine.app, source);
+                  }
+              }
 
-            // If we have an event, let process it
-            if (ident >= 0)
+              // If a sensor has data, process it now.
+              if (ident == LOOPER_ID_USER) {
+                  sensorCount = pOsEngine.deviceSensors.size();
+                  if (sensorCount > 0)
+                  {
+                      ASensorEvent event;
+                      while (ASensorEventQueue_getEvents(pOsEngine.sensorEventQueue, &event, 1) > 0)
+                      {
+                          olc_UpdateSensorEvent(event);
+                      }
+                  }
+              }
+
+              // Once the engine ready lets go
+              if (renderer->ptrPGE->pOsEngine.StartPGE == true)
+              {
+                  if (!bPrepare)
+                  {
+                      // Do engine context specific initialisation
+                      olc_PrepareEngine();
+
+                      // Create the CopyRight Sprite : DO NOT REMOVED
+                      CreateCRSprite();
+
+                      // Create user resources as part of this thread
+                      for (auto& ext : vExtensions) ext->OnBeforeUserCreate();
+                      if (!OnUserCreate()) bAtomActive = false;
+                      for (auto& ext : vExtensions) ext->OnAfterUserCreate();
+                      bPrepare = true;
+                  }
+                  else
+                  {
+                      if (renderer->ptrPGE->pOsEngine.animating == 1)
+                      {
+                          olc_CoreUpdate();
+                      }
+                      else
+                      {
+                          if (renderer->ptrPGE->pOsEngine.LostFocus == false)
+                          {
+                              bPrepare = false;
+                              renderer->ptrPGE->pOsEngine.StartPGE = false;
+                          }
+
+                      }
+
+                  }
+
+              }
+            }
+
+            // Allow the user to free resources if they have overrided the destroy function
+            if (!OnUserDestroy())
             {
-                if (source != NULL) {
-                    source->process(renderer->ptrPGE->pOsEngine.app, source);
-                }
+                // User denied destroy for some reason, so continue running
+                bAtomActive = true;
             }
-
-            // If a sensor has data, process it now.
-            if (ident == LOOPER_ID_USER) {
-                sensorCount = pOsEngine.deviceSensors.size();
-                if (sensorCount > 0)
-                {
-                    ASensorEvent event;
-                    while (ASensorEventQueue_getEvents(pOsEngine.sensorEventQueue, &event, 1) > 0)
-                    {
-                        olc_UpdateSensorEvent(event);
-                    }
-                }
-            }
-
-            // Once the engine ready lets go
-            if (renderer->ptrPGE->pOsEngine.StartPGE == true)
-            {
-                if (!bPrepare)
-                {
-                    // Do engine context specific initialisation
-                    olc_PrepareEngine();
-
-                    // Create the CopyRight Sprite : DO NOT REMOVED
-                    CreateCRSprite();
-
-                    // Create user resources as part of this thread
-                    for (auto& ext : vExtensions) ext->OnBeforeUserCreate();
-                    if (!OnUserCreate()) bAtomActive = false;
-                    for (auto& ext : vExtensions) ext->OnAfterUserCreate();
-                    bPrepare = true;
-                }
-                else
-                {
-                    if (renderer->ptrPGE->pOsEngine.animating == 1)
-                    {
-                        olc_CoreUpdate();
-                    }
-                    else
-                    {
-                        if (renderer->ptrPGE->pOsEngine.LostFocus == false)
-                        {
-                            bPrepare = false;
-                            renderer->ptrPGE->pOsEngine.StartPGE = false;
-                        }
-
-                    }
-
-                }
-
-            }
-        }
-
-        // Allow the user to free resources if they have overrided the destroy function
-        if (!OnUserDestroy())
-        {
-            // User denied destroy for some reason, so continue running
-            bAtomActive = true;
         }
 
         platform->ThreadCleanUp();
