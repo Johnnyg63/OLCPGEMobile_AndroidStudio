@@ -7260,15 +7260,13 @@ namespace olc {
                 }
 
             }
+        }
 
-            // Allow the user to free resources if they have overrided the destroy function
-            if (!OnUserDestroy())
-            {
-                // User denied destroy for some reason, so continue running
-                bAtomActive = true;
-            }
-
-
+        // Allow the user to free resources if they have overrided the destroy function
+        if (!OnUserDestroy())
+        {
+            // User denied destroy for some reason, so continue running
+            bAtomActive = true;
         }
 
         platform->ThreadCleanUp();
