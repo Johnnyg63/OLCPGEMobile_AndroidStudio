@@ -1,4 +1,3 @@
-
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wunknown-pragmas"
 #pragma region license_and_help
@@ -6,8 +5,8 @@
     olcPixelGameEngine_Mobile.h
 
     //////////////////////////////////////////////////////////////////
-    // Pixel Game Engine Mobile Release 2.2.7,                      //
-    // John Galvin aka Johnngy63: 03-Jun-2024                       //
+    // Pixel Game Engine Mobile Release 2.2.8,                      //
+    // John Galvin aka Johnngy63: 18-Jun-2024                       //
     // New Support for iOS Beta, iOS sensors not supported yet      //
     // Please report all bugs to https://discord.com/invite/WhwHUMV //
     // Or on Github: https://github.com/Johnnyg63					//
@@ -173,8 +172,8 @@
     ~~~~~
     olc::PixelGameEngine has been ported and tested with varying degrees of
     success to: WinXP, Win7, Win8, Win10, Various Linux, Raspberry Pi,
-    Chromebook, PlayStation Portable (PSP) and Nintendo Switch. If you are
-    interested in the details of these ports, come and visit the Discord!
+    Chromebook, PlayStation Portable (PSP), Nintendo Switch, Android and iOS.
+    If you are interested in the details of these ports, come and visit the Discord!
 
 
 
@@ -251,6 +250,8 @@
     2.24: iOS Beta support. Sensors not supported. Anything you develop for Android will work on the iOS
     2.25: Corrected Fatal signal 11 (SIGSEGV), code 2 (SEGV_ACCERR), fault, forgot to take (subtract) the 1
     2.26: Updated olc_Configure to set OGLES_20 to use SDK 26->33. A big thanks you to @VasCoder for all his testing!!!!
+    2.27: Added OnLowMemoryWarning()
+    2.28: Correct onUserDestroy so that it is not called every frame. A Big thank you to @baderouaich. Also Fixed OnLowMemoryWarning() from version 2.27
 
 */
 #pragma endregion
@@ -266,7 +267,7 @@
 
 #if defined (__ANDROID__)
 
-#include "../<YOUR_PROJECT_NAME>.Android/pch.h"
+#include "../<YOUR_PROJECT_NAME>/pch.h"
 
 #endif
 
@@ -284,7 +285,7 @@ public:
     Example()
     {
         // Name your application
-        sAppName = "Pre-Release Example";
+        sAppName = "Production Example";
     }
 
 public:
@@ -342,7 +343,7 @@ int ios_main(IOSNativeApp* pIOSNatvieApp)
 #define OLC_PGE_DEF
 
 // Production release
-#define PGE_MOB_VER 227
+#define PGE_MOB_VER 228
 
 // O------------------------------------------------------------------------------O
 // | COMPILER CONFIGURATION ODDITIES                                              |
@@ -496,14 +497,14 @@ namespace olc {
     // | USEFUL CONSTANTS                                                             |
     // O------------------------------------------------------------------------------O
     static const Pixel
-        GREY(192, 192, 192), DARK_GREY(128, 128, 128), VERY_DARK_GREY(64, 64, 64),
-        RED(255, 0, 0), DARK_RED(128, 0, 0), VERY_DARK_RED(64, 0, 0),
-        YELLOW(255, 255, 0), DARK_YELLOW(128, 128, 0), VERY_DARK_YELLOW(64, 64, 0),
-        GREEN(0, 255, 0), DARK_GREEN(0, 128, 0), VERY_DARK_GREEN(0, 64, 0),
-        CYAN(0, 255, 255), DARK_CYAN(0, 128, 128), VERY_DARK_CYAN(0, 64, 64),
-        BLUE(0, 0, 255), DARK_BLUE(0, 0, 128), VERY_DARK_BLUE(0, 0, 64),
-        MAGENTA(255, 0, 255), DARK_MAGENTA(128, 0, 128), VERY_DARK_MAGENTA(64, 0, 64),
-        WHITE(255, 255, 255), BLACK(0, 0, 0), BLANK(0, 0, 0, 0);
+            GREY(192, 192, 192), DARK_GREY(128, 128, 128), VERY_DARK_GREY(64, 64, 64),
+            RED(255, 0, 0), DARK_RED(128, 0, 0), VERY_DARK_RED(64, 0, 0),
+            YELLOW(255, 255, 0), DARK_YELLOW(128, 128, 0), VERY_DARK_YELLOW(64, 64, 0),
+            GREEN(0, 255, 0), DARK_GREEN(0, 128, 0), VERY_DARK_GREEN(0, 64, 0),
+            CYAN(0, 255, 255), DARK_CYAN(0, 128, 128), VERY_DARK_CYAN(0, 64, 64),
+            BLUE(0, 0, 255), DARK_BLUE(0, 0, 128), VERY_DARK_BLUE(0, 0, 64),
+            MAGENTA(255, 0, 255), DARK_MAGENTA(128, 0, 128), VERY_DARK_MAGENTA(64, 0, 64),
+            WHITE(255, 255, 255), BLACK(0, 0, 0), BLANK(0, 0, 0, 0);
 
     // Thanks to scripticuk and others for updating the key maps
     // NOTE: The GLUT platform will need updating, open to contributions ;)
@@ -1588,7 +1589,7 @@ namespace olc {
     };
 
     /// <summary>
-    /// FileHandler allows easy access to the Android/iOS Assests (APK file) and App Storage
+    /// FileHandler allows easy access to the Android/iOS Assets (APK file) and App Storage
     /// </summary>
     class FileHandler
     {
@@ -1606,15 +1607,15 @@ namespace olc {
         /// <summary>
         /// Load a file from the Assets APK into the passed buffer
         /// </summary>
-        /// <param name="sFilePath">Full file path name excudling the assets dir and leading "/": Example: "images/test.png" "maps/example1.city"</param>
+        /// <param name="sFilePath">Full file path name excluding the assets dir and leading "/": Example: "images/test.png" "maps/example1.city"</param>
         /// <param name="outbuffer">A pointer to a clear buffer. Buffer will be populated and returned</param>
         /// <returns>FAIL = 0, OK = 1, NO_FILE = -1, and outBuffer</returns>
         virtual olc::rcode LoadFileFromAssets(const std::string& sFilePath, std::vector<char>* outBuffer) = 0;
 
         /// <summary>
-        /// Extracts a compressed file from the assests APK to a depcompressed app storage file
+        /// Extracts a compressed file from the assets APK to a decompressed app storage file
         /// </summary>
-        /// <param name="sAssetFilePath">Full assets file path name excudling the assets dir and leading "/": Example: "images/test.png" "maps/example1.city"</param>
+        /// <param name="sAssetFilePath">Full assets file path name excluding the assets dir and leading "/": Example: "images/test.png" "maps/example1.city"</param>
         /// <param name="sAppStorageFilePath">Full app storage path. Use GetInternalAppStorage(), GetExternalAppStorage() and GetPublicAppStorage() to get the storage path</param>
         /// <returns>FAIL = 0, OK = 1, NO_FILE = -1,</returns>
         virtual olc::rcode ExtractFileFromAssets(const std::string& sAssetFilePath, const std::string& sAppStorageFilePath) = 0;
@@ -1622,7 +1623,7 @@ namespace olc {
         /// <summary>
         /// Get the App Internal storage path where you can save,  editing, deleting files
         /// Internal Storage is private and non volatile
-        /// RECOMENDED: Use this storage for saving, editing, deleting files
+        /// RECOMMENDED: Use this storage for saving, editing, deleting files
         /// </summary>
         /// <returns>The full Android/iOS path to internal storage. FAIL: NULL</returns>
         virtual const char* GetInternalAppStorage() = 0;
@@ -1865,7 +1866,7 @@ namespace olc {
         /// <param name="flip">olc::Sprite::NONE.. HORIZ.. VERT; (default NONE)</param>
         /// <returns>Success: True, Fail: false, usually means sub sprites are disabled</returns>
         bool StoreSubSprite(olc::Sprite* pSubSprite, olc::vi2d vStartPos = { 0, 0 }, uint32_t scale = 1,
-            olc::Sprite::Flip flip = olc::Sprite::NONE, olc::Sprite* pDrawTarget = nullptr);
+                            olc::Sprite::Flip flip = olc::Sprite::NONE, olc::Sprite* pDrawTarget = nullptr);
 
         /// <summary>
         /// Gets the Sub Sprite by ID
@@ -1891,19 +1892,19 @@ namespace olc {
         /// <param name="pMergeFromSprite">Used solely for merging of sprites (Default nullptr)</param>
         /// <returns>A pointer to a sprite, nullptr if not exist</returns>
         olc::Sprite* GetStoredSubSprite(olc::vi2d vStartPos, olc::vi2d vSize, uint32_t scale = 1, olc::Sprite::Flip flip = olc::Sprite::NONE,
-            olc::Sprite* pDrawTarget = nullptr);
+                                        olc::Sprite* pDrawTarget = nullptr);
 
         /// <summary>
         /// Gets a stored sub decal from the Stored Sub Sprite Vector
         /// </summary>
         /// <param name="vStartPos">Start position (x,y)</param>
         /// <param name="vSize">Size (width, height)</param>
-        /// <param name="scale">Scaler (>=1)</param>
+        /// <param name="scale">Scalar (>=1)</param>
         /// <param name="flip">olc::Sprite::NONE.. HORIZ.. VERT; (Default NONE)</param>
         /// <param name="pDrawTarget">The pointer to the Sprite</param>
         /// <returns>A pointer to a decal, nullptr if not exist</returns>
         void* GetStoredSubDecal(olc::vi2d vStartPos, olc::vi2d vSize, uint32_t scale = 1, olc::Sprite::Flip flip = olc::Sprite::NONE,
-            olc::Sprite* pDrawTarget = nullptr);
+                                olc::Sprite* pDrawTarget = nullptr);
 
 
     };
@@ -2046,7 +2047,7 @@ namespace olc {
 
     };
 
-#endif // __Andriod__
+#endif // __Android__
 
 #if defined (__APPLE__)
     /// <summary>
@@ -2355,19 +2356,6 @@ namespace olc {
         /// </summary>
         static olc::PixelGameEngine* ptrPGE;
 
-    private:
-
-        /*
-        // <summary>
-        /// Draws a Merge Sprite from the pSource to pDrawTarget
-        /// </summary>
-        /// <param name="vPos">Start position in the draw target (x,y)</param>
-        /// <param name="pdrawTarget">A pointer to the draw target</param>
-        /// <param name="vecPositions">Position Vector that is used to crop the sprite if out of bounds</param>
-        /// <returns>A pointer to the draw target</returns>
-        olc::Sprite* DrawToTarget(const olc::vi2d& vTargetPos, olc::Sprite* pdrawTarget, std::vector<int> vecPositions, olc::Sprite pSource);
-
-        */
 
     };
 
@@ -2402,7 +2390,7 @@ namespace olc {
         /// <param name="cohesion">NOT WORKING: Use Engine bounds cohesion: Default: false</param>
         /// <returns>FAIL = 0, OK = 1</returns>
         olc::rcode Construct(int32_t screen_w = 1280, int32_t screen_h = 720, int32_t pixel_w = 1, int32_t pixel_h = 1,
-            bool full_screen = true, bool vsync = false, bool cohesion = false);
+                             bool full_screen = true, bool vsync = false, bool cohesion = false);
 
         /// <summary>
         /// Starts the PGE Mobile Engine (Where the magic begins)
@@ -2451,6 +2439,14 @@ namespace olc {
         /// </summary>
         virtual void OnRestoreStateRequested();
 
+        /// <summary>
+        /// Low Memory warning
+        /// NOTE: Fires when the OS is about to close your app due low memory availability
+        /// Use this method to clean up any resources to reduce your memory usage
+        /// If you can reduce your memory usage enough the OS will automatically cancel the application termination event
+        /// </summary>
+        virtual void OnLowMemoryWarning();
+
 
         // Deprecated: Called when a console command is executed
         //virtual bool OnConsoleCommand(const std::string& sCommand);
@@ -2459,7 +2455,7 @@ namespace olc {
     public: // Hardware Interfaces
 
         /// <summary>
-        /// Returns a sturct of sensor options
+        /// Returns a struct of sensor options
         /// </summary>
         olcSensors SelectSensor;
 
@@ -2793,7 +2789,7 @@ namespace olc {
         /// NOTE: If SensorInformation.Type = ASENSOR_TYPE_INVALID the sensor is not supported
         /// </summary>
         /// <param name="Type">olc::SensorType</param>
-        /// <returns>ensorInformation Struct</returns>
+        /// <returns>sensorInformation Struct</returns>
         olc::SensorInformation GetSensorInfo(olc::SensorType Type);
 
         /// <summary>
@@ -2802,7 +2798,7 @@ namespace olc {
         /// </summary>
         /// <param name="Type">olc::SensorType</param>
         /// <param name="sampleRate">Number of samples per second, set to -1 to reset to default values. Default: -1 (Auto)</param>
-        /// <returns>Success: OK, Notsupported: FAIL</returns>
+        /// <returns>Success: OK, Not supported: FAIL</returns>
         olc::rcode EnableSensor(olc::SensorType Type, int32_t sampleRate = -1);
 
 
@@ -3046,7 +3042,7 @@ namespace olc {
         ///
         ///	FillTexturedPolygon(vPoints, vTex, vColour, someSprite); ---
         /// </summary>
-        /// <param name="vPoints">vector of ploygon points</param>
+        /// <param name="vPoints">vector of polygon points</param>
         /// <param name="vTex">vector of textures</param>
         /// <param name="vColour">vector of colours (pixels)</param>
         /// <param name="sprTex">A pointer to the sprite</param>
@@ -3175,10 +3171,10 @@ namespace olc {
         /// <param name="vToSpritePosy">Position y within the ToSprite to Draw the From Sprite</param>
         /// <param name="pToSprite">A pointer to the Sprite to which the from Sprite will be merged into</param>
         /// <param name="blendPixel">Blend Pixel for merge (Default olc::BLANK)</param>
-        /// <param name="scale">Scaler size (>= 1, Default 1)</param>
+        /// <param name="scale">Scalar size (>= 1, Default 1)</param>
         /// <param name="flip">olc::Sprite::NONE, ..HORIZ, ..VERT (Default NONE</param>
         void DrawMergeSprite(int32_t vPosx, int32_t vPosy, Sprite* pFromSprite, int32_t vToSpritePosx, int32_t vToSpritePosy,
-            Sprite* pToSprite, Pixel blendPixel = olc::BLANK, uint32_t scale = 1, olc::Sprite::Flip flip = olc::Sprite::NONE);
+                             Sprite* pToSprite, Pixel blendPixel = olc::BLANK, uint32_t scale = 1, olc::Sprite::Flip flip = olc::Sprite::NONE);
 
         /// <summary>
         /// Merges the pFromSprite Into the pToSprite and draws it to the Draw Target at position (vPos.x, vPos.y)
@@ -3188,10 +3184,10 @@ namespace olc {
         /// <param name="vToSpritePos">Position within the ToSprite to Draw the From Sprite</param>
         /// <param name="pToSprite">A pointer to the Sprite to which the from Sprite will be merged into</param>
         /// <param name="blendPixel">Blend Pixel for merge (Default olc::BLANK)</param>
-        /// <param name="scale">Scaler size (>= 1, Default 1)</param>
+        /// <param name="scale">Scalar size (>= 1, Default 1)</param>
         /// <param name="flip">olc::Sprite::NONE, ..HORIZ, ..VERT (Default NONE)</param>
         void DrawMergeSprite(const olc::vi2d& vPos, Sprite* pFromSprite, const olc::vi2d& vToSpritePos, Sprite* pToSprite,
-            Pixel blendPixel = olc::BLANK, uint32_t scale = 1, olc::Sprite::Flip flip = olc::Sprite::NONE);
+                             Pixel blendPixel = olc::BLANK, uint32_t scale = 1, olc::Sprite::Flip flip = olc::Sprite::NONE);
 
         /*----- END New Methods John Galvin------*/
 
@@ -3429,7 +3425,7 @@ namespace olc {
         void DrawRotatedStringDecal(const olc::vf2d& pos, const std::string& sText, const float fAngle, const olc::vf2d& center = { 0.0f, 0.0f }, const olc::Pixel col = olc::WHITE, const olc::vf2d& scale = { 1.0f, 1.0f });
 
         /// <summary>
-        /// Draw a rotated propionate string decal
+        /// Draw a rotated proportionate string decal
         /// </summary>
         /// <param name="pos">Vector Position {x, y}</param>
         /// <param name="sText">Text to be drawn</param>
@@ -3593,26 +3589,26 @@ namespace olc {
         // State of keyboard
         bool		pKeyNewState[OLC_MAX_KEYS] = { 0 };
         bool		pKeyOldState[OLC_MAX_KEYS] = { 0 };
-        HWButton	pKeyboardState[OLC_MAX_KEYS]; // = { {0} }; // Make complier happy
+        HWButton	pKeyboardState[OLC_MAX_KEYS]; // = { {0} }; // Make compiler happy
 
         // State of mouse
         bool		pMouseNewState[nMouseButtons] = { 0 };
         bool		pMouseOldState[nMouseButtons] = { 0 };
-        HWButton	pMouseState[nMouseButtons]; // = { {0} }; // Make complier happy
+        HWButton	pMouseState[nMouseButtons]; // = { {0} }; // Make compiler happy
 
 
         // State of touchOLC_MAX_TOUCH_POINTS
         bool		pTouchNewState[OLC_MAX_TOUCH_POINTS] = { 0 };
         bool		pTouchNewStateCache[OLC_MAX_TOUCH_POINTS] = { 0 };
         bool		pTouchOldState[OLC_MAX_TOUCH_POINTS] = { 0 };
-        HWButton	pTouchState[OLC_MAX_TOUCH_POINTS]; // = { {0} }; // Make complier happy
+        HWButton	pTouchState[OLC_MAX_TOUCH_POINTS]; // = { {0} }; // Make compiler happy
         olc::vi2d	pTouchPoints[OLC_MAX_TOUCH_POINTS];
         olc::vi2d	pTouchPointsCache[OLC_MAX_TOUCH_POINTS];
 
         std::mutex mutexTouchPoints;
 
         // The main engine thread
-        void		EngineThread();
+        void EngineThread();
 
 
         /// <summary>
@@ -3696,7 +3692,7 @@ namespace olc {
         void olc_CoreUpdate();
 
         /// <summary>
-        /// Perpare the OpenGLES Engine
+        /// Prepare the OpenGLES Engine
         /// </summary>
         void olc_PrepareEngine();
 
@@ -3796,7 +3792,7 @@ namespace olc {
         /// <summary>
         /// Load a file from the Assets APK into the passed buffer
         /// </summary>
-        /// <param name="sFilePath">Full file path name excudling the assets dir: Example: "images/test.png" "maps/example1.city"</param>
+        /// <param name="sFilePath">Full file path name excluding the assets dir: Example: "images/test.png" "maps/example1.city"</param>
         /// <param name="outbuffer">A pointer to a clear buffer. Buffer will be populated and returned</param>
         /// <returns>FAIL = 0, OK = 1, NO_FILE = -1, and outBuffer</returns>
         olc::rcode app_LoadFileFromAssets(const std::string& sFilePath, std::vector<char>* outBuffer);
@@ -3812,13 +3808,13 @@ namespace olc {
         /// <summary>
         /// Get the App Internal storage path where you can save,  editing, deleting files
         /// Internal Storage is private and non volatile
-        /// RECOMMANDED: Use this storage for saving, editing, deleting files
+        /// RECOMMENDED: Use this storage for saving, editing, deleting files
         /// </summary>
         /// <returns>The full Android/iOS path to internal storage. FAIL: NULL</returns>
         const char* app_GetInternalAppStorage();
 
         /// <summary>
-        /// Get the App Exteral storage where you can save files
+        /// Get the App External storage where you can save files
         /// WARNING: MAY NOT EXIST. May be volatile
         /// </summary>
         /// <returns>SUCCESS: The full Android/iOS path to external storage. FAIL: NULL</returns>
@@ -4377,9 +4373,9 @@ namespace olc {
         olc::Pixel p4 = GetPixel(std::min(x + 1, (int)width - 1), std::min(y + 1, (int)height - 1));
 
         return olc::Pixel(
-            (uint8_t)((p1.r * u_opposite + p2.r * u_ratio) * v_opposite + (p3.r * u_opposite + p4.r * u_ratio) * v_ratio),
-            (uint8_t)((p1.g * u_opposite + p2.g * u_ratio) * v_opposite + (p3.g * u_opposite + p4.g * u_ratio) * v_ratio),
-            (uint8_t)((p1.b * u_opposite + p2.b * u_ratio) * v_opposite + (p3.b * u_opposite + p4.b * u_ratio) * v_ratio));
+                (uint8_t)((p1.r * u_opposite + p2.r * u_ratio) * v_opposite + (p3.r * u_opposite + p4.r * u_ratio) * v_ratio),
+                (uint8_t)((p1.g * u_opposite + p2.g * u_ratio) * v_opposite + (p3.g * u_opposite + p4.g * u_ratio) * v_ratio),
+                (uint8_t)((p1.b * u_opposite + p2.b * u_ratio) * v_opposite + (p3.b * u_opposite + p4.b * u_ratio) * v_ratio));
     }
 
     Pixel Sprite::SampleBL(const olc::vf2d& uv) const
@@ -4588,7 +4584,7 @@ namespace olc {
     }
 
     bool Sprite::StoreSubSprite(olc::Sprite* pSubSprite, olc::vi2d vStartPos,
-        uint32_t scale, olc::Sprite::Flip flip, olc::Sprite* pDrawTarget)
+                                uint32_t scale, olc::Sprite::Flip flip, olc::Sprite* pDrawTarget)
     {
         // Pre-checks
         if (maxSubSprites < 1) return false;
@@ -5348,12 +5344,12 @@ namespace olc {
         // https://en.wikipedia.org/wiki/Cohen%E2%80%93Sutherland_algorithm
         static constexpr int SEG_I = 0b0000, SEG_L = 0b0001, SEG_R = 0b0010, SEG_B = 0b0100, SEG_T = 0b1000;
         auto Segment = [&vScreenSize = vScreenSize](const olc::vi2d& v)
-            {
-                int i = SEG_I;
-                if (v.x < 0) i |= SEG_L; else if (v.x > vScreenSize.x) i |= SEG_R;
-                if (v.y < 0) i |= SEG_B; else if (v.y > vScreenSize.y) i |= SEG_T;
-                return i;
-            };
+        {
+            int i = SEG_I;
+            if (v.x < 0) i |= SEG_L; else if (v.x > vScreenSize.x) i |= SEG_R;
+            if (v.y < 0) i |= SEG_B; else if (v.y > vScreenSize.y) i |= SEG_T;
+            return i;
+        };
 
         int s1 = Segment(in_p1), s2 = Segment(in_p2);
 
@@ -5506,10 +5502,10 @@ namespace olc {
                     olc::vf2d tex_e(vTex[0].x + (float)(i - p1.y) * vTex2Step.x, vTex[0].y + (float)(i - p1.y) * vTex2Step.y);
 
                     olc::Pixel col_s(vColour[vStartIdx].r + uint8_t((float)(i - vStart.y) * dcr1_step), vColour[vStartIdx].g + uint8_t((float)(i - vStart.y) * dcg1_step),
-                        vColour[vStartIdx].b + uint8_t((float)(i - vStart.y) * dcb1_step), vColour[vStartIdx].a + uint8_t((float)(i - vStart.y) * dca1_step));
+                                     vColour[vStartIdx].b + uint8_t((float)(i - vStart.y) * dcb1_step), vColour[vStartIdx].a + uint8_t((float)(i - vStart.y) * dca1_step));
 
                     olc::Pixel col_e(vColour[0].r + uint8_t((float)(i - p1.y) * dcr2_step), vColour[0].g + uint8_t((float)(i - p1.y) * dcg2_step),
-                        vColour[0].b + uint8_t((float)(i - p1.y) * dcb2_step), vColour[0].a + uint8_t((float)(i - p1.y) * dca2_step));
+                                     vColour[0].b + uint8_t((float)(i - p1.y) * dcb2_step), vColour[0].a + uint8_t((float)(i - p1.y) * dca2_step));
 
                     if (ax > bx) { std::swap(ax, bx); std::swap(tex_s, tex_e); std::swap(col_s, col_e); }
 
@@ -5597,12 +5593,12 @@ namespace olc {
     }
 
     void PixelGameEngine::DrawMergeSprite(const olc::vi2d& vPos, Sprite* pFromSprite, const olc::vi2d& vToSpritePos, Sprite* pToSprite,
-        Pixel blendPixel, uint32_t scale, olc::Sprite::Flip flip)
+                                          Pixel blendPixel, uint32_t scale, olc::Sprite::Flip flip)
     {
         DrawMergeSprite(vPos.x, vPos.y, pFromSprite, vToSpritePos.x, vToSpritePos.y, pToSprite, blendPixel, scale, flip);
     }
     void PixelGameEngine::DrawMergeSprite(int32_t vPosx, int32_t vPosy, Sprite* pFromSprite, int32_t vToSpritePosx, int32_t vToSpritePosy,
-        Sprite* pToSprite, Pixel blendPixel, uint32_t scale, olc::Sprite::Flip flip)
+                                          Sprite* pToSprite, Pixel blendPixel, uint32_t scale, olc::Sprite::Flip flip)
     {
         simddrawer->DrawMergeSprite_SIMD(vPosx, vPosy, pFromSprite, vToSpritePosx, vToSpritePosy, pToSprite, blendPixel, scale, flip, pDrawTarget);
     }
@@ -5620,17 +5616,17 @@ namespace olc {
     void PixelGameEngine::DrawPartialDecal(const olc::vf2d& pos, olc::Decal* decal, const olc::vf2d& source_pos, const olc::vf2d& source_size, const olc::vf2d& scale, const olc::Pixel& tint)
     {
         olc::vf2d vScreenSpacePos =
-        {
-                (pos.x * vInvScreenSize.x) * 2.0f - 1.0f,
-                -((pos.y * vInvScreenSize.y) * 2.0f - 1.0f)
-        };
+                {
+                        (pos.x * vInvScreenSize.x) * 2.0f - 1.0f,
+                        -((pos.y * vInvScreenSize.y) * 2.0f - 1.0f)
+                };
 
 
         olc::vf2d vScreenSpaceDim =
-        {
-                ((pos.x + source_size.x * scale.x) * vInvScreenSize.x) * 2.0f - 1.0f,
-                -(((pos.y + source_size.y * scale.y) * vInvScreenSize.y) * 2.0f - 1.0f)
-        };
+                {
+                        ((pos.x + source_size.x * scale.x) * vInvScreenSize.x) * 2.0f - 1.0f,
+                        -(((pos.y + source_size.y * scale.y) * vInvScreenSize.y) * 2.0f - 1.0f)
+                };
 
         olc::vf2d vWindow = olc::vf2d(vViewSize);
         olc::vf2d vQuantisedPos = ((vScreenSpacePos * vWindow) + olc::vf2d(0.5f, 0.5f)).floor() / vWindow;
@@ -5653,16 +5649,16 @@ namespace olc {
     void PixelGameEngine::DrawPartialDecal(const olc::vf2d& pos, const olc::vf2d& size, olc::Decal* decal, const olc::vf2d& source_pos, const olc::vf2d& source_size, const olc::Pixel& tint)
     {
         olc::vf2d vScreenSpacePos =
-        {
-                (pos.x * vInvScreenSize.x) * 2.0f - 1.0f,
-                ((pos.y * vInvScreenSize.y) * 2.0f - 1.0f) * -1.0f
-        };
+                {
+                        (pos.x * vInvScreenSize.x) * 2.0f - 1.0f,
+                        ((pos.y * vInvScreenSize.y) * 2.0f - 1.0f) * -1.0f
+                };
 
         olc::vf2d vScreenSpaceDim =
-        {
-                vScreenSpacePos.x + (2.0f * size.x * vInvScreenSize.x),
-                vScreenSpacePos.y - (2.0f * size.y * vInvScreenSize.y)
-        };
+                {
+                        vScreenSpacePos.x + (2.0f * size.x * vInvScreenSize.x),
+                        vScreenSpacePos.y - (2.0f * size.y * vInvScreenSize.y)
+                };
 
         DecalInstance di;
         di.points = 4;
@@ -5683,16 +5679,16 @@ namespace olc {
     {
         if (decal == nullptr) return;
         olc::vf2d vScreenSpacePos =
-        {
-                (pos.x * vInvScreenSize.x) * 2.0f - 1.0f,
-                ((pos.y * vInvScreenSize.y) * 2.0f - 1.0f) * -1.0f
-        };
+                {
+                        (pos.x * vInvScreenSize.x) * 2.0f - 1.0f,
+                        ((pos.y * vInvScreenSize.y) * 2.0f - 1.0f) * -1.0f
+                };
 
         olc::vf2d vScreenSpaceDim =
-        {
-                vScreenSpacePos.x + (2.0f * (float(decal->sprite->width) * vInvScreenSize.x)) * scale.x,
-                vScreenSpacePos.y - (2.0f * (float(decal->sprite->height) * vInvScreenSize.y)) * scale.y
-        };
+                {
+                        vScreenSpacePos.x + (2.0f * (float(decal->sprite->width) * vInvScreenSize.x)) * scale.x,
+                        vScreenSpacePos.y - (2.0f * (float(decal->sprite->height) * vInvScreenSize.y)) * scale.y
+                };
 
         DecalInstance di;
         di.decal = decal;
@@ -5773,7 +5769,7 @@ namespace olc {
     {
         std::vector<olc::Pixel> newColours(colours.size(), olc::WHITE);
         std::transform(colours.begin(), colours.end(), newColours.begin(),
-            [&tint](const olc::Pixel pin) {	return pin * tint; });
+                       [&tint](const olc::Pixel pin) {	return pin * tint; });
         DrawPolygonDecal(decal, pos, uv, newColours);
     }
 
@@ -6443,30 +6439,30 @@ namespace olc {
     void PixelGameEngine::CreateCRSprite()
     {
         const char logo[] =
-            "000000000000000000000000000000000000000000000000000000000000000000005"
-            "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED1EE"
-            "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED5EEE"
-            "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE@E@000"
-            "0000000000000000000000000000000000000000000000000000000000001E1D:ZZZZ"
-            "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ1D5BZZZZZZ"
-            "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ5@E:P0002Z0"
-            "02ZZX000000000000ZP0000000000000000000000000000ZX000Z002XE1DX?o`o:Poo"
-            "800SooaE5@E1ED5BX?ol5E@E0E1ED?oo5@E1ED5DE1D5E@ZQEEBPEE2QD5BSooclZ?olQ"
-            "AB?oo5DEEDEEDE:SooaEEAE5DEEDoolEADEEDEAE5AEEBZ5EE:5EE:5@E:?oo?bXoob55"
-            "8o3lEAEEAD5ADZ?oo5@E5EEAD5Cl01E5AD5AE5DE5@E:X01DXEEDXE1DXo3lo:Sl0800S"
-            "ooaE1ED5EE5BXo00EEDEEE5EE?oo5EE5EE5DEEDEEDZQEEBQD5BQD5BSl?cl0?`0ZZZ?o"
-            "o5D5E@EEDE03loaEEAEEDEEDoolEED5EDEAEEAEEBZ5EE:5@E:5@E:?oo?oloob008o00"
-            "EAEEAD01EE?co5EE5EEAD03l01DE@05AE5AE5@0:XE000EEDXE1DXooloocoo8DDSlZQE"
-            "5EE5EE5EDoolE1DE4E5EE?oo5AE5EE5DE5DEEDZQEEAAEEBQD5BPoo3oo3olQAB?bZ5DE"
-            "1D5EDEE@ooaD5AD1D5EDoolE1DEE@EAD5@EEBZ5EE51ED:5@E:P000000020080:X0000"
-            "00000000000000000000000000000000000:X0000002XE1DZZZZZZZZZZZZZZZZZZZZZ"
-            "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZQD5@ZZZZZZZZZZZZZZZZZZZZZZ"
-            "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZX5@E@00000000000000000000000"
-            "00000000000000000000000000000000000000001E1EEEEEEEEEEEEEEEEEEEEEEEEEE"
-            "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED5EEEEEEEEEEEEEEEEEEEEEEEEEEE"
-            "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE@5EEEEEEEEEEEEEEEEEEEEEEEEEEEE"
-            "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED0000000000000000000000000000000"
-            "0000000000000000000000000000000000000";
+                "000000000000000000000000000000000000000000000000000000000000000000005"
+                "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED1EE"
+                "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED5EEE"
+                "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE@E@000"
+                "0000000000000000000000000000000000000000000000000000000000001E1D:ZZZZ"
+                "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ1D5BZZZZZZ"
+                "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ5@E:P0002Z0"
+                "02ZZX000000000000ZP0000000000000000000000000000ZX000Z002XE1DX?o`o:Poo"
+                "800SooaE5@E1ED5BX?ol5E@E0E1ED?oo5@E1ED5DE1D5E@ZQEEBPEE2QD5BSooclZ?olQ"
+                "AB?oo5DEEDEEDE:SooaEEAE5DEEDoolEADEEDEAE5AEEBZ5EE:5EE:5@E:?oo?bXoob55"
+                "8o3lEAEEAD5ADZ?oo5@E5EEAD5Cl01E5AD5AE5DE5@E:X01DXEEDXE1DXo3lo:Sl0800S"
+                "ooaE1ED5EE5BXo00EEDEEE5EE?oo5EE5EE5DEEDEEDZQEEBQD5BQD5BSl?cl0?`0ZZZ?o"
+                "o5D5E@EEDE03loaEEAEEDEEDoolEED5EDEAEEAEEBZ5EE:5@E:5@E:?oo?oloob008o00"
+                "EAEEAD01EE?co5EE5EEAD03l01DE@05AE5AE5@0:XE000EEDXE1DXooloocoo8DDSlZQE"
+                "5EE5EE5EDoolE1DE4E5EE?oo5AE5EE5DE5DEEDZQEEAAEEBQD5BPoo3oo3olQAB?bZ5DE"
+                "1D5EDEE@ooaD5AD1D5EDoolE1DEE@EAD5@EEBZ5EE51ED:5@E:P000000020080:X0000"
+                "00000000000000000000000000000000000:X0000002XE1DZZZZZZZZZZZZZZZZZZZZZ"
+                "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZQD5@ZZZZZZZZZZZZZZZZZZZZZZ"
+                "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZX5@E@00000000000000000000000"
+                "00000000000000000000000000000000000000001E1EEEEEEEEEEEEEEEEEEEEEEEEEE"
+                "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED5EEEEEEEEEEEEEEEEEEEEEEEEEEE"
+                "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE@5EEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+                "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEED0000000000000000000000000000000"
+                "0000000000000000000000000000000000000";
 
         sprCR.Create(203, 24);
         int px = 0, py = 0;
@@ -6483,10 +6479,10 @@ namespace olc {
                 olc::Pixel p = olc::RED;
                 switch ((r & 0xC00000) >> 22)
                 {
-                case 0: p = olc::Pixel(0, 0, 0, 255);  break;
-                case 1: p = olc::Pixel(255, 255, 255, 255);  break;
-                case 2: p = olc::Pixel(255, 120, 26, 255);  break;
-                case 3: p = olc::Pixel(79, 193, 255, 255);  break;
+                    case 0: p = olc::Pixel(0, 0, 0, 255);  break;
+                    case 1: p = olc::Pixel(255, 255, 255, 255);  break;
+                    case 2: p = olc::Pixel(255, 120, 26, 255);  break;
+                    case 3: p = olc::Pixel(79, 193, 255, 255);  break;
                 }
                 sprCR.Sprite()->SetPixel(px, py, p);
                 if (++px == 203) { py++; px = 0; }
@@ -6499,16 +6495,16 @@ namespace olc {
         vScaleCR = { float(ScreenWidth()) / 500.0f, float(ScreenWidth()) / 500.0f };
         fAspectCR = float(ScreenWidth()) / float(ScreenHeight());
         vPositionCR = olc::vf2d(
-            (250 - sprCR.Sprite()->width) / 2.0f,
-            (250 - sprCR.Sprite()->height) / 2.0f / fAspectCR);
+                (250 - sprCR.Sprite()->width) / 2.0f,
+                (250 - sprCR.Sprite()->height) / 2.0f / fAspectCR);
 
         for (int y = 0; y < sprCR.Sprite()->height; y++)
             for (int x = 0; x < sprCR.Sprite()->width; x++)
                 vBoomCR[y * sprCR.Sprite()->width + x] = std::make_pair(
-                    vPositionCR + olc::vf2d(x, y),
-                    olc::vf2d(
-                        (float(rand()) / float(RAND_MAX)) * 10.0f - 5.0f,
-                        (float(rand()) / float(RAND_MAX)) * 10.0f - 5.0f)
+                        vPositionCR + olc::vf2d(x, y),
+                        olc::vf2d(
+                                (float(rand()) / float(RAND_MAX)) * 10.0f - 5.0f,
+                                (float(rand()) / float(RAND_MAX)) * 10.0f - 5.0f)
                 );
 
     }
@@ -6534,13 +6530,13 @@ namespace olc {
                 else if (fParticleTimeCR < 2.0f)
                 {
                     vBoomCR[y * sprCR.Sprite()->width + x].first =
-                        olc::vf2d(
-                            (250 - sprCR.Sprite()->width) / 2.0f + float(x),
-                            (250 - sprCR.Sprite()->height) / 2.0f / fAspectCR + float(y)
-                        ) +
-                        olc::vf2d(
-                            (float(rand()) / float(RAND_MAX)) * 0.5f - 0.25f,
-                            (float(rand()) / float(RAND_MAX)) * 0.5f - 0.25f);
+                            olc::vf2d(
+                                    (250 - sprCR.Sprite()->width) / 2.0f + float(x),
+                                    (250 - sprCR.Sprite()->height) / 2.0f / fAspectCR + float(y)
+                            ) +
+                            olc::vf2d(
+                                    (float(rand()) / float(RAND_MAX)) * 0.5f - 0.25f,
+                                    (float(rand()) / float(RAND_MAX)) * 0.5f - 0.25f);
                 }
                 else if (fParticleTimeCR < 5.0f)
                 {
@@ -6554,8 +6550,8 @@ namespace olc {
                 DrawPartialDecal(vScaleCR * vBoomCR[y * sprCR.Sprite()->width + x].first * 2.0f, sprCR.Decal(), olc::vf2d(x, y), { 1, 1 }, vScaleCR * 2.0f, olc::PixelF(1.0f, 1.0f, 1.0f, std::min(1.0f, std::max(4.0f - fParticleTimeCR, 0.0f))));
             }
 
-        olc::vi2d vSize = GetTextSizeProp("Powered By Pixel Game Engine Mobile 2.2.7");
-        DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 2.0f), "Powered By Pixel Game Engine Mobile 2.2.7", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
+        olc::vi2d vSize = GetTextSizeProp("Powered By Pixel Game Engine Mobile 2.2.8");
+        DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 2.0f), "Powered By Pixel Game Engine Mobile 2.2.8", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
 
         vSize = GetTextSizeProp("Copyright OneLoneCoder.com 2024.");
         DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 3.0f), "Copyright OneLoneCoder.com 2024", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
@@ -6653,6 +6649,11 @@ namespace olc {
     }
 
     void PixelGameEngine::OnRestoreStateRequested()
+    {
+
+    }
+
+    void PixelGameEngine::OnLowMemoryWarning()
     {
 
     }
@@ -6928,182 +6929,182 @@ namespace olc {
                 switch (event.type)
                 {
 
-                case ASENSOR_TYPE_ACCELEROMETER:
-                {
-                    SelectSensor.Accelerometer = event.acceleration;
-                    break;
-                }
+                    case ASENSOR_TYPE_ACCELEROMETER:
+                    {
+                        SelectSensor.Accelerometer = event.acceleration;
+                        break;
+                    }
 
-                case ASENSOR_TYPE_MAGNETIC_FIELD:
-                {
-                    SelectSensor.MagniticField = event.magnetic;
-                    break;
-                }
+                    case ASENSOR_TYPE_MAGNETIC_FIELD:
+                    {
+                        SelectSensor.MagniticField = event.magnetic;
+                        break;
+                    }
 
-                case ASENSOR_TYPE_ORIENTATION:
-                {
-                    SelectSensor.Orientation = event.vector;
-                }
+                    case ASENSOR_TYPE_ORIENTATION:
+                    {
+                        SelectSensor.Orientation = event.vector;
+                    }
 
-                case ASENSOR_TYPE_GYROSCOPE:
-                {
-                    SelectSensor.Gyroscope = event.gyro;
-                    break;
-                }
+                    case ASENSOR_TYPE_GYROSCOPE:
+                    {
+                        SelectSensor.Gyroscope = event.gyro;
+                        break;
+                    }
 
-                case ASENSOR_TYPE_LIGHT:
-                {
-                    SelectSensor.Light = event.light;
-                    break;
-                }
+                    case ASENSOR_TYPE_LIGHT:
+                    {
+                        SelectSensor.Light = event.light;
+                        break;
+                    }
 
-                case ASENSOR_TYPE_PRESSURE:
-                {
-                    SelectSensor.Pressure = event.pressure;
-                    break;
-                }
+                    case ASENSOR_TYPE_PRESSURE:
+                    {
+                        SelectSensor.Pressure = event.pressure;
+                        break;
+                    }
 
-                case ASENSOR_TYPE_PROXIMITY:
-                {
-                    SelectSensor.Proximity = event.data;
-                    break;
-                }
+                    case ASENSOR_TYPE_PROXIMITY:
+                    {
+                        SelectSensor.Proximity = event.data;
+                        break;
+                    }
 
-                case ASENSOR_TYPE_GRAVITY:
-                {
-                    SelectSensor.Gravity = event.vector;
-                    break;
-                }
+                    case ASENSOR_TYPE_GRAVITY:
+                    {
+                        SelectSensor.Gravity = event.vector;
+                        break;
+                    }
 
-                case ASENSOR_TYPE_LINEAR_ACCELERATION:
-                {
-                    SelectSensor.LinearAcceleration = event.vector;
-                    break;
-                }
-
-
-                case ASENSOR_TYPE_ROTATION_VECTOR:
-                {
-                    SelectSensor.RotationVector = event.vector;
-                    break;
-                }
-
-                case ASENSOR_TYPE_RELATIVE_HUMIDITY:
-                {
-                    SelectSensor.RelativeHumidity = event.relative_humidity;
-                    break;
-                }
-
-                case ASENSOR_TYPE_AMBIENT_TEMPERATURE:
-                {
-                    SelectSensor.AmbientTemperature = event.temperature;
-                    break;
-                }
-
-                case ASENSOR_TYPE_MAGNETIC_FIELD_UNCALIBRATED:
-                {
-                    SelectSensor.Uncalibrated_MagniticField = event.uncalibrated_magnetic;
-                    break;
-                }
-
-                case ASENSOR_TYPE_GAME_ROTATION_VECTOR:
-                {
-                    SelectSensor.GameRotation = event.vector;
-                    break;
-                }
+                    case ASENSOR_TYPE_LINEAR_ACCELERATION:
+                    {
+                        SelectSensor.LinearAcceleration = event.vector;
+                        break;
+                    }
 
 
-                case ASENSOR_TYPE_GYROSCOPE_UNCALIBRATED:
-                {
-                    SelectSensor.Uncalibrated_Gyroscope = event.uncalibrated_gyro;
-                    break;
-                }
+                    case ASENSOR_TYPE_ROTATION_VECTOR:
+                    {
+                        SelectSensor.RotationVector = event.vector;
+                        break;
+                    }
 
-                case ASENSOR_TYPE_SIGNIFICANT_MOTION:
-                {
-                    SelectSensor.SignificantMotion = event.vector;
-                    break;
-                }
+                    case ASENSOR_TYPE_RELATIVE_HUMIDITY:
+                    {
+                        SelectSensor.RelativeHumidity = event.relative_humidity;
+                        break;
+                    }
 
-                case ASENSOR_TYPE_STEP_DETECTOR:
-                {
-                    SelectSensor.StepDetector = event.data;
-                    break;
-                }
+                    case ASENSOR_TYPE_AMBIENT_TEMPERATURE:
+                    {
+                        SelectSensor.AmbientTemperature = event.temperature;
+                        break;
+                    }
 
-                case ASENSOR_TYPE_STEP_COUNTER:
-                {
-                    SelectSensor.StepCounter = event.data;
-                    break;
-                }
+                    case ASENSOR_TYPE_MAGNETIC_FIELD_UNCALIBRATED:
+                    {
+                        SelectSensor.Uncalibrated_MagniticField = event.uncalibrated_magnetic;
+                        break;
+                    }
 
-
-                case ASENSOR_TYPE_GEOMAGNETIC_ROTATION_VECTOR:
-                {
-                    SelectSensor.GeomagneticRotationVector = event.vector;
-                    break;
-                }
-
-                case ASENSOR_TYPE_HEART_RATE:
-                {
-                    SelectSensor.HeartRate = event.heart_rate;
-                    break;
-                }
-
-                case ASENSOR_TYPE_POSE_6DOF:
-                {
-                    SelectSensor.Pose_6D = event.vector;
-                    break;
-                }
-
-                case ASENSOR_TYPE_STATIONARY_DETECT:
-                {
-                    SelectSensor.StationaryDetect = event.data;
-                    break;
-                }
-
-                case ASENSOR_TYPE_MOTION_DETECT:
-                {
-                    SelectSensor.MotionDetect = event.data;
-                    break;
-                }
-
-                case ASENSOR_TYPE_HEART_BEAT:
-                {
-                    SelectSensor.HeartBeat = event.data;
-                    break;
-                }
-
-                case ASENSOR_TYPE_ADDITIONAL_INFO:
-                {
-                    //Speical Case
-                    break;
-                }
-
-                case ASENSOR_TYPE_LOW_LATENCY_OFFBODY_DETECT:
-                {
-                    SelectSensor.LowLatencyOffBodyDetect = event.data;
-                    break;
-                }
+                    case ASENSOR_TYPE_GAME_ROTATION_VECTOR:
+                    {
+                        SelectSensor.GameRotation = event.vector;
+                        break;
+                    }
 
 
-                case ASENSOR_TYPE_ACCELEROMETER_UNCALIBRATED:
-                {
-                    SelectSensor.Uncalibrated_Accelerometer = event.uncalibrated_acceleration;
-                    break;
-                }
+                    case ASENSOR_TYPE_GYROSCOPE_UNCALIBRATED:
+                    {
+                        SelectSensor.Uncalibrated_Gyroscope = event.uncalibrated_gyro;
+                        break;
+                    }
 
-                case ASENSOR_TYPE_HINGE_ANGLE:
-                {
-                    SelectSensor.HingeAngle = event.data;
-                    break;
-                }
+                    case ASENSOR_TYPE_SIGNIFICANT_MOTION:
+                    {
+                        SelectSensor.SignificantMotion = event.vector;
+                        break;
+                    }
+
+                    case ASENSOR_TYPE_STEP_DETECTOR:
+                    {
+                        SelectSensor.StepDetector = event.data;
+                        break;
+                    }
+
+                    case ASENSOR_TYPE_STEP_COUNTER:
+                    {
+                        SelectSensor.StepCounter = event.data;
+                        break;
+                    }
 
 
-                default:
-                {
-                    break;
-                }
+                    case ASENSOR_TYPE_GEOMAGNETIC_ROTATION_VECTOR:
+                    {
+                        SelectSensor.GeomagneticRotationVector = event.vector;
+                        break;
+                    }
+
+                    case ASENSOR_TYPE_HEART_RATE:
+                    {
+                        SelectSensor.HeartRate = event.heart_rate;
+                        break;
+                    }
+
+                    case ASENSOR_TYPE_POSE_6DOF:
+                    {
+                        SelectSensor.Pose_6D = event.vector;
+                        break;
+                    }
+
+                    case ASENSOR_TYPE_STATIONARY_DETECT:
+                    {
+                        SelectSensor.StationaryDetect = event.data;
+                        break;
+                    }
+
+                    case ASENSOR_TYPE_MOTION_DETECT:
+                    {
+                        SelectSensor.MotionDetect = event.data;
+                        break;
+                    }
+
+                    case ASENSOR_TYPE_HEART_BEAT:
+                    {
+                        SelectSensor.HeartBeat = event.data;
+                        break;
+                    }
+
+                    case ASENSOR_TYPE_ADDITIONAL_INFO:
+                    {
+                        //Speical Case
+                        break;
+                    }
+
+                    case ASENSOR_TYPE_LOW_LATENCY_OFFBODY_DETECT:
+                    {
+                        SelectSensor.LowLatencyOffBodyDetect = event.data;
+                        break;
+                    }
+
+
+                    case ASENSOR_TYPE_ACCELEROMETER_UNCALIBRATED:
+                    {
+                        SelectSensor.Uncalibrated_Accelerometer = event.uncalibrated_acceleration;
+                        break;
+                    }
+
+                    case ASENSOR_TYPE_HINGE_ANGLE:
+                    {
+                        SelectSensor.HingeAngle = event.data;
+                        break;
+                    }
+
+
+                    default:
+                    {
+                        break;
+                    }
 
                 }
                 break;
@@ -7261,15 +7262,7 @@ namespace olc {
 
             }
 
-            // Allow the user to free resources if they have overrided the destroy function
-            if (!OnUserDestroy())
-            {
-                // User denied destroy for some reason, so continue running
-                bAtomActive = true;
-            }
-
-
-        }
+        } // End While
 
         platform->ThreadCleanUp();
     }
@@ -7379,27 +7372,27 @@ namespace olc {
 
         // Compare hardware input states from previous frame
         auto ScanHardware = [&](HWButton* pKeys, bool* pStateOld, bool* pStateNew, uint32_t nKeyCount)
+        {
+            for (uint32_t i = 0; i < nKeyCount; i++)
             {
-                for (uint32_t i = 0; i < nKeyCount; i++)
+                pKeys[i].bPressed = false;
+                pKeys[i].bReleased = false;
+                if (pStateNew[i] != pStateOld[i])
                 {
-                    pKeys[i].bPressed = false;
-                    pKeys[i].bReleased = false;
-                    if (pStateNew[i] != pStateOld[i])
+                    if (pStateNew[i])
                     {
-                        if (pStateNew[i])
-                        {
-                            pKeys[i].bPressed = !pKeys[i].bHeld;
-                            pKeys[i].bHeld = true;
-                        }
-                        else
-                        {
-                            pKeys[i].bReleased = true;
-                            pKeys[i].bHeld = false;
-                        }
+                        pKeys[i].bPressed = !pKeys[i].bHeld;
+                        pKeys[i].bHeld = true;
                     }
-                    pStateOld[i] = pStateNew[i];
+                    else
+                    {
+                        pKeys[i].bReleased = true;
+                        pKeys[i].bHeld = false;
+                    }
                 }
-            };
+                pStateOld[i] = pStateNew[i];
+            }
+        };
 
 
         // We need some locks as the sensors can sample to 10000 times a second
@@ -7574,28 +7567,28 @@ namespace olc {
 
         // UK Standard Layout
         vKeyboardMap =
-        {
-                {olc::Key::A, "a", "A"}, {olc::Key::B, "b", "B"}, {olc::Key::C, "c", "C"}, {olc::Key::D, "d", "D"}, {olc::Key::E, "e", "E"},
-                {olc::Key::F, "f", "F"}, {olc::Key::G, "g", "G"}, {olc::Key::H, "h", "H"}, {olc::Key::I, "i", "I"}, {olc::Key::J, "j", "J"},
-                {olc::Key::K, "k", "K"}, {olc::Key::L, "l", "L"}, {olc::Key::M, "m", "M"}, {olc::Key::N, "n", "N"}, {olc::Key::O, "o", "O"},
-                {olc::Key::P, "p", "P"}, {olc::Key::Q, "q", "Q"}, {olc::Key::R, "r", "R"}, {olc::Key::S, "s", "S"}, {olc::Key::T, "t", "T"},
-                {olc::Key::U, "u", "U"}, {olc::Key::V, "v", "V"}, {olc::Key::W, "w", "W"}, {olc::Key::X, "x", "X"}, {olc::Key::Y, "y", "Y"},
-                {olc::Key::Z, "z", "Z"},
+                {
+                        {olc::Key::A, "a", "A"}, {olc::Key::B, "b", "B"}, {olc::Key::C, "c", "C"}, {olc::Key::D, "d", "D"}, {olc::Key::E, "e", "E"},
+                        {olc::Key::F, "f", "F"}, {olc::Key::G, "g", "G"}, {olc::Key::H, "h", "H"}, {olc::Key::I, "i", "I"}, {olc::Key::J, "j", "J"},
+                        {olc::Key::K, "k", "K"}, {olc::Key::L, "l", "L"}, {olc::Key::M, "m", "M"}, {olc::Key::N, "n", "N"}, {olc::Key::O, "o", "O"},
+                        {olc::Key::P, "p", "P"}, {olc::Key::Q, "q", "Q"}, {olc::Key::R, "r", "R"}, {olc::Key::S, "s", "S"}, {olc::Key::T, "t", "T"},
+                        {olc::Key::U, "u", "U"}, {olc::Key::V, "v", "V"}, {olc::Key::W, "w", "W"}, {olc::Key::X, "x", "X"}, {olc::Key::Y, "y", "Y"},
+                        {olc::Key::Z, "z", "Z"},
 
-                {olc::Key::K0, "0", ")"}, {olc::Key::K1, "1", "!"}, {olc::Key::K2, "2", "\""}, {olc::Key::K3, "3", "#"},	{olc::Key::K4, "4", "$"},
-                {olc::Key::K5, "5", "%"}, {olc::Key::K6, "6", "^"}, {olc::Key::K7, "7", "&"}, {olc::Key::K8, "8", "*"},	{olc::Key::K9, "9", "("},
+                        {olc::Key::K0, "0", ")"}, {olc::Key::K1, "1", "!"}, {olc::Key::K2, "2", "\""}, {olc::Key::K3, "3", "#"},	{olc::Key::K4, "4", "$"},
+                        {olc::Key::K5, "5", "%"}, {olc::Key::K6, "6", "^"}, {olc::Key::K7, "7", "&"}, {olc::Key::K8, "8", "*"},	{olc::Key::K9, "9", "("},
 
-                {olc::Key::NP0, "0", "0"}, {olc::Key::NP1, "1", "1"}, {olc::Key::NP2, "2", "2"}, {olc::Key::NP3, "3", "3"},	{olc::Key::NP4, "4", "4"},
-                {olc::Key::NP5, "5", "5"}, {olc::Key::NP6, "6", "6"}, {olc::Key::NP7, "7", "7"}, {olc::Key::NP8, "8", "8"},	{olc::Key::NP9, "9", "9"},
-                {olc::Key::NP_MUL, "*", "*"}, {olc::Key::NP_DIV, "/", "/"}, {olc::Key::NP_ADD, "+", "+"}, {olc::Key::NP_SUB, "-", "-"},	{olc::Key::NP_DECIMAL, ".", "."},
+                        {olc::Key::NP0, "0", "0"}, {olc::Key::NP1, "1", "1"}, {olc::Key::NP2, "2", "2"}, {olc::Key::NP3, "3", "3"},	{olc::Key::NP4, "4", "4"},
+                        {olc::Key::NP5, "5", "5"}, {olc::Key::NP6, "6", "6"}, {olc::Key::NP7, "7", "7"}, {olc::Key::NP8, "8", "8"},	{olc::Key::NP9, "9", "9"},
+                        {olc::Key::NP_MUL, "*", "*"}, {olc::Key::NP_DIV, "/", "/"}, {olc::Key::NP_ADD, "+", "+"}, {olc::Key::NP_SUB, "-", "-"},	{olc::Key::NP_DECIMAL, ".", "."},
 
-                {olc::Key::PERIOD, ".", ">"}, {olc::Key::EQUALS, "=", "+"}, {olc::Key::COMMA, ",", "<"}, {olc::Key::MINUS, "-", "_"}, {olc::Key::SPACE, " ", " "},
+                        {olc::Key::PERIOD, ".", ">"}, {olc::Key::EQUALS, "=", "+"}, {olc::Key::COMMA, ",", "<"}, {olc::Key::MINUS, "-", "_"}, {olc::Key::SPACE, " ", " "},
 
-                {olc::Key::OEM_1, ";", ":"}, {olc::Key::OEM_2, "/", "?"}, {olc::Key::OEM_3, "\'", "@"}, {olc::Key::OEM_4, "[", "{"},
-                {olc::Key::OEM_5, "\\", "|"}, {olc::Key::OEM_6, "]", "}"}, {olc::Key::OEM_7, "#", "~"},
+                        {olc::Key::OEM_1, ";", ":"}, {olc::Key::OEM_2, "/", "?"}, {olc::Key::OEM_3, "\'", "@"}, {olc::Key::OEM_4, "[", "{"},
+                        {olc::Key::OEM_5, "\\", "|"}, {olc::Key::OEM_6, "]", "}"}, {olc::Key::OEM_7, "#", "~"},
 
-                // {olc::Key::TAB, "\t", "\t"}
-        };
+                        // {olc::Key::TAB, "\t", "\t"}
+                };
 
     }
 
@@ -7654,7 +7647,7 @@ namespace olc {
 #define LOGI(...) ((void)__android_log_print(ANDROID_LOG_INFO, "threaded_app", __VA_ARGS__))
 #define LOGE(...) ((void)__android_log_print(ANDROID_LOG_ERROR, "threaded_app", __VA_ARGS__))
 
- /* For debug builds, always enable the debug traces in this library */
+/* For debug builds, always enable the debug traces in this library */
 #ifndef NDEBUG
 #  define LOGV(...)  ((void)__android_log_print(ANDROID_LOG_VERBOSE, "threaded_app", __VA_ARGS__))
 #else
@@ -7681,9 +7674,9 @@ int8_t android_app_read_cmd(struct android_app* android_app) {
     int8_t cmd;
     if (read(android_app->msgread, &cmd, sizeof(cmd)) == sizeof(cmd)) {
         switch (cmd) {
-        case APP_CMD_SAVE_STATE:
-            free_saved_state(android_app);
-            break;
+            case APP_CMD_SAVE_STATE:
+                free_saved_state(android_app);
+                break;
         }
         return cmd;
     }
@@ -7700,106 +7693,106 @@ static void print_cur_config(struct android_app* android_app) {
     AConfiguration_getCountry(android_app->config, country);
 
     LOGV("Config: mcc=%d mnc=%d lang=%c%c cnt=%c%c orien=%d touch=%d dens=%d "
-        "keys=%d nav=%d keysHid=%d navHid=%d sdk=%d size=%d long=%d "
-        "modetype=%d modenight=%d",
-        AConfiguration_getMcc(android_app->config),
-        AConfiguration_getMnc(android_app->config),
-        lang[0], lang[1], country[0], country[1],
-        AConfiguration_getOrientation(android_app->config),
-        AConfiguration_getTouchscreen(android_app->config),
-        AConfiguration_getDensity(android_app->config),
-        AConfiguration_getKeyboard(android_app->config),
-        AConfiguration_getNavigation(android_app->config),
-        AConfiguration_getKeysHidden(android_app->config),
-        AConfiguration_getNavHidden(android_app->config),
-        AConfiguration_getSdkVersion(android_app->config),
-        AConfiguration_getScreenSize(android_app->config),
-        AConfiguration_getScreenLong(android_app->config),
-        AConfiguration_getUiModeType(android_app->config),
-        AConfiguration_getUiModeNight(android_app->config));
+         "keys=%d nav=%d keysHid=%d navHid=%d sdk=%d size=%d long=%d "
+         "modetype=%d modenight=%d",
+         AConfiguration_getMcc(android_app->config),
+         AConfiguration_getMnc(android_app->config),
+         lang[0], lang[1], country[0], country[1],
+         AConfiguration_getOrientation(android_app->config),
+         AConfiguration_getTouchscreen(android_app->config),
+         AConfiguration_getDensity(android_app->config),
+         AConfiguration_getKeyboard(android_app->config),
+         AConfiguration_getNavigation(android_app->config),
+         AConfiguration_getKeysHidden(android_app->config),
+         AConfiguration_getNavHidden(android_app->config),
+         AConfiguration_getSdkVersion(android_app->config),
+         AConfiguration_getScreenSize(android_app->config),
+         AConfiguration_getScreenLong(android_app->config),
+         AConfiguration_getUiModeType(android_app->config),
+         AConfiguration_getUiModeNight(android_app->config));
 }
 
 void android_app_pre_exec_cmd(struct android_app* android_app, int8_t cmd) {
 
     switch (cmd) {
-    case APP_CMD_INPUT_CHANGED:
-        LOGV("APP_CMD_INPUT_CHANGED\n");
-        pthread_mutex_lock(&android_app->mutex);
-        if (android_app->inputQueue != NULL) {
-            AInputQueue_detachLooper(android_app->inputQueue);
-        }
-        android_app->inputQueue = android_app->pendingInputQueue;
-        if (android_app->inputQueue != NULL) {
-            LOGV("Attaching input queue to looper");
-            AInputQueue_attachLooper(android_app->inputQueue,
-                android_app->looper, LOOPER_ID_INPUT, NULL,
-                &android_app->inputPollSource);
-        }
-        pthread_cond_broadcast(&android_app->cond);
-        pthread_mutex_unlock(&android_app->mutex);
-        break;
+        case APP_CMD_INPUT_CHANGED:
+            LOGV("APP_CMD_INPUT_CHANGED\n");
+            pthread_mutex_lock(&android_app->mutex);
+            if (android_app->inputQueue != NULL) {
+                AInputQueue_detachLooper(android_app->inputQueue);
+            }
+            android_app->inputQueue = android_app->pendingInputQueue;
+            if (android_app->inputQueue != NULL) {
+                LOGV("Attaching input queue to looper");
+                AInputQueue_attachLooper(android_app->inputQueue,
+                                         android_app->looper, LOOPER_ID_INPUT, NULL,
+                                         &android_app->inputPollSource);
+            }
+            pthread_cond_broadcast(&android_app->cond);
+            pthread_mutex_unlock(&android_app->mutex);
+            break;
 
-    case APP_CMD_INIT_WINDOW:
-        LOGV("APP_CMD_INIT_WINDOW\n");
-        pthread_mutex_lock(&android_app->mutex);
-        android_app->window = android_app->pendingWindow;
-        pthread_cond_broadcast(&android_app->cond);
-        pthread_mutex_unlock(&android_app->mutex);
+        case APP_CMD_INIT_WINDOW:
+            LOGV("APP_CMD_INIT_WINDOW\n");
+            pthread_mutex_lock(&android_app->mutex);
+            android_app->window = android_app->pendingWindow;
+            pthread_cond_broadcast(&android_app->cond);
+            pthread_mutex_unlock(&android_app->mutex);
 
-        break;
+            break;
 
-    case APP_CMD_TERM_WINDOW:
-        LOGV("APP_CMD_TERM_WINDOW\n");
-        pthread_cond_broadcast(&android_app->cond);
-        break;
+        case APP_CMD_TERM_WINDOW:
+            LOGV("APP_CMD_TERM_WINDOW\n");
+            pthread_cond_broadcast(&android_app->cond);
+            break;
 
-    case APP_CMD_RESUME:
-    case APP_CMD_START:
-    case APP_CMD_PAUSE:
-    case APP_CMD_STOP:
-        LOGV("activityState=%d\n", cmd);
-        pthread_mutex_lock(&android_app->mutex);
-        android_app->activityState = cmd;
-        pthread_cond_broadcast(&android_app->cond);
-        pthread_mutex_unlock(&android_app->mutex);
-        break;
+        case APP_CMD_RESUME:
+        case APP_CMD_START:
+        case APP_CMD_PAUSE:
+        case APP_CMD_STOP:
+            LOGV("activityState=%d\n", cmd);
+            pthread_mutex_lock(&android_app->mutex);
+            android_app->activityState = cmd;
+            pthread_cond_broadcast(&android_app->cond);
+            pthread_mutex_unlock(&android_app->mutex);
+            break;
 
-    case APP_CMD_CONFIG_CHANGED:
-        LOGV("APP_CMD_CONFIG_CHANGED\n");
-        AConfiguration_fromAssetManager(android_app->config,
-            android_app->activity->assetManager);
-        print_cur_config(android_app);
-        break;
+        case APP_CMD_CONFIG_CHANGED:
+            LOGV("APP_CMD_CONFIG_CHANGED\n");
+            AConfiguration_fromAssetManager(android_app->config,
+                                            android_app->activity->assetManager);
+            print_cur_config(android_app);
+            break;
 
-    case APP_CMD_DESTROY:
-        LOGV("APP_CMD_DESTROY\n");
-        android_app->destroyRequested = 1;
-        break;
+        case APP_CMD_DESTROY:
+            LOGV("APP_CMD_DESTROY\n");
+            android_app->destroyRequested = 1;
+            break;
     }
 }
 
 void android_app_post_exec_cmd(struct android_app* android_app, int8_t cmd) {
 
     switch (cmd) {
-    case APP_CMD_TERM_WINDOW:
-        LOGV("APP_CMD_TERM_WINDOW\n");
-        pthread_mutex_lock(&android_app->mutex);
-        android_app->window = NULL;
-        pthread_cond_broadcast(&android_app->cond);
-        pthread_mutex_unlock(&android_app->mutex);
-        break;
+        case APP_CMD_TERM_WINDOW:
+            LOGV("APP_CMD_TERM_WINDOW\n");
+            pthread_mutex_lock(&android_app->mutex);
+            android_app->window = NULL;
+            pthread_cond_broadcast(&android_app->cond);
+            pthread_mutex_unlock(&android_app->mutex);
+            break;
 
-    case APP_CMD_SAVE_STATE:
-        LOGV("APP_CMD_SAVE_STATE\n");
-        pthread_mutex_lock(&android_app->mutex);
-        android_app->stateSaved = 1;
-        pthread_cond_broadcast(&android_app->cond);
-        pthread_mutex_unlock(&android_app->mutex);
-        break;
+        case APP_CMD_SAVE_STATE:
+            LOGV("APP_CMD_SAVE_STATE\n");
+            pthread_mutex_lock(&android_app->mutex);
+            android_app->stateSaved = 1;
+            pthread_cond_broadcast(&android_app->cond);
+            pthread_mutex_unlock(&android_app->mutex);
+            break;
 
-    case APP_CMD_RESUME:
-        free_saved_state(android_app);
-        break;
+        case APP_CMD_RESUME:
+            free_saved_state(android_app);
+            break;
     }
 }
 
@@ -8004,7 +7997,7 @@ static void* android_app_entry(void* param) {
     // Prepare our threads to start looping!
     ALooper* looper = ALooper_prepare(ALOOPER_PREPARE_ALLOW_NON_CALLBACKS);
     ALooper_addFd(looper, android_app->msgread, LOOPER_ID_MAIN, ALOOPER_EVENT_INPUT, NULL,
-        &android_app->cmdPollSource);
+                  &android_app->cmdPollSource);
     android_app->looper = looper;
 
     // A few mutexs and broadcasts so we can use these events in the PGE_Mobile engine
@@ -8148,106 +8141,106 @@ namespace olc {
 
         switch (cmd) {
 
-        case APP_CMD_SAVE_STATE:
-        {
-            platform->ptrPGE->pOsEngine.LostFocus = false;
-            platform->ptrPGE->OnSaveStateRequested();
-            // The system has asked us to save our current state.  Do so.
-            engine->app->savedState = malloc(sizeof(struct saved_state));
-            *((struct saved_state*)engine->app->savedState) = engine->state;
-            engine->app->savedStateSize = sizeof(struct saved_state);
-            break;
-        }
-
-        case APP_CMD_RESUME:
-        {
-            platform->ptrPGE->OnRestoreStateRequested();
-        }
-
-        case APP_CMD_INIT_WINDOW:
-        {
-            // The window is being shown, get it ready.
-            if (MyAndroidApp->window != NULL) {
-
-                // it is now safe for the PGE Engine to start!
+            case APP_CMD_SAVE_STATE:
+            {
                 platform->ptrPGE->pOsEngine.LostFocus = false;
-                platform->ptrPGE->pOsEngine.StartPGE = true;
-                platform->ptrPGE->pOsEngine.animating = 1;
-
-
-                platform->ptrPGE->pOsEngine.sensorManager = ASensorManager_getInstance();
-                platform->ptrPGE->pOsEngine.sensorEventQueue = ASensorManager_createEventQueue(platform->ptrPGE->pOsEngine.sensorManager, platform->ptrPGE->pOsEngine.app->looper, LOOPER_ID_USER, NULL, NULL);
-
+                platform->ptrPGE->OnSaveStateRequested();
+                // The system has asked us to save our current state.  Do so.
+                engine->app->savedState = malloc(sizeof(struct saved_state));
+                *((struct saved_state*)engine->app->savedState) = engine->state;
+                engine->app->savedStateSize = sizeof(struct saved_state);
+                break;
             }
-            break;
 
-        }
-
-        case APP_CMD_TERM_WINDOW:
-        {
-            // The window is being hidden or closed, clean it up.
-            //platform->ApplicationCleanUp();
-            //platform->ThreadCleanUp();
-            //renderer->DestroyDevice();
-            //engine_term_display(engine);
-            break;
-        }
-        case APP_CMD_GAINED_FOCUS:
-        {
-            // When our app gains focus, we start monitoring the accelerometer.
-            //if (platform->ptrPGE->pOsEngine.accelerometerSensor != NULL) {
-            //	ASensorEventQueue_enableSensor(platform->ptrPGE->pOsEngine.sensorEventQueue,
-            //		platform->ptrPGE->pOsEngine.accelerometerSensor);
-
-            //	// We'd like to get 60 events per second (in microseconds).
-            //	ASensorEventQueue_setEventRate(platform->ptrPGE->pOsEngine.sensorEventQueue,
-            //		platform->ptrPGE->pOsEngine.accelerometerSensor, (1000L / 60) * 1000);
-            //}
-
-            const ASensor* pASensor = nullptr;
-            uint32_t sampleRate = 0;
-            for (auto& s : platform->ptrPGE->pOsEngine.deviceSensors)
+            case APP_CMD_RESUME:
             {
-                pASensor = std::get<1>(s);
-                sampleRate = std::get<2>(s);
-                ASensorEventQueue_enableSensor(platform->ptrPGE->pOsEngine.sensorEventQueue, pASensor);
-                ASensorEventQueue_setEventRate(platform->ptrPGE->pOsEngine.sensorEventQueue, pASensor, sampleRate);
+                platform->ptrPGE->OnRestoreStateRequested();
             }
 
-
-            if (platform->ptrPGE->pOsEngine.LostFocus)
+            case APP_CMD_INIT_WINDOW:
             {
-                platform->ptrPGE->pOsEngine.animating = 1;
-                platform->ptrPGE->pOsEngine.LostFocus = false;
-                platform->ptrPGE->SetFocused(true);
+                // The window is being shown, get it ready.
+                if (MyAndroidApp->window != NULL) {
+
+                    // it is now safe for the PGE Engine to start!
+                    platform->ptrPGE->pOsEngine.LostFocus = false;
+                    platform->ptrPGE->pOsEngine.StartPGE = true;
+                    platform->ptrPGE->pOsEngine.animating = 1;
+
+                    platform->ptrPGE->pOsEngine.sensorManager = ASensorManager_getInstance();
+                    platform->ptrPGE->pOsEngine.sensorEventQueue = ASensorManager_createEventQueue(platform->ptrPGE->pOsEngine.sensorManager, platform->ptrPGE->pOsEngine.app->looper, LOOPER_ID_USER, NULL, NULL);
+
+                }
+                break;
+
             }
 
-            break;
-        }
-
-        case APP_CMD_LOST_FOCUS:
-        {
-            // When our app loses focus, we stop monitoring the accelerometer.
-            // This is to avoid consuming battery while not being used.
-
-
-            const ASensor* pASensor = nullptr;
-            uint32_t sampleRate = 0;
-            for (auto& s : platform->ptrPGE->pOsEngine.deviceSensors)
+            case APP_CMD_TERM_WINDOW:
             {
-                pASensor = std::get<1>(s);
-                sampleRate = std::get<2>(s);
-                ASensorEventQueue_disableSensor(platform->ptrPGE->pOsEngine.sensorEventQueue, pASensor);
+                // The window is being hidden or closed, clean it up.
+                platform->ptrPGE->OnUserDestroy();
+                //platform->ApplicationCleanUp();
+                //platform->ThreadCleanUp();
+                //renderer->DestroyDevice();
+                //engine_term_display(engine);
+                break;
+            }
+            case APP_CMD_GAINED_FOCUS:
+            {
+                // When our app gains focus, we start monitoring the accelerometer.
+                //if (platform->ptrPGE->pOsEngine.accelerometerSensor != NULL) {
+                //	ASensorEventQueue_enableSensor(platform->ptrPGE->pOsEngine.sensorEventQueue,
+                //		platform->ptrPGE->pOsEngine.accelerometerSensor);
+
+                //	// We'd like to get 60 events per second (in microseconds).
+                //	ASensorEventQueue_setEventRate(platform->ptrPGE->pOsEngine.sensorEventQueue,
+                //		platform->ptrPGE->pOsEngine.accelerometerSensor, (1000L / 60) * 1000);
+                //}
+
+                const ASensor* pASensor = nullptr;
+                uint32_t sampleRate = 0;
+                for (auto& s : platform->ptrPGE->pOsEngine.deviceSensors)
+                {
+                    pASensor = std::get<1>(s);
+                    sampleRate = std::get<2>(s);
+                    ASensorEventQueue_enableSensor(platform->ptrPGE->pOsEngine.sensorEventQueue, pASensor);
+                    ASensorEventQueue_setEventRate(platform->ptrPGE->pOsEngine.sensorEventQueue, pASensor, sampleRate);
+                }
+
+
+                if (platform->ptrPGE->pOsEngine.LostFocus)
+                {
+                    platform->ptrPGE->pOsEngine.animating = 1;
+                    platform->ptrPGE->pOsEngine.LostFocus = false;
+                    platform->ptrPGE->SetFocused(true);
+                }
+
+                break;
             }
 
-            // Also stop animating.
-            platform->ptrPGE->pOsEngine.LostFocus = true;
-            platform->ptrPGE->pOsEngine.animating = 0;
-            platform->ptrPGE->SetFocused(false);
+            case APP_CMD_LOST_FOCUS:
+            {
+                // When our app loses focus, we stop monitoring the accelerometer.
+                // This is to avoid consuming battery while not being used.
 
 
-            break;
-        }
+                const ASensor* pASensor = nullptr;
+                uint32_t sampleRate = 0;
+                for (auto& s : platform->ptrPGE->pOsEngine.deviceSensors)
+                {
+                    pASensor = std::get<1>(s);
+                    sampleRate = std::get<2>(s);
+                    ASensorEventQueue_disableSensor(platform->ptrPGE->pOsEngine.sensorEventQueue, pASensor);
+                }
+
+                // Also stop animating.
+                platform->ptrPGE->pOsEngine.LostFocus = true;
+                platform->ptrPGE->pOsEngine.animating = 0;
+                platform->ptrPGE->SetFocused(false);
+
+
+                break;
+            }
 
         }
     }
@@ -8263,71 +8256,71 @@ namespace olc {
         switch (inputEvent)
         {
 
-        case AINPUT_EVENT_TYPE_KEY:
-        {
-            // Key Event, could  be a keyboard or soft keyboard (touch screen)
-            switch (device)
+            case AINPUT_EVENT_TYPE_KEY:
             {
-            case 769: // Special Case: Used for Android Emulator
-            case AINPUT_SOURCE_KEYBOARD:
-            {
-                int action = AKeyEvent_getAction(event);
-                bool bIsCaptured = true;
-                int32_t testKey = AKeyEvent_getKeyCode(event);
-
-                // We need to allow the OS to take back control of the below events
-                switch (testKey)
+                // Key Event, could  be a keyboard or soft keyboard (touch screen)
+                switch (device)
                 {
-                case (int32_t)olc::CAMERA_BTN:
-                case (int32_t)olc::POWER_BTN:
-                case (int32_t)olc::VOLUME_UP:
-                case (int32_t)olc::VOLUME_DOWN:
-                case (int32_t)olc::VOLUME_MUTE:
-                    bIsCaptured = false;
-                    break;
+                    case 769: // Special Case: Used for Android Emulator
+                    case AINPUT_SOURCE_KEYBOARD:
+                    {
+                        int action = AKeyEvent_getAction(event);
+                        bool bIsCaptured = true;
+                        int32_t testKey = AKeyEvent_getKeyCode(event);
 
-                default:
-                    bIsCaptured = true;
-                    break;
-                }
+                        // We need to allow the OS to take back control of the below events
+                        switch (testKey)
+                        {
+                            case (int32_t)olc::CAMERA_BTN:
+                            case (int32_t)olc::POWER_BTN:
+                            case (int32_t)olc::VOLUME_UP:
+                            case (int32_t)olc::VOLUME_DOWN:
+                            case (int32_t)olc::VOLUME_MUTE:
+                                bIsCaptured = false;
+                                break;
 
-                switch (action)
-                {
-                case AKEY_EVENT_ACTION_DOWN:
-                {
-                    int32_t key = AKeyEvent_getKeyCode(event);
-                    platform->ptrPGE->olc_UpdateKeyState(key, true);
-                    break;
-                }
-                case AKEY_EVENT_ACTION_UP:
-                {
-                    int32_t key = AKeyEvent_getKeyCode(event);
-                    platform->ptrPGE->olc_UpdateKeyState(key, false);
-                    break;
-                }
-                default:
-                    bIsCaptured = false;
-                    break;
-                }
+                            default:
+                                bIsCaptured = true;
+                                break;
+                        }
 
-                return (bIsCaptured) ? CAPTURED : RELEASED;
+                        switch (action)
+                        {
+                            case AKEY_EVENT_ACTION_DOWN:
+                            {
+                                int32_t key = AKeyEvent_getKeyCode(event);
+                                platform->ptrPGE->olc_UpdateKeyState(key, true);
+                                break;
+                            }
+                            case AKEY_EVENT_ACTION_UP:
+                            {
+                                int32_t key = AKeyEvent_getKeyCode(event);
+                                platform->ptrPGE->olc_UpdateKeyState(key, false);
+                                break;
+                            }
+                            default:
+                                bIsCaptured = false;
+                                break;
+                        }
+
+                        return (bIsCaptured) ? CAPTURED : RELEASED;
+
+                    }
+
+                    default:
+                    {
+                        return RELEASED;
+                        break;
+                    }
+
+                }
 
             }
-
-            default:
+            case AINPUT_EVENT_TYPE_MOTION:
             {
-                return RELEASED;
-                break;
-            }
 
-            }
-
-        }
-        case AINPUT_EVENT_TYPE_MOTION:
-        {
-
-            // A little auto to update the touch points if pressed / unpressed
-            auto updateTouchPoints = [&](int pointerIndex, bool touchState, bool movement = false)
+                // A little auto to update the touch points if pressed / unpressed
+                auto updateTouchPoints = [&](int pointerIndex, bool touchState, bool movement = false)
                 {
                     //int32_t pointerId = AMotionEvent_getPointerId(event, pointerIndex);	// Gets the touch pionter device Id
                     int32_t tPosX = AMotionEvent_getX(event, pointerIndex);				// Gets the current x position of this touch point
@@ -8344,110 +8337,128 @@ namespace olc {
                 };
 
 
-            switch (device)
-            {
-                /** Touch Screen, Touchpad **/
-            case AINPUT_SOURCE_TOUCHPAD:
-            case AINPUT_SOURCE_TOUCHSCREEN:
-            {
-
-                size_t count = AMotionEvent_getPointerCount(event);
-                int action = AMotionEvent_getAction(event) & AMOTION_EVENT_ACTION_MASK;
-
-                int32_t index = ((AMotionEvent_getAction(event) & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK) >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT);
-                //int32_t pointerID = AMotionEvent_getPointerId(event, index);
-
-
-                switch (action) {
-
-                case AMOTION_EVENT_ACTION_DOWN:
+                switch (device)
                 {
-                    updateTouchPoints(0, true);
-                    return CAPTURED;
-                    break;
-                }
-
-                case AMOTION_EVENT_ACTION_POINTER_DOWN:
-                {
-
-                    updateTouchPoints(index, true);
-                    return CAPTURED;
-                    break;
-                }
-
-
-                case AMOTION_EVENT_ACTION_UP:
-                {
-                    updateTouchPoints(0, false);
-                    return CAPTURED;
-                    break;
-                }
-
-                case AMOTION_EVENT_ACTION_POINTER_UP:
-                {
-                    updateTouchPoints(index, false);
-                    return CAPTURED;
-                    break;
-                }
-
-                case AMOTION_EVENT_ACTION_MOVE:
-                {
-                    for (int i = 0; i < count; i++)
+                    /** Touch Screen, Touchpad **/
+                    case AINPUT_SOURCE_TOUCHPAD:
+                    case AINPUT_SOURCE_TOUCHSCREEN:
                     {
-                        //If it is moving it is pressed!
-                        updateTouchPoints(i, true, true);
+
+                        size_t count = AMotionEvent_getPointerCount(event);
+                        int action = AMotionEvent_getAction(event) & AMOTION_EVENT_ACTION_MASK;
+
+                        int32_t index = ((AMotionEvent_getAction(event) & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK) >> AMOTION_EVENT_ACTION_POINTER_INDEX_SHIFT);
+                        //int32_t pointerID = AMotionEvent_getPointerId(event, index);
+
+
+                        switch (action) {
+
+                            case AMOTION_EVENT_ACTION_DOWN:
+                            {
+                                updateTouchPoints(0, true);
+                                return CAPTURED;
+                                break;
+                            }
+
+                            case AMOTION_EVENT_ACTION_POINTER_DOWN:
+                            {
+
+                                updateTouchPoints(index, true);
+                                return CAPTURED;
+                                break;
+                            }
+
+
+                            case AMOTION_EVENT_ACTION_UP:
+                            {
+                                updateTouchPoints(0, false);
+                                return CAPTURED;
+                                break;
+                            }
+
+                            case AMOTION_EVENT_ACTION_POINTER_UP:
+                            {
+                                updateTouchPoints(index, false);
+                                return CAPTURED;
+                                break;
+                            }
+
+                            case AMOTION_EVENT_ACTION_MOVE:
+                            {
+                                for (int i = 0; i < count; i++)
+                                {
+                                    //If it is moving it is pressed!
+                                    updateTouchPoints(i, true, true);
+                                }
+
+                                return CAPTURED;
+                                break;
+                            }
+
+
+                        }
+
+
                     }
 
-                    return CAPTURED;
-                    break;
+                    case 20482: // Speical Case: Used for Android Emulator
+                    case AINPUT_SOURCE_STYLUS:
+                    case AINPUT_SOURCE_BLUETOOTH_STYLUS:
+                    case AINPUT_SOURCE_MOUSE:
+                    {
+                        int32_t mPosX = AMotionEvent_getX(event, 0);
+                        int32_t mPosY = AMotionEvent_getY(event, 0);
+                        int action = AMotionEvent_getAction(event) & AMOTION_EVENT_ACTION_MASK;
+                        int button = AMotionEvent_getButtonState(event);
+
+                        platform->ptrPGE->olc_UpdateMouse(mPosX, mPosY);
+
+                        switch (action) {
+                            case AMOTION_EVENT_ACTION_DOWN:
+                                platform->ptrPGE->olc_UpdateMouseState(button, true);
+                                return CAPTURED;
+                                break;
+
+                            case AMOTION_EVENT_ACTION_UP:
+                                platform->ptrPGE->olc_UpdateMouseState(button, false);
+                                return CAPTURED;
+                                break;
+
+                            case AMOTION_EVENT_ACTION_SCROLL:
+                                return CAPTURED;
+                                break;
+
+                            case AMOTION_EVENT_ACTION_MOVE:
+                                return RELEASED;
+                                break;
+                        }
+
+
+                    }
+
+                    case AINPUT_SOURCE_TRACKBALL:
+                    {
+                        // TODO: To be updated in a future release: JG 21-Oct-2023
+                        //  int action = AMotionEvent_getAction(event) & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK;
+                        return RELEASED;
+                    }
+
+                    default:
+                    {
+                        return RELEASED;
+                        break;
+                    }
+
                 }
-
-
-                }
-
 
             }
-
-            case 20482: // Speical Case: Used for Android Emulator
-            case AINPUT_SOURCE_STYLUS:
-            case AINPUT_SOURCE_BLUETOOTH_STYLUS:
-            case AINPUT_SOURCE_MOUSE:
+            case AINPUT_EVENT_TYPE_FOCUS:
+            case AINPUT_EVENT_TYPE_CAPTURE:
+            case AINPUT_EVENT_TYPE_DRAG:
             {
-                int32_t mPosX = AMotionEvent_getX(event, 0);
-                int32_t mPosY = AMotionEvent_getY(event, 0);
-                int action = AMotionEvent_getAction(event) & AMOTION_EVENT_ACTION_MASK;
-                int button = AMotionEvent_getButtonState(event);
-
-                platform->ptrPGE->olc_UpdateMouse(mPosX, mPosY);
-
-                switch (action) {
-                case AMOTION_EVENT_ACTION_DOWN:
-                    platform->ptrPGE->olc_UpdateMouseState(button, true);
-                    return CAPTURED;
-                    break;
-
-                case AMOTION_EVENT_ACTION_UP:
-                    platform->ptrPGE->olc_UpdateMouseState(button, false);
-                    return CAPTURED;
-                    break;
-
-                case AMOTION_EVENT_ACTION_SCROLL:
-                    return CAPTURED;
-                    break;
-
-                case AMOTION_EVENT_ACTION_MOVE:
-                    return RELEASED;
-                    break;
-                }
-
-
-            }
-
-            case AINPUT_SOURCE_TRACKBALL:
-            {
-                // TODO: To be updated in a future release: JG 21-Oct-2023
-                //  int action = AMotionEvent_getAction(event) & AMOTION_EVENT_ACTION_POINTER_INDEX_MASK;
+                // Not supported let the OS deal with it
                 return RELEASED;
+                break;
             }
 
             default:
@@ -8455,24 +8466,6 @@ namespace olc {
                 return RELEASED;
                 break;
             }
-
-            }
-
-        }
-        case AINPUT_EVENT_TYPE_FOCUS:
-        case AINPUT_EVENT_TYPE_CAPTURE:
-        case AINPUT_EVENT_TYPE_DRAG:
-        {
-            // Not supported let the OS deal with it
-            return RELEASED;
-            break;
-        }
-
-        default:
-        {
-            return RELEASED;
-            break;
-        }
 
         }
 
@@ -8556,8 +8549,8 @@ namespace olc {
         struct android_app* android_app = (struct android_app*)activity->instance;
         LOGV("LowMemory: %p\n", activity);
         android_app_write_cmd(android_app, APP_CMD_LOW_MEMORY);
-        // TODO: To be updated in a future release: JG 21-Oct-2023
-        // TODO: we need to manage this somehow
+
+        platform->ptrPGE->OnLowMemoryWarning();
 
     }
 
@@ -8565,7 +8558,7 @@ namespace olc {
     {
         LOGV("WindowFocusChanged: %p -- %d\n", activity, focused);
         android_app_write_cmd((struct android_app*)activity->instance,
-            focused ? APP_CMD_GAINED_FOCUS : APP_CMD_LOST_FOCUS);
+                              focused ? APP_CMD_GAINED_FOCUS : APP_CMD_LOST_FOCUS);
 
         // Yep made it explicit, as focused is an int and I am not taking any chances with Android
         platform->ptrPGE->SetFocused(focused ? true : false);
@@ -8669,6 +8662,7 @@ namespace olc {
             platform->ptrPGE->pOsEngine.animating = 0;
             platform->ptrPGE->pOsEngine.StartPGE = false;
             platform->ptrPGE->SetFocused(false);
+            platform->ptrPGE->OnUserDestroy();
             platform->ptrPGE->olc_Terminate();
             break;
         }
@@ -9012,14 +9006,14 @@ namespace olc {
             //*************************************************************
             const GLchar* strFS =
 #if defined(__arm__) || defined(__aarch64__)
-                "#version 300 es\n"
+                    "#version 300 es\n"
                 "precision mediump float;"
 #else
-                "#version 100 es\n"
-                "precision mediump float;"
-#endif
-                "out vec4 pixel;\n""in vec2 oTex;\n"
-                "in vec4 oCol;\n""uniform sampler2D sprTex;\n""void main(){pixel = texture(sprTex, oTex) * oCol;}";
+                    "#version 100 es\n"
+                    "precision mediump float;"
+                    #endif
+                    "out vec4 pixel;\n""in vec2 oTex;\n"
+                    "in vec4 oCol;\n""uniform sampler2D sprTex;\n""void main(){pixel = texture(sprTex, oTex) * oCol;}";
             locShaderSource(m_nFS, 1, &strFS, NULL);
             locCompileShader(m_nFS);
 
@@ -9027,15 +9021,15 @@ namespace olc {
             m_nVS = locCreateShader(GL_VERTEX_SHADER);
             const GLchar* strVS =
 #if defined(__arm__) || defined(__aarch64__)
-                "#version 300 es\n"
+                    "#version 300 es\n"
                 "precision mediump float;"
 #else
-                "#version 100 es\n"
-                "precision mediump float;"
-#endif
-                "layout(location = 0) in vec3 aPos;\n""layout(location = 1) in vec2 aTex;\n"
-                "layout(location = 2) in vec4 aCol;\n""out vec2 oTex;\n""out vec4 oCol;\n"
-                "void main(){ float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex; oCol = aCol;}";
+                    "#version 100 es\n"
+                    "precision mediump float;"
+                    #endif
+                    "layout(location = 0) in vec3 aPos;\n""layout(location = 1) in vec2 aTex;\n"
+                    "layout(location = 2) in vec4 aCol;\n""out vec2 oTex;\n""out vec4 oCol;\n"
+                    "void main(){ float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex; oCol = aCol;}";
 
             // 12: Configure our Shaders, Buffers, Textures
             locShaderSource(m_nVS, 1, &strVS, NULL);
@@ -9157,25 +9151,25 @@ namespace olc {
             {
                 switch (mode)
                 {
-                case olc::DecalMode::NORMAL:
-                case olc::DecalMode::MODEL3D:
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                    break;
-                case olc::DecalMode::ADDITIVE:
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-                    break;
-                case olc::DecalMode::MULTIPLICATIVE:
-                    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-                    break;
-                case olc::DecalMode::STENCIL:
-                    glBlendFunc(GL_ZERO, GL_SRC_ALPHA);
-                    break;
-                case olc::DecalMode::ILLUMINATE:
-                    glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
-                    break;
-                case olc::DecalMode::WIREFRAME:
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                    break;
+                    case olc::DecalMode::NORMAL:
+                    case olc::DecalMode::MODEL3D:
+                        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                        break;
+                    case olc::DecalMode::ADDITIVE:
+                        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+                        break;
+                    case olc::DecalMode::MULTIPLICATIVE:
+                        glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+                        break;
+                    case olc::DecalMode::STENCIL:
+                        glBlendFunc(GL_ZERO, GL_SRC_ALPHA);
+                        break;
+                    case olc::DecalMode::ILLUMINATE:
+                        glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
+                        break;
+                    case olc::DecalMode::WIREFRAME:
+                        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                        break;
                 }
 
                 nDecalMode = mode;
@@ -9430,19 +9424,19 @@ namespace olc {
 
             // Find a config that suits our needs
             auto config = *std::find_if(
-                supportedConfigs.get(),
-                supportedConfigs.get() + numConfigs,
-                [&display](const EGLConfig& config) {
-                    EGLint red, green, blue, alpha;
-                    if (eglGetConfigAttrib(display, config, EGL_RED_SIZE, &red)
-                        && eglGetConfigAttrib(display, config, EGL_GREEN_SIZE, &green)
-                        && eglGetConfigAttrib(display, config, EGL_BLUE_SIZE, &blue)
-                        && eglGetConfigAttrib(display, config, EGL_ALPHA_SIZE, &alpha)) {
+                    supportedConfigs.get(),
+                    supportedConfigs.get() + numConfigs,
+                    [&display](const EGLConfig& config) {
+                        EGLint red, green, blue, alpha;
+                        if (eglGetConfigAttrib(display, config, EGL_RED_SIZE, &red)
+                            && eglGetConfigAttrib(display, config, EGL_GREEN_SIZE, &green)
+                            && eglGetConfigAttrib(display, config, EGL_BLUE_SIZE, &blue)
+                            && eglGetConfigAttrib(display, config, EGL_ALPHA_SIZE, &alpha)) {
 
-                        return red == 8 && green == 8 && blue == 8 && alpha == 8;
-                    }
-                    return false;
-                });
+                            return red == 8 && green == 8 && blue == 8 && alpha == 8;
+                        }
+                        return false;
+                    });
 
 
             //5: Create a GLES 2.0 context, don't worry 3.0 is backwards compatible with 2.0
@@ -9518,12 +9512,12 @@ namespace olc {
             // TODO: Temp set "#version 200 es\n" as x86_64 simulators do not support OpenGLES 3
             //*************************************************************
             const GLchar* strFS =
-                "#version 300 es\n"
-                "precision mediump float;\n"
-                "out vec4 pixel;\n""in vec2 oTex;\n"
-                "in vec4 oCol;\n"
-                "uniform sampler2D sprTex;\n"
-                "void main(){pixel = texture(sprTex, oTex) * oCol;}";
+                    "#version 300 es\n"
+                    "precision mediump float;\n"
+                    "out vec4 pixel;\n""in vec2 oTex;\n"
+                    "in vec4 oCol;\n"
+                    "uniform sampler2D sprTex;\n"
+                    "void main(){pixel = texture(sprTex, oTex) * oCol;}";
             locShaderSource(m_nFS, m_nShaderSourceCount, &strFS, NULL);
 
             locCompileShader(m_nFS);
@@ -9532,14 +9526,14 @@ namespace olc {
             m_nVS = locCreateShader(GL_VERTEX_SHADER);
             const GLchar* strVS =
 
-                "#version 300 es\n"
-                "precision mediump float;\n"
-                "layout(location = 0) in vec3 aPos;\n"
-                "layout(location = 1) in vec2 aTex;\n"
-                "layout(location = 2) in vec4 aCol;\n"
-                "out vec2 oTex;\n"
-                "out vec4 oCol;\n"
-                "void main(){ float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex; oCol = aCol;}";
+                    "#version 300 es\n"
+                    "precision mediump float;\n"
+                    "layout(location = 0) in vec3 aPos;\n"
+                    "layout(location = 1) in vec2 aTex;\n"
+                    "layout(location = 2) in vec4 aCol;\n"
+                    "out vec2 oTex;\n"
+                    "out vec4 oCol;\n"
+                    "void main(){ float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex; oCol = aCol;}";
 
             // 13: Configure our Shaders, Buffers, Textures
             locShaderSource(m_nVS, m_nShaderSourceCount, &strVS, NULL);
@@ -9906,24 +9900,24 @@ namespace olc {
                 std::string error;
 
                 switch (err) {
-                case GL_INVALID_ENUM:
-                    error = "GL_INVALID_ENUM";
-                    break;
-                case GL_INVALID_VALUE:
-                    error = "GL_INVALID_VALUE";
-                    break;
-                case GL_INVALID_OPERATION:
-                    error = "GL_INVALID_OPERATION";
-                    break;
-                case GL_INVALID_FRAMEBUFFER_OPERATION:
-                    error = "GL_INVALID_FRAMEBUFFER_OPERATION";
-                    break;
-                case GL_OUT_OF_MEMORY:
-                    error = "GL_OUT_OF_MEMORY";
-                    break;
-                default:
-                    error = "(Error: Unknown Error Enum)";
-                    break;
+                    case GL_INVALID_ENUM:
+                        error = "GL_INVALID_ENUM";
+                        break;
+                    case GL_INVALID_VALUE:
+                        error = "GL_INVALID_VALUE";
+                        break;
+                    case GL_INVALID_OPERATION:
+                        error = "GL_INVALID_OPERATION";
+                        break;
+                    case GL_INVALID_FRAMEBUFFER_OPERATION:
+                        error = "GL_INVALID_FRAMEBUFFER_OPERATION";
+                        break;
+                    case GL_OUT_OF_MEMORY:
+                        error = "GL_OUT_OF_MEMORY";
+                        break;
+                    default:
+                        error = "(Error: Unknown Error Enum)";
+                        break;
                 }
 
                 //std::cerr << "GL_" << error.c_str() << " - " << file << ":" << line << std::endl;
@@ -9959,25 +9953,25 @@ namespace olc {
             {
                 switch (mode)
                 {
-                case olc::DecalMode::NORMAL:
-                case olc::DecalMode::MODEL3D:
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                    break;
-                case olc::DecalMode::ADDITIVE:
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE);
-                    break;
-                case olc::DecalMode::MULTIPLICATIVE:
-                    glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
-                    break;
-                case olc::DecalMode::STENCIL:
-                    glBlendFunc(GL_ZERO, GL_SRC_ALPHA);
-                    break;
-                case olc::DecalMode::ILLUMINATE:
-                    glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
-                    break;
-                case olc::DecalMode::WIREFRAME:
-                    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-                    break;
+                    case olc::DecalMode::NORMAL:
+                    case olc::DecalMode::MODEL3D:
+                        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                        break;
+                    case olc::DecalMode::ADDITIVE:
+                        glBlendFunc(GL_SRC_ALPHA, GL_ONE);
+                        break;
+                    case olc::DecalMode::MULTIPLICATIVE:
+                        glBlendFunc(GL_DST_COLOR, GL_ONE_MINUS_SRC_ALPHA);
+                        break;
+                    case olc::DecalMode::STENCIL:
+                        glBlendFunc(GL_ZERO, GL_SRC_ALPHA);
+                        break;
+                    case olc::DecalMode::ILLUMINATE:
+                        glBlendFunc(GL_ONE_MINUS_SRC_ALPHA, GL_SRC_ALPHA);
+                        break;
+                    case olc::DecalMode::WIREFRAME:
+                        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+                        break;
                 }
 
                 nDecalMode = mode;
@@ -10557,10 +10551,10 @@ namespace olc
                 int d = 3 - 2 * radius;
 
                 auto drawline = [&](int sx, int ex, int y)
-                    {
-                        for (int x = sx; x <= ex; x++)
-                            platform->ptrPGE->Draw(x, y, p);
-                    };
+                {
+                    for (int x = sx; x <= ex; x++)
+                        platform->ptrPGE->Draw(x, y, p);
+                };
 
                 while (y0 >= x0)
                 {
@@ -10636,7 +10630,7 @@ namespace olc
                     else t1x += signx1;
                 }
                 // Move line
-            next1:
+                next1:
                 // process second line until y value is about to change
                 while (1) {
                     e2 += dy2;
@@ -10648,7 +10642,7 @@ namespace olc
                     if (changed2)     break;
                     else              t2x += signx2;
                 }
-            next2:
+                next2:
                 if (minx > t1x) minx = t1x;
                 if (minx > t2x) minx = t2x;
                 if (maxx < t1x) maxx = t1x;
@@ -10662,7 +10656,7 @@ namespace olc
                 y += 1;
                 if (y == y2) break;
             }
-        next:
+            next:
             // Second half
             dx1 = (int)(x3 - x2); if (dx1 < 0) { dx1 = -dx1; signx1 = -1; }
             else signx1 = 1;
@@ -10693,7 +10687,7 @@ namespace olc
                     else   	   	  t1x += signx1;
                     if (i < dx1) i++;
                 }
-            next3:
+                next3:
                 // process second line until y value is about to change
                 while (t2x != x3) {
                     e2 += dy2;
@@ -10705,7 +10699,7 @@ namespace olc
                     if (changed2)     break;
                     else              t2x += signx2;
                 }
-            next4:
+                next4:
 
                 if (minx > t1x) minx = t1x;
                 if (minx > t2x) minx = t2x;

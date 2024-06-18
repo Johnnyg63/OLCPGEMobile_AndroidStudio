@@ -1,12 +1,13 @@
 //////////////////////////////////////////////////////////////////
-// Pixel Game Engine Mobile Release 2.2.5,                      //
-// John Galvin aka Johnngy63: 11-May-2024                       //
+// Pixel Game Engine Mobile Release 2.2.8,                      //
+// John Galvin aka Johnngy63: 18-Jun-2024                       //
 // New Support for iOS beta. iOS sensors not supported yet      //
 // Please report all bugs to https://discord.com/invite/WhwHUMV //
 // Or on Github: https://github.com/Johnnyg63					//
 //////////////////////////////////////////////////////////////////
 
 // Set up headers for the different platforms
+#define  __ANDROID__
 #if defined (__ANDROID__)
 
 #include "pch.h"
@@ -223,7 +224,7 @@ public:
         std::string sMessage = "OneLoneCoder.com";
         vecMessages.push_back(sMessage);
 
-        sMessage = "PGE Mobile Release 2.2.5";
+        sMessage = "PGE Mobile Release 2.2.8";
         vecMessages.push_back(sMessage);
 
         sMessage = "Now With iOS Support";
@@ -482,6 +483,14 @@ public:
 
     }
 
+
+    void OnLowMemoryWarning() override
+    {
+        /// NOTE: Fires when the OS is about to close your app due low memory availability
+        /// Use this method to clean up any resources to reduce your memory usage
+        /// If you can reduce your memory usage enough the OS will automatically cancel the application termination event
+
+    }
 };
 
 
