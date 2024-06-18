@@ -250,8 +250,8 @@
     2.24: iOS Beta support. Sensors not supported. Anything you develop for Android will work on the iOS
     2.25: Corrected Fatal signal 11 (SIGSEGV), code 2 (SEGV_ACCERR), fault, forgot to take (subtract) the 1
     2.26: Updated olc_Configure to set OGLES_20 to use SDK 26->33. A big thanks you to @VasCoder for all his testing!!!!
-    2.27: Added OnLowMemoryWarning()
-    2.28: Correct onUserDestroy so that it is not called every frame. A Big thank you to @baderouaich. Also Fixed OnLowMemoryWarning() from version 2.27
+    2.27: Removed mutexTouchPoints from main engine thread, the engine will run as fast as possible now!!!
+    2.28: Correct onUserDestroy so that it is not called every frame. A Big thank you to @baderouaich. Added OnLowMemoryWarning()
 
 */
 #pragma endregion
