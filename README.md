@@ -4,18 +4,27 @@
 <p><b>Supports: Windows, Linux and Apple MAC</b></p>
 <p><b>This project supports Android devices SDK 21 --> 34 and beyond</b> <br/><br/></p>
 <hr/>
-<p><b><i>!!THANK YOU!!!</i></b><br/><br/>
- 	A super big <b><i>THANK YOU</i></b> to <a href='https://github.com/vitoralmeidasilva'>@VasCoder</a> without your testing this would not have been possible!<br/>
-	Another super big <b><i>THANK YOU</i></b> to <a href='https://github.com/baderouaich/'>@baderouaich</a> for fixing the bug with OnUserDestroy()!
+<p><b><i>!!SHOUT OUTS!!</i></b><br/><br/>
+ 	<b><i>THANK YOU</i></b> to <a href='https://github.com/vitoralmeidasilva'>@VasCoder</a> without your testing this would not have been possible!<br/>
+	<b><i>THANK YOU</i></b> to <a href='https://github.com/baderouaich/'>@baderouaich</a> for fixing the bug with OnUserDestroy()!<br/>
+ 	<b><i>THANK YOU</i></b> to <a href='https://github.com/Moros1138'>@Moros1138</a> for <a href='https://pgetinker.com/'>PGETinker</a> Check it out folks!!!<br/>
+  	<b><i>THANK YOU</i></b> to <a href='https://github.com/OneLoneCode'>@Javidx9</a> for... well everything!<br/>
+
 </p>
 <hr/>
 
 
-<p><b>Supports olcPGEX_MiniAudio.h</b><br/><a href="https://github.com/Moros1138/olcPGEX_MiniAudio/">https://github.com/Moros1138/olcPGEX_MiniAudio/</a> thanks @Moros1138</p>
 
 <p><img src='https://github.com/Johnnyg63/OLCPGEMobileAndroidProjectBeta20/assets/96908304/b5e9e72e-73cf-4fe1-ba66-7df31790fce9' /></p>
-<p><i>All in One for Android and iOS <a href='https://github.com/Johnnyg63/OLCPGEMobileVisualStudio'>OLCPGEMobileVisualStudio</a></i><br/>
-xCode version coming soon....</p>
+<hr/>
+<p>For Visual Studio All In One (Android and iOS) Project Template: <a href="https://github.com/Johnnyg63/OLCPGEMobileVisualStudio">OLC Pixel Game Engine Mobile 2.2.8 Visual Studio for Android and iOS</a></i></p>
+<p>For Android Studio (Windows/Linux/MAC) Use this project: <a href="https://github.com/Johnnyg63/OLCPGEMobile_AndroidStudio">OLC Pixel Game Engine Mobile 2.2.8 for Android Studio</a></i></p>
+<p>For Visual Studio Android Only (Windows) Use this project: <a href="https://github.com/Johnnyg63/OLCPGEMobileVisualStudio_Android">OLC Pixel Game Engine Mobile 2.2.8 for Android Visual Studio</a></i></p>
+<p>xCode coming soon</p>
+<hr/>
+
+<p><b>Supports olcPGEX_MiniAudio.h</b><br/><a href="https://github.com/Moros1138/olcPGEX_MiniAudio/">https://github.com/Moros1138/olcPGEX_MiniAudio/</a> thanks @Moros1138</p>
+
 <p><i>OLC Pixel Game Engine Mobile supports PGE 2.0 games created for Windows, Linux and Apple MAC.<br/>Please see:<br/>
   <a href="https://github.com/Johnnyg63/OLCPGEMobileAndroidProjectRelease221/tree/master/Demos">PGE Mobile 2.0 Demos</a><br/>
   <a href="https://github.com/Johnnyg63/OLCPGEMobileAndroidProjectRelease221/tree/master/Extensions">PGE Mobile 2.0 Extension</a><br/></i>
