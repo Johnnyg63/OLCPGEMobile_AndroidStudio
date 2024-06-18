@@ -1,16 +1,21 @@
-# OLC Pixel Game Engine Mobile 2.2.7 for Android Studio
+# OLC Pixel Game Engine Mobile 2.2.8 for Android Studio
 <p><b><i>!!! NOW EVEN FASTER !!!</i></b></p>
 
 <p><b>Supports: Windows, Linux and Apple MAC</b></p>
-<p><b>This project supports Android devices</b><br/> SDK 21 --> 33 and beyond <br>
- A super big <b><i>THANK YOU</i></b> to <a href='https://github.com/vitoralmeidasilva'>@VasCoder</a> without your testing this would not have been possible!
+<p><b>This project supports Android devices SDK 21 --> 34 and beyond</b> <br/><br/></p>
+<hr/>
+<p><b><i>!!THANK YOU!!!</i></b><br/><br/>
+ 	A super big <b><i>THANK YOU</i></b> to <a href='https://github.com/vitoralmeidasilva'>@VasCoder</a> without your testing this would not have been possible!<br/>
+	Another super big <b><i>THANK YOU</i></b> to <a href='https://github.com/baderouaich/'>@baderouaich</a> for fixing the bug with OnUserDestroy()!
 </p>
+<hr/>
 
 
 <p><b>Supports olcPGEX_MiniAudio.h</b><br/><a href="https://github.com/Moros1138/olcPGEX_MiniAudio/">https://github.com/Moros1138/olcPGEX_MiniAudio/</a> thanks @Moros1138</p>
 
 <p><img src='https://github.com/Johnnyg63/OLCPGEMobileAndroidProjectBeta20/assets/96908304/b5e9e72e-73cf-4fe1-ba66-7df31790fce9' /></p>
-<p><i>iOS is under development and will be released ASAP</i></p>
+<p><i>All in One for Android and iOS <a href='https://github.com/Johnnyg63/OLCPGEMobileVisualStudio'>OLCPGEMobileVisualStudio</a></i><br/>
+xCode version coming soon....</p>
 <p><i>OLC Pixel Game Engine Mobile supports PGE 2.0 games created for Windows, Linux and Apple MAC.<br/>Please see:<br/>
   <a href="https://github.com/Johnnyg63/OLCPGEMobileAndroidProjectRelease221/tree/master/Demos">PGE Mobile 2.0 Demos</a><br/>
   <a href="https://github.com/Johnnyg63/OLCPGEMobileAndroidProjectRelease221/tree/master/Extensions">PGE Mobile 2.0 Extension</a><br/></i>
@@ -20,7 +25,7 @@
 <p>To rename this project please see:<br/> Please see: <a href="https://www.delasign.com/blog/android-studio-rename-project/">How to rename an Android Studio Project</a> for steps</p>  
 <p>To use the Project Template please see: <i>currently creating this folks</i> </p>
 
- <p><b>Release 2.2.7 Support Details</b></p>
+ <p><b>Release 2.2.8 Support Details</b></p>
 
 <ul>
   <li>2.01: BETA Port code from olcPixelGameEngine.h to olcPixelGameEngine_mobile.h</li>
@@ -60,6 +65,7 @@
   <li>2.25 Corrected Fatal signal 11 (SIGSEGV), code 2 (SEGV_ACCERR), fault, forgot to take (subtract) the 1</li>
   <li>2.26 Updated olc_Configure to set OGLES_20 to use SDK 26->33. A big thanks you to @VasCoder for all his testing!!!!</li>
   <li>2.27 Removed mutexTouchPoints from main engine thread, the engine will run as fast as possible now!!! </li>
+  <li>2.28 Correct onUserDestroy so that it is not called every frame. A Big thank you to <a href='https://github.com/baderouaich/'>@baderouaich</a>. <br/>Added OnLowMemoryWarning() </li>
 </ul>
 
  
