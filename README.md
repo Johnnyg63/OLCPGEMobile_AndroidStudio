@@ -53,6 +53,27 @@
 <p>For Xcode (MAC) Use this project: <a href="https://github.com/Johnnyg63/OLCPGEMobile_Xcode">OLC Pixel Game Engine Mobile 2.2.8 for Xcode</a></i></p>
 <hr/>
 
+<p><b><i>WE NEED YOUR FEEDBACK PLEASE</i></b></p>
+<hr/>
+<p><i><b>Thank you for cloning the OLC Pixel Game Engine 2.0 Mobile.</b><br/><br/>
+	A tremendous amount of work went into getting this engine to work smoothy with Android and iOS so you can create amazing games.<br/>
+ 	We can see that this repro gets an <b>unbelievable number of unique clones</b>, therefore we want to hear from you!<br/>
+  	Please come visit me and all the volunteers at One Lone Coder and join our community.
+   	<ul>
+		<li>Discord: <a href="https://discord.com/invite/WhwHUMV">One Lone Coder</a></li>
+		<li>YouTube: <a href="https://www.youtube.com/c/javidx9">One Lone Coder</a> </li>
+		<li>Twitch: <a href="https://www.twitch.tv/javidx9">One Lone Coder</a></li>
+		<li>Website: <a href="https://community.onelonecoder.com/">www.onelonecoder.com</a></li>
+		<li>PGETinker: <a href="https://pgetinker.com/">PGETinker.com</a> </li>
+	</ul>
+ <br/>
+ Kind regards<br/>
+ <br/>
+ John (aka Johnnyg63)
+</i></p>
+
+<hr/>
+
 <p><b>Supports olcPGEX_MiniAudio.h</b><br/><a href="https://github.com/Moros1138/olcPGEX_MiniAudio/">https://github.com/Moros1138/olcPGEX_MiniAudio/</a> thanks @Moros1138</p>
 
 <p><i>OLC Pixel Game Engine Mobile supports PGE 2.0 games created for Windows, Linux and Apple MAC.<br/>Please see:<br/>
