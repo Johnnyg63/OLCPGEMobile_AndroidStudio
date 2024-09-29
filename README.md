@@ -76,7 +76,52 @@
 </i></p>
 
 <hr/>
+<p><b><i>!!! Android Studio Installation !!!</i></b></p>
 
+<p><b>If this is your first time using Android Studio ensure you set your Android App Configurations (See Step 5 for more details)</b></p>
+<p>1: Clone or download (Zip) this project to the Android Studio Project Folders<br>
+	<img src='https://github.com/user-attachments/assets/06de05e1-4bf7-46a0-883b-093d3ac0c247' />
+</p>
+
+<p>2: To Clone Open Android Studio and Click the Android Studio button (may contain a project name on your IDE) and select <b>Get from version control</b> <br/>
+<img src='https://github.com/user-attachments/assets/a67147d7-d556-4d4f-b10e-6cec2473bc46' />
+</p>
+
+<p>3: Copy and path the Git URL (see step 1), enter a location for your project and finally click <b>Clone</b> <br/>
+<img src='https://github.com/user-attachments/assets/664fb5ad-51b9-4c92-857c-5f221748cf1f' />
+</p>
+	
+<p>4: Once Cloning is complete, it will take servel minutes for the first auto build to complete. <br/>
+<img src='https://github.com/user-attachments/assets/0c541098-77d3-4507-810e-a129a0cd74bc' />
+</p>
+
+<p>4: Once the build is complete, you will be offerred to update your gradle, it is up to you. If this is your first time using Android Studio, I would not recommend this<br/>
+<img src='https://github.com/user-attachments/assets/f78f5e20-5d86-400b-bafa-98ddae715911' />
+</p>
+
+<p>5: If you have any issues with the build, ensure your Android App Configrutaions. The Project is setup to auto create this for you, however some users have reported issues, <br/>
+	Under Android App, click the <b>+</b> button and select <b>Add New Configruation</b><br/>
+	<img src='https://github.com/user-attachments/assets/3ca91493-bb4c-4b3b-8f48-18840359d9ec' /><br/>
+ 	General:<br/>
+	<img src='https://github.com/user-attachments/assets/6ff46ae9-4852-414c-8214-47775501c4ce' /><br/>
+ 	Miscellaneous:<br/>
+	<img src='https://github.com/user-attachments/assets/8fb7f510-ccb2-4f9f-8feb-3f9954d6344a' /><br/>
+ 	Debugger:<br/>
+	<img src='https://github.com/user-attachments/assets/135f34e3-549e-46c5-acf4-864784d38938' /><br/>
+ 	Profiling:<br/>
+	<img src='https://github.com/user-attachments/assets/3ce9a97a-8d89-4914-88d3-32afcf89b24a' /><br/>
+ 	Click <b>Apply</b>, and the click <b>OK</b><br/>
+</p>
+
+<p>6: Put your Android phone into <a href="https://developer.android.com/studio/debug/dev-options#enable"> Development Mode</a> and enable <a href="https://developer.android.com/studio/debug/dev-options#Enable-debugging">USB Debugging.</a></p> 
+
+<p>7: Select Device Manager --> your Phone --> Click <b>RUN</b> <br/>
+	<img src='https://github.com/user-attachments/assets/24fc16b7-8a36-47e9-ae4c-2ba0edd04ef7' />
+</p>
+
+<p>8: To rename this project Please see: <a href="https://www.delasign.com/blog/android-studio-rename-project/">How to rename an Android Studio Project</a> for steps</p>  
+
+<hr/>
 <p><b>Supports olcPGEX_MiniAudio.h</b><br/><a href="https://github.com/Moros1138/olcPGEX_MiniAudio/">https://github.com/Moros1138/olcPGEX_MiniAudio/</a> thanks @Moros1138</p>
 
 <p><i>OLC Pixel Game Engine Mobile supports PGE 2.0 games created for Windows, Linux and Apple MAC.<br/>Please see:<br/>
@@ -85,7 +130,7 @@
   Accessing assets on the PGE Mobile 2.0 is different to PGE 2.0. Please use the builtin FileManager (see 2.09 support details below)<br/>
   There is also an examples of FileManager usage in most of the demos.
 </p>
-<p>To rename this project please see:<br/> Please see: <a href="https://www.delasign.com/blog/android-studio-rename-project/">How to rename an Android Studio Project</a> for steps</p>  
+
 <p>To use the Project Template please see: <i>currently creating this folks</i> </p>
 
  <p><b>Release 2.2.8 Support Details</b></p>
