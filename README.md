@@ -1,10 +1,11 @@
 # OLC Pixel Game Engine Mobile 2.2.8 for Android Studio
-<p><b><i>!!! NOW EVEN FASTER !!!</i></b></p>
-
 <p>
 	<b>Supports: Windows, Linux and Apple MAC</b><br/>
 	<b>This project supports Android devices SDK 21 --> 34 and beyond</b>
 </p>
+<hr/>
+<p><b>What our users say:</b><br>
+<i>"The main advantages of PGE mobile compared to many other tools are its flexibility with C++, low footprint (the generated APK is truly small), and performance. It’s genuinely the only accessible, easy-to-use mobile programming toolkit in C++ with an expressive and straightforward API (and a genuinely helpful community)."</i></p>
 <hr/>
 <p>For Visual Studio All In One (Android and iOS) Project Template: <a href="https://github.com/Johnnyg63/OLCPGEMobileVisualStudio">OLC Pixel Game Engine Mobile 2.2.8 Visual Studio for Android and iOS</a></i></p>
 <p>For Visual Studio Android Only (Windows) Use this project: <a href="https://github.com/Johnnyg63/OLCPGEMobileVisualStudio_Android">OLC Pixel Game Engine Mobile 2.2.8 for Android Visual Studio</a></i></p>
