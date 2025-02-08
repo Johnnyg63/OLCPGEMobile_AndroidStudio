@@ -9,13 +9,16 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdk 33
-    buildToolsVersion '30.0.3'
+    compileSdk 34
+    buildToolsVersion '34.0.0'
 
     defaultConfig {
 
-        //noinspection ExpiredTargetSdkVersion
-        targetSdk 29
+
+        resourceConfigurations += []
+        applicationId 'com.example.OLCPGEMobileAndroidStudio_Dev'
+        minSdk 28
+        targetSdk 33
         multiDexEnabled true
         ndk.abiFilters 'armeabi-v7a', 'arm64-v8a', 'x86', 'x86_64'
         externalNativeBuild {
@@ -27,8 +30,8 @@ android {
 
     defaultConfig.with {
         applicationId = "com.example.OLCPGEMobileAndroidStudio_Dev"
-        minSdkVersion 21
-        targetSdkVersion 32
+        minSdkVersion 28
+        targetSdkVersion 33
 
     }
 
