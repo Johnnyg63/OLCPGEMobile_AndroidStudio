@@ -5,8 +5,8 @@
     olcPixelGameEngine_Mobile.h
 
     //////////////////////////////////////////////////////////////////
-    // Pixel Game Engine Mobile Release 2.2.8,                      //
-    // John Galvin aka Johnngy63: 18-Jun-2024                       //
+    // Pixel Game Engine Mobile Release 2.2.X,                      //
+    // John Galvin aka Johnngy63: 08-Feb-2025                       //
     // New Support for iOS Beta, iOS sensors not supported yet      //
     // Please report all bugs to https://discord.com/invite/WhwHUMV //
     // Or on Github: https://github.com/Johnnyg63					//
@@ -1887,7 +1887,7 @@ namespace olc {
         /// </summary>
         /// <param name="vStartPos">Start position (x,y)</param>
         /// <param name="vSize">Size (width, height)</param>
-        /// <param name="scale">Scaler (>=1) (Default 1)</param>
+        /// <param name="scale">Scalar (>=1) (Default 1)</param>
         /// <param name="flip">olc::Sprite::NONE.. HORIZ.. VERT; (Default NONE)</param>
         /// <param name="pMergeFromSprite">Used solely for merging of sprites (Default nullptr)</param>
         /// <returns>A pointer to a sprite, nullptr if not exist</returns>
@@ -2096,7 +2096,7 @@ namespace olc {
     public:
         virtual ~Renderer() = default;
         virtual void       PrepareDevice() = 0;
-        virtual olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen, bool bVSYNC, GLsizei nTextureCount = 1) = 0;
+        virtual olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen = true, bool bVSYNC = false, GLsizei nTextureCount = 1) = 0;
         virtual olc::rcode DestroyDevice() = 0;
         virtual void       DisplayFrame() = 0;
         virtual void       PrepareDrawing() = 0;
@@ -3332,7 +3332,7 @@ namespace olc {
         void DrawStringDecal(const olc::vf2d& pos, const std::string& sText, const Pixel col = olc::WHITE, const olc::vf2d& scale = { 1.0f, 1.0f });
 
         /// <summary>
-        /// Draws a multiline propionate string as a decal, with tinting and scaling
+        /// Draws a multiline proportionate string as a decal, with tinting and scaling
         /// </summary>
         /// <param name="pos">Vector Position {x, y}</param>
         /// <param name="sText">Text to be drawn</param>
@@ -3798,9 +3798,9 @@ namespace olc {
         olc::rcode app_LoadFileFromAssets(const std::string& sFilePath, std::vector<char>* outBuffer);
 
         /// <summary>
-        /// Extracts a compressed file from the assests APK to a depcompressed app storage file
+        /// Extracts a compressed file from the assets APK to a depcompressed app storage file
         /// </summary>
-        /// <param name="sAssetFilePath">Full assets file path name excudling the assets dir: Example: "images/test.png" "maps/example1.city"</param>
+        /// <param name="sAssetFilePath">Full assets file path name excluding the assets dir: Example: "images/test.png" "maps/example1.city"</param>
         /// <param name="sAppStorageFilePath">Full app storage path. Use app_GetInternalAppStorage(), app_GetExternalAppStorage() and app_GetPublicAppStorage() to get the storage path</param>
         /// <returns>FAIL = 0, OK = 1, NO_FILE = -1,</returns>
         olc::rcode app_ExtractFileFromAssets(const std::string& sAssetFilePath, const std::string& sAppStorageFilePath);
@@ -6553,8 +6553,8 @@ namespace olc {
         olc::vi2d vSize = GetTextSizeProp("Powered By Pixel Game Engine Mobile 2.2.8");
         DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 2.0f), "Powered By Pixel Game Engine Mobile 2.2.8", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
 
-        vSize = GetTextSizeProp("Copyright OneLoneCoder.com 2024.");
-        DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 3.0f), "Copyright OneLoneCoder.com 2024", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
+        vSize = GetTextSizeProp("Copyright OneLoneCoder.com 2025.");
+        DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 3.0f), "Copyright OneLoneCoder.com 2025", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
 
 
         return true;
@@ -6899,7 +6899,7 @@ namespace olc {
         mutexTouchPoints.lock();
         pTouchNewStateCache[touchPoint] = state;
 
-        if (state == false)
+        if (!state)
         {
             // we need to shift to support MultiTouch
             // Example if there is 3 touch points and point 1 is lifted then
@@ -7226,7 +7226,7 @@ namespace olc {
             }
 
             // Once the engine ready lets go
-            if (renderer->ptrPGE->pOsEngine.StartPGE == true)
+            if (renderer->ptrPGE->pOsEngine.StartPGE)
             {
                 if (!bPrepare)
                 {
@@ -7250,7 +7250,7 @@ namespace olc {
                     }
                     else
                     {
-                        if (renderer->ptrPGE->pOsEngine.LostFocus == false)
+                        if (!renderer->ptrPGE->pOsEngine.LostFocus)
                         {
                             bPrepare = false;
                             renderer->ptrPGE->pOsEngine.StartPGE = false;
@@ -7996,7 +7996,7 @@ static void* android_app_entry(void* param) {
 
     // Prepare our threads to start looping!
     ALooper* looper = ALooper_prepare(ALOOPER_PREPARE_ALLOW_NON_CALLBACKS);
-    ALooper_addFd(looper, android_app->msgread, LOOPER_ID_MAIN, ALOOPER_EVENT_INPUT, NULL,
+    ALooper_addFd(looper, android_app->msgread, LOOPER_ID_MAIN, ALOOPER_EVENT_INPUT, nullptr,
                   &android_app->cmdPollSource);
     android_app->looper = looper;
 
@@ -8020,13 +8020,13 @@ static void* android_app_entry(void* param) {
     // we can destroy the application, otherwise you will have issues trying to run the application
     // later
     android_app_destroy(android_app);
-    return NULL;
+    return nullptr;
 }
 
 /*
     Engine Startup Step 2:
     This creates the android_app object
-    We use this object to commutate with the Android
+    We use this object to communicate with the Android
 */
 static struct android_app* android_app_create(ANativeActivity* activity, void* savedState, size_t savedStateSize) {
 
@@ -8034,20 +8034,20 @@ static struct android_app* android_app_create(ANativeActivity* activity, void* s
     memset(android_app, 0, sizeof(struct android_app));
     android_app->activity = activity;
 
-    pthread_mutex_init(&android_app->mutex, NULL);
-    pthread_cond_init(&android_app->cond, NULL);
+    pthread_mutex_init(&android_app->mutex, nullptr);
+    pthread_cond_init(&android_app->cond, nullptr);
 
-    if (savedState != NULL) {
+    if (savedState != nullptr) {
         android_app->savedState = malloc(savedStateSize);
         android_app->savedStateSize = savedStateSize;
         memcpy(android_app->savedState, savedState, savedStateSize);
     }
 
-    // Message pipes are used to commutate back and forth to the Android OS
+    // Message pipes are used to communicate back and forth to the Android OS
     int msgpipe[2];
     if (pipe(msgpipe)) {
         LOGE("could not create pipe: %s", strerror(errno));
-        return NULL;
+        return nullptr;
     }
     android_app->msgread = msgpipe[0];
     android_app->msgwrite = msgpipe[1];
@@ -8160,7 +8160,7 @@ namespace olc {
             case APP_CMD_INIT_WINDOW:
             {
                 // The window is being shown, get it ready.
-                if (MyAndroidApp->window != NULL) {
+                if (MyAndroidApp->window != nullptr) {
 
                     // it is now safe for the PGE Engine to start!
                     platform->ptrPGE->pOsEngine.LostFocus = false;
@@ -8168,7 +8168,7 @@ namespace olc {
                     platform->ptrPGE->pOsEngine.animating = 1;
 
                     platform->ptrPGE->pOsEngine.sensorManager = ASensorManager_getInstance();
-                    platform->ptrPGE->pOsEngine.sensorEventQueue = ASensorManager_createEventQueue(platform->ptrPGE->pOsEngine.sensorManager, platform->ptrPGE->pOsEngine.app->looper, LOOPER_ID_USER, NULL, NULL);
+                    platform->ptrPGE->pOsEngine.sensorEventQueue = ASensorManager_createEventQueue(platform->ptrPGE->pOsEngine.sensorManager, platform->ptrPGE->pOsEngine.app->looper, LOOPER_ID_USER, nullptr, nullptr);
 
                 }
                 break;
@@ -8500,7 +8500,7 @@ namespace olc {
     void* EventManager::onSaveInstanceState(ANativeActivity* activity, size_t* outLen)
     {
         struct android_app* android_app = (struct android_app*)activity->instance;
-        void* savedState = NULL;
+        void* savedState = nullptr;
 
         LOGV("SaveInstanceState: %p\n", activity);
         pthread_mutex_lock(&android_app->mutex);
@@ -8510,10 +8510,10 @@ namespace olc {
             pthread_cond_wait(&android_app->cond, &android_app->mutex);
         }
 
-        if (android_app->savedState != NULL) {
+        if (android_app->savedState != nullptr) {
             savedState = android_app->savedState;
             *outLen = android_app->savedStateSize;
-            android_app->savedState = NULL;
+            android_app->savedState = nullptr;
             android_app->savedStateSize = 0;
         }
 
@@ -8560,8 +8560,7 @@ namespace olc {
         android_app_write_cmd((struct android_app*)activity->instance,
                               focused ? APP_CMD_GAINED_FOCUS : APP_CMD_LOST_FOCUS);
 
-        // Yep made it explicit, as focused is an int and I am not taking any chances with Android
-        platform->ptrPGE->SetFocused(focused ? true : false);
+        platform->ptrPGE->SetFocused(focused != 0);
 
     }
 
@@ -8574,7 +8573,7 @@ namespace olc {
     void EventManager::onNativeWindowDestroyed(ANativeActivity* activity, ANativeWindow* window)
     {
         LOGV("NativeWindowDestroyed: %p -- %p\n", activity, window);
-        android_app_set_window((struct android_app*)activity->instance, NULL);
+        android_app_set_window((struct android_app*)activity->instance, nullptr);
     }
 
     void EventManager::onInputQueueCreated(ANativeActivity* activity, AInputQueue* queue)
@@ -8586,7 +8585,7 @@ namespace olc {
     void EventManager::onInputQueueDestroyed(ANativeActivity* activity, AInputQueue* queue)
     {
         LOGV("InputQueueDestroyed: %p -- %p\n", activity, queue);
-        android_app_set_input((struct android_app*)activity->instance, NULL);
+        android_app_set_input((struct android_app*)activity->instance, nullptr);
     }
 
 }
@@ -8866,10 +8865,10 @@ namespace olc {
     {
 
     private:
-        EGLDisplay olc_Display;
-        EGLConfig olc_Config;
-        EGLContext olc_Context;
-        EGLSurface olc_Surface;
+        EGLDisplay olc_Display = nullptr;
+        EGLConfig olc_Config = nullptr;
+        EGLContext olc_Context = nullptr;
+        EGLSurface olc_Surface = nullptr;
 
     private:
         locCreateShader_t* locCreateShader = nullptr;
@@ -8899,7 +8898,7 @@ namespace olc {
 
         struct locVertex
         {
-            float pos[3];
+            float pos[3] = {0.0f};
             olc::vf2d tex;
             olc::Pixel col;
         };
@@ -8925,7 +8924,7 @@ namespace olc {
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
         }
 
-        olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen = true, bool bVSYNC = false, GLsizei nTextureCount = 1) override
+        olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen, bool bVSYNC, GLsizei nTextureCount) override
         {
             // This is a heavy going function, but must run in order to ensure the app loads
 
@@ -9014,7 +9013,7 @@ namespace olc {
                     #endif
                     "out vec4 pixel;\n""in vec2 oTex;\n"
                     "in vec4 oCol;\n""uniform sampler2D sprTex;\n""void main(){pixel = texture(sprTex, oTex) * oCol;}";
-            locShaderSource(m_nFS, 1, &strFS, NULL);
+            locShaderSource(m_nFS, 1, &strFS, nullptr);
             locCompileShader(m_nFS);
 
             // 0x8B31 = GL_VERTEX_SHADER
@@ -9032,7 +9031,7 @@ namespace olc {
                     "void main(){ float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex; oCol = aCol;}";
 
             // 12: Configure our Shaders, Buffers, Textures
-            locShaderSource(m_nVS, 1, &strVS, NULL);
+            locShaderSource(m_nVS, 1, &strVS, nullptr);
             locCompileShader(m_nVS);
             m_nQuadShader = locCreateProgram();
             locAttachShader(m_nQuadShader, m_nFS);
@@ -9048,7 +9047,7 @@ namespace olc {
             locVertex verts[OLC_MAX_VERTS];
             // 0x8892 == GL_ARRAY_BUFFER, 0x88E0 == GL_DRAW_STREAM of which is not supported, replaced with 0x88E4 GL_STATIC_DRAW
             locBufferData(GL_ARRAY_BUFFER, sizeof(locVertex) * OLC_MAX_VERTS, verts, GL_STATIC_DRAW);
-            locVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(locVertex), 0); locEnableVertexAttribArray(0);
+            locVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(locVertex), nullptr); locEnableVertexAttribArray(0);
             locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(3 * sizeof(float))); locEnableVertexAttribArray(1);
             locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(5 * sizeof(float)));	locEnableVertexAttribArray(2);
             locBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -9116,7 +9115,7 @@ namespace olc {
         void DisplayFrame() override
         {
 
-            if (olc_Display == NULL)
+            if (olc_Display == nullptr)
             {
                 // Nothing is displaying just return
                 return;
@@ -9139,7 +9138,7 @@ namespace olc {
             locUseProgram(m_nQuadShader);
             locBindVertexArray(m_vaQuad);
 
-            locVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(locVertex), 0); locEnableVertexAttribArray(0);
+            locVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(locVertex), nullptr); locEnableVertexAttribArray(0);
             locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(3 * sizeof(float))); locEnableVertexAttribArray(1);
             locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(5 * sizeof(float)));	locEnableVertexAttribArray(2);
 
@@ -9307,10 +9306,10 @@ namespace olc {
     {
 
     private:
-        EGLDisplay olc_Display;
-        EGLConfig olc_Config;
-        EGLContext olc_Context;
-        EGLSurface olc_Surface;
+        EGLDisplay olc_Display = nullptr;
+        EGLConfig olc_Config = nullptr;
+        EGLContext olc_Context = nullptr;
+        EGLSurface olc_Surface = nullptr;
 
     private:
         locCreateShader_t* locCreateShader = nullptr;
@@ -9359,7 +9358,7 @@ namespace olc {
 
         struct locVertex
         {
-            float pos[3];
+            float pos[3] = {0.0f};
             olc::vf2d tex;
             olc::Pixel col;
         };
@@ -9390,7 +9389,7 @@ namespace olc {
 #if defined (__ANDROID__)
 
 
-        olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen = true, bool bVSYNC = false, GLsizei nTextureCount = 1) override
+        olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen, bool bVSYNC, GLsizei nTextureCount) override
         {
             // This is a heavy going function, but must run in order to ensure the app loads
             //EGLint w, h; // format;
@@ -9518,7 +9517,7 @@ namespace olc {
                     "in vec4 oCol;\n"
                     "uniform sampler2D sprTex;\n"
                     "void main(){pixel = texture(sprTex, oTex) * oCol;}";
-            locShaderSource(m_nFS, m_nShaderSourceCount, &strFS, NULL);
+            locShaderSource(m_nFS, m_nShaderSourceCount, &strFS, nullptr);
 
             locCompileShader(m_nFS);
 
@@ -9536,7 +9535,7 @@ namespace olc {
                     "void main(){ float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex; oCol = aCol;}";
 
             // 13: Configure our Shaders, Buffers, Textures
-            locShaderSource(m_nVS, m_nShaderSourceCount, &strVS, NULL);
+            locShaderSource(m_nVS, m_nShaderSourceCount, &strVS, nullptr);
             locCompileShader(m_nVS);
             m_nQuadShader = locCreateProgram();
             locAttachShader(m_nQuadShader, m_nFS);
@@ -9552,7 +9551,7 @@ namespace olc {
             locVertex verts[OLC_MAX_VERTS];
             // 0x8892 == GL_ARRAY_BUFFER, 0x88E0 == GL_DRAW_STREAM of which is not supported, replaced with 0x88E4 GL_STATIC_DRAW
             locBufferData(GL_ARRAY_BUFFER, sizeof(locVertex) * OLC_MAX_VERTS, verts, GL_STATIC_DRAW);
-            locVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(locVertex), 0); locEnableVertexAttribArray(0);
+            locVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(locVertex), nullptr); locEnableVertexAttribArray(0);
             locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(3 * sizeof(float))); locEnableVertexAttribArray(1);
             locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(5 * sizeof(float)));	locEnableVertexAttribArray(2);
             locBindBuffer(GL_ARRAY_BUFFER, m_vbQuad);
@@ -10219,6 +10218,7 @@ namespace olc
                 {
                     currChunk = remaining;
                 }
+
                 char chunk[currChunk];
 
                 // Read data chunk...
