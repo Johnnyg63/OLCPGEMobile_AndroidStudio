@@ -5,8 +5,8 @@
     olcPixelGameEngine_Mobile.h
 
     //////////////////////////////////////////////////////////////////
-    // Pixel Game Engine Mobile Release 2.2.8,                      //
-    // John Galvin aka Johnngy63: 18-Jun-2024                       //
+    // Pixel Game Engine Mobile Release 2.2.9,                      //
+    // John Galvin aka Johnngy63: 08-Feb-2025                       //
     // New Support for iOS Beta, iOS sensors not supported yet      //
     // Please report all bugs to https://discord.com/invite/WhwHUMV //
     // Or on Github: https://github.com/Johnnyg63					//
@@ -252,6 +252,7 @@
     2.26: Updated olc_Configure to set OGLES_20 to use SDK 26->33. A big thanks you to @VasCoder for all his testing!!!!
     2.27: Removed mutexTouchPoints from main engine thread, the engine will run as fast as possible now!!!
     2.28: Correct onUserDestroy so that it is not called every frame. A Big thank you to @baderouaich. Added OnLowMemoryWarning()
+    2.29: To be updated....
 
 */
 #pragma endregion
@@ -343,7 +344,7 @@ int ios_main(IOSNativeApp* pIOSNatvieApp)
 #define OLC_PGE_DEF
 
 // Production release
-#define PGE_MOB_VER 228
+#define PGE_MOB_VER 229
 
 // O------------------------------------------------------------------------------O
 // | COMPILER CONFIGURATION ODDITIES                                              |
@@ -6550,11 +6551,11 @@ namespace olc {
                 DrawPartialDecal(vScaleCR * vBoomCR[y * sprCR.Sprite()->width + x].first * 2.0f, sprCR.Decal(), olc::vf2d(x, y), { 1, 1 }, vScaleCR * 2.0f, olc::PixelF(1.0f, 1.0f, 1.0f, std::min(1.0f, std::max(4.0f - fParticleTimeCR, 0.0f))));
             }
 
-        olc::vi2d vSize = GetTextSizeProp("Powered By Pixel Game Engine Mobile 2.2.8");
-        DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 2.0f), "Powered By Pixel Game Engine Mobile 2.2.8", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
+        olc::vi2d vSize = GetTextSizeProp("Powered By Pixel Game Engine Mobile 2.2.X");
+        DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 2.0f), "Powered By Pixel Game Engine Mobile 2.2.X", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
 
-        vSize = GetTextSizeProp("Copyright OneLoneCoder.com 2024.");
-        DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 3.0f), "Copyright OneLoneCoder.com 2024", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
+        vSize = GetTextSizeProp("Copyright OneLoneCoder.com 2025.");
+        DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 3.0f), "Copyright OneLoneCoder.com 2025", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
 
 
         return true;
