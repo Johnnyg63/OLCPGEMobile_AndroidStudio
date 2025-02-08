@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-public class OLCPGEMobileAndroidStudio extends Activity
+public class OLCPGEMobileAndroidStudio_Dev extends Activity
 {
     /** Called when the activity is first created. */
     @Override
@@ -12,9 +12,9 @@ public class OLCPGEMobileAndroidStudio extends Activity
     {
         super.onCreate(savedInstanceState);
 
-        /* Create a TextView and set its text to "PGE Mobile Release 2.2.5" */
+        /* Create a TextView and set its text to "PGE Mobile Release 2.2.x" */
         TextView tv = new TextView(this);
-        tv.setText("PGE Mobile Release 2.2.5");
+        tv.setText(R.string.pge_mobile_release_X_X_X);
         setContentView(tv);
     }
 }

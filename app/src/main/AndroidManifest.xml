@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:versionCode="1"
 android:versionName="1.0">
 <application
-    android:allowBackup="false"
-    android:label="@string/app_name">
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round">
     <activity
         android:name="android.app.NativeActivity"
         android:allowEmbedded="true"
         android:exported="true"
-        android:label="@string/app_name"
-        android:screenOrientation="landscape">
+        android:screenOrientation="landscape"
+        tools:ignore="DiscouragedApi">
 
         <meta-data android:name="android.app.lib_name"
             android:value="OLCPGEMobileAndroidStudio" />

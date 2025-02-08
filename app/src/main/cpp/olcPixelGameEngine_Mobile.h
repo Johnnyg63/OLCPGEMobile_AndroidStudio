@@ -6900,7 +6900,7 @@ namespace olc {
         mutexTouchPoints.lock();
         pTouchNewStateCache[touchPoint] = state;
 
-        if (state == false)
+        if (!state)
         {
             // we need to shift to support MultiTouch
             // Example if there is 3 touch points and point 1 is lifted then
@@ -7227,7 +7227,7 @@ namespace olc {
             }
 
             // Once the engine ready lets go
-            if (renderer->ptrPGE->pOsEngine.StartPGE == true)
+            if (renderer->ptrPGE->pOsEngine.StartPGE)
             {
                 if (!bPrepare)
                 {
@@ -7251,7 +7251,7 @@ namespace olc {
                     }
                     else
                     {
-                        if (renderer->ptrPGE->pOsEngine.LostFocus == false)
+                        if (!renderer->ptrPGE->pOsEngine.LostFocus)
                         {
                             bPrepare = false;
                             renderer->ptrPGE->pOsEngine.StartPGE = false;
@@ -8561,8 +8561,7 @@ namespace olc {
         android_app_write_cmd((struct android_app*)activity->instance,
                               focused ? APP_CMD_GAINED_FOCUS : APP_CMD_LOST_FOCUS);
 
-        // Yep made it explicit, as focused is an int and I am not taking any chances with Android
-        platform->ptrPGE->SetFocused(focused ? true : false);
+        platform->ptrPGE->SetFocused(focused != 0);
 
     }
 
