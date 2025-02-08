@@ -8,7 +8,7 @@ cmake_minimum_required(VERSION 3.22.1)
 
 # Declares and names the project.
 
-project("OLCPGEMobileAndroidStudio")
+project("OLCPGEMobileAndroidStudio_Dev")
 
 # Creates and names a library, sets it as either STATIC
 # or SHARED, and provides the relative paths to its source code.
@@ -16,7 +16,7 @@ project("OLCPGEMobileAndroidStudio")
 # Gradle automatically packages shared libraries with your APK.
 
 add_library( # Sets the name of the library.
-        OLCPGEMobileAndroidStudio
+        OLCPGEMobileAndroidStudio_Dev
 
         # Sets the library as a shared library.
         SHARED
@@ -49,7 +49,7 @@ find_library(EGL EGL)
 # build script, prebuilt third-party libraries, or system libraries.
 
 target_link_libraries( # Specifies the target library.
-        OLCPGEMobileAndroidStudio
+        OLCPGEMobileAndroidStudio_Dev
 
         # Links the target library to the log library
         # included in the NDK.

@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">OLCPGEMobileAndroidStudio</string>
+    <string name="app_name">OLCPGEMobileAndroidStudio_Dev</string>
     <string name="pge_mobile_release_X_X_X">PGE Mobile Release 2.2.x</string>
+    <string name="jamtarts">jamtarts</string>
 </resources>

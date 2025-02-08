@@ -1,8 +1,11 @@
-package com.example.OLCPGEMobileAndroidStudio;
+package com.example.OLCPGEMobileAndroidStudio_Dev;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
+
+/* Uncomment below if R.string.??? from the string.xml is giving you grief
+/* import com.example.OLCPGEMobileAndroidStudio_Dev.R; */
 
 public class OLCPGEMobileAndroidStudio_Dev extends Activity
 {
@@ -14,7 +17,7 @@ public class OLCPGEMobileAndroidStudio_Dev extends Activity
 
         /* Create a TextView and set its text to "PGE Mobile Release 2.2.x" */
         TextView tv = new TextView(this);
-        tv.setText(R.string.pge_mobile_release_X_X_X);
+        tv.setText(R.string.jamtarts);
         setContentView(tv);
     }
 }

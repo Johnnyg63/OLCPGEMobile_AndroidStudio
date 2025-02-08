@@ -1,5 +1,5 @@
 //////////////////////////////////////////////////////////////////
-// Pixel Game Engine Mobile 2.2.2,                              //
+// Pixel Game Engine Mobile 2.2.x,                              //
 // John Galvin aka Johnngy63: 14-Nov-2023                       //
 // Full production release                                      //
 // Please report all bugs to https://discord.com/invite/WhwHUMV //
@@ -28,6 +28,6 @@ allprojects {
     }
 }
 
-task clean(type: Delete) {
+tasks.register('clean', Delete) {
     delete rootProject.buildDir
 }

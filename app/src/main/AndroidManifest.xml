@@ -16,7 +16,7 @@ android:versionName="1.0">
         tools:ignore="DiscouragedApi">
 
         <meta-data android:name="android.app.lib_name"
-            android:value="OLCPGEMobileAndroidStudio" />
+            android:value="OLCPGEMobileAndroidStudio_Dev" />
 
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
