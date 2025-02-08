@@ -107,7 +107,7 @@ struct android_poll_source {
     // LOOPER_ID_INPUT.
     int32_t id;
 
-    // The android_app this ident is associated with.
+    // The android_app this identity is associated with.
     struct android_app* app;
 
     // Function to call to perform the standard processing of data from

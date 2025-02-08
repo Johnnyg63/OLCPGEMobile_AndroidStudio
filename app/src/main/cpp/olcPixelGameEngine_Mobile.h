@@ -5,7 +5,7 @@
     olcPixelGameEngine_Mobile.h
 
     //////////////////////////////////////////////////////////////////
-    // Pixel Game Engine Mobile Release 2.2.9,                      //
+    // Pixel Game Engine Mobile Release 2.2.X,                      //
     // John Galvin aka Johnngy63: 08-Feb-2025                       //
     // New Support for iOS Beta, iOS sensors not supported yet      //
     // Please report all bugs to https://discord.com/invite/WhwHUMV //

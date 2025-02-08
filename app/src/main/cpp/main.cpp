@@ -1,13 +1,13 @@
 //////////////////////////////////////////////////////////////////
-// Pixel Game Engine Mobile Release 2.2.8,                      //
-// John Galvin aka Johnngy63: 18-Jun-2024                       //
+// Pixel Game Engine Mobile Release 2.2.X,                      //
+// John Galvin aka Johnngy63: 08-Jan-2025                       //
 // New Support for iOS beta. iOS sensors not supported yet      //
 // Please report all bugs to https://discord.com/invite/WhwHUMV //
 // Or on Github: https://github.com/Johnnyg63					//
 //////////////////////////////////////////////////////////////////
 
 // Set up headers for the different platforms
-#define  __ANDROID__
+// #define  __ANDROID__
 #if defined (__ANDROID__)
 
 #include "pch.h"
@@ -37,7 +37,7 @@
 #define OLC_PGEX_MINIAUDIO
 #include "olcPGEX_MiniAudio.h"  // Checkout https://github.com/Moros1138/olcPGEX_MiniAudio Thanks Moros1138
 
-#include <fstream> // Used for saving the savestate to a file
+#include <fstream> // Used for saving the save state to a file
 
 /// <summary>
 /// To ensure proper cross platform support keep the class name as PGE_Mobile
@@ -93,7 +93,7 @@ public:
     //Example Save State Struct and Vector for when your app is paused
     struct MySaveState {
         std::string key;
-        int value;
+        int value = 0;
     };
 
     std::vector<MySaveState> vecLastState;
@@ -127,7 +127,6 @@ public:
         switch (fileRes) {
 
         case olc::rcode::NO_FILE:
-        { break; }
         case olc::rcode::FAIL:
         { break; }
         case olc::rcode::OK:
@@ -157,7 +156,6 @@ public:
         switch (fileRes) {
 
         case olc::rcode::NO_FILE:
-        { break; }
         case olc::rcode::FAIL:
         { break; }
         case olc::rcode::OK:
@@ -190,9 +188,9 @@ public:
     /// Draws a Target Pointer at the center position of Center Point
     /// </summary>
     /// <param name="vCenterPoint">Center Position of the target</param>
-    /// <param name="nLineLenght">Length of lines</param>
-    /// <param name="nCircleRadus">Center Circle radius</param>
-    void DrawTargetPointer(olc::vi2d vCenterPoint, int32_t nLineLenght, int32_t nCircleRadus, olc::Pixel p = olc::WHITE)
+    /// <param name="nLineLength">Length of lines</param>
+    /// <param name="nCircleRadius">Center Circle radius</param>
+    void DrawTargetPointer(const olc::vi2d& vCenterPoint, int32_t nLineLength, int32_t nCircleRadius, olc::Pixel p = olc::WHITE)
     {
         /*
                         |
@@ -203,11 +201,11 @@ public:
 
 
         */
-        FillCircle(vCenterPoint, nCircleRadus, p);
-        DrawLine(vCenterPoint, { vCenterPoint.x, vCenterPoint.y + nLineLenght }, p);
-        DrawLine(vCenterPoint, { vCenterPoint.x, vCenterPoint.y - nLineLenght }, p);
-        DrawLine(vCenterPoint, { vCenterPoint.x + nLineLenght, vCenterPoint.y }, p);
-        DrawLine(vCenterPoint, { vCenterPoint.x - nLineLenght, vCenterPoint.y }, p);
+        FillCircle(vCenterPoint, nCircleRadius, p);
+        DrawLine(vCenterPoint, { vCenterPoint.x, vCenterPoint.y + nLineLength }, p);
+        DrawLine(vCenterPoint, { vCenterPoint.x, vCenterPoint.y - nLineLength }, p);
+        DrawLine(vCenterPoint, { vCenterPoint.x + nLineLength, vCenterPoint.y }, p);
+        DrawLine(vCenterPoint, { vCenterPoint.x - nLineLength, vCenterPoint.y }, p);
 
     }
 
@@ -217,7 +215,7 @@ public:
 
         Clear(olc::BLUE);
 
-        nFrameCount = GetFPS();
+        nFrameCount = (int32_t)GetFPS();
 
         std::string sLineBreak = "-------------------------";
 
@@ -305,7 +303,7 @@ public:
 
         olc::vi2d touchPos;
         // The more touch points the harder to manage
-        for (int i = 1; i < 5; i++)
+        for (int8_t i = 1; i < 5; i++)
         {
             if (GetTouch(i).bHeld)
             {
