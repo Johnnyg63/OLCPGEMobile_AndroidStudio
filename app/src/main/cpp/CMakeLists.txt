@@ -1,10 +1,16 @@
-# Pixel Game Engine Mobile 2.2.2
+# Pixel Game Engine Mobile 2.2.x
 # For more information about using CMake with Android Studio, read the
 # documentation: https://d.android.com/studio/projects/add-native-code.html
 
 # Sets the minimum version of CMake required to build the native library.
 
 cmake_minimum_required(VERSION 3.22.1)
+
+# C++ options NOTE: it is best to add
+add_compile_options(-O3) # Set optimization level
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ftree-vectorize")
+# set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -ftree-vectorize")
+
 
 # Declares and names the project.
 
@@ -59,3 +65,5 @@ target_link_libraries( # Specifies the target library.
         ${GLESv3}
         ${EGL}
         ${OpenSLES})
+
+
