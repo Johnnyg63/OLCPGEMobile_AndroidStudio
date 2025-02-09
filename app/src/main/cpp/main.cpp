@@ -222,7 +222,7 @@ public:
         std::string sMessage = "OneLoneCoder.com";
         vecMessages.push_back(sMessage);
 
-        sMessage = "PGE Mobile Release 2.2.8";
+        sMessage = "PGE Mobile Release 2.2.X";
         vecMessages.push_back(sMessage);
 
         sMessage = "Now With iOS Support";
@@ -278,23 +278,23 @@ public:
         DrawTargetPointer(centreScreenPos, 50, 10);
 
         // Get the default touch point
-        // This is alway Index 0 and first touch piont
-        olc::vi2d defautTouchPos = GetTouchPos();
-        std::string defautTouch = "Default Touch 0:  X: " + std::to_string(defautTouchPos.x) + " Y: " + std::to_string(defautTouchPos.y);
-        vecMessages.push_back(defautTouch);
+        // This is always Index 0 and first touch point
+        olc::vi2d defaultTouchPos = GetTouchPos();
+        std::string defaultTouch = "Default Touch 0:  X: " + std::to_string(defaultTouchPos.x) + " Y: " + std::to_string(defaultTouchPos.y);
+        vecMessages.push_back(defaultTouch);
 
         if (GetTouch().bHeld)
         {
-            DrawLine(centreScreenPos, defautTouchPos, olc::YELLOW, 0xF0F0F0F0);
-            DrawTargetPointer(defautTouchPos, 50, 10, olc::YELLOW);
+            DrawLine(centreScreenPos, defaultTouchPos, olc::YELLOW, 0xF0F0F0F0);
+            DrawTargetPointer(defaultTouchPos, 50, 10, olc::YELLOW);
         }
 
         /*
             You asked for Multi-touch... you got it!
             You can support up to 126 touch points, however most phones and tablets can only handle 5
 
-            As always with touch sensors it is an approxmaite and alway will be
-            I would recommand no more that 3 points
+            As always with touch sensors it is an approximate and always will be
+            I would recommend no more that 3 points
 
             When you are using lots of touch points it is best to run ClearTouchPoints();
             every so often to ensure lost touch points are cleared
