@@ -1,4 +1,8 @@
-# OLC Pixel Game Engine Mobile 2.2.x for Android Studio
+# OLC Pixel Game Engine Mobile 2.2.9 for Android Studio
+<p>
+	<b>Now with 3D Support</b><br/>
+	<b>See <a href="https://github.com/Johnnyg63/PGEMob3DMountains_AS/">3D Demo Here</a></b>
+</p>
 <p>
 	<b>Supports: Windows, Linux and Apple MAC</b><br/>
 	<b>This project supports Android devices SDK 21 --> 34 and beyond</b>
@@ -177,6 +181,19 @@ The <b><i>OLC Pixel Game Engine Mobile Edition </i></b>is a feature-rich fork of
   <li>2.26 Updated olc_Configure to set OGLES_20 to use SDK 26->33. A big thanks you to @VasCoder for all his testing!!!!</li>
   <li>2.27 Removed mutexTouchPoints from main engine thread, the engine will run as fast as possible now!!! </li>
   <li>2.28 Correct onUserDestroy so that it is not called every frame. A Big thank you to <a href='https://github.com/baderouaich/'>@baderouaich</a>. <br/>Added OnLowMemoryWarning() </li>
+  <li>2.29: Brought olc::v_2d inline with other sources <br>
+ 	      Hardware 3D Rendering & Efficient Keyboard Interrogation <br>
+		  +HW3D_Projection() - Sets a hardware projection matrix for 3D rendering <br>
+		  +HW3D_EnableDepthTest - Sets whether 3D rendered objects should be depth tested <br>
+		  +HW3D_SetCullMode - Sets which faces of a 3D rendered model are visible <br>
+		  +HW3D_DrawObject - Draw a 3D mesh using hardware <br>
+		  +HW3D_DrawLine - Draw a 3D line using hardware <br>
+		  +HW3D_DrawLineBox	- Draw a 3D box using hardware <br>
+		  +adv_FlushLayerGPUTasks - [ADVANCED] Prematurely drain GPUTasks for immediate buffer update <br>
+		  Added polylines as drawable decal	structures <br>
+		  Updated Geometry2D to support non-segment line intersections <br>
+		  +olcUTIL_Hardware3D.h file v1.01 <br>
+		  NOTICE OF DEPRECATION! olc::DecalInstance is to be removed and replaced by olc::GPUTask </li>
 </ul>
 
  

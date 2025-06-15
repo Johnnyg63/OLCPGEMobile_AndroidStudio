@@ -190,9 +190,9 @@ public:
     /// Draws a Target Pointer at the center position of Center Point
     /// </summary>
     /// <param name="vCenterPoint">Center Position of the target</param>
-    /// <param name="nLineLenght">Length of lines</param>
-    /// <param name="nCircleRadus">Center Circle radius</param>
-    void DrawTargetPointer(olc::vi2d vCenterPoint, int32_t nLineLenght, int32_t nCircleRadus, olc::Pixel p = olc::WHITE)
+    /// <param name="nLineLength">Length of lines</param>
+    /// <param name="nCircleRadius">Center Circle radius</param>
+    void DrawTargetPointer(olc::vi2d vCenterPoint, int32_t nLineLength, int32_t nCircleRadius, olc::Pixel p = olc::WHITE)
     {
         /*
                         |
@@ -203,11 +203,11 @@ public:
 
 
         */
-        FillCircle(vCenterPoint, nCircleRadus, p);
-        DrawLine(vCenterPoint, { vCenterPoint.x, vCenterPoint.y + nLineLenght }, p);
-        DrawLine(vCenterPoint, { vCenterPoint.x, vCenterPoint.y - nLineLenght }, p);
-        DrawLine(vCenterPoint, { vCenterPoint.x + nLineLenght, vCenterPoint.y }, p);
-        DrawLine(vCenterPoint, { vCenterPoint.x - nLineLenght, vCenterPoint.y }, p);
+        FillCircle(vCenterPoint, nCircleRadius, p);
+        DrawLine(vCenterPoint, { vCenterPoint.x, vCenterPoint.y + nLineLength }, p);
+        DrawLine(vCenterPoint, { vCenterPoint.x, vCenterPoint.y - nLineLength }, p);
+        DrawLine(vCenterPoint, {vCenterPoint.x + nLineLength, vCenterPoint.y }, p);
+        DrawLine(vCenterPoint, {vCenterPoint.x - nLineLength, vCenterPoint.y }, p);
 
     }
 
@@ -224,10 +224,10 @@ public:
         std::string sMessage = "OneLoneCoder.com";
         vecMessages.push_back(sMessage);
 
-        sMessage = "PGE Mobile Release 2.2.8";
+        sMessage = "PGE Mobile Release 2.2.9";
         vecMessages.push_back(sMessage);
 
-        sMessage = "Now With iOS Support";
+        sMessage = "Now With 3D Support";
         vecMessages.push_back(sMessage);
 
         sMessage = "NOTE: Android FPS = CPU FPS, iOS = GPU FPS";
@@ -280,23 +280,23 @@ public:
         DrawTargetPointer(centreScreenPos, 50, 10);
 
         // Get the default touch point
-        // This is alway Index 0 and first touch piont
-        olc::vi2d defautTouchPos = GetTouchPos();
-        std::string defautTouch = "Default Touch 0:  X: " + std::to_string(defautTouchPos.x) + " Y: " + std::to_string(defautTouchPos.y);
-        vecMessages.push_back(defautTouch);
+        // This is always Index 0 and first touch point
+        olc::vi2d defaultTouchPost = GetTouchPos();
+        std::string defaultTouch = "Default Touch 0:  X: " + std::to_string(defaultTouchPost.x) + " Y: " + std::to_string(defaultTouchPost.y);
+        vecMessages.push_back(defaultTouch);
 
         if (GetTouch().bHeld)
         {
-            DrawLine(centreScreenPos, defautTouchPos, olc::YELLOW, 0xF0F0F0F0);
-            DrawTargetPointer(defautTouchPos, 50, 10, olc::YELLOW);
+            DrawLine(centreScreenPos, defaultTouchPost, olc::YELLOW, 0xF0F0F0F0);
+            DrawTargetPointer(defaultTouchPost, 50, 10, olc::YELLOW);
         }
 
         /*
             You asked for Multi-touch... you got it!
             You can support up to 126 touch points, however most phones and tablets can only handle 5
 
-            As always with touch sensors it is an approxmaite and alway will be
-            I would recommand no more that 3 points
+            As always with touch sensors it is an approximate and always will be
+            I would recommend no more that 3 points
 
             When you are using lots of touch points it is best to run ClearTouchPoints();
             every so often to ensure lost touch points are cleared

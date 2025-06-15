@@ -2,256 +2,274 @@
 #pragma GCC diagnostic ignored "-Wunknown-pragmas"
 #pragma region license_and_help
 /*
-    olcPixelGameEngine_Mobile.h
+	olcPixelGameEngine_Mobile.h
 
-    //////////////////////////////////////////////////////////////////
-    // Pixel Game Engine Mobile Release 2.2.X,                      //
-    // John Galvin aka Johnngy63: 08-Feb-2025                       //
-    // New Support for iOS Beta, iOS sensors not supported yet      //
-    // Please report all bugs to https://discord.com/invite/WhwHUMV //
-    // Or on Github: https://github.com/Johnnyg63					//
-    //////////////////////////////////////////////////////////////////
+	//////////////////////////////////////////////////////////////////
+	// Pixel Game Engine Mobile Release 2.2.9,                      //
+	// John Galvin aka Johnngy63: 15-Jun-2025                       //
+	// New Support for 3D, iOS sensors not supported yet            //
+	// Please report all bugs to https://discord.com/invite/WhwHUMV //
+	// Or on Github: https://github.com/Johnnyg63					//
+	//////////////////////////////////////////////////////////////////
 
-    +-------------------------------------------------------------+
-    |           OneLoneCoder Pixel Game Engine Mobile v2.00       |
-    |  "What do you need? Pixels... Lots of Pixels..." - javidx9
-    |	"Well now you have those pixels on Android/iOS" - Johnngy63
-    +-------------------------------------------------------------+
+	+-------------------------------------------------------------+
+	|           OneLoneCoder Pixel Game Engine Mobile v2.29       |
+	|  "What do you need? Pixels... Lots of Pixels..." - javidx9  |
+	| "Well now you have those pixels on Android/iOS" - Johnngy63 |
+	+-------------------------------------------------------------+
 
-    What is this?
-    ~~~~~~~~~~~~~
-    olc::PixelGameEngine is a single file, cross platform graphics and user-input
-    framework used for games, visualisations, algorithm exploration and learning.
-    It was developed by YouTuber "javidx9" as an assistive tool for many of his
-    videos. The goal of this project is to provide high speed graphics with
-    minimal project setup complexity, to encourage new programmers, younger people,
-    and anyone else that wants to make fun things.
+	What is this?
+	~~~~~~~~~~~~~
+	olc::PixelGameEngine is a single file, cross platform graphics and user-input
+	framework used for games, visualisations, algorithm exploration and learning.
+	It was developed by YouTuber "javidx9" as an assistive tool for many of his
+	videos. The goal of this project is to provide high speed graphics with
+	minimal project setup complexity, to encourage new programmers, younger people,
+	and anyone else that wants to make fun things.
 
-    However, olc::PixelGameEngine is not a toy! It is a powerful and fast utility
-    capable of delivering high resolution, high speed, high quality applications
-    which behave the same way regardless of the operating system or platform.
+	However, olc::PixelGameEngine is not a toy! It is a powerful and fast utility
+	capable of delivering high resolution, high speed, high quality applications
+	which behave the same way regardless of the operating system or platform.
 
-    This file provides the core utility set of the olc::PixelGameEngine, including
-    window creation, keyboard/mouse input, main game thread, timing, pixel drawing
-    routines, image/sprite loading and drawing routines, and a bunch of utility
-    types to make rapid development of games/visualisations possible.
-
-
-    License (OLC-3)
-    ~~~~~~~~~~~~~~~
-
-    Copyright 2018 - 2023 OneLoneCoder.com
-
-    Redistribution and use in source and binary forms, with or without modification,
-    are permitted provided that the following conditions are met:
-
-    1. Redistributions or derivations of source code must retain the above copyright
-    notice, this list of conditions and the following disclaimer.
-
-    2. Redistributions or derivative works in binary form must reproduce the above
-    copyright notice. This list of conditions and the following	disclaimer must be
-    reproduced in the documentation and/or other materials provided with the distribution.
-
-    3. Neither the name of the copyright holder nor the names of its contributors may
-    be used to endorse or promote products derived from this software without specific
-    prior written permission.
-
-    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS	"AS IS" AND ANY
-    EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
-    OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
-    SHALL THE COPYRIGHT	HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
-    INCIDENTAL,	SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
-    TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
-    BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
-    CONTRACT, STRICT LIABILITY, OR TORT	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
-    ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-    SUCH DAMAGE.
-
-    Links
-    ~~~~~
-    YouTube:	https://www.youtube.com/javidx9
-                https://www.youtube.com/javidx9extra
-    Discord:	https://discord.gg/WhwHUMV
-    Twitter:	https://www.twitter.com/javidx9
-    Twitch:		https://www.twitch.tv/javidx9
-    GitHub:		https://www.github.com/onelonecoder
-    Homepage:	https://www.onelonecoder.com
-    Patreon:	https://www.patreon.com/javidx9
-    Community:  https://community.onelonecoder.com
+	This file provides the core utility set of the olc::PixelGameEngine, including
+	window creation, keyboard/mouse input, main game thread, timing, pixel drawing
+	routines, image/sprite loading and drawing routines, and a bunch of utility
+	types to make rapid development of games/visualisations possible.
 
 
+	License (OLC-3)
+	~~~~~~~~~~~~~~~
 
-    Compiling in Linux
-    ~~~~~~~~~~~~~~~~~~
-    You will need a modern C++ compiler, so update yours!
-    To compile use the command:
+	Copyright 2018 - 2025 OneLoneCoder.com
 
-    g++ -o YourProgName YourSource.cpp -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17
+	Redistribution and use in source and binary forms, with or without modification,
+	are permitted provided that the following conditions are met:
 
-    On some Linux configurations, the frame rate is locked to the refresh
-    rate of the monitor. This engine tries to unlock it but may not be
-    able to, in which case try launching your program like this:
+	1. Redistributions or derivations of source code must retain the above copyright
+	notice, this list of conditions and the following disclaimer.
 
-    vblank_mode=0 ./YourProgName
+	2. Redistributions or derivative works in binary form must reproduce the above
+	copyright notice. This list of conditions and the following	disclaimer must be
+	reproduced in the documentation and/or other materials provided with the distribution.
+
+	3. Neither the name of the copyright holder nor the names of its contributors may
+	be used to endorse or promote products derived from this software without specific
+	prior written permission.
+
+	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS	"AS IS" AND ANY
+	EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES
+	OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+	SHALL THE COPYRIGHT	HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT,
+	INCIDENTAL,	SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED
+	TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR
+	BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+	CONTRACT, STRICT LIABILITY, OR TORT	(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN
+	ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+	SUCH DAMAGE.
+
+	Links
+	~~~~~
+	YouTube:	https://www.youtube.com/javidx9
+				https://www.youtube.com/javidx9extra
+	Discord:	https://discord.gg/WhwHUMV
+	Twitter:	https://www.twitter.com/javidx9
+	Twitch:		https://www.twitch.tv/javidx9
+	GitHub:		https://www.github.com/onelonecoder
+	Homepage:	https://www.onelonecoder.com
+	Patreon:	https://www.patreon.com/javidx9
+	Community:  https://community.onelonecoder.com
 
 
 
-    Compiling in Code::Blocks on Windows
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Well I wont judge you, but make sure your Code::Blocks installation
-    is really up to date - you may even consider updating your C++ toolchain
-    to use MinGW32-W64.
+	Compiling in Linux
+	~~~~~~~~~~~~~~~~~~
+	You will need a modern C++ compiler, so update yours!
+	To compile use the command:
 
-    Guide for installing recent GCC for Windows:
-    https://www.msys2.org/
-    Guide for configuring code::blocks:
-    https://solarianprogrammer.com/2019/11/05/install-gcc-windows/
-    https://solarianprogrammer.com/2019/11/16/install-codeblocks-gcc-windows-build-c-cpp-fortran-programs/
+	g++ -o YourProgName YourSource.cpp -lX11 -lGL -lpthread -lpng -lstdc++fs -std=c++17
 
-    Add these libraries to "Linker Options":
-    user32 gdi32 opengl32 gdiplus Shlwapi dwmapi stdc++fs
+	On some Linux configurations, the frame rate is locked to the refresh
+	rate of the monitor. This engine tries to unlock it but may not be
+	able to, in which case try launching your program like this:
 
-    Set these compiler options: -std=c++17
+	vblank_mode=0 ./YourProgName
 
 
 
-    Compiling on Mac - EXPERIMENTAL! PROBABLY HAS BUGS
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    Yes yes, people use Macs for C++ programming! Who knew? Anyway, enough
-    arguing, thanks to Mumflr the PGE is now supported on Mac. Now I know nothing
-    about Mac, so if you need support, I suggest checking out the instructions
-    here: https://github.com/MumflrFumperdink/olcPGEMac
+	Compiling in Code::Blocks on Windows
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Well I wont judge you, but make sure your Code::Blocks installation
+	is really up to date - you may even consider updating your C++ toolchain
+	to use MinGW32-W64.
 
-    clang++ -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL
-        -framework GLUT -framework Carbon -lpng YourSource.cpp -o YourProgName
+	Guide for installing recent GCC for Windows:
+	https://www.msys2.org/
+	Guide for configuring code::blocks:
+	https://solarianprogrammer.com/2019/11/05/install-gcc-windows/
+	https://solarianprogrammer.com/2019/11/16/install-codeblocks-gcc-windows-build-c-cpp-fortran-programs/
 
+	Add these libraries to "Linker Options":
+	user32 gdi32 opengl32 gdiplus Shlwapi dwmapi stdc++fs
 
-
-    Compiling with Emscripten (New & Experimental)
-    ~~~~~~~~~~~~~~~~~~~~~~~~~
-    Emscripten compiler will turn your awesome C++ PixelGameEngine project into WASM!
-    This means you can run your application in teh browser, great for distributing
-    and submission in to jams and things! It's a bit new at the moment.
-
-    em++ -std=c++17 -O2 -s ALLOW_MEMORY_GROWTH=1 -s MAX_WEBGL_VERSION=2 -s MIN_WEBGL_VERSION=2 -s USE_LIBPNG=1 ./YourSource.cpp -o pge.html
+	Set these compiler options: -std=c++17
 
 
 
-    Using stb_image.h
-    ~~~~~~~~~~~~~~~~~
-    The PGE will load png images by default (with help from libpng on non-windows systems).
-    However, the excellent "stb_image.h" can be used instead, supporting a variety of
-    image formats, and has no library dependence - something we like at OLC studios ;)
-    To use stb_image.h, make sure it's in your code base, and simply:
+	Compiling on Mac - EXPERIMENTAL! PROBABLY HAS BUGS
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	Yes yes, people use Macs for C++ programming! Who knew? Anyway, enough
+	arguing, thanks to Mumflr the PGE is now supported on Mac. Now I know nothing
+	about Mac, so if you need support, I suggest checking out the instructions
+	here: https://github.com/MumflrFumperdink/olcPGEMac
 
-    #define OLC_IMAGE_STB
-
-    Before including the olcPixelGameEngine.h header file. stb_image.h works on many systems
-    and can be downloaded here: https://github.com/nothings/stb/blob/master/stb_image.h
+	clang++ -arch x86_64 -std=c++17 -mmacosx-version-min=10.15 -Wall -framework OpenGL
+		-framework GLUT -framework Carbon -lpng YourSource.cpp -o YourProgName
 
 
 
-    Multiple cpp file projects?
-    ~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    As a single header solution, the OLC_PGE_APPLICATION definition is used to
-    insert the engine implementation at a project location of your choosing.
-    The simplest way to setup multifile projects is to create a file called
-    "olcPixelGameEngine.cpp" which includes the following:
+	Compiling with Emscripten (New & Experimental)
+	~~~~~~~~~~~~~~~~~~~~~~~~~
+	Emscripten compiler will turn your awesome C++ PixelGameEngine project into WASM!
+	This means you can run your application in teh browser, great for distributing
+	and submission in to jams and things! It's a bit new at the moment.
 
-    #define OLC_PGE_APPLICATION
-    #include "olcPixelGameEngine.h"
-
-    That's all it should include. You can also include PGEX includes and
-    defines in here too. With this in place, you do not need to
-    #define OLC_PGE_APPLICATION anywhere, and can simply include this
-    header file as an when you need to.
+	em++ -std=c++17 -O2 -s ALLOW_MEMORY_GROWTH=1 -s MAX_WEBGL_VERSION=2 -s MIN_WEBGL_VERSION=2 -s USE_LIBPNG=1 ./YourSource.cpp -o pge.html
 
 
 
-    Ports
-    ~~~~~
-    olc::PixelGameEngine has been ported and tested with varying degrees of
-    success to: WinXP, Win7, Win8, Win10, Various Linux, Raspberry Pi,
-    Chromebook, PlayStation Portable (PSP), Nintendo Switch, Android and iOS.
-    If you are interested in the details of these ports, come and visit the Discord!
+	Using stb_image.h
+	~~~~~~~~~~~~~~~~~
+	The PGE will load png images by default (with help from libpng on non-windows systems).
+	However, the excellent "stb_image.h" can be used instead, supporting a variety of
+	image formats, and has no library dependence - something we like at OLC studios ;)
+	To use stb_image.h, make sure it's in your code base, and simply:
+
+	#define OLC_IMAGE_STB
+
+	Before including the olcPixelGameEngine.h header file. stb_image.h works on many systems
+	and can be downloaded here: https://github.com/nothings/stb/blob/master/stb_image.h
 
 
 
-    Thanks
-    ~~~~~~
-    I'd like to extend thanks to Ian McKay, Bispoo, Eremiell, slavka, Kwizatz77, gurkanctn, Phantim,
-    IProgramInCPP, JackOJC, KrossX, Huhlig, Dragoneye, Appa, JustinRichardsMusic, SliceNDice,
-    dandistine,	Ralakus, Gorbit99, raoul, joshinils, benedani, Moros1138, Alexio, SaladinAkara
-    & MagetzUb for advice, ideas and testing, and I'd like to extend my appreciation to the
-    250K YouTube followers,	80+ Patrons, 4.8K Twitch followers and 10K Discord server members
-    who give me	the motivation to keep going with all this :D
+	Multiple cpp file projects?
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	As a single header solution, the OLC_PGE_APPLICATION definition is used to
+	insert the engine implementation at a project location of your choosing.
+	The simplest way to setup multifile projects is to create a file called
+	"olcPixelGameEngine.cpp" which includes the following:
 
-    Significant Contributors: @Moros1138, @SaladinAkara, @MaGetzUb, @slavka,
-                              @Dragoneye, @Gorbit99, @dandistine & @Mumflr
+	#define OLC_PGE_APPLICATION
+	#include "olcPixelGameEngine.h"
 
-    Special thanks to those who bring gifts!
-    GnarGnarHead.......Domina
-    Gorbit99...........Bastion, Ori & The Blind Forest, Terraria, Spelunky 2, Skully
-    Marti Morta........Gris
-    Danicron...........Terraria
-    SaladinAkara.......Aseprite, Inside, Quern: Undying Thoughts, Outer Wilds
-    AlterEgo...........Final Fantasy XII - The Zodiac Age
-    SlicEnDicE.........Noita, Inside
-    TGD................Voucher Gift
-    Dragoneye..........Lucas Arts Adventure Game Pack
-    Anonymous Pirate...Return To Monkey Island
-
-    Special thanks to my Patrons too - I wont name you on here, but I've
-    certainly enjoyed my tea and flapjacks :D
+	That's all it should include. You can also include PGEX includes and
+	defines in here too. With this in place, you do not need to
+	#define OLC_PGE_APPLICATION anywhere, and can simply include this
+	header file as an when you need to.
 
 
 
-    Author: OLC Pixel Game Engine 2.0
-    ~~~~~~
-    David Barr, aka javidx9, (c) OneLoneCoder 2023
+	Ports
+	~~~~~
+	olc::PixelGameEngine has been ported and tested with varying degrees of
+	success to: WinXP, Win7, Win8, Win10, Various Linux, Raspberry Pi,
+	Chromebook, PlayStation Portable (PSP), Nintendo Switch, Android and iOS.
+	If you are interested in the details of these ports, come and visit the Discord!
 
-    Author@ OLC Pixel Game Engine 2.0 Mobile Port
-    ~~~~~~
-    John Galvin, aka Johnngy63, (c) OneLoneCoder 2023
+
+
+	Thanks
+	~~~~~~
+	I'd like to extend thanks to Ian McKay, Bispoo, Eremiell, slavka, Kwizatz77, gurkanctn, Phantim,
+	IProgramInCPP, JackOJC, KrossX, Huhlig, Dragoneye, Appa, JustinRichardsMusic, SliceNDice,
+	dandistine,	Ralakus, Gorbit99, raoul, joshinils, benedani, Moros1138, Alexio, SaladinAkara
+	& MagetzUb for advice, ideas and testing, and I'd like to extend my appreciation to the
+	250K YouTube followers,	80+ Patrons, 4.8K Twitch followers and 10K Discord server members
+	who give me	the motivation to keep going with all this :D
+
+	Significant Contributors: @Moros1138, @SaladinAkara, @MaGetzUb, @slavka,
+							  @Dragoneye, @Gorbit99, @dandistine & @Mumflr
+
+	Special thanks to those who bring gifts!
+	GnarGnarHead.......Domina
+	Gorbit99...........Bastion, Ori & The Blind Forest, Terraria, Spelunky 2, Skully
+	Marti Morta........Gris
+	Danicron...........Terraria
+	SaladinAkara.......Aseprite, Inside, Quern: Undying Thoughts, Outer Wilds
+	AlterEgo...........Final Fantasy XII - The Zodiac Age
+	SlicEnDicE.........Noita, Inside
+	TGD................Voucher Gift
+	Dragoneye..........Lucas Arts Adventure Game Pack
+	Anonymous Pirate...Return To Monkey Island
+
+	Special thanks to my Patrons too - I wont name you on here, but I've
+	certainly enjoyed my tea and flapjacks :D
+
+	- In Memory of SaladinAkara 25.06.2023 -
+
+	Author: OLC Pixel Game Engine 2.0
+	~~~~~~
+	David Barr, aka javidx9, (c) OneLoneCoder 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025
+
+	Author@ OLC Pixel Game Engine 2.0 Mobile Port
+	~~~~~~
+	John Galvin, aka Johnngy63, (c) OneLoneCoder 2023, 2024, 2025
 */
 #pragma endregion
 
 #pragma region version_history
 /*
-    2.01: BETA Port code from olcPixelGameEngine.h to olcPixelGameEngine_mobile.h
-    2.02: Corrected support for X86
-    2.03: Update EventManager to handle, Touch, Mouse and Keyboard events
-    2.04: Corrected Touch offset, added 1 touch point, unlinked Mouse & Touch Events
-    2.05: Sensors Support added
-    2.06: Multi Touch Support
-    2.06a: Basic mouse support for Android Emulator
-    2.07: Updated SIMD_SSE for Intel Atom devices, Updated GetTouch() to default to touch point zero when no touch piont selected
-    2.08: Added ClearTouchPoints(int8_t startIndex = 0) for clearing of touch points at index x, some bug fixes too
-    2.09: Added: FileManager: for gaining access to the Android Assets APK and iOS Zip Packages
-                + app_LoadFileFromAssets()
-                + app_ExtractFileFromAssets()
-                + app_GetInternalAppStorage()
-                + app_GetExternalAppStorage()
-                + app_GetPublicAppStorage()
+	2.01: BETA Port code from olcPixelGameEngine.h to olcPixelGameEngine_mobile.h
+	2.02: Corrected support for X86
+	2.03: Update EventManager to handle, Touch, Mouse and Keyboard events
+	2.04: Corrected Touch offset, added 1 touch point, unlinked Mouse & Touch Events
+	2.05: Sensors Support added
+	2.06: Multi Touch Support
+	2.06a: Basic mouse support for Android Emulator
+	2.07: Updated SIMD_SSE for Intel Atom devices, Updated GetTouch() to default to touch point zero when no touch piont selected
+	2.08: Added ClearTouchPoints(int8_t startIndex = 0) for clearing of touch points at index x, some bug fixes too
+	2.09: Added: FileManager: for gaining access to the Android Assets APK and iOS Zip Packages
+				+ app_LoadFileFromAssets()
+				+ app_ExtractFileFromAssets()
+				+ app_GetInternalAppStorage()
+				+ app_GetExternalAppStorage()
+				+ app_GetPublicAppStorage()
 
-                ++ SmartPtr filehandler->
-                ++ LoadFileFromAssets()
-                ++ ExtractFileFromAssets()
-                ++ GetInternalAppStorage()
-                ++ GetExternalAppStorage()
-                ++ GetPublicAppStorage()
-    2.10: Removed ASensor_getHandle() as it only supports SDK 29 and higher. Updated project to support SDK 21 to SDK32. Thank you @VasCoder :)
-    2.11: Corrected small bug in DrawFillLine
-    2.20: Pre-Release. Includes Android Key mapping for GetKey();
-    2.21: Full Production Release
-    2.22: Full support for newer Android Devices AKA TechJellie's Mom's Nokia
-    2.23: Now with Sound, supports olcPGE_MiniAudio https://github.com/Moros1138/olcPGEX_MiniAudio/ thanks @Moros1138
-          ++ Updated EventManager::HandleInput to ensure Volume UP/Down/Mute, Camera and Power Buttons are released back to the OS after execution
-    2.24: iOS Beta support. Sensors not supported. Anything you develop for Android will work on the iOS
-    2.25: Corrected Fatal signal 11 (SIGSEGV), code 2 (SEGV_ACCERR), fault, forgot to take (subtract) the 1
-    2.26: Updated olc_Configure to set OGLES_20 to use SDK 26->33. A big thanks you to @VasCoder for all his testing!!!!
-    2.27: Removed mutexTouchPoints from main engine thread, the engine will run as fast as possible now!!!
-    2.28: Correct onUserDestroy so that it is not called every frame. A Big thank you to @baderouaich. Added OnLowMemoryWarning()
+				++ SmartPtr filehandler->
+				++ LoadFileFromAssets()
+				++ ExtractFileFromAssets()
+				++ GetInternalAppStorage()
+				++ GetExternalAppStorage()
+				++ GetPublicAppStorage()
+	2.10: Removed ASensor_getHandle() as it only supports SDK 29 and higher. Updated project to support SDK 21 to SDK32. Thank you @VasCoder :)
+	2.11: Corrected small bug in DrawFillLine
+	2.20: Pre-Release. Includes Android Key mapping for GetKey();
+	2.21: Full Production Release
+	2.22: Full support for newer Android Devices AKA TechJellie's Mom's Nokia
+	2.23: Now with Sound, supports olcPGE_MiniAudio https://github.com/Moros1138/olcPGEX_MiniAudio/ thanks @Moros1138
+		  ++ Updated EventManager::HandleInput to ensure Volume UP/Down/Mute, Camera and Power Buttons are released back to the OS after execution
+	2.24: iOS Beta support. Sensors not supported. Anything you develop for Android will work on the iOS
+	2.25: Corrected Fatal signal 11 (SIGSEGV), code 2 (SEGV_ACCERR), fault, forgot to take (subtract) the 1
+	2.26: Updated olc_Configure to set OGLES_20 to use SDK 26->33. A big thanks you to @VasCoder for all his testing!!!!
+	2.27: Removed mutexTouchPoints from main engine thread, the engine will run as fast as possible now!!!
+	2.28: Correct onUserDestroy so that it is not called every frame. A Big thank you to @baderouaich.
+	2.29: Brought olc::v_2d inline with other sources
+ 	      Hardware 3D Rendering & Efficient Keyboard Interrogation
+		  +GetKeyPressCache() - [ADVANCED] Returns vector of keycodes encountered this frame (thanks discord/carbon13)
+		  +ConvertKeycode() - [ADVANCED] Converts system keycode to olc::Key
+		  +GetKeySymbol() - [ADVANCED] Returns 'character' associated with an olc::Key (with modifiers)
+		  +HW3D_Projection() - Sets a hardware projection matrix for 3D rendering
+		  +HW3D_EnableDepthTest - Sets whether 3D rendered objects should be depth tested
+		  +HW3D_SetCullMode - Sets which faces of a 3D rendered model are visible
+		  +HW3D_DrawObject - Draw a 3D mesh using hardware
+		  +HW3D_DrawLine - Draw a 3D line using hardware
+		  +HW3D_DrawLineBox	- Draw a 3D box using hardware
+		  +adv_FlushLayerGPUTasks - [ADVANCED] Prematurely drain GPUTasks for immediate buffer update
+		  Added polylines as drawable decal	structures
+		  Updated Geometry2D to support non-segment line intersections
+		  +olcUTIL_Hardware3D.h file v1.01
+		  NOTICE OF DEPRECATION! olc::DecalInstance is to be removed and replaced by olc::GPUTask
+
+
 
 */
 #pragma endregion
@@ -282,55 +300,55 @@
 class Example : public olc::PixelGameEngine
 {
 public:
-    Example()
-    {
-        // Name your application
-        sAppName = "Production Example";
-    }
+	Example()
+	{
+		// Name your application
+		sAppName = "Production Example";
+	}
 
 public:
-    bool OnUserCreate() override
-    {
-        // Called once at the start, so create things here
-        return true;
-    }
+	bool OnUserCreate() override
+	{
+		// Called once at the start, so create things here
+		return true;
+	}
 
-    bool OnUserUpdate(float fElapsedTime) override
-    {
-        // Called once per frame, draws random coloured pixels
-        for (int x = 0; x < ScreenWidth(); x++)
-            for (int y = 0; y < ScreenHeight(); y++)
-                Draw(x, y, olc::Pixel(rand() % 256, rand() % 256, rand() % 256));
-        return true;
-    }
+	bool OnUserUpdate(float fElapsedTime) override
+	{
+		// Called once per frame, draws random coloured pixels
+		for (int x = 0; x < ScreenWidth(); x++)
+			for (int y = 0; y < ScreenHeight(); y++)
+				Draw(x, y, olc::Pixel(rand() % 256, rand() % 256, rand() % 256));
+		return true;
+	}
 
-    void OnSaveStateRequested() override
-    {
-        // Save State
-    }
+	void OnSaveStateRequested() override
+	{
+		// Save State
+	}
 
-    void OnRestoreStateRequested() override
-    {
-        // Restore state
-    }
+	void OnRestoreStateRequested() override
+	{
+		// Restore state
+	}
 };
 
 #if defined (__ANDROID__)
 void android_main(struct android_app* initialstate)
 {
-    Example demo;
-    if (demo.Construct(1280, 720, 2, 2))
-        demo.Start();
-    return 0;
+	Example demo;
+	if (demo.Construct(1280, 720, 2, 2))
+		demo.Start();
+	return 0;
 }
 #endif
 
 #if defined (__APPLE__)
 int ios_main(IOSNativeApp* pIOSNatvieApp)
 {
-     pIOSNatvieApp->SetPGEConstruct(0, 0, 2, 2, true, true, false);
+	 pIOSNatvieApp->SetPGEConstruct(0, 0, 2, 2, true, true, false);
 
-    return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
 
 #endif
@@ -343,7 +361,7 @@ int ios_main(IOSNativeApp* pIOSNatvieApp)
 #define OLC_PGE_DEF
 
 // Production release
-#define PGE_MOB_VER 228
+#define PGE_MOB_VER 229
 
 // O------------------------------------------------------------------------------O
 // | COMPILER CONFIGURATION ODDITIES                                              |
@@ -364,7 +382,7 @@ int ios_main(IOSNativeApp* pIOSNatvieApp)
 #pragma GCC diagnostic ignored "-Wunknown-pragmas"
 #pragma region std_includes
 /*
-    Header files, these will not match with the full PGE
+	Header files, these will not match with the full PGE
 
 */
 #include <cstdio>
@@ -383,11 +401,11 @@ int ios_main(IOSNativeApp* pIOSNatvieApp)
 #include <cassert>
 
 /*
-    EGL is supported nativity in Android, however it is a little messy for iOS
-    Therefore to keep things simple (KISS) I just created a hidden folder EGL & KHR
-    in the iOS app the hold the required egl.h files to make everything work
-    if you like you can use the a linkage etc etc, but it should be the same overall
-    result in again case.
+	EGL is supported nativity in Android, however it is a little messy for iOS
+	Therefore to keep things simple (KISS) I just created a hidden folder EGL & KHR
+	in the iOS app the hold the required egl.h files to make everything work
+	if you like you can use the a linkage etc etc, but it should be the same overall
+	result in again case.
 */
 #if defined (__ANDROID__)
 #include <EGL/egl.h>
@@ -395,7 +413,6 @@ int ios_main(IOSNativeApp* pIOSNatvieApp)
 #endif
 
 #if defined (__APPLE__)
-//#include "ios_native_app_glue.h"
 #include "EGL/egl.h"
 #include <OpenGLES/ES2/gl.h>
 #include <OpenGLES/ES2/glext.h>
@@ -410,30 +427,345 @@ int ios_main(IOSNativeApp* pIOSNatvieApp)
 #pragma GCC diagnostic pop
 
 /*
-    We now support Android (min ver 21 -> 33 and beyond) and iOS (13.5 - 17.2)
-    however new versions of Android (33 example) and iOS are backward compatible within the range above
-    you might get a message warning you tho when debugging.
+	We now support Android (min ver 21 -> 34 and beyond) and iOS (13.5 - 18.1)
+	however new versions of Android (35 example) and iOS are backward compatible within the range above
+	you might get a message warning you tho when debugging.
 
-    For Android we needed to split the renderer into Renderer_OGLES10 and Renderer_OGLES20. Although most of the code is pretty much the same
-    there maybe updates in the future to support newer & newer Android GPUs coming to the market and I didn't want to end up in a mess of conditional
-    statements... well not yet anyway
+	For Android we needed to split the renderer into Renderer_OGLES10 and Renderer_OGLES20. Although most of the code is pretty much the same
+	there maybe updates in the future to support newer & newer Android GPUs coming to the market and I didn't want to end up in a mess of conditional
+	statements... well not yet anyway
 
-    The olc_ConfigureSystem() manages this:
-    Renderer_OGLES10: Support for SDK 21 - 25 This code better supports ARM devices, however ARM64 will work just find with it.
-    Renderer_OGLES20: Support for SDK 26 - 33 and beyond. This code is really for ARM64 and the latest GPUs on the market, also for iOS support
+	The olc_ConfigureSystem() manages this:
+	Renderer_OGLES10: Support for SDK 21 - 25 This code better supports ARM devices, however ARM64 will work just find with it.
+	Renderer_OGLES20: Support for SDK 26 - 34 and beyond. This code is really for ARM64 and the latest GPUs on the market, also for iOS support
 
 
-    olcPixelGameEngine_Mobile support OpenGLES 2.0 -> OpenGLES 3.0, however please note simulators do not support OpenGLES 3.0
-    Therefore there is code in the CreateDevice that will auto change the supported version when a simulator is been used
-    There are some restrictions when using OpenGLES, such as there is no hint GL_STREAM_DRAW, only GL_STATIC_DRAW & GL_DYNAMIC_DRAW
-    that is ok as long as we do not enter the code for GL_STREAM_DRAW (0x88E0)... oh wait we did, that caught me out for a while
-    therefore any direct code calling will now be replaced with their respective const value or nearest too:
-    0x88E0 moved to 0x88E4 called out as GL_STATIC_DRAW
-    0x8892 --> called out as GL_ARRAY_BUFFER
+	olcPixelGameEngine_Mobile support OpenGLES 2.0 -> OpenGLES 3.0, however please note simulators do not support OpenGLES 3.0
+	Therefore there is code in the CreateDevice that will auto change the supported version when a simulator is been used
+	There are some restrictions when using OpenGLES, such as there is no hint GL_STREAM_DRAW, only GL_STATIC_DRAW & GL_DYNAMIC_DRAW
+	that is ok as long as we do not enter the code for GL_STREAM_DRAW (0x88E0)... oh wait we did, that caught me out for a while
+	therefore any direct code calling will now be replaced with their respective const value or nearest too:
+	0x88E0 moved to 0x88E4 called out as GL_STATIC_DRAW
+	0x8892 --> called out as GL_ARRAY_BUFFER
 
-    Finally... there maybe a little to much commenting here, again we can we clean it up later
+	Finally... there maybe a little to much commenting here, again we can we clean it up later
 
 */
+
+
+#if !defined(OLC_VECTOR2D_DEFINED)
+namespace olc
+{
+    /*
+        A complete 2D geometric vector structure, with a variety
+        of useful utility functions and operator overloads
+    */
+    template<class T>
+    struct v_2d
+    {
+        static_assert(std::is_arithmetic<T>::value, "olc::v_2d<type> must be numeric");
+
+        // x-axis component
+        T x = 0;
+        // y-axis component
+        T y = 0;
+
+        // Default constructor
+        inline constexpr v_2d() = default;
+
+        // Specific constructor
+        inline constexpr v_2d(T _x, T _y) : x(_x), y(_y)
+        {}
+
+        // Copy constructor
+        inline constexpr v_2d(const v_2d& v) = default;
+
+        // Assignment operator
+        inline constexpr v_2d& operator=(const v_2d& v) = default;
+
+
+        inline constexpr std::array<T, 2> a() const
+        {
+            return std::array<T, 2>{x, y};
+        }
+
+        // Returns rectangular area of vector
+        inline constexpr auto area() const
+        {
+            return x * y;
+        }
+
+        // Returns magnitude of vector
+        inline auto mag() const
+        {
+            return std::sqrt(x * x + y * y);
+        }
+
+        // Returns magnitude squared of vector (useful for fast comparisons)
+        inline constexpr T mag2() const
+        {
+            return x * x + y * y;
+        }
+
+        // Returns normalised version of vector
+        inline v_2d norm() const
+        {
+            auto r = 1 / mag();
+            return v_2d(x * r, y * r);
+        }
+
+        // Returns vector at 90 degrees to this one
+        inline constexpr v_2d perp() const
+        {
+            return v_2d(-y, x);
+        }
+
+        // Rounds both components down
+        inline constexpr v_2d floor() const
+        {
+            return v_2d(std::floor(x), std::floor(y));
+        }
+
+        // Rounds both components up
+        inline constexpr v_2d ceil() const
+        {
+            return v_2d(std::ceil(x), std::ceil(y));
+        }
+
+        // Returns 'element-wise' max of this and another vector
+        inline constexpr v_2d max(const v_2d& v) const
+        {
+            return v_2d(std::max(x, v.x), std::max(y, v.y));
+        }
+
+        // Returns 'element-wise' min of this and another vector
+        inline constexpr v_2d min(const v_2d& v) const
+        {
+            return v_2d(std::min(x, v.x), std::min(y, v.y));
+        }
+
+        // Calculates scalar dot product between this and another vector
+        inline constexpr auto dot(const v_2d& rhs) const
+        {
+            return this->x * rhs.x + this->y * rhs.y;
+        }
+
+        // Calculates 'scalar' cross product between this and another vector (useful for winding orders)
+        inline constexpr auto cross(const v_2d& rhs) const
+        {
+            return this->x * rhs.y - this->y * rhs.x;
+        }
+
+        // Treat this as polar coordinate (R, Theta), return cartesian equivalent (X, Y)
+        inline constexpr v_2d cart() const
+        {
+            return v_2d(std::cos(y) * x, std::sin(y) * x);
+        }
+
+        // Treat this as cartesian coordinate (X, Y), return polar equivalent (R, Theta)
+        inline constexpr v_2d polar() const
+        {
+            return v_2d(mag(), std::atan2(y, x));
+        }
+
+        // Clamp the components of this vector in between the 'element-wise' minimum and maximum of 2 other vectors
+        inline constexpr v_2d clamp(const v_2d& v1, const v_2d& v2) const
+        {
+            return this->max(v1).min(v2);
+        }
+
+        // Linearly interpolate between this vector, and another vector, given normalised parameter 't'
+        inline constexpr v_2d lerp(const v_2d& v1, const double t) const
+        {
+            return (*this) * (T(1.0 - t)) + (v1 * T(t));
+        }
+
+        // Compare if this vector is numerically equal to another
+        inline constexpr bool operator == (const v_2d& rhs) const
+        {
+            return (this->x == rhs.x && this->y == rhs.y);
+        }
+
+        // Compare if this vector is not numerically equal to another
+        inline constexpr bool operator != (const v_2d& rhs) const
+        {
+            return (this->x != rhs.x || this->y != rhs.y);
+        }
+
+        // Return this vector as a std::string, of the form "(x,y)"
+        inline std::string str() const
+        {
+            return std::string("(") + std::to_string(this->x) + "," + std::to_string(this->y) + ")";
+        }
+
+        // Assuming this vector is incident, given a normal, return the reflection
+        inline constexpr v_2d reflect(const v_2d& n) const
+        {
+            return (*this) - 2.0 * (this->dot(n) * n);
+        }
+
+        // Allow 'casting' from other v_2d types
+        template<class F>
+        inline constexpr operator v_2d<F>() const
+        {
+            return { static_cast<F>(this->x), static_cast<F>(this->y) };
+        }
+    };
+
+    // Multiplication operator overloads between vectors and scalars, and vectors and vectors
+    template<class TL, class TR>
+    inline constexpr auto operator * (const TL& lhs, const v_2d<TR>& rhs)
+    {
+        return v_2d(lhs * rhs.x, lhs * rhs.y);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator * (const v_2d<TL>& lhs, const TR& rhs)
+    {
+        return v_2d(lhs.x * rhs, lhs.y * rhs);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator * (const v_2d<TL>& lhs, const v_2d<TR>& rhs)
+    {
+        return v_2d(lhs.x * rhs.x, lhs.y * rhs.y);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator *= (v_2d<TL>& lhs, const TR& rhs)
+    {
+        lhs = lhs * rhs;
+        return lhs;
+    }
+
+    // Division operator overloads between vectors and scalars, and vectors and vectors
+    template<class TL, class TR>
+    inline constexpr auto operator / (const TL& lhs, const v_2d<TR>& rhs)
+    {
+        return v_2d(lhs / rhs.x, lhs / rhs.y);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator / (const v_2d<TL>& lhs, const TR& rhs)
+    {
+        return v_2d(lhs.x / rhs, lhs.y / rhs);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator / (const v_2d<TL>& lhs, const v_2d<TR>& rhs)
+    {
+        return v_2d(lhs.x / rhs.x, lhs.y / rhs.y);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator /= (v_2d<TL>& lhs, const TR& rhs)
+    {
+        lhs = lhs / rhs;
+        return lhs;
+    }
+
+    // Unary Addition operator (pointless but i like the platinum trophies)
+    template<class T>
+    inline constexpr auto operator + (const v_2d<T>& lhs)
+    {
+        return v_2d(+lhs.x, +lhs.y);
+    }
+
+    // Addition operator overloads between vectors and scalars, and vectors and vectors
+    template<class TL, class TR>
+    inline constexpr auto operator + (const TL& lhs, const v_2d<TR>& rhs)
+    {
+        return v_2d(lhs + rhs.x, lhs + rhs.y);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator + (const v_2d<TL>& lhs, const TR& rhs)
+    {
+        return v_2d(lhs.x + rhs, lhs.y + rhs);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator + (const v_2d<TL>& lhs, const v_2d<TR>& rhs)
+    {
+        return v_2d(lhs.x + rhs.x, lhs.y + rhs.y);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator += (v_2d<TL>& lhs, const TR& rhs)
+    {
+        lhs = lhs + rhs;
+        return lhs;
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator += (v_2d<TL>& lhs, const v_2d<TR>& rhs)
+    {
+        lhs = lhs + rhs;
+        return lhs;
+    }
+
+    // Unary negation operator overoad for inverting a vector
+    template<class T>
+    inline constexpr auto operator - (const v_2d<T>& lhs)
+    {
+        return v_2d(-lhs.x, -lhs.y);
+    }
+
+    // Subtraction operator overloads between vectors and scalars, and vectors and vectors
+    template<class TL, class TR>
+    inline constexpr auto operator - (const TL& lhs, const v_2d<TR>& rhs)
+    {
+        return v_2d(lhs - rhs.x, lhs - rhs.y);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator - (const v_2d<TL>& lhs, const TR& rhs)
+    {
+        return v_2d(lhs.x - rhs, lhs.y - rhs);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator - (const v_2d<TL>& lhs, const v_2d<TR>& rhs)
+    {
+        return v_2d(lhs.x - rhs.x, lhs.y - rhs.y);
+    }
+
+    template<class TL, class TR>
+    inline constexpr auto operator -= (v_2d<TL>& lhs, const TR& rhs)
+    {
+        lhs = lhs - rhs;
+        return lhs;
+    }
+
+    // Greater/Less-Than Operator overloads - mathematically useless, but handy for "sorted" container storage
+    template<class TL, class TR>
+    inline constexpr bool operator < (const v_2d<TL>& lhs, const v_2d<TR>& rhs)
+    {
+        return (lhs.y < rhs.y) || (lhs.y == rhs.y && lhs.x < rhs.x);
+    }
+
+    template<class TL, class TR>
+    inline constexpr bool operator > (const v_2d<TL>& lhs, const v_2d<TR>& rhs)
+    {
+        return (lhs.y > rhs.y) || (lhs.y == rhs.y && lhs.x > rhs.x);
+    }
+
+    // Allow olc::v_2d to play nicely with std::cout
+    template<class T>
+    inline constexpr std::ostream& operator << (std::ostream& os, const v_2d<T>& rhs)
+{
+    os << rhs.str();
+    return os;
+}
+
+// Convenient types ready-to-go
+typedef v_2d<int32_t> vi2d;
+typedef v_2d<uint32_t> vu2d;
+typedef v_2d<float> vf2d;
+typedef v_2d<double> vd2d;
+}
+#define OLC_VECTOR2D_DEFINED 1
+#endif
 
 
 // O------------------------------------------------------------------------------O
@@ -450,7 +782,7 @@ namespace olc {
     // Pixel Game Engine Advanced Configuration
     constexpr uint8_t  nMouseButtons = 5;
     constexpr uint8_t  nDefaultAlpha = 0xFF;
-    constexpr uint32_t nDefaultPixel = (nDefaultAlpha << 24);
+    constexpr uint32_t nDefaultPixel = uint32_t(nDefaultAlpha << 24);
     constexpr uint8_t  nTabSizeInSpaces = 4;
     constexpr size_t OLC_MAX_VERTS = 128;
     constexpr uint16_t OLC_MAX_KEYS = 290;
@@ -505,24 +837,6 @@ namespace olc {
             BLUE(0, 0, 255), DARK_BLUE(0, 0, 128), VERY_DARK_BLUE(0, 0, 64),
             MAGENTA(255, 0, 255), DARK_MAGENTA(128, 0, 128), VERY_DARK_MAGENTA(64, 0, 64),
             WHITE(255, 255, 255), BLACK(0, 0, 0), BLANK(0, 0, 0, 0);
-
-    // Thanks to scripticuk and others for updating the key maps
-    // NOTE: The GLUT platform will need updating, open to contributions ;)
-    /*enum Key
-    {
-        NONE,
-        A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z,
-        K0, K1, K2, K3, K4, K5, K6, K7, K8, K9,
-        F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12,
-        UP, DOWN, LEFT, RIGHT,
-        SPACE, TAB, SHIFT, CTRL, INS, DEL, HOME, END, PGUP, PGDN,
-        BACK, ESCAPE, RETURN, ENTER, PAUSE, SCROLL,
-        NP0, NP1, NP2, NP3, NP4, NP5, NP6, NP7, NP8, NP9,
-        NP_MUL, NP_DIV, NP_ADD, NP_SUB, NP_DECIMAL, PERIOD,
-        EQUALS, COMMA, MINUS,
-        OEM_1, OEM_2, OEM_3, OEM_4, OEM_5, OEM_6, OEM_7, OEM_8,
-        CAPS_LOCK, ENUM_END
-    };*/
 
 #if defined (__ANDROID__)
     // Apple iOS Keyboard map
@@ -644,122 +958,122 @@ namespace olc {
 
 #if defined (__APPLE__)
     // Apple iOS Keyboard map
-    enum Key
-    {
-        NONE = 0x00,
-        BACK_BUTTON = 0x2A,    /* Delete (Backspace) */
-        K1 = 0x1E,    /* 1 or ! */
-        K2 = 0x1F,    /* 2 or @ */
-        K3 = 0x20,    /* 3 or # */
-        K4 = 0x21,    /* 4 or $ */
-        K5 = 0x22,    /* 5 or % */
-        K6 = 0x23,    /* 6 or ^ */
-        K7 = 0x24,    /* 7 or & */
-        K8 = 0x25,    /* 8 or * */
-        K9 = 0x26,    /* 9 or ( */
-        K0 = 0x27,    /* 0 or ) */
-        OEM_7 = 0x32,    /* Non-US # or _ */
-        /* Typical language mappings: US: \| Belg: μ`£ FrCa: <}> Dan:’* Dutch: <> Fren:*μ
-         Ger: #’ Ital: ù§ LatAm: }`] Nor:,* Span: }Ç Swed: ,*
-         Swiss: $£ UK: #~. */
-        UP = 0x52,    /* Up Arrow */
-        DOWN = 0x51,    /* Down Arrow */
-        LEFT = 0x50,    /* Left Arrow */
-        RIGHT = 0x4F,    /* Right Arrow */
-        VOLUME_UP = 0x80,    /* Volume Up */
-        VOLUME_DOWN = 0x81,    /* Volume Down */ // Cannot be captured
-        VOLUME_MUTE = 0x7F,    /* Mute */
-        CAMERA_BTN = 0x00,     /* NOT Supported in iOS */
-        POWER_BTN = 0x66,    /* Power */
-        A = 0x04,    /* a or A */
-        B = 0x05,    /* b or B */
-        C = 0x06,    /* c or C */
-        D = 0x07,    /* d or D */
-        E = 0x08,    /* e or E */
-        F = 0x09,    /* f or F */
-        G = 0x0A,    /* g or G */
-        H = 0x0B,    /* h or H */
-        I = 0x0C,    /* i or I */
-        J = 0x0D,    /* j or J */
-        K = 0x0E,    /* k or K */
-        L = 0x0F,    /* l or L */
-        M = 0x10,    /* m or M */
-        N = 0x11,    /* n or N */
-        O = 0x12,    /* o or O */
-        P = 0x13,    /* p or P */
-        Q = 0x14,    /* q or Q */
-        R = 0x15,    /* r or R */
-        S = 0x16,    /* s or S */
-        T = 0x17,    /* t or T */
-        U = 0x18,    /* u or U */
-        V = 0x19,    /* v or V */
-        W = 0x1A,    /* w or W */
-        X = 0x1B,    /* x or X */
-        Y = 0x1C,    /* y or Y */
-        Z = 0x1D,    /* z or Z */
-        COMMA = 0x36,    /* , or < */
-        PERIOD = 0x37,    /* . or > */
-        SHIFT_LEFT = 0xE1,    /* Left Shift */
-        SHIFT_RIGHT = 0xE5,    /* Right Shift */
-        SHIFT = 0xE1 | 0xE5,
-        TAB = 0x2B,    /* Tab */
-        OEM_8 = 0x2B,    /* Tab */
-        SPACE = 0x2C,    /* Spacebar */
-        ENTER = 0x28,    /* Return (Enter) */
-        ANY_ENTER = 0x28 | 0x58,
-        DEL = 0x4C,    /* Delete Forward */
-        MINUS = 0x2D,    /* - or _ */
-        EQUALS = 0x2E,    /* = or + */
-        OEM_6 = 0x2F,    /* [ or { */
-        OEM_4 = 0x30,    /* ] or } */
-        OEM_5 = 0x31,    /* \ or | */
-        OEM_1 = 0x33,    /* ; or : */
-        OEM_3 = 0x34,    /* ' or " */
-        OEM_2 = 0x38,    /* / or ? */
-        PGUP = 0x4B,    /* Page Up */
-        PGDN = 0x4E,    /* Page Down */
-        ESCAPE = 0x29,    /* Escape */
-        BACK = 0x2A,    /* Delete (Backspace) */
-        CTRL_LEFT = 0xE0,    /* Left Control */
-        CTRL_RIGHT = 0xE4,    /* Right Control */
-        CTRL = 0xE0 | 0xE4,
-        CAPS_LOCK = 0x39,    /* Caps Lock */
-        SCROLL = 0x47,    /* Scroll Lock */
-        PAUSE = 0x48,    /* Pause */
-        HOME = 0x4A,    /* Home */
-        END = 0x4D,    /* End */
-        INS = 0x49,    /* Insert */
-        F1 = 0x3A,    /* F1 */
-        F2 = 0x3B,    /* F2 */
-        F3 = 0x3C,    /* F3 */
-        F4 = 0x3D,    /* F4 */
-        F5 = 0x3E,    /* F5 */
-        F6 = 0x3F,    /* F6 */
-        F7 = 0x40,    /* F7 */
-        F8 = 0x41,    /* F8 */
-        F9 = 0x42,    /* F9 */
-        F10 = 0x43,    /* F10 */
-        F11 = 0x44,    /* F11 */
-        F12 = 0x45,    /* F12 */
-        NP1 = 0x59,    /* Keypad 1 or End */
-        NP2 = 0x5A,    /* Keypad 2 or Down Arrow */
-        NP3 = 0x5B,    /* Keypad 3 or Page Down */
-        NP4 = 0x5C,    /* Keypad 4 or Left Arrow */
-        NP5 = 0x5D,    /* Keypad 5 */
-        NP6 = 0x5E,    /* Keypad 6 or Right Arrow */
-        NP7 = 0x5F,    /* Keypad 7 or Home */
-        NP8 = 0x60,    /* Keypad 8 or Up Arrow */
-        NP9 = 0x61,    /* Keypad 9 or Page Up */
-        NP0 = 0x62,    /* Keypad 0 or Insert */
-        NP_DIV = 0x54,    /* Keypad / */
-        NP_MUL = 0x55,    /* Keypad * */
-        NP_SUB = 0x56,    /* Keypad - */
-        NP_ADD = 0x57,    /* Keypad + */
-        NP_DECIMAL = 0x63,    /* Keypad . or Delete */
-        RETURN = 0x58,    /* Keypad Enter */
+	enum Key
+	{
+		NONE = 0x00,
+		BACK_BUTTON = 0x2A,    /* Delete (Backspace) */
+		K1 = 0x1E,    /* 1 or ! */
+		K2 = 0x1F,    /* 2 or @ */
+		K3 = 0x20,    /* 3 or # */
+		K4 = 0x21,    /* 4 or $ */
+		K5 = 0x22,    /* 5 or % */
+		K6 = 0x23,    /* 6 or ^ */
+		K7 = 0x24,    /* 7 or & */
+		K8 = 0x25,    /* 8 or * */
+		K9 = 0x26,    /* 9 or ( */
+		K0 = 0x27,    /* 0 or ) */
+		OEM_7 = 0x32,    /* Non-US # or _ */
+		/* Typical language mappings: US: \| Belg: μ`£ FrCa: <}> Dan:’* Dutch: <> Fren:*μ
+		 Ger: #’ Ital: ù§ LatAm: }`] Nor:,* Span: }Ç Swed: ,*
+		 Swiss: $£ UK: #~. */
+		UP = 0x52,    /* Up Arrow */
+		DOWN = 0x51,    /* Down Arrow */
+		LEFT = 0x50,    /* Left Arrow */
+		RIGHT = 0x4F,    /* Right Arrow */
+		VOLUME_UP = 0x80,    /* Volume Up */
+		VOLUME_DOWN = 0x81,    /* Volume Down */ // Cannot be captured
+		VOLUME_MUTE = 0x7F,    /* Mute */
+		CAMERA_BTN = 0x00,     /* NOT Supported in iOS */
+		POWER_BTN = 0x66,    /* Power */
+		A = 0x04,    /* a or A */
+		B = 0x05,    /* b or B */
+		C = 0x06,    /* c or C */
+		D = 0x07,    /* d or D */
+		E = 0x08,    /* e or E */
+		F = 0x09,    /* f or F */
+		G = 0x0A,    /* g or G */
+		H = 0x0B,    /* h or H */
+		I = 0x0C,    /* i or I */
+		J = 0x0D,    /* j or J */
+		K = 0x0E,    /* k or K */
+		L = 0x0F,    /* l or L */
+		M = 0x10,    /* m or M */
+		N = 0x11,    /* n or N */
+		O = 0x12,    /* o or O */
+		P = 0x13,    /* p or P */
+		Q = 0x14,    /* q or Q */
+		R = 0x15,    /* r or R */
+		S = 0x16,    /* s or S */
+		T = 0x17,    /* t or T */
+		U = 0x18,    /* u or U */
+		V = 0x19,    /* v or V */
+		W = 0x1A,    /* w or W */
+		X = 0x1B,    /* x or X */
+		Y = 0x1C,    /* y or Y */
+		Z = 0x1D,    /* z or Z */
+		COMMA = 0x36,    /* , or < */
+		PERIOD = 0x37,    /* . or > */
+		SHIFT_LEFT = 0xE1,    /* Left Shift */
+		SHIFT_RIGHT = 0xE5,    /* Right Shift */
+		SHIFT = 0xE1 | 0xE5,
+		TAB = 0x2B,    /* Tab */
+		OEM_8 = 0x2B,    /* Tab */
+		SPACE = 0x2C,    /* Spacebar */
+		ENTER = 0x28,    /* Return (Enter) */
+		ANY_ENTER = 0x28 | 0x58,
+		DEL = 0x4C,    /* Delete Forward */
+		MINUS = 0x2D,    /* - or _ */
+		EQUALS = 0x2E,    /* = or + */
+		OEM_6 = 0x2F,    /* [ or { */
+		OEM_4 = 0x30,    /* ] or } */
+		OEM_5 = 0x31,    /* \ or | */
+		OEM_1 = 0x33,    /* ; or : */
+		OEM_3 = 0x34,    /* ' or " */
+		OEM_2 = 0x38,    /* / or ? */
+		PGUP = 0x4B,    /* Page Up */
+		PGDN = 0x4E,    /* Page Down */
+		ESCAPE = 0x29,    /* Escape */
+		BACK = 0x2A,    /* Delete (Backspace) */
+		CTRL_LEFT = 0xE0,    /* Left Control */
+		CTRL_RIGHT = 0xE4,    /* Right Control */
+		CTRL = 0xE0 | 0xE4,
+		CAPS_LOCK = 0x39,    /* Caps Lock */
+		SCROLL = 0x47,    /* Scroll Lock */
+		PAUSE = 0x48,    /* Pause */
+		HOME = 0x4A,    /* Home */
+		END = 0x4D,    /* End */
+		INS = 0x49,    /* Insert */
+		F1 = 0x3A,    /* F1 */
+		F2 = 0x3B,    /* F2 */
+		F3 = 0x3C,    /* F3 */
+		F4 = 0x3D,    /* F4 */
+		F5 = 0x3E,    /* F5 */
+		F6 = 0x3F,    /* F6 */
+		F7 = 0x40,    /* F7 */
+		F8 = 0x41,    /* F8 */
+		F9 = 0x42,    /* F9 */
+		F10 = 0x43,    /* F10 */
+		F11 = 0x44,    /* F11 */
+		F12 = 0x45,    /* F12 */
+		NP1 = 0x59,    /* Keypad 1 or End */
+		NP2 = 0x5A,    /* Keypad 2 or Down Arrow */
+		NP3 = 0x5B,    /* Keypad 3 or Page Down */
+		NP4 = 0x5C,    /* Keypad 4 or Left Arrow */
+		NP5 = 0x5D,    /* Keypad 5 */
+		NP6 = 0x5E,    /* Keypad 6 or Right Arrow */
+		NP7 = 0x5F,    /* Keypad 7 or Home */
+		NP8 = 0x60,    /* Keypad 8 or Up Arrow */
+		NP9 = 0x61,    /* Keypad 9 or Page Up */
+		NP0 = 0x62,    /* Keypad 0 or Insert */
+		NP_DIV = 0x54,    /* Keypad / */
+		NP_MUL = 0x55,    /* Keypad * */
+		NP_SUB = 0x56,    /* Keypad - */
+		NP_ADD = 0x57,    /* Keypad + */
+		NP_DECIMAL = 0x63,    /* Keypad . or Delete */
+		RETURN = 0x58,    /* Keypad Enter */
 
-        ENUM_END = 0x90
-    };
+		ENUM_END = 0x90
+	};
 #endif
 
     namespace Mouse
@@ -793,231 +1107,231 @@ namespace olc {
     enum SensorType
     {
         /**
-        * Invalid sensor type.
-        */
+		* Invalid sensor type.
+		*/
         ASENSOR_TYPE_INVALID = -1,
 
         /**
-         * reporting-mode: continuous
-         *
-         *  All values are in SI units (m/s^2) and measure the acceleration of the
-         *  device minus the force of gravity.
-         */
+		 * reporting-mode: continuous
+		 *
+		 *  All values are in SI units (m/s^2) and measure the acceleration of the
+		 *  device minus the force of gravity.
+		 */
         ASENSOR_TYPE_ACCELEROMETER = 1,
 
         /**
-         * reporting-mode: continuous
-         *
-         *  All values are in micro-Tesla (µT) and measure the geomagnetic
-         *  field in the X, Y and Z axis.
-         */
+		 * reporting-mode: continuous
+		 *
+		 *  All values are in micro-Tesla (µT) and measure the geomagnetic
+		 *  field in the X, Y and Z axis.
+		 */
         ASENSOR_TYPE_MAGNETIC_FIELD = 2,
 
         /**
-         * reporting-mode: continuous
-         *
-         *  All values are in degrees and measure the geomagnetic
-         *  field in the X, Y and Z axis.
-         */
+		 * reporting-mode: continuous
+		 *
+		 *  All values are in degrees and measure the geomagnetic
+		 *  field in the X, Y and Z axis.
+		 */
         ASENSOR_TYPE_ORIENTATION = 3,
 
         /**
-         * reporting-mode: continuous
-         *
-         *  All values are in radians/second and measure the rate of rotation
-         *  around the X, Y and Z axis.
-         */
+		 * reporting-mode: continuous
+		 *
+		 *  All values are in radians/second and measure the rate of rotation
+		 *  around the X, Y and Z axis.
+		 */
         ASENSOR_TYPE_GYROSCOPE = 4,
 
         /**
-         * reporting-mode: on-change
-         *
-         * The light sensor value is returned in SI lux units.
-         */
+		 * reporting-mode: on-change
+		 *
+		 * The light sensor value is returned in SI lux units.
+		 */
         ASENSOR_TYPE_LIGHT = 5,
 
         /**
-         * reporting-mode: on-change
-         *
-         * The pressure sensor value is returned in hPa (millibar).
-         */
+		 * reporting-mode: on-change
+		 *
+		 * The pressure sensor value is returned in hPa (millibar).
+		 */
         ASENSOR_TYPE_PRESSURE = 6,
 
         /**
-         * reporting-mode: on-change
-         *
-         * The proximity sensor which turns the screen off and back on during calls is the
-         * wake-up proximity sensor. Implement wake-up proximity sensor before implementing
-         * a non wake-up proximity sensor. For the wake-up proximity sensor set the flag
-         * SENSOR_FLAG_WAKE_UP.
-         * The value corresponds to the distance to the nearest object in centimeters.
-         */
+		 * reporting-mode: on-change
+		 *
+		 * The proximity sensor which turns the screen off and back on during calls is the
+		 * wake-up proximity sensor. Implement wake-up proximity sensor before implementing
+		 * a non wake-up proximity sensor. For the wake-up proximity sensor set the flag
+		 * SENSOR_FLAG_WAKE_UP.
+		 * The value corresponds to the distance to the nearest object in centimeters.
+		 */
         ASENSOR_TYPE_PROXIMITY = 8,
 
         /**
-         * reporting-mode: continous
-         *
-         * All values are in SI units (m/s^2) and measure the direction and
-         * magnitude of gravity. When the device is at rest, the output of
-         * the gravity sensor should be identical to that of the accelerometer.
-         */
+		 * reporting-mode: continous
+		 *
+		 * All values are in SI units (m/s^2) and measure the direction and
+		 * magnitude of gravity. When the device is at rest, the output of
+		 * the gravity sensor should be identical to that of the accelerometer.
+		 */
         ASENSOR_TYPE_GRAVITY = 9,
 
         /**
-         * reporting-mode: continuous
-         *
-         *  All values are in SI units (m/s^2) and measure the acceleration of the
-         *  device not including the force of gravity.
-         */
+		 * reporting-mode: continuous
+		 *
+		 *  All values are in SI units (m/s^2) and measure the acceleration of the
+		 *  device not including the force of gravity.
+		 */
         ASENSOR_TYPE_LINEAR_ACCELERATION = 10,
 
         /**
-         * reporting-mode: continous
-         *
-         * The rotation vector represents the orientation of the device as a combination of an angle and
-         * an axis, in which the device has rotated through an angle θ around an axis (x, y, z).
-         */
+		 * reporting-mode: continous
+		 *
+		 * The rotation vector represents the orientation of the device as a combination of an angle and
+		 * an axis, in which the device has rotated through an angle θ around an axis (x, y, z).
+		 */
         ASENSOR_TYPE_ROTATION_VECTOR = 11,
 
         /**
-         * reporting-mode: on-change
-         *
-         * The relative humidity sensor value is returned in percent.
-         */
+		 * reporting-mode: on-change
+		 *
+		 * The relative humidity sensor value is returned in percent.
+		 */
         ASENSOR_TYPE_RELATIVE_HUMIDITY = 12,
 
         /**
-         * reporting-mode: on-change
-         *
-         * The ambient temperature sensor value is returned in Celsius.
-         */
+		 * reporting-mode: on-change
+		 *
+		 * The ambient temperature sensor value is returned in Celsius.
+		 */
         ASENSOR_TYPE_AMBIENT_TEMPERATURE = 13,
 
         /**
-         * reporting-mode: continuous
-         *
-         *  All values are in micro-Tesla (µT) and measure the uncalibrated geomagnetic
-         *  field in the X, Y and Z axis.
-         */
+		 * reporting-mode: continuous
+		 *
+		 *  All values are in micro-Tesla (µT) and measure the uncalibrated geomagnetic
+		 *  field in the X, Y and Z axis.
+		 */
         ASENSOR_TYPE_MAGNETIC_FIELD_UNCALIBRATED = 14,
 
         /**
-         * reporting-mode: continuous
-         *
-         * Identical to SensorType.RotationVector except that it doesn't use the geomagnetic field.
-         * Therefore the Y axis doesn't point north, but instead to some other reference,
-         * that reference is allowed to drift by the same order of magnitude as the gyroscope drift around the Z axis.
-         */
+		 * reporting-mode: continuous
+		 *
+		 * Identical to SensorType.RotationVector except that it doesn't use the geomagnetic field.
+		 * Therefore the Y axis doesn't point north, but instead to some other reference,
+		 * that reference is allowed to drift by the same order of magnitude as the gyroscope drift around the Z axis.
+		 */
         ASENSOR_TYPE_GAME_ROTATION_VECTOR = 15,
 
         /**
-         *  reporting-mode: continuous
-         *
-         *  All values are in radians/second and measure the rate of uncalibrated rotation
-         *  around the X, Y and Z axis.
-         */
+		 *  reporting-mode: continuous
+		 *
+		 *  All values are in radians/second and measure the rate of uncalibrated rotation
+		 *  around the X, Y and Z axis.
+		 */
         ASENSOR_TYPE_GYROSCOPE_UNCALIBRATED = 16,
 
         /**
-         * reporting-mode: continuous
-         *
-         * All values are in SI units (m/s^2) and measure the acceleration of the device minus the force of gravity.
-         * NOTE: If not supported used Accelerometer
-         */
+		 * reporting-mode: continuous
+		 *
+		 * All values are in SI units (m/s^2) and measure the acceleration of the device minus the force of gravity.
+		 * NOTE: If not supported used Accelerometer
+		 */
         ASENSOR_TYPE_SIGNIFICANT_MOTION = 17,
 
         /**
-         * reporting-mode: on-change
-         *
-         * Fires when steps are detected
-         * NOTE: Mostly supported by Android Watch
-         */
+		 * reporting-mode: on-change
+		 *
+		 * Fires when steps are detected
+		 * NOTE: Mostly supported by Android Watch
+		 */
         ASENSOR_TYPE_STEP_DETECTOR = 18,
 
         /**
-         * reporting-mode: continuous
-         *
-         * Number of steps detected per sample rate
-         * NOTE: Mostly supported by Android Watch
-         */
+		 * reporting-mode: continuous
+		 *
+		 * Number of steps detected per sample rate
+		 * NOTE: Mostly supported by Android Watch
+		 */
         ASENSOR_TYPE_STEP_COUNTER = 19,
 
         /**
-         * reporting-mode: continuous
-         * All values are in radians/second and measure the rate of rotation around the X, Y and Z axis.
-         */
+		 * reporting-mode: continuous
+		 * All values are in radians/second and measure the rate of rotation around the X, Y and Z axis.
+		 */
         ASENSOR_TYPE_GEOMAGNETIC_ROTATION_VECTOR = 20,
 
         /**
-         * reporting-mode: on-change
-         *
-         * Number of beats per sample rate
-         * NOTE: Mostly supported by Android Watch
-         */
+		 * reporting-mode: on-change
+		 *
+		 * Number of beats per sample rate
+		 * NOTE: Mostly supported by Android Watch
+		 */
         ASENSOR_TYPE_HEART_RATE = 21,
 
         /**
-         * reporting-mode: continuous
-         * 6D Pose Estimation using RGB refers to the task of determining the six degree-of-freedom (6D) pose of an object in 3D space based on RGB images.
-         * This involves estimating the position and orientation of an object in a scene, and is a fundamental problem in computer vision and robotics.
-         */
+		 * reporting-mode: continuous
+		 * 6D Pose Estimation using RGB refers to the task of determining the six degree-of-freedom (6D) pose of an object in 3D space based on RGB images.
+		 * This involves estimating the position and orientation of an object in a scene, and is a fundamental problem in computer vision and robotics.
+		 */
         ASENSOR_TYPE_POSE_6DOF = 28,
 
         /**
-        * reporting-mode: on-change
-        *
-        *Fires when Stationary Detected
-        * NOTE: Mostly supported by Android Watch
-        */
+		* reporting-mode: on-change
+		*
+		*Fires when Stationary Detected
+		* NOTE: Mostly supported by Android Watch
+		*/
         ASENSOR_TYPE_STATIONARY_DETECT = 29,
 
         /**
-         * reporting-mode: on-change
-         *
-         * Fires when Motion Detected
-         */
+		 * reporting-mode: on-change
+		 *
+		 * Fires when Motion Detected
+		 */
         ASENSOR_TYPE_MOTION_DETECT = 30,
 
         /**
-         * reporting-mode: continuous
-         *  Number of heart beats per sample rate
-         */
+		 * reporting-mode: continuous
+		 *  Number of heart beats per sample rate
+		 */
         ASENSOR_TYPE_HEART_BEAT = 31,
 
         /**
-         * SPECIAL CASE.
-         *
-         */
+		 * SPECIAL CASE.
+		 *
+		 */
         ASENSOR_TYPE_ADDITIONAL_INFO = 33,
 
         /**
-         * reporting-mode: on-change
-         *
-         * A sensor of this type returns an event every time the device transitions from off-body to on-body and from on-body to off-body (e.g. a wearable device being removed from the wrist would trigger an event indicating an off-body transition).
-         * The event returned will contain a single value to indicate off-body state:
-         * 1.0 (device is on-body) 0.0 (device is off - body)
-         */
+		 * reporting-mode: on-change
+		 *
+		 * A sensor of this type returns an event every time the device transitions from off-body to on-body and from on-body to off-body (e.g. a wearable device being removed from the wrist would trigger an event indicating an off-body transition).
+		 * The event returned will contain a single value to indicate off-body state:
+		 * 1.0 (device is on-body) 0.0 (device is off - body)
+		 */
         ASENSOR_TYPE_LOW_LATENCY_OFFBODY_DETECT = 34,
 
         /**
-         * reporting-mode: continuous
-         *
-         *  Uncalibrated values are in SI units (m/s^2) and measure the acceleration of the device minus the force of gravity.
-         */
+		 * reporting-mode: continuous
+		 *
+		 *  Uncalibrated values are in SI units (m/s^2) and measure the acceleration of the device minus the force of gravity.
+		 */
         ASENSOR_TYPE_ACCELEROMETER_UNCALIBRATED = 35,
 
         /**
-         * reporting-mode: on-change
-         *
-         * The hinge angle sensor value is returned in degrees.
-         */
+		 * reporting-mode: on-change
+		 *
+		 * The hinge angle sensor value is returned in degrees.
+		 */
         ASENSOR_TYPE_HINGE_ANGLE = 36,
 
     };
 
     /**
-    * Sensor accuracy measure.
-    */
+	* Sensor accuracy measure.
+	*/
     enum SensorStatus {
         /** no contact */
         ASENSOR_STATUS_NO_CONTACT = -1,
@@ -1032,8 +1346,8 @@ namespace olc {
     };
 
     /**
-     * Sensor Reporting Modes.
-     */
+	 * Sensor Reporting Modes.
+	 */
     enum SensorReportingMode {
         /** invalid reporting mode */
         AREPORTING_MODE_INVALID = -1,
@@ -1237,278 +1551,174 @@ namespace olc {
 #if defined (__APPLE__)
 
     /// <summary>
-    /// OLC Phone Sensors
-    /// Enable Sensor before used using EnableSensor(SENSORTYPE, SampleRate ms)
-    /// Ensure Sensor is supported before calling
-    /// See: iOS TBA
-    /// </summary>
-    struct olcSensors
-    {
-        /// <summary>
-        /// All values are in SI units (m/s^2) and measure the acceleration of the device minus the force of gravity.
-        /// </summary>
-        struct Accelerometer;
+	/// OLC Phone Sensors
+	/// Enable Sensor before used using EnableSensor(SENSORTYPE, SampleRate ms)
+	/// Ensure Sensor is supported before calling
+	/// See: iOS TBA
+	/// </summary>
+	struct olcSensors
+	{
+		/// <summary>
+		/// All values are in SI units (m/s^2) and measure the acceleration of the device minus the force of gravity.
+		/// </summary>
+		struct Accelerometer;
 
-        /// <summary>
-        /// All values are in micro-Tesla (uT) and measure the geomagnetic field in the X, Y and Z axis.
-        /// </summary>
-        struct MagniticField;
+		/// <summary>
+		/// All values are in micro-Tesla (uT) and measure the geomagnetic field in the X, Y and Z axis.
+		/// </summary>
+		struct MagniticField;
 
-        /// <summary>
-        /// All values are in degrees and measure the geomagnetic field in the X, Y and Z axis.
-        /// </summary>
-        struct Orientation;
+		/// <summary>
+		/// All values are in degrees and measure the geomagnetic field in the X, Y and Z axis.
+		/// </summary>
+		struct Orientation;
 
-        /// <summary>
-        /// All values are in radians/second and measure the rate of rotation around the X, Y and Z axis.
-        /// </summary>
-        struct Gyroscope;
+		/// <summary>
+		/// All values are in radians/second and measure the rate of rotation around the X, Y and Z axis.
+		/// </summary>
+		struct Gyroscope;
 
-        /// <summary>
-        /// The light sensor value is returned in SI lux units.
-        /// </summary>
-        float Light;
+		/// <summary>
+		/// The light sensor value is returned in SI lux units.
+		/// </summary>
+		float Light;
 
-        /// <summary>
-        /// The pressure sensor value is returned in hPa (millibar).
-        /// </summary>
-        float Pressure;
+		/// <summary>
+		/// The pressure sensor value is returned in hPa (millibar).
+		/// </summary>
+		float Pressure;
 
-        /// <summary>
-        /// The proximity sensor which turns the screen off and back on during calls is the
-        /// wake - up proximity sensor.Implement wake - up proximity sensor before implementing
-        /// a non wake - up proximity sensor.For the wake - up proximity sensor set the flag
-        /// SENSOR_FLAG_WAKE_UP.
-        /// The value corresponds to the distance to the nearest object in centimeters.
-        /// </summary>
-        float* Proximity;
+		/// <summary>
+		/// The proximity sensor which turns the screen off and back on during calls is the
+		/// wake - up proximity sensor.Implement wake - up proximity sensor before implementing
+		/// a non wake - up proximity sensor.For the wake - up proximity sensor set the flag
+		/// SENSOR_FLAG_WAKE_UP.
+		/// The value corresponds to the distance to the nearest object in centimeters.
+		/// </summary>
+		float* Proximity;
 
-        /// <summary>
-        /// All values are in SI units (m/s^2) and measure the direction and
-        /// magnitude of gravity.When the device is at rest, the output of
-        /// the gravity sensor should be identical to that of the accelerometer.
-        /// </summary>
-        struct Gravity;
+		/// <summary>
+		/// All values are in SI units (m/s^2) and measure the direction and
+		/// magnitude of gravity.When the device is at rest, the output of
+		/// the gravity sensor should be identical to that of the accelerometer.
+		/// </summary>
+		struct Gravity;
 
-        /// <summary>
-        /// All values are in SI units (m/s^2) and measure the acceleration of the
-        /// device not including the force of gravity.
-        /// </summary>
-        struct LinearAcceleration;
+		/// <summary>
+		/// All values are in SI units (m/s^2) and measure the acceleration of the
+		/// device not including the force of gravity.
+		/// </summary>
+		struct LinearAcceleration;
 
-        /// <summary>
-        /// The rotation vector represents the orientation of the device as a combination of an angle and
-        /// an axis, in which the device has rotated through an angle θ around an axis (x, y, z).
-        /// </summary>
-        struct RotationVector;
+		/// <summary>
+		/// The rotation vector represents the orientation of the device as a combination of an angle and
+		/// an axis, in which the device has rotated through an angle θ around an axis (x, y, z).
+		/// </summary>
+		struct RotationVector;
 
-        /// <summary>
-        /// The relative humidity sensor value is returned in percent.
-        /// </summary>
-        float RelativeHumidity;
+		/// <summary>
+		/// The relative humidity sensor value is returned in percent.
+		/// </summary>
+		float RelativeHumidity;
 
-        /// <summary>
-        /// The ambient temperature sensor value is returned in Celcius.
-        /// </summary>
-        float AmbientTemperature;
+		/// <summary>
+		/// The ambient temperature sensor value is returned in Celcius.
+		/// </summary>
+		float AmbientTemperature;
 
-        /// <summary>
-        /// Uncalibrated values are in micro-Tesla (uT) and measure the geomagnetic field in the X, Y and Z axis.
-        /// </summary>
-        struct Uncalibrated_MagniticField;
+		/// <summary>
+		/// Uncalibrated values are in micro-Tesla (uT) and measure the geomagnetic field in the X, Y and Z axis.
+		/// </summary>
+		struct Uncalibrated_MagniticField;
 
-        /// <summary>
-        /// Identical to SensorType.RotationVector except that it doesn't use the geomagnetic field.
-        /// Therefore the Y axis doesn't point north, but instead to some other reference,
-        /// that reference is allowed to drift by the same order of magnitude as the gyroscope drift around the Z axis.
-        /// </summary>
-        struct GameRotation;
+		/// <summary>
+		/// Identical to SensorType.RotationVector except that it doesn't use the geomagnetic field.
+		/// Therefore the Y axis doesn't point north, but instead to some other reference,
+		/// that reference is allowed to drift by the same order of magnitude as the gyroscope drift around the Z axis.
+		/// </summary>
+		struct GameRotation;
 
-        /// <summary>
-        /// Uncalibrated values are in radians/second and measure the rate of rotation around the X, Y and Z axis.
-        /// </summary>
-        struct Uncalibrated_Gyroscope;
+		/// <summary>
+		/// Uncalibrated values are in radians/second and measure the rate of rotation around the X, Y and Z axis.
+		/// </summary>
+		struct Uncalibrated_Gyroscope;
 
-        /// <summary>
-        /// All values are in SI units (m/s^2) and measure the acceleration of the device minus the force of gravity.
-        /// NOTE: If not supported used Accelerometer
-        /// </summary>
-        struct SignificantMotion;
+		/// <summary>
+		/// All values are in SI units (m/s^2) and measure the acceleration of the device minus the force of gravity.
+		/// NOTE: If not supported used Accelerometer
+		/// </summary>
+		struct SignificantMotion;
 
-        /// <summary>
-        /// Fires when steps are detected
-        /// NOTE: Mostly supported by Android Watch
-        /// </summary>
-        float* StepDetector;
+		/// <summary>
+		/// Fires when steps are detected
+		/// NOTE: Mostly supported by Android Watch
+		/// </summary>
+		float* StepDetector;
 
-        /// <summary>
-        /// Number of steps detected per sample rate
-        /// NOTE: Mostly supported by Android Watch
-        /// </summary>
-        float* StepCounter;
+		/// <summary>
+		/// Number of steps detected per sample rate
+		/// NOTE: Mostly supported by Android Watch
+		/// </summary>
+		float* StepCounter;
 
-        /// <summary>
-        /// All values are in radians/second and measure the rate of rotation around the X, Y and Z axis.
-        /// </summary>
-        struct GeomagneticRotationVector;
+		/// <summary>
+		/// All values are in radians/second and measure the rate of rotation around the X, Y and Z axis.
+		/// </summary>
+		struct GeomagneticRotationVector;
 
-        /// <summary>
-        /// Number of beats per sample rate
-        /// NOTE: Mostly supported by Android Watch
-        /// </summary>
-        struct HeartRate;
+		/// <summary>
+		/// Number of beats per sample rate
+		/// NOTE: Mostly supported by Android Watch
+		/// </summary>
+		struct HeartRate;
 
-        /// <summary>
-        /// 6D Pose Estimation using RGB refers to the task of determining the six degree-of-freedom (6D) pose of an object in 3D space based on RGB images.
-        /// This involves estimating the position and orientation of an object in a scene, and is a fundamental problem in computer vision and robotics.
-        /// </summary>
-        struct Pose_6D;
+		/// <summary>
+		/// 6D Pose Estimation using RGB refers to the task of determining the six degree-of-freedom (6D) pose of an object in 3D space based on RGB images.
+		/// This involves estimating the position and orientation of an object in a scene, and is a fundamental problem in computer vision and robotics.
+		/// </summary>
+		struct Pose_6D;
 
-        /// <summary>
-        /// Fires when Stationary Detected
-        /// NOTE: Mostly supported by Android Watch
-        /// </summary>
-        float* StationaryDetect;
+		/// <summary>
+		/// Fires when Stationary Detected
+		/// NOTE: Mostly supported by Android Watch
+		/// </summary>
+		float* StationaryDetect;
 
-        /// <summary>
-        ///  Fires when Motion Detected
-        /// </summary>
-        float* MotionDetect;
+		/// <summary>
+		///  Fires when Motion Detected
+		/// </summary>
+		float* MotionDetect;
 
-        /// <summary>
-        /// Number of heart beats per sample rate
-        /// </summary>
-        float* HeartBeat;
+		/// <summary>
+		/// Number of heart beats per sample rate
+		/// </summary>
+		float* HeartBeat;
 
-        // TODO: To be updated in a future release: JG 21-Oct-2023
-        // Special Case
-        // TODO:ASENSOR_TYPE_ADDITIONAL_INFO
+		// TODO: To be updated in a future release: JG 21-Oct-2023
+		// Special Case
+		// TODO:ASENSOR_TYPE_ADDITIONAL_INFO
 
-        /// <summary>
-        /// A sensor of this type returns an event every time the device transitions from off-body to on-body and from on-body to off-body (e.g. a wearable device being removed from the wrist would trigger an event indicating an off-body transition).
-        /// The event returned will contain a single value to indicate off-body state:
-        /// 1.0 (device is on-body) 0.0 (device is off - body)
-        /// </summary>
-        float* LowLatencyOffBodyDetect;
+		/// <summary>
+		/// A sensor of this type returns an event every time the device transitions from off-body to on-body and from on-body to off-body (e.g. a wearable device being removed from the wrist would trigger an event indicating an off-body transition).
+		/// The event returned will contain a single value to indicate off-body state:
+		/// 1.0 (device is on-body) 0.0 (device is off - body)
+		/// </summary>
+		float* LowLatencyOffBodyDetect;
 
-        /// <summary>
-        /// Uncalibrated values are in SI units (m/s^2) and measure the acceleration of the device minus the force of gravity.
-        /// WARNING: Enable Sensor before used using EnableSensor(SENSORTYPE, SampleRate ms)
-        /// </summary>
-        struct Uncalibrated_Accelerometer;
+		/// <summary>
+		/// Uncalibrated values are in SI units (m/s^2) and measure the acceleration of the device minus the force of gravity.
+		/// WARNING: Enable Sensor before used using EnableSensor(SENSORTYPE, SampleRate ms)
+		/// </summary>
+		struct Uncalibrated_Accelerometer;
 
-        /// <summary>
-        /// Hinge in degress
-        /// </summary>
-        float* HingeAngle;
-
-
-
-
-
-
-
-
-    };
+		/// <summary>
+		/// Hinge in degress
+		/// </summary>
+		float* HingeAngle;
+	};
 
 #endif
 
-
-
-
-
-    // O------------------------------------------------------------------------------O
-    // | olc::vX2d - A generic 2D vector type                                         |
-    // O------------------------------------------------------------------------------O
-#if !defined(OLC_IGNORE_VEC2D)
-    template <class T>
-    struct v2d_generic
-    {
-        T x = 0;
-        T y = 0;
-        v2d_generic() : x(0), y(0) {}
-        v2d_generic(T _x, T _y) : x(_x), y(_y) {}
-        v2d_generic(const v2d_generic& v) : x(v.x), y(v.y) {}
-        v2d_generic& operator=(const v2d_generic& v) = default;
-        T mag() const { return T(std::sqrt(x * x + y * y)); }
-        T mag2() const { return x * x + y * y; }
-        v2d_generic  norm() const { T r = 1 / mag(); return v2d_generic(x * r, y * r); }
-        v2d_generic  perp() const { return v2d_generic(-y, x); }
-        v2d_generic  floor() const { return v2d_generic(std::floor(x), std::floor(y)); }
-        v2d_generic  ceil() const { return v2d_generic(std::ceil(x), std::ceil(y)); }
-        v2d_generic  max(const v2d_generic& v) const { return v2d_generic(std::max(x, v.x), std::max(y, v.y)); }
-        v2d_generic  min(const v2d_generic& v) const { return v2d_generic(std::min(x, v.x), std::min(y, v.y)); }
-        v2d_generic  cart() { return { std::cos(y) * x, std::sin(y) * x }; }
-        v2d_generic  polar() { return { mag(), std::atan2(y, x) }; }
-        v2d_generic  clamp(const v2d_generic& v1, const v2d_generic& v2) const { return this->max(v1)->min(v2); }
-        v2d_generic	 lerp(const v2d_generic& v1, const double t) { return this->operator*(T(1.0 - t)) + (v1 * T(t)); }
-        T dot(const v2d_generic& rhs) const { return this->x * rhs.x + this->y * rhs.y; }
-        T cross(const v2d_generic& rhs) const { return this->x * rhs.y - this->y * rhs.x; }
-        v2d_generic  operator +  (const v2d_generic& rhs) const { return v2d_generic(this->x + rhs.x, this->y + rhs.y); }
-        v2d_generic  operator -  (const v2d_generic& rhs) const { return v2d_generic(this->x - rhs.x, this->y - rhs.y); }
-        v2d_generic  operator *  (const T& rhs)           const { return v2d_generic(this->x * rhs, this->y * rhs); }
-        v2d_generic  operator *  (const v2d_generic& rhs) const { return v2d_generic(this->x * rhs.x, this->y * rhs.y); }
-        v2d_generic  operator /  (const T& rhs)           const { return v2d_generic(this->x / rhs, this->y / rhs); }
-        v2d_generic  operator /  (const v2d_generic& rhs) const { return v2d_generic(this->x / rhs.x, this->y / rhs.y); }
-        v2d_generic& operator += (const v2d_generic& rhs) { this->x += rhs.x; this->y += rhs.y; return *this; }
-        v2d_generic& operator -= (const v2d_generic& rhs) { this->x -= rhs.x; this->y -= rhs.y; return *this; }
-        v2d_generic& operator *= (const T& rhs) { this->x *= rhs; this->y *= rhs; return *this; }
-        v2d_generic& operator /= (const T& rhs) { this->x /= rhs; this->y /= rhs; return *this; }
-        v2d_generic& operator *= (const v2d_generic& rhs) { this->x *= rhs.x; this->y *= rhs.y; return *this; }
-        v2d_generic& operator /= (const v2d_generic& rhs) { this->x /= rhs.x; this->y /= rhs.y; return *this; }
-        v2d_generic  operator +  () const { return { +x, +y }; }
-        v2d_generic  operator -  () const { return { -x, -y }; }
-        bool operator == (const v2d_generic& rhs) const { return (this->x == rhs.x && this->y == rhs.y); }
-        bool operator != (const v2d_generic& rhs) const { return (this->x != rhs.x || this->y != rhs.y); }
-        const std::string str() const { return std::string("(") + std::to_string(this->x) + "," + std::to_string(this->y) + ")"; }
-        friend std::ostream& operator << (std::ostream& os, const v2d_generic& rhs) { os << rhs.str(); return os; }
-        operator v2d_generic<int32_t>() const { return { static_cast<int32_t>(this->x), static_cast<int32_t>(this->y) }; }
-        operator v2d_generic<float>() const { return { static_cast<float>(this->x), static_cast<float>(this->y) }; }
-        operator v2d_generic<double>() const { return { static_cast<double>(this->x), static_cast<double>(this->y) }; }
-    };
-
-    // Note: joshinils has some good suggestions here, but they are complicated to implement at this moment,
-    // however they will appear in a future version of PGE
-    template<class T> inline v2d_generic<T> operator * (const float& lhs, const v2d_generic<T>& rhs)
-    {
-        return v2d_generic<T>((T)(lhs * (float)rhs.x), (T)(lhs * (float)rhs.y));
-    }
-    template<class T> inline v2d_generic<T> operator * (const double& lhs, const v2d_generic<T>& rhs)
-    {
-        return v2d_generic<T>((T)(lhs * (double)rhs.x), (T)(lhs * (double)rhs.y));
-    }
-    template<class T> inline v2d_generic<T> operator * (const int& lhs, const v2d_generic<T>& rhs)
-    {
-        return v2d_generic<T>((T)(lhs * (int)rhs.x), (T)(lhs * (int)rhs.y));
-    }
-    template<class T> inline v2d_generic<T> operator / (const float& lhs, const v2d_generic<T>& rhs)
-    {
-        return v2d_generic<T>((T)(lhs / (float)rhs.x), (T)(lhs / (float)rhs.y));
-    }
-    template<class T> inline v2d_generic<T> operator / (const double& lhs, const v2d_generic<T>& rhs)
-    {
-        return v2d_generic<T>((T)(lhs / (double)rhs.x), (T)(lhs / (double)rhs.y));
-    }
-    template<class T> inline v2d_generic<T> operator / (const int& lhs, const v2d_generic<T>& rhs)
-    {
-        return v2d_generic<T>((T)(lhs / (int)rhs.x), (T)(lhs / (int)rhs.y));
-    }
-
-    // To stop dandistine crying...
-    template<class T, class U> inline bool operator < (const v2d_generic<T>& lhs, const v2d_generic<U>& rhs)
-    {
-        return lhs.y < rhs.y || (lhs.y == rhs.y && lhs.x < rhs.x);
-    }
-    template<class T, class U> inline bool operator > (const v2d_generic<T>& lhs, const v2d_generic<U>& rhs)
-    {
-        return lhs.y > rhs.y || (lhs.y == rhs.y && lhs.x > rhs.x);
-    }
-
-    typedef v2d_generic<int32_t> vi2d;
-    typedef v2d_generic<uint32_t> vu2d;
-    typedef v2d_generic<float> vf2d;
-    typedef v2d_generic<double> vd2d;
-#endif
 
 
     // O------------------------------------------------------------------------------O
@@ -1887,7 +2097,7 @@ namespace olc {
         /// </summary>
         /// <param name="vStartPos">Start position (x,y)</param>
         /// <param name="vSize">Size (width, height)</param>
-        /// <param name="scale">Scalar (>=1) (Default 1)</param>
+        /// <param name="scale">Scaler (>=1) (Default 1)</param>
         /// <param name="flip">olc::Sprite::NONE.. HORIZ.. VERT; (Default NONE)</param>
         /// <param name="pMergeFromSprite">Used solely for merging of sprites (Default nullptr)</param>
         /// <returns>A pointer to a sprite, nullptr if not exist</returns>
@@ -1993,10 +2203,38 @@ namespace olc {
         std::vector<olc::vf2d> pos;
         std::vector<olc::vf2d> uv;
         std::vector<float> w;
+        std::vector<float> z;
         std::vector<olc::Pixel> tint;
         olc::DecalMode mode = olc::DecalMode::NORMAL;
         olc::DecalStructure structure = olc::DecalStructure::FAN;
         uint32_t points = 0;
+        bool depth = false;
+    };
+
+    enum class CullMode : uint8_t
+    {
+        NONE = 0,
+        CW = 1,
+        CCW = 2
+    };
+
+    struct GPUTask
+    {
+        //   x      y      z      w      u      v       rgb
+        struct Vertex { float p[6]; uint32_t c; };
+        std::vector<Vertex> vb;
+        olc::Decal* decal = nullptr;
+        olc::DecalStructure structure = olc::DecalStructure::FAN;
+        olc::DecalMode mode = olc::DecalMode::NORMAL;
+        bool depth = false;
+        std::array<float, 16> mvp = { {
+                                              1, 0, 0, 0,
+                                              0, 1, 0, 0,
+                                              0, 0, 1, 0,
+                                              0, 0, 0, 1
+                                      } };
+        olc::CullMode cull = olc::CullMode::NONE;
+        olc::Pixel tint = olc::WHITE;
     };
 
     /// <summary>
@@ -2011,6 +2249,7 @@ namespace olc {
         olc::Renderable pDrawTarget;
         uint32_t nResID = 0;
         std::vector<DecalInstance> vecDecalInstance;
+        std::vector<GPUTask> vecGPUTasks;
         olc::Pixel tint = olc::WHITE;
         std::function<void()> funcHook = nullptr;
     };
@@ -2023,17 +2262,17 @@ namespace olc {
     struct OSEngineInstance
     {
         struct android_app* app;	// Allows access to Android OS App
-        int animating = 0;			// Set to 0 when app is pause, else 1
+        int animating = 0;		// Set to 0 when app is pause, else 1
         bool StartPGE = false;		// Set to true when it is safe to start the PGE Engine
         bool LostFocus = false;		// Is set when the app has lost focus but is not paused by the OS
-        EGLDisplay display;			// OpenGLES Display
-        EGLSurface surface;			// OpenGLES Surface
-        EGLContext context;			// OpenGLES Context
+        EGLDisplay display;		// OpenGLES Display
+        EGLSurface surface;		// OpenGLES Surface
+        EGLContext context;		// OpenGLES Context
         int32_t viewWidth = 0;		// Width of the viewable Rectangle
         int32_t viewHeight = 0;		// Height of the viewable Rectangle
         int32_t screenWidth = 0;	// Width of the phone screen
         int32_t screenHeight = 0;	// Height of the phone screen
-        void* lastGameState = nullptr;		// A pointer to your save state struct
+        void* lastGameState = nullptr;	// A pointer to your save state struct
 
         // Coming Soon....
         ASensorManager* sensorManager;
@@ -2051,40 +2290,40 @@ namespace olc {
 
 #if defined (__APPLE__)
     /// <summary>
-    /// Apple iOS Engine Struct
-    /// </summary>
-    struct OSEngineInstance
-    {
-        //IOSNativeApp* app;		    // Allows access to iOS OS App
-        int animating = 0;			// Set to 0 when app is pause, else 1
-        bool StartPGE = false;		// Set to true when it is safe to start the PGE Engine
-        bool LostFocus = false;		// Is set when the app has lost focus but is not paused by the OS
-        EGLDisplay display;			// OpenGLES Display
-        EGLSurface surface;			// OpenGLES Surface
-        EGLContext context;			// OpenGLES Context
-        int32_t viewWidth = 0;		// Width of the viewable Rectangle
-        int32_t viewHeight = 0;		// Height of the viewable Rectangle
-        int32_t screenWidth = 0;	// Width of the phone screen
-        int32_t screenHeight = 0;	// Height of the phone screen
-        bool bFullScreen = false;   // Stores if full screen is enabled
-        float fScaleFactor = 0.00f; // Stores the scale factor for full screen
-        bool bMaintainAspectRatio = false;  // Maintain Aspect Ratio for full screen
-        void* lastGameState = nullptr;		// A pointer to your save state struct
-        std::string strInternalAppStorage = "ACCESS_DENIED";    // Stores the path (UTF8String) to the Internal App Storage, returns ACCESS_DENIED when iOS permission not set
-        std::string strExternalAppStorage = "ACCESS_DENIED";    // Stores the path (UTF8String) to the Exernal App Storage (/Documents/), returns ACCESS_DENIED when iOS permission not set
-        std::string strPublicAppStorage = "ACCESS_DENIED";      // Stores the path (UTF8String) to the Public App Storage , returns ACCESS_DENIED when iOS permission not set
+	/// Apple iOS Engine Struct
+	/// </summary>
+	struct OSEngineInstance
+	{
+		//IOSNativeApp* app;		// Allows access to iOS OS App
+		int animating = 0;		// Set to 0 when app is pause, else 1
+		bool StartPGE = false;		// Set to true when it is safe to start the PGE Engine
+		bool LostFocus = false;		// Is set when the app has lost focus but is not paused by the OS
+		EGLDisplay display;		// OpenGLES Display
+		EGLSurface surface;		// OpenGLES Surface
+		EGLContext context;		// OpenGLES Context
+		int32_t viewWidth = 0;		// Width of the viewable Rectangle
+		int32_t viewHeight = 0;		// Height of the viewable Rectangle
+		int32_t screenWidth = 0;	// Width of the phone screen
+		int32_t screenHeight = 0;	// Height of the phone screen
+		bool bFullScreen = false;   	// Stores if full screen is enabled
+		float fScaleFactor = 0.00f; 	// Stores the scale factor for full screen
+		bool bMaintainAspectRatio = false;	// Maintain Aspect Ratio for full screen
+		void* lastGameState = nullptr;		// A pointer to your save state struct
+		std::string strInternalAppStorage = "ACCESS_DENIED";    // Stores the path (UTF8String) to the Internal App Storage, returns ACCESS_DENIED when iOS permission not set
+		std::string strExternalAppStorage = "ACCESS_DENIED";    // Stores the path (UTF8String) to the Exernal App Storage (/Documents/), returns ACCESS_DENIED when iOS permission not set
+		std::string strPublicAppStorage = "ACCESS_DENIED";      // Stores the path (UTF8String) to the Public App Storage , returns ACCESS_DENIED when iOS permission not set
 
 
-        // Coming Soon....
-        //ASensorManager* sensorManager;
+		// Coming Soon....
+		//ASensorManager* sensorManager;
 
-        /// <summary>
-        /// Tuple Vector for os Sensors: { OS Const Type, Pointer to ASenor Struct, sample rate ms}
-        /// </summary>
-        std::vector<std::tuple<olc::SensorType, const void*, uint32_t>> deviceSensors;
-        //	std::vector<std::tuple<olc::SensorType, const ASensor*, uint32_t>> deviceSensors;
-        //	ASensorEventQueue* sensorEventQueue;
-    };
+		/// <summary>
+		/// Tuple Vector for os Sensors: { OS Const Type, Pointer to ASenor Struct, sample rate ms}
+		/// </summary>
+		std::vector<std::tuple<olc::SensorType, const void*, uint32_t>> deviceSensors;
+		//	std::vector<std::tuple<olc::SensorType, const ASensor*, uint32_t>> deviceSensors;
+		//	ASensorEventQueue* sensorEventQueue;
+	};
 
 #endif // __APPLE__
 
@@ -2096,13 +2335,15 @@ namespace olc {
     public:
         virtual ~Renderer() = default;
         virtual void       PrepareDevice() = 0;
-        virtual olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen = true, bool bVSYNC = false, GLsizei nTextureCount = 1) = 0;
+        virtual olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen, bool bVSYNC, GLsizei nTextureCount = 1) = 0;
         virtual olc::rcode DestroyDevice() = 0;
         virtual void       DisplayFrame() = 0;
         virtual void       PrepareDrawing() = 0;
         virtual void	   SetDecalMode(const olc::DecalMode& mode) = 0;
         virtual void       DrawLayerQuad(const olc::vf2d& offset, const olc::vf2d& scale, const olc::Pixel tint) = 0;
         virtual void       DrawDecal(const olc::DecalInstance& decal) = 0;
+        virtual void       DoGPUTask(const olc::GPUTask& task) = 0;
+        virtual void	   Set3DProjection(const std::array<float, 16>& mat) = 0;
         virtual uint32_t   CreateTexture(const uint32_t width, const uint32_t height, const bool filtered = false, const bool clamp = true, GLsizei nTextureCount = 1) = 0;
         virtual void       UpdateTexture(uint32_t id, olc::Sprite* spr, GLint nlevel = 0, GLint nborder = 0) = 0;
         virtual void       ReadTexture(uint32_t id, olc::Sprite* spr) = 0;
@@ -2362,11 +2603,11 @@ namespace olc {
     class PGEX;
 
     // The Static Twins (plus three)
-    static std::unique_ptr<Renderer> renderer;				// Pointer to the renderer (OpenGLES10/20/30)
-    static std::unique_ptr<Platform> platform;				// Pointer to the OS platform (Android, iOS)
+    static std::unique_ptr<Renderer> renderer;			// Pointer to the renderer (OpenGLES10/20/30)
+    static std::unique_ptr<Platform> platform;			// Pointer to the OS platform (Android, iOS)
     static std::unique_ptr<SIMDDrawRoutines> simddrawer;	// Pointer to the SIMD Draw functions
     static std::unique_ptr<FileHandler> filehandler;		// Pointer to the file handler for (Android, iOS)
-    static std::map<size_t, uint8_t> mapKeys;				// Mapped keys vector
+    static std::map<size_t, uint8_t> mapKeys;			// Mapped keys vector
 
     // O------------------------------------------------------------------------------O
     // | olc::PixelGameEngine - The main BASE class for your application              |
@@ -2388,9 +2629,10 @@ namespace olc {
         /// <param name="full_screen">Use Full Screen: Default: true</param>
         /// <param name="vsync">Use vSync: Default: false</param>
         /// <param name="cohesion">NOT WORKING: Use Engine bounds cohesion: Default: false</param>
+        /// <param name="vsync">Use realwindow: Default: false Note: Current not supported</param>
         /// <returns>FAIL = 0, OK = 1</returns>
         olc::rcode Construct(int32_t screen_w = 1280, int32_t screen_h = 720, int32_t pixel_w = 1, int32_t pixel_h = 1,
-                             bool full_screen = true, bool vsync = false, bool cohesion = false);
+                             bool full_screen = true, bool vsync = false, bool cohesion = false, bool realwindow = false);
 
         /// <summary>
         /// Starts the PGE Mobile Engine (Where the magic begins)
@@ -2818,6 +3060,14 @@ namespace olc {
         /// <returns>Disabled: OK, Error: FAIL</returns>
         olc::rcode DisableSensor(olc::SensorType Type);
 
+
+        // [ADVANCED] For those that really want to dick about with PGE :P
+        // Note: Normal use of olc::PGE does not require you use these functions
+        void adv_ManualRenderEnable(const bool bEnable);
+        void adv_HardwareClip(const bool bScale, const olc::vi2d& viewPos, const olc::vi2d& viewSize, const bool bClear = false);
+        void adv_FlushLayer(const size_t nLayerID);
+        void adv_FlushLayerDecals(const size_t nLayerID);
+        void adv_FlushLayerGPUTasks(const size_t nLayerID);
 
 
     public: // DRAWING ROUTINES
@@ -3332,7 +3582,7 @@ namespace olc {
         void DrawStringDecal(const olc::vf2d& pos, const std::string& sText, const Pixel col = olc::WHITE, const olc::vf2d& scale = { 1.0f, 1.0f });
 
         /// <summary>
-        /// Draws a multiline proportionate string as a decal, with tinting and scaling
+        /// Draws a multiline propionate string as a decal, with tinting and scaling
         /// </summary>
         /// <param name="pos">Vector Position {x, y}</param>
         /// <param name="sText">Text to be drawn</param>
@@ -3504,32 +3754,39 @@ namespace olc {
 
     public:
 
-        // Experimental Lightweight 3D Routines ================
-#ifdef OLC_ENABLE_EXPERIMENTAL
-        // Set Manual View Matrix
-        void LW3D_View(const std::array<float, 16>& m);
-        // Set Manual World Matrix
-        void LW3D_World(const std::array<float, 16>& m);
+        // HW3D - Lightweight 3D Rendering
         // Set Manual Projection Matrix
-        void LW3D_Projection(const std::array<float, 16>& m);
+        void HW3D_Projection(const std::array<float, 16>& m);
+        // 3D Rendering is tested against depth buffer
+        void HW3D_EnableDepthTest(const bool bEnableDepth);
+        // 3D Rendering cull faces depending on winding order
+        void HW3D_SetCullMode(const olc::CullMode mode);
 
-        // Draws a vector of vertices, interprted as individual triangles
-        void LW3D_DrawTriangles(olc::Decal* decal, const std::vector<std::array<float, 3>>& pos, const std::vector<olc::vf2d>& tex, const std::vector<olc::Pixel>& col);
+        // Draws a 3D Mesh structure (as defined by olc::DecalStructure)
+        void HW3D_DrawObject(
+                const std::array<float, 16>& matModelView,
+                olc::Decal* decal,
+                const olc::DecalStructure layout,
+                const std::vector<std::array<float, 4>>& pos,
+                const std::vector<std::array<float, 2>>& uv,
+                const std::vector<olc::Pixel>& col,
+                const olc::Pixel tint = olc::WHITE);
 
-        void LW3D_ModelTranslate(const float x, const float y, const float z);
+        // Draws a 3D line from pos1 to pos2
+        void HW3D_DrawLine(
+                const std::array<float, 16>& matModelView,
+                const std::array<float, 4>& pos1,
+                const std::array<float, 4>& pos2,
+                const olc::Pixel col = olc::WHITE);
 
-        // Camera convenience functions
-        void LW3D_SetCameraAtTarget(const float fEyeX, const float fEyeY, const float fEyeZ,
-            const float fTargetX, const float fTargetY, const float fTargetZ,
-            const float fUpX = 0.0f, const float fUpY = 1.0f, const float fUpZ = 0.0f);
-        void LW3D_SetCameraAlongDirection(const float fEyeX, const float fEyeY, const float fEyeZ,
-            const float fDirX, const float fDirY, const float fDirZ,
-            const float fUpX = 0.0f, const float fUpY = 1.0f, const float fUpZ = 0.0f);
+        // Draws a 3D line box at pos, and dimensions size
+        void HW3D_DrawLineBox(
+                const std::array<float, 16>& matModelView,
+                const std::array<float, 4>& pos,
+                const std::array<float, 4>& size,
+                const olc::Pixel col = olc::WHITE);
 
-        // 3D Rendering Flags
-        void LW3D_EnableDepthTest(const bool bEnableDepth);
-        void LW3D_EnableBackfaceCulling(const bool bEnableCull);
-#endif
+
     public: // Branding
         /// <summary>
         /// Your Amazing PGE Mobile Game NAME!
@@ -3568,12 +3825,17 @@ namespace olc {
         std::vector<LayerDesc> vLayers;
         uint8_t		nTargetLayer = 0;
         uint32_t	nLastFPS = 0;
+        bool        bManualRenderEnable = false;
         bool        bPixelCohesion = false;
         DecalMode   nDecalMode = DecalMode::NORMAL;
         DecalStructure nDecalStructure = DecalStructure::FAN;
+        CullMode	nHW3DCullMode = CullMode::NONE;
+        bool		bHW3DDepthTest = true;
+
         std::function<olc::Pixel(const int x, const int y, const olc::Pixel&, const olc::Pixel&)> funcPixelMode;
         std::chrono::time_point<std::chrono::system_clock> m_tp1, m_tp2;
         std::vector<olc::vi2d> vFontSpacing;
+
         std::vector<std::string> vDroppedFiles;
         std::vector<std::string> vDroppedFilesCache;
         olc::vi2d vDroppedFilesPoint;
@@ -3581,26 +3843,26 @@ namespace olc {
 
         // Text Entry Specific
         bool bTextEntryEnable = false;
-        std::string sTextEntryString = "";
+        std::string sTextEntryString;
         int32_t nTextEntryCursor = 0;
 
         std::vector<std::tuple<olc::Key, std::string, std::string>> vKeyboardMap;
 
         // State of keyboard
-        bool		pKeyNewState[OLC_MAX_KEYS] = { 0 };
-        bool		pKeyOldState[OLC_MAX_KEYS] = { 0 };
+        bool		pKeyNewState[OLC_MAX_KEYS] = { false };
+        bool		pKeyOldState[OLC_MAX_KEYS] = { false };
         HWButton	pKeyboardState[OLC_MAX_KEYS]; // = { {0} }; // Make compiler happy
 
         // State of mouse
-        bool		pMouseNewState[nMouseButtons] = { 0 };
-        bool		pMouseOldState[nMouseButtons] = { 0 };
+        bool		pMouseNewState[nMouseButtons] = { false };
+        bool		pMouseOldState[nMouseButtons] = { false };
         HWButton	pMouseState[nMouseButtons]; // = { {0} }; // Make compiler happy
 
 
         // State of touchOLC_MAX_TOUCH_POINTS
-        bool		pTouchNewState[OLC_MAX_TOUCH_POINTS] = { 0 };
-        bool		pTouchNewStateCache[OLC_MAX_TOUCH_POINTS] = { 0 };
-        bool		pTouchOldState[OLC_MAX_TOUCH_POINTS] = { 0 };
+        bool		pTouchNewState[OLC_MAX_TOUCH_POINTS] = { false };
+        bool		pTouchNewStateCache[OLC_MAX_TOUCH_POINTS] = { false };
+        bool		pTouchOldState[OLC_MAX_TOUCH_POINTS] = { false };
         HWButton	pTouchState[OLC_MAX_TOUCH_POINTS]; // = { {0} }; // Make compiler happy
         olc::vi2d	pTouchPoints[OLC_MAX_TOUCH_POINTS];
         olc::vi2d	pTouchPointsCache[OLC_MAX_TOUCH_POINTS];
@@ -3724,11 +3986,11 @@ namespace olc {
 #if defined (__APPLE__)
 
         /// <summary>
-        /// Updates the olc Sensor Structs with repective events
-        /// NOTE: This method is called from EngineThread before the next frame is drawn
-        /// </summary>
-        /// <param name="event">ASensorEvent event</param>
-        void olc_UpdateSensorEvent(void* event);
+		/// Updates the olc Sensor Structs with repective events
+		/// NOTE: This method is called from EngineThread before the next frame is drawn
+		/// </summary>
+		/// <param name="event">ASensorEvent event</param>
+		void olc_UpdateSensorEvent(void* event);
 
 #endif
 
@@ -3798,9 +4060,9 @@ namespace olc {
         olc::rcode app_LoadFileFromAssets(const std::string& sFilePath, std::vector<char>* outBuffer);
 
         /// <summary>
-        /// Extracts a compressed file from the assets APK to a depcompressed app storage file
+        /// Extracts a compressed file from the assests APK to a depcompressed app storage file
         /// </summary>
-        /// <param name="sAssetFilePath">Full assets file path name excluding the assets dir: Example: "images/test.png" "maps/example1.city"</param>
+        /// <param name="sAssetFilePath">Full assets file path name excudling the assets dir: Example: "images/test.png" "maps/example1.city"</param>
         /// <param name="sAppStorageFilePath">Full app storage path. Use app_GetInternalAppStorage(), app_GetExternalAppStorage() and app_GetPublicAppStorage() to get the storage path</param>
         /// <returns>FAIL = 0, OK = 1, NO_FILE = -1,</returns>
         olc::rcode app_ExtractFileFromAssets(const std::string& sAssetFilePath, const std::string& sAppStorageFilePath);
@@ -3988,7 +4250,7 @@ namespace olc {
         ~EventManager();
     private:
         EventManager();
-        EventManager(EventManager const&);
+        EventManager(EventManager const&) = delete;
         void operator=(EventManager const&);
 
     };
@@ -3997,33 +4259,33 @@ namespace olc {
 #if defined (__APPLE__)
 
     class EventManager
-    {
-    public:
-        static EventManager& getInstance();
-        enum EventResult {
+	{
+	public:
+		static EventManager& getInstance();
+		enum EventResult {
 
-            RELEASED = 0,	// The event was not handled and released back to the OS
-            CAPTURED = 1	// The event was captured and handled
-        };
+			RELEASED = 0,	// The event was not handled and released back to the OS
+			CAPTURED = 1	// The event was captured and handled
+		};
 
-        enum DirectEvents {
-            FINISHED_LAUNCH = 0,   // Override point for customization after application launch.
-            RESIGN_ACTIVE,          // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-            ENTERED_BACKGROUND,     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-            ENTERED_FOREGROUND,     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-            BECOME_ACTIVE,          // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-            TERMINATE               // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
-        };
+		enum DirectEvents {
+			FINISHED_LAUNCH = 0,   // Override point for customization after application launch.
+			RESIGN_ACTIVE,          // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
+			ENTERED_BACKGROUND,     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
+			ENTERED_FOREGROUND,     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+			BECOME_ACTIVE,          // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+			TERMINATE               // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+		};
 
-        static void HandleCommand(int8_t eventId);
-        static int32_t HandleInput(int32_t tbd);
+		static void HandleCommand(int8_t eventId);
+		static int32_t HandleInput(int32_t tbd);
 
-        ~EventManager();
-    private:
-        EventManager();
-        EventManager(EventManager const&);
-        void operator=(EventManager const&);
-    };
+		~EventManager();
+	private:
+		EventManager();
+		EventManager(EventManager const&);
+		void operator=(EventManager const&);
+	};
 
 
 #endif // __APPLE__
@@ -4047,15 +4309,15 @@ namespace olc {
 
 #if defined (__APPLE__)
 /*
-    NOTE GL_GLEXT_PROTOTYPES and GL_SILENCE_DEPRECATION macro is defined within the complier options
-    if you wish to defined it here, or anywhere please remove the macro from the complier option
-    C/C++ -> Preprocessor -> Preprocessor Definitions
-    This may affect your ability to build
+	NOTE GL_GLEXT_PROTOTYPES and GL_SILENCE_DEPRECATION macro is defined within the complier options
+	if you wish to defined it here, or anywhere please remove the macro from the complier option
+	C/C++ -> Preprocessor -> Preprocessor Definitions
+	This may affect your ability to build
 */
 
 /*
-    Apple no longer support OpenGl (although they still do... thats "Apple" for you, is all I can say about) they want you to use their version call Metal
-    There isn't a whole lot of gain by changing to Metal, so we just Silence the warning
+	Apple no longer support OpenGl (although they still do... thats "Apple" for you, is all I can say about) they want you to use their version call Metal
+	There isn't a whole lot of gain by changing to Metal, so we just Silence the warning
 */
 
 #endif
@@ -4091,6 +4353,8 @@ namespace olc
     typedef void CALLSTYLE locUniform1f_t(GLint location, GLfloat v0);
     typedef void CALLSTYLE locUniform1i_t(GLint location, GLint v0);
     typedef void CALLSTYLE locUniform2fv_t(GLint location, GLsizei count, const GLfloat* value);
+    typedef void CALLSTYLE locUniform4fv_t(GLint location, GLsizei count, const GLfloat* value);
+    typedef void CALLSTYLE locUniformMatrix4fv_t(GLint location, GLsizei count, GLboolean trasnpose, const GLfloat* value);
     typedef void CALLSTYLE locActiveTexture_t(GLenum texture);
     typedef void CALLSTYLE locGenFrameBuffers_t(GLsizei n, GLuint* ids);
     typedef void CALLSTYLE locBindFrameBuffer_t(GLenum target, GLuint fb);
@@ -4358,12 +4622,12 @@ namespace olc {
 
     Pixel Sprite::SampleBL(float u, float v) const
     {
-        u = u * width - 0.5f;
-        v = v * height - 0.5f;
+        u = u * (float)width - 0.5f;
+        v = v * (float)height - 0.5f;
         int x = (int)floor(u); // cast to int rounds toward zero, not downward
         int y = (int)floor(v); // Thanks @joshinils
-        float u_ratio = u - x;
-        float v_ratio = v - y;
+        float u_ratio = u - (float)x;
+        float v_ratio = v - (float)y;
         float u_opposite = 1 - u_ratio;
         float v_opposite = 1 - v_ratio;
 
@@ -4433,7 +4697,7 @@ namespace olc {
 
         olc::Sprite* spr = nullptr;
 
-        for (int i = 0; i < vecSubSprites.size(); i++)
+        for (size_t i = 0; i < vecSubSprites.size(); i++)
         {
             if (std::get<0>(vecSubSprites[i]) == vStartPos
                 && std::get<1>(vecSubSprites[i]) == vSize
@@ -4459,7 +4723,7 @@ namespace olc {
 
         void* dec = nullptr;
 
-        for (int i = 0; i < vecSubSprites.size(); i++)
+        for (size_t i = 0; i < vecSubSprites.size(); i++)
         {
             if (std::get<0>(vecSubSprites[i]) == vStartPos
                 && std::get<1>(vecSubSprites[i]) == vSize
@@ -4546,7 +4810,7 @@ namespace olc {
     void Sprite::ClearSubSprites()
     {
         // Pre Checks
-        if (vecSubSprites.size() < 1) return;
+        if (vecSubSprites.empty()) return;
 
         for (size_t i = 0; i < vecSubSprites.size(); i++)
         {
@@ -4567,7 +4831,7 @@ namespace olc {
     void Sprite::ClearSubSprites(size_t start, size_t end)
     {
         // Pre Checks
-        if (vecSubSprites.size() < 1) return;
+        if (vecSubSprites.empty()) return;
         if (start > end) std::swap(start, end);
         if (start < 0) start = 0;
         if (end >= vecSubSprites.size()) end = vecSubSprites.size() - 1;
@@ -4662,7 +4926,7 @@ namespace olc {
     {
         if (id != -1)
         {
-            renderer->DeleteTexture(id);
+            if(renderer != nullptr) renderer->DeleteTexture(id);
             id = -1;
         }
     }
@@ -4709,94 +4973,95 @@ namespace olc {
         sAppName = "Undefined";
         olc::PGEX::pge = this;
 
+	// Bring in relevant Platform & Rendering systems depending
+	// on compiler parameters
         olc_ConfigureSystem();
-
-
     }
 
     PixelGameEngine::~PixelGameEngine()
-    {}
+    {
+    }
 
 
-    olc::rcode PixelGameEngine::Construct(int32_t screen_w, int32_t screen_h, int32_t pixel_w, int32_t pixel_h, bool full_screen, bool vsync, bool cohesion)
+    olc::rcode PixelGameEngine::Construct(int32_t screen_w, int32_t screen_h, int32_t pixel_w, int32_t pixel_h, bool full_screen, bool vsync, bool cohesion, bool realwindow)
     {
 
 #if defined (__APPLE__)
         // Pre Checks
-        if (screen_w < 1 || full_screen == true) screen_w = pOsEngine.screenWidth;
-        if (screen_h < 1 || full_screen == true) screen_h = pOsEngine.screenHeight;
-        if (pixel_w < 1) pixel_w = 1;
-        if (pixel_h < 1) pixel_h = 1;
+		if (screen_w < 1 || full_screen == true) screen_w = pOsEngine.screenWidth;
+		if (screen_h < 1 || full_screen == true) screen_h = pOsEngine.screenHeight;
+		if (pixel_w < 1) pixel_w = 1;
+		if (pixel_h < 1) pixel_h = 1;
 
-        // Lets work out our new Hight and Width that will support the pixel sizes
-        // For example 1280x720X4X4 == 320X180X1X1 . If fullscreen is enabled the OS will scale it correctly for us
-        screen_w = screen_w / pixel_w;
-        screen_h = screen_h / pixel_h;
+		// Lets work out our new Hight and Width that will support the pixel sizes
+		// For example 1280x720X4X4 == 320X180X1X1 . If fullscreen is enabled the OS will scale it correctly for us
+		screen_w = screen_w / pixel_w;
+		screen_h = screen_h / pixel_h;
 
-        // Now we have a new screen sixe we need to set our pixels 1
-        pixel_w = 1;
-        pixel_h = 1;
+		// Now we have a new screen sixe we need to set our pixels 1
+		pixel_w = 1;
+		pixel_h = 1;
 
-        if (full_screen)
-        {
-            pOsEngine.bFullScreen = true;   // Tell the OS we want full screen
-            float fScaleFactor = 1.0f;      // Set default fScaleFactor
+		if (full_screen)
+		{
+			pOsEngine.bFullScreen = true;   // Tell the OS we want full screen
+			float fScaleFactor = 1.0f;      // Set default fScaleFactor
 
-            // Maintain Aspect Ratio
-            if (pOsEngine.bMaintainAspectRatio)
-            {
-                // Generaly we scale objects by width, and in our case most games with be set in landscape
-                float fNewScaler = ((float)pOsEngine.screenWidth / (float)screen_w);
+			// Maintain Aspect Ratio
+			if (pOsEngine.bMaintainAspectRatio)
+			{
+				// Generaly we scale objects by width, and in our case most games with be set in landscape
+				float fNewScaler = ((float)pOsEngine.screenWidth / (float)screen_w);
 
-                // However there can be cases when the scaled object is greater than the hieght of the screen
-                if ((screen_h * fNewScaler) > pOsEngine.screenHeight)
-                {
-                    fNewScaler = ((float)pOsEngine.screenHeight / (float)screen_h);
-                }
+				// However there can be cases when the scaled object is greater than the hieght of the screen
+				if ((screen_h * fNewScaler) > pOsEngine.screenHeight)
+				{
+					fNewScaler = ((float)pOsEngine.screenHeight / (float)screen_h);
+				}
 
-                // Lets set our new scale
-                //screen_w = screen_w * fNewScaler;
-                //screen_h = screen_h * fNewScaler;
-                //int32_t nOSFullScreenWidth = pOsEngine.screenWidth;
-                //fScaleFactor = float(screen_w) / float(nOSFullScreenWidth);
-                pOsEngine.fScaleFactor = fScaleFactor / fNewScaler;
-
-
-            }
-            else
-            {
-                if (screen_w > pOsEngine.screenWidth)
-                {
-                    // we want full screen but our Screen width is too big
-                    // we cannot scale beyond the max of our screen
-                    // therefore we just set our max size to the max screen
-                    screen_w = pOsEngine.screenWidth;
-                    screen_h = pOsEngine.screenHeight;
-
-                }
-                // 2: Get the iOS Full screen size
-                int32_t nOSFullScreenWidth = pOsEngine.screenWidth;
-                fScaleFactor = float(screen_w) / float(nOSFullScreenWidth);
-                pOsEngine.fScaleFactor = fScaleFactor;
-            }
+				// Lets set our new scale
+				//screen_w = screen_w * fNewScaler;
+				//screen_h = screen_h * fNewScaler;
+				//int32_t nOSFullScreenWidth = pOsEngine.screenWidth;
+				//fScaleFactor = float(screen_w) / float(nOSFullScreenWidth);
+				pOsEngine.fScaleFactor = fScaleFactor / fNewScaler;
 
 
+			}
+			else
+			{
+				if (screen_w > pOsEngine.screenWidth)
+				{
+					// we want full screen but our Screen width is too big
+					// we cannot scale beyond the max of our screen
+					// therefore we just set our max size to the max screen
+					screen_w = pOsEngine.screenWidth;
+					screen_h = pOsEngine.screenHeight;
 
-        }
+				}
+				// 2: Get the iOS Full screen size
+				int32_t nOSFullScreenWidth = pOsEngine.screenWidth;
+				fScaleFactor = float(screen_w) / float(nOSFullScreenWidth);
+				pOsEngine.fScaleFactor = fScaleFactor;
+			}
 
 
-        bPixelCohesion = cohesion;
-        vScreenSize = { screen_w, screen_h };
-        vInvScreenSize = { 1.0f / float(screen_w), 1.0f / float(screen_h) };
-        vPixelSize = { pixel_w, pixel_h };
-        vWindowSize = vScreenSize * vPixelSize;
-        bFullScreen = full_screen;
-        bEnableVSYNC = vsync;
-        vPixel = 2.0f / vScreenSize;
-        vPixel = 2.0f / vScreenSize;
 
-        if (vPixelSize.x <= 0 || vPixelSize.y <= 0 || vScreenSize.x <= 0 || vScreenSize.y <= 0)
-            return olc::FAIL;
+		}
+
+
+		bPixelCohesion = cohesion;
+		vScreenSize = { screen_w, screen_h };
+		vInvScreenSize = { 1.0f / float(screen_w), 1.0f / float(screen_h) };
+		vPixelSize = { pixel_w, pixel_h };
+		vWindowSize = vScreenSize * vPixelSize;
+		bFullScreen = full_screen;
+		bEnableVSYNC = vsync;
+		vPixel = 2.0f / vScreenSize;
+		vPixel = 2.0f / vScreenSize;
+
+		if (vPixelSize.x <= 0 || vPixelSize.y <= 0 || vScreenSize.x <= 0 || vScreenSize.y <= 0)
+			return olc::FAIL;
 
 
 #endif
@@ -4875,19 +5140,19 @@ namespace olc {
 
 #if defined(__APPLE__)
         // TODO: To be updated in a future release: JG 21-Oct-2023
-        // TODO: Explain how this works within iOS
+		// TODO: Explain how this works within iOS
 
-        // Start the thread
-        bAtomActive = true;
+		// Start the thread
+		bAtomActive = true;
 
-        EngineThread();
-        //std::thread t = std::thread(&PixelGameEngine::EngineThread, this);
+		EngineThread();
+		//std::thread t = std::thread(&PixelGameEngine::EngineThread, this);
 
-        // Some implementations may form an event loop here
-        //platform->StartSystemEventLoop();
+		// Some implementations may form an event loop here
+		//platform->StartSystemEventLoop();
 
-        // Wait for thread to be exited
-        //t.join();
+		// Wait for thread to be exited
+		//t.join();
 #endif
 
         return olc::OK;
@@ -5151,9 +5416,6 @@ namespace olc {
 
         return false;
     }
-
-
-
 
     void PixelGameEngine::DrawLine(const olc::vi2d& pos1, const olc::vi2d& pos2, Pixel p, uint32_t pattern)
     {
@@ -5439,22 +5701,22 @@ namespace olc {
 
         if (dPos1.y)
         {
-            dax_step = dPos1.x / (float)abs(dPos1.y);
+            dax_step = (float)dPos1.x / (float)abs(dPos1.y);
             vTex1Step = dTex1 / (float)abs(dPos1.y);
-            dcr1_step = dcr1 / (float)abs(dPos1.y);
-            dcg1_step = dcg1 / (float)abs(dPos1.y);
-            dcb1_step = dcb1 / (float)abs(dPos1.y);
-            dca1_step = dca1 / (float)abs(dPos1.y);
+            dcr1_step = (float)dcr1 / (float)abs(dPos1.y);
+            dcg1_step = (float)dcg1 / (float)abs(dPos1.y);
+            dcb1_step = (float)dcb1 / (float)abs(dPos1.y);
+            dca1_step = (float)dca1 / (float)abs(dPos1.y);
         }
 
         if (dPos2.y)
         {
-            dbx_step = dPos2.x / (float)abs(dPos2.y);
+            dbx_step = (float)dPos2.x / (float)abs(dPos2.y);
             vTex2Step = dTex2 / (float)abs(dPos2.y);
-            dcr2_step = dcr2 / (float)abs(dPos2.y);
-            dcg2_step = dcg2 / (float)abs(dPos2.y);
-            dcb2_step = dcb2 / (float)abs(dPos2.y);
-            dca2_step = dca2 / (float)abs(dPos2.y);
+            dcr2_step = (float)dcr2 / (float)abs(dPos2.y);
+            dcg2_step = (float)dcg2 / (float)abs(dPos2.y);
+            dcb2_step = (float)dcb2 / (float)abs(dPos2.y);
+            dca2_step = (float)dca2 / (float)abs(dPos2.y);
         }
 
         olc::vi2d vStart;
@@ -5477,15 +5739,15 @@ namespace olc {
                 dca1 = vColour[2].a - vColour[1].a;
                 dcr1_step = 0; dcg1_step = 0; dcb1_step = 0; dca1_step = 0;
 
-                if (dPos2.y) dbx_step = dPos2.x / (float)abs(dPos2.y);
+                if (dPos2.y) dbx_step = (float)dPos2.x / (float)abs(dPos2.y);
                 if (dPos1.y)
                 {
-                    dax_step = dPos1.x / (float)abs(dPos1.y);
+                    dax_step = (float)dPos1.x / (float)abs(dPos1.y);
                     vTex1Step = dTex1 / (float)abs(dPos1.y);
-                    dcr1_step = dcr1 / (float)abs(dPos1.y);
-                    dcg1_step = dcg1 / (float)abs(dPos1.y);
-                    dcb1_step = dcb1 / (float)abs(dPos1.y);
-                    dca1_step = dca1 / (float)abs(dPos1.y);
+                    dcr1_step = (float)dcr1 / (float)abs(dPos1.y);
+                    dcg1_step = (float)dcg1 / (float)abs(dPos1.y);
+                    dcb1_step = (float)dcb1 / (float)abs(dPos1.y);
+                    dca1_step = (float)dca1 / (float)abs(dPos1.y);
                 }
 
                 vStart = p2; vEnd = p3; vStartIdx = 1;
@@ -5495,8 +5757,8 @@ namespace olc {
             {
                 for (int i = vStart.y; i <= vEnd.y; i++)
                 {
-                    int ax = int(vStart.x + (float)(i - vStart.y) * dax_step);
-                    int bx = int(p1.x + (float)(i - p1.y) * dbx_step);
+                    int ax = int((float)vStart.x + (float)(i - vStart.y) * dax_step);
+                    int bx = int((float)p1.x + (float)(i - p1.y) * dbx_step);
 
                     olc::vf2d tex_s(vTex[vStartIdx].x + (float)(i - vStart.y) * vTex1Step.x, vTex[vStartIdx].y + (float)(i - vStart.y) * vTex1Step.y);
                     olc::vf2d tex_e(vTex[0].x + (float)(i - p1.y) * vTex2Step.x, vTex[0].y + (float)(i - p1.y) * vTex2Step.y);
@@ -5536,7 +5798,7 @@ namespace olc {
 
         if (structure == olc::DecalStructure::LIST)
         {
-            for (int tri = 0; tri < vPoints.size() / 3; tri++)
+            for (size_t tri = 0; tri < vPoints.size() / 3; tri++)
             {
                 std::vector<olc::vf2d> vP = { vPoints[tri * 3 + 0], vPoints[tri * 3 + 1], vPoints[tri * 3 + 2] };
                 std::vector<olc::vf2d> vT = { vTex[tri * 3 + 0], vTex[tri * 3 + 1], vTex[tri * 3 + 2] };
@@ -5548,7 +5810,7 @@ namespace olc {
 
         if (structure == olc::DecalStructure::STRIP)
         {
-            for (int tri = 2; tri < vPoints.size(); tri++)
+            for (size_t tri = 2; tri < vPoints.size(); tri++)
             {
                 std::vector<olc::vf2d> vP = { vPoints[tri - 2], vPoints[tri - 1], vPoints[tri] };
                 std::vector<olc::vf2d> vT = { vTex[tri - 2], vTex[tri - 1], vTex[tri] };
@@ -5560,7 +5822,7 @@ namespace olc {
 
         if (structure == olc::DecalStructure::FAN)
         {
-            for (int tri = 2; tri < vPoints.size(); tri++)
+            for (size_t tri = 2; tri < vPoints.size(); tri++)
             {
                 std::vector<olc::vf2d> vP = { vPoints[0], vPoints[tri - 1], vPoints[tri] };
                 std::vector<olc::vf2d> vT = { vTex[0], vTex[tri - 1], vTex[tri] };
@@ -5795,28 +6057,107 @@ namespace olc {
         vLayers[nTargetLayer].vecDecalInstance.push_back(di);
     }
 
-#ifdef OLC_ENABLE_EXPERIMENTAL
-    // Lightweight 3D
-    void PixelGameEngine::LW3D_DrawTriangles(olc::Decal* decal, const std::vector<std::array<float, 3>>& pos, const std::vector<olc::vf2d>& tex, const std::vector<olc::Pixel>& col)
+	// Lightweight 3D
+    void PixelGameEngine::HW3D_Projection(const std::array<float, 16>& m)
     {
-        DecalInstance di;
-        di.decal = decal;
-        di.points = uint32_t(pos.size());
-        di.pos.resize(di.points);
-        di.uv.resize(di.points);
-        di.w.resize(di.points);
-        di.tint.resize(di.points);
-        for (uint32_t i = 0; i < di.points; i++)
-        {
-            di.pos[i] = { pos[i][0], pos[i][1] };
-            di.w[i] = pos[i][2];
-            di.uv[i] = tex[i];
-            di.tint[i] = col[i];
-        }
-        di.mode = DecalMode::MODEL3D;
-        vLayers[nTargetLayer].vecDecalInstance.push_back(di);
+        renderer->Set3DProjection(m);
     }
-#endif
+
+    void PixelGameEngine::HW3D_EnableDepthTest(const bool bEnableDepth)
+    {
+        bHW3DDepthTest = bEnableDepth;
+    }
+
+    void PixelGameEngine::HW3D_SetCullMode(const olc::CullMode mode)
+    {
+        nHW3DCullMode = mode;
+    }
+
+    void PixelGameEngine::HW3D_DrawObject(const std::array<float, 16>& matModelView, olc::Decal* decal, const olc::DecalStructure layout, const std::vector<std::array<float, 4>>& pos, const std::vector<std::array<float, 2>>& uv, const std::vector<olc::Pixel>& col, const olc::Pixel tint)
+    {
+        GPUTask task;
+        task.decal = decal;
+        task.mode = nDecalMode;
+        task.structure = layout;
+        task.depth = bHW3DDepthTest;
+        task.cull = nHW3DCullMode;
+        task.mvp = matModelView;
+        task.tint = tint;
+        task.vb.resize(pos.size());
+
+        for (size_t i = 0; i < pos.size(); i++)
+            task.vb[i] = { pos[i][0], pos[i][1], pos[i][2], 1.0f, uv[i][0], uv[i][1], col[i].n };
+
+        vLayers[nTargetLayer].vecGPUTasks.push_back(task);
+    }
+
+    void PixelGameEngine::HW3D_DrawLine(const std::array<float, 16>& matModelView, const std::array<float, 4>& pos1, const std::array<float, 4>& pos2, const olc::Pixel col)
+    {
+        GPUTask task;
+        task.decal = nullptr;
+        task.mode = olc::DecalMode::WIREFRAME;
+        task.structure = olc::DecalStructure::LINE;
+        task.depth = bHW3DDepthTest;
+        task.cull = nHW3DCullMode;
+        task.mvp = matModelView;
+        task.tint = olc::WHITE;
+        task.vb =
+                {
+                        { pos1[0], pos1[1], pos1[2], 1.0f, 0.0f, 0.0f, col.n},
+                        { pos2[0], pos2[1], pos2[2], 1.0f, 0.0f, 0.0f, col.n}
+                };
+
+        vLayers[nTargetLayer].vecGPUTasks.push_back(task);
+    }
+
+    void PixelGameEngine::HW3D_DrawLineBox(const std::array<float, 16>& matModelView, const std::array<float, 4>& pos, const std::array<float, 4>& size, const olc::Pixel col)
+    {
+        GPUTask task;
+        task.decal = nullptr;
+        task.mode = nDecalMode;
+        task.structure = olc::DecalStructure::LINE;
+        task.depth = bHW3DDepthTest;
+        task.cull = nHW3DCullMode;
+        task.mvp = matModelView;
+        task.tint = olc::WHITE;
+
+        const float ox = pos[0];
+        const float oy = pos[1];
+        const float oz = pos[2];
+        const float sx = size[0];
+        const float sy = size[1];
+        const float sz = size[2];
+
+        const std::array<float, 3> p0 = { {ox, oy, oz} };
+        const std::array<float, 3> p1 = { {ox+sx, oy, oz} };
+        const std::array<float, 3> p2 = { {ox+sx, oy+sy, oz} };
+        const std::array<float, 3> p3 = { {ox, oy+sy, oz} };
+
+        const std::array<float, 3> p4 = { {ox, oy, oz+sz} };
+        const std::array<float, 3> p5 = { {ox+sx, oy, oz+sz} };
+        const std::array<float, 3> p6 = { {ox+sx, oy+sy, oz+sz} };
+        const std::array<float, 3> p7 = { {ox, oy+sy, oz+sz} };
+
+        task.vb =
+                {
+                        { p0[0], p0[1], p0[2], 1.0f, 0.0f, 0.0f, col.n }, { p1[0], p1[1], p1[2], 1.0f, 0.0f, 0.0f, col.n },
+                        { p1[0], p1[1], p1[2], 1.0f, 0.0f, 0.0f, col.n }, { p2[0], p2[1], p2[2], 1.0f, 0.0f, 0.0f, col.n },
+                        { p2[0], p2[1], p2[2], 1.0f, 0.0f, 0.0f, col.n }, { p3[0], p3[1], p3[2], 1.0f, 0.0f, 0.0f, col.n },
+                        { p3[0], p3[1], p3[2], 1.0f, 0.0f, 0.0f, col.n }, { p0[0], p0[1], p0[2], 1.0f, 0.0f, 0.0f, col.n },
+                        { p4[0], p4[1], p4[2], 1.0f, 0.0f, 0.0f, col.n }, { p5[0], p5[1], p5[2], 1.0f, 0.0f, 0.0f, col.n },
+                        { p5[0], p5[1], p5[2], 1.0f, 0.0f, 0.0f, col.n }, { p6[0], p6[1], p6[2], 1.0f, 0.0f, 0.0f, col.n },
+                        { p6[0], p6[1], p6[2], 1.0f, 0.0f, 0.0f, col.n }, { p7[0], p7[1], p7[2], 1.0f, 0.0f, 0.0f, col.n },
+                        { p7[0], p7[1], p7[2], 1.0f, 0.0f, 0.0f, col.n }, { p4[0], p4[1], p4[2], 1.0f, 0.0f, 0.0f, col.n },
+                        { p0[0], p0[1], p0[2], 1.0f, 0.0f, 0.0f, col.n }, { p4[0], p4[1], p4[2], 1.0f, 0.0f, 0.0f, col.n },
+                        { p1[0], p1[1], p1[2], 1.0f, 0.0f, 0.0f, col.n }, { p5[0], p5[1], p5[2], 1.0f, 0.0f, 0.0f, col.n },
+                        { p2[0], p2[1], p2[2], 1.0f, 0.0f, 0.0f, col.n }, { p6[0], p6[1], p6[2], 1.0f, 0.0f, 0.0f, col.n },
+                        { p3[0], p3[1], p3[2], 1.0f, 0.0f, 0.0f, col.n }, { p7[0], p7[1], p7[2], 1.0f, 0.0f, 0.0f, col.n },
+                };
+
+        vLayers[nTargetLayer].vecGPUTasks.push_back(task);
+    }
+
+
 
     void PixelGameEngine::DrawLineDecal(const olc::vf2d& pos1, const olc::vf2d& pos2, Pixel p)
     {
@@ -5880,7 +6221,21 @@ namespace olc {
         }
         di.mode = nDecalMode;
         di.structure = nDecalStructure;
-        vLayers[nTargetLayer].vecDecalInstance.push_back(di);
+        //vLayers[nTargetLayer].vecDecalInstance.push_back(di);
+
+
+        GPUTask task;
+        task.decal = decal;
+        task.mode = nDecalMode;
+        task.structure = nDecalStructure;
+        task.depth = false;
+        task.vb = {
+                {di.pos[0].x, di.pos[0].y, 0.0f, 1.0f, 0.0f, 0.0f, tint.n},
+                {di.pos[1].x, di.pos[1].y, 0.0f, 1.0f, 0.0f, 1.0f, tint.n},
+                {di.pos[2].x, di.pos[2].y, 0.0f, 1.0f, 1.0f, 1.0f, tint.n},
+                {di.pos[3].x, di.pos[3].y, 0.0f, 1.0f, 1.0f, 0.0f, tint.n},
+        };
+        vLayers[nTargetLayer].vecGPUTasks.push_back(task);
     }
 
 
@@ -6386,45 +6741,42 @@ namespace olc {
 #if defined (__APPLE__)
 
     std::vector<olc::SensorInformation> PixelGameEngine::GetSupportedSensors()
-    {
+	{
 
-        std::vector<olc::SensorInformation> vecSensorInfo;
+		std::vector<olc::SensorInformation> vecSensorInfo;
 
-        return vecSensorInfo;
-    }
+		return vecSensorInfo;
+	}
 
-    olc::SensorInformation PixelGameEngine::GetSensorInfo(olc::SensorType Type)
-    {
-        SensorInformation sensorInfo{};
+	olc::SensorInformation PixelGameEngine::GetSensorInfo(olc::SensorType Type)
+	{
+		SensorInformation sensorInfo{};
 
-        return sensorInfo;
-    }
+		return sensorInfo;
+	}
 
-    olc::rcode olc::PixelGameEngine::EnableSensor(olc::SensorType Type, int32_t sampleRate)
-    {
-        // 1: Lets check if it already exist, if so we need to disable it
-        DisableSensor(Type);
+	olc::rcode olc::PixelGameEngine::EnableSensor(olc::SensorType Type, int32_t sampleRate)
+	{
+		// 1: Lets check if it already exist, if so we need to disable it
+		DisableSensor(Type);
 
-        return olc::rcode::OK;
-    }
+		return olc::rcode::OK;
+	}
 
-    olc::rcode PixelGameEngine::ChangeSensorSampleRate(olc::SensorType Type, int32_t sampleRate)
-    {
+	olc::rcode PixelGameEngine::ChangeSensorSampleRate(olc::SensorType Type, int32_t sampleRate)
+	{
 
-        return olc::rcode::FAIL;
-    }
+		return olc::rcode::FAIL;
+	}
 
-    olc::rcode PixelGameEngine::DisableSensor(olc::SensorType Type)
-    {
+	olc::rcode PixelGameEngine::DisableSensor(olc::SensorType Type)
+	{
 
 
-        return olc::rcode::OK;
-    }
+		return olc::rcode::OK;
+	}
 
 #endif
-
-
-
 
     const std::vector<std::string>& PixelGameEngine::GetDroppedFiles() const
     {
@@ -6550,8 +6902,8 @@ namespace olc {
                 DrawPartialDecal(vScaleCR * vBoomCR[y * sprCR.Sprite()->width + x].first * 2.0f, sprCR.Decal(), olc::vf2d(x, y), { 1, 1 }, vScaleCR * 2.0f, olc::PixelF(1.0f, 1.0f, 1.0f, std::min(1.0f, std::max(4.0f - fParticleTimeCR, 0.0f))));
             }
 
-        olc::vi2d vSize = GetTextSizeProp("Powered By Pixel Game Engine Mobile 2.2.8");
-        DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 2.0f), "Powered By Pixel Game Engine Mobile 2.2.8", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
+        olc::vi2d vSize = GetTextSizeProp("Powered By Pixel Game Engine Mobile 2.2.9");
+        DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 2.0f), "Powered By Pixel Game Engine Mobile 2.2.9", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
 
         vSize = GetTextSizeProp("Copyright OneLoneCoder.com 2025.");
         DrawStringPropDecal(olc::vf2d(float(ScreenWidth() / 2) - vSize.x / 2, float(ScreenHeight()) - vSize.y * 3.0f), "Copyright OneLoneCoder.com 2025", olc::PixelF(1.0f, 1.0f, 1.0f, 0.5f), olc::vf2d(1.0, 1.0f));
@@ -6659,7 +7011,7 @@ namespace olc {
     }
 
     /*void PixelGameEngine::OnTextEntryComplete(const std::string& sText) { UNUSED(sText); }
-    bool PixelGameEngine::OnConsoleCommand(const std::string& sCommand) { UNUSED(sCommand); return false; }*/
+	bool PixelGameEngine::OnConsoleCommand(const std::string& sCommand) { UNUSED(sCommand); return false; }*/
 
     // Externalised API
     void PixelGameEngine::olc_UpdateViewport()
@@ -6705,19 +7057,19 @@ namespace olc {
     void PixelGameEngine::olc_UpdateMouse(int32_t x, int32_t y)
     {
         /* Mouse coords come in OS Screen Size
-         Therefore we need to update the offset, if any for Auto FullScreen mode
-         The OS Screen size will always have a pixelSize of 1 i.e. {1,1}
-         Therefore we need to convert this to PGE Pixel Size */
+		 Therefore we need to update the offset, if any for Auto FullScreen mode
+		 The OS Screen size will always have a pixelSize of 1 i.e. {1,1}
+		 Therefore we need to convert this to PGE Pixel Size */
 
         if (bFullScreen)
         {
             // Correct the offset, we simple get the % of the full screen and apply it to the game screen for x & y
             // Correct the offset, we simple get the % of the full screen and apply it to the game screen for x & y
-            float xPec = (x / (float)pOsEngine.screenWidth) * 100.0f;
-            float yPec = (y / (float)pOsEngine.screenHeight) * 100.0f;
+            float xPec = ((float)x / (float)pOsEngine.screenWidth) * 100.0f;
+            float yPec = ((float)y / (float)pOsEngine.screenHeight) * 100.0f;
 
-            x = (float(pOsEngine.viewWidth) / 100.0f) * xPec;
-            y = (float(pOsEngine.viewHeight) / 100.0f) * yPec;
+            x = int32_t((float(pOsEngine.viewWidth) / 100.0f) * xPec);
+            y = int32_t((float(pOsEngine.viewHeight) / 100.0f) * yPec);
 
         }
 
@@ -6737,9 +7089,9 @@ namespace olc {
     void PixelGameEngine::olc_UpdateTouch(int32_t x, int32_t y, int32_t index)
     {
         /* Touch coords come in OS Screen Size
-         Therefore we need to update the offset, if any for Auto FullScreen mode
-         The OS Screen size will always have a pixelSize of 1 i.e. {1,1}
-         Therefore we need to convert this to PGE Pixel Size */
+		 Therefore we need to update the offset, if any for Auto FullScreen mode
+		 The OS Screen size will always have a pixelSize of 1 i.e. {1,1}
+		 Therefore we need to convert this to PGE Pixel Size */
 
         mutexTouchPoints.lock();
 
@@ -6748,11 +7100,11 @@ namespace olc {
         if (bFullScreen)
         {
             // Correct the offset, we simple get the % of the full screen and apply it to the game screen for x & y
-            float xPec = (tPos.x / (float)pOsEngine.screenWidth) * 100.0f;
-            float yPec = (tPos.y / (float)pOsEngine.screenHeight) * 100.0f;
+            float xPec = ((float)tPos.x / (float)pOsEngine.screenWidth) * 100.0f;
+            float yPec = ((float)tPos.y / (float)pOsEngine.screenHeight) * 100.0f;
 
-            tPos.x = (float(pOsEngine.viewWidth) / 100.0f) * xPec;
-            tPos.y = (float(pOsEngine.viewHeight) / 100.0f) * yPec;
+            tPos.x = int32_t((float(pOsEngine.viewWidth) / 100.0f) * xPec);
+            tPos.y = int32_t((float(pOsEngine.viewHeight) / 100.0f) * yPec);
 
         }
         else
@@ -6791,92 +7143,92 @@ namespace olc {
 #if defined (__APPLE__)
 
     void PixelGameEngine::olc_UpdateMouse(int32_t x, int32_t y)
-    {
-        /* Mouse coords come in OS Screen Size
-         Therefore we need to update the offset, if any for Auto FullScreen mode
-         The OS Screen size will always have a pixelSize of 1 i.e. {1,1}
-         Therefore we need to convert this to PGE Pixel Size */
+	{
+		/* Mouse coords come in OS Screen Size
+		 Therefore we need to update the offset, if any for Auto FullScreen mode
+		 The OS Screen size will always have a pixelSize of 1 i.e. {1,1}
+		 Therefore we need to convert this to PGE Pixel Size */
 
-        if (bFullScreen)
-        {
-            // Correct the offset, we simple get the % of the full screen and apply it to the game screen for x & y
-            // Correct the offset, we simple get the % of the full screen and apply it to the game screen for x & y
-            /*float xPec = (x / (float)pOsEngine.screenWidth) * 100.0f;
-            float yPec = (y / (float)pOsEngine.screenHeight) * 100.0f;
+		if (bFullScreen)
+		{
+			// Correct the offset, we simple get the % of the full screen and apply it to the game screen for x & y
+			// Correct the offset, we simple get the % of the full screen and apply it to the game screen for x & y
+			/*float xPec = (x / (float)pOsEngine.screenWidth) * 100.0f;
+			float yPec = (y / (float)pOsEngine.screenHeight) * 100.0f;
 
-            x = (float(pOsEngine.viewWidth) / 100.0f) * xPec;
-            y = (float(pOsEngine.viewHeight) / 100.0f) * yPec;*/
+			x = (float(pOsEngine.viewWidth) / 100.0f) * xPec;
+			y = (float(pOsEngine.viewHeight) / 100.0f) * yPec;*/
 
-        }
+		}
 
-        bHasMouseFocus = true;
-        vMouseWindowPos = { x, y };
-        // Full Screen mode may have a weird viewport we must clamp to
-        x -= vViewPos.x;
-        y -= vViewPos.y;
-        vMousePosCache.x = (int32_t)(((float)x / (float)(vWindowSize.x - (vViewPos.x * 2)) * (float)vScreenSize.x));
-        vMousePosCache.y = (int32_t)(((float)y / (float)(vWindowSize.y - (vViewPos.y * 2)) * (float)vScreenSize.y));
-        if (vMousePosCache.x >= (int32_t)vScreenSize.x)	vMousePosCache.x = vScreenSize.x - 1;
-        if (vMousePosCache.y >= (int32_t)vScreenSize.y)	vMousePosCache.y = vScreenSize.y - 1;
-        if (vMousePosCache.x < 0) vMousePosCache.x = 0;
-        if (vMousePosCache.y < 0) vMousePosCache.y = 0;
-    }
+		bHasMouseFocus = true;
+		vMouseWindowPos = { x, y };
+		// Full Screen mode may have a weird viewport we must clamp to
+		x -= vViewPos.x;
+		y -= vViewPos.y;
+		vMousePosCache.x = (int32_t)(((float)x / (float)(vWindowSize.x - (vViewPos.x * 2)) * (float)vScreenSize.x));
+		vMousePosCache.y = (int32_t)(((float)y / (float)(vWindowSize.y - (vViewPos.y * 2)) * (float)vScreenSize.y));
+		if (vMousePosCache.x >= (int32_t)vScreenSize.x)	vMousePosCache.x = vScreenSize.x - 1;
+		if (vMousePosCache.y >= (int32_t)vScreenSize.y)	vMousePosCache.y = vScreenSize.y - 1;
+		if (vMousePosCache.x < 0) vMousePosCache.x = 0;
+		if (vMousePosCache.y < 0) vMousePosCache.y = 0;
+	}
 
-    void PixelGameEngine::olc_UpdateTouch(int32_t x, int32_t y, int32_t index)
-    {
+	void PixelGameEngine::olc_UpdateTouch(int32_t x, int32_t y, int32_t index)
+	{
 
-        // Edge case iOS, sends some crazy numbers at time
-        if (index >= INT8_MAX) return;
+		// Edge case iOS, sends some crazy numbers at time
+		if (index >= INT8_MAX) return;
 
-        /* Touch coords come in OS Screen Size
-         Therefore we need to update the offset, if any for Auto FullScreen mode
-         The OS Screen size will always have a pixelSize of 1 i.e. {1,1}
-         Therefore we need to convert this to PGE Pixel Size */
+		/* Touch coords come in OS Screen Size
+		 Therefore we need to update the offset, if any for Auto FullScreen mode
+		 The OS Screen size will always have a pixelSize of 1 i.e. {1,1}
+		 Therefore we need to convert this to PGE Pixel Size */
 
-        mutexTouchPoints.lock();
+		mutexTouchPoints.lock();
 
-        olc::vi2d tPos = { x, y };
+		olc::vi2d tPos = { x, y };
 
-        if (bFullScreen)
-        {
-            // Correct the offset, we simple get the % of the full screen and apply it to the game screen for x & y
-            /*float xPec = (tPos.x / (float)pOsEngine.screenWidth) * 100.0f;
-            float yPec = (tPos.y / (float)pOsEngine.screenHeight) * 100.0f;
+		if (bFullScreen)
+		{
+			// Correct the offset, we simple get the % of the full screen and apply it to the game screen for x & y
+			/*float xPec = (tPos.x / (float)pOsEngine.screenWidth) * 100.0f;
+			float yPec = (tPos.y / (float)pOsEngine.screenHeight) * 100.0f;
 
-            tPos.x = (float(pOsEngine.viewWidth) / 100.0f) * xPec;
-            tPos.y = (float(pOsEngine.viewHeight) / 100.0f) * yPec;*/
+			tPos.x = (float(pOsEngine.viewWidth) / 100.0f) * xPec;
+			tPos.y = (float(pOsEngine.viewHeight) / 100.0f) * yPec;*/
 
-        }
-        else
-        {
-            // Get the approx off set
-            /*int32_t  offsetx = (pOsEngine.screenWidth - (vScreenSize.x * GetPixelSize().x)) / 2;
-            int32_t  offsety = (pOsEngine.screenHeight - (vScreenSize.y * GetPixelSize().y)) / 2;
-            x += offsetx;
-            y += offsety;
+		}
+		else
+		{
+			// Get the approx off set
+			/*int32_t  offsetx = (pOsEngine.screenWidth - (vScreenSize.x * GetPixelSize().x)) / 2;
+			int32_t  offsety = (pOsEngine.screenHeight - (vScreenSize.y * GetPixelSize().y)) / 2;
+			x += offsetx;
+			y += offsety;
 
-            tPos.x = (int32_t)(((float)x / (float)(vWindowSize.x - (vViewPos.x * 2)) * (float)vScreenSize.x));
-            tPos.y = (int32_t)(((float)y / (float)(vWindowSize.y - (vViewPos.y * 2)) * (float)vScreenSize.y));*/
-
-
-        }
-
-        // Full Screen mode may have a weird viewport we must clamp to
-        tPos.x -= vViewPos.x;
-        tPos.y -= vViewPos.y;
-
-        bHasTouchFocus = true;
-
-        if (tPos.x >= (int32_t)vScreenSize.x)	tPos.x = vScreenSize.x;
-        if (tPos.y >= (int32_t)vScreenSize.y)	tPos.y = vScreenSize.y;
-        if (tPos.x < 0) tPos.x = 0;
-        if (tPos.y < 0) tPos.y = 0;
+			tPos.x = (int32_t)(((float)x / (float)(vWindowSize.x - (vViewPos.x * 2)) * (float)vScreenSize.x));
+			tPos.y = (int32_t)(((float)y / (float)(vWindowSize.y - (vViewPos.y * 2)) * (float)vScreenSize.y));*/
 
 
-        pTouchPointsCache[index] = tPos;
-        mutexTouchPoints.unlock();
+		}
 
-    }
+		// Full Screen mode may have a weird viewport we must clamp to
+		tPos.x -= vViewPos.x;
+		tPos.y -= vViewPos.y;
+
+		bHasTouchFocus = true;
+
+		if (tPos.x >= (int32_t)vScreenSize.x)	tPos.x = vScreenSize.x;
+		if (tPos.y >= (int32_t)vScreenSize.y)	tPos.y = vScreenSize.y;
+		if (tPos.x < 0) tPos.x = 0;
+		if (tPos.y < 0) tPos.y = 0;
+
+
+		pTouchPointsCache[index] = tPos;
+		mutexTouchPoints.unlock();
+
+	}
 
 #endif
 
@@ -7119,10 +7471,10 @@ namespace olc {
 #if defined (__APPLE__)
 
     void PixelGameEngine::olc_UpdateSensorEvent(void* event)
-    {
+	{
 
 
-    }
+	}
 
 #endif
 
@@ -7202,12 +7554,12 @@ namespace olc {
         while (bAtomActive) {
 
             if (!bAtomActive) break;
-            ident = ALooper_pollAll(0, NULL, &events, (void**)&source);
+            ident = ALooper_pollAll(0, nullptr, &events, (void**)&source);
 
             // If we have an event, let process it
             if (ident >= 0)
             {
-                if (source != NULL) {
+                if (source != nullptr) {
                     source->process(renderer->ptrPGE->pOsEngine.app, source);
                 }
             }
@@ -7270,38 +7622,38 @@ namespace olc {
 
 #if defined(__APPLE__)
     void PixelGameEngine::EngineThread()
-    {
-        // Allow platform to do stuff here if needed, since its now in the
-        // context of this thread
-        if (platform->ThreadStartUp() == olc::FAIL)	return;
+	{
+		// Allow platform to do stuff here if needed, since its now in the
+		// context of this thread
+		if (platform->ThreadStartUp() == olc::FAIL)	return;
 
-        // Do engine context specific initialisation
-        //olc_PrepareEngine();
+		// Do engine context specific initialisation
+		//olc_PrepareEngine();
 
-        // Create the CopyRight Sprite : DO NOT REMOVED
-        //CreateCRSprite();
+		// Create the CopyRight Sprite : DO NOT REMOVED
+		//CreateCRSprite();
 
-        // Create user resources as part of this thread
-        for (auto& ext : vExtensions) ext->OnBeforeUserCreate();
-        if (!OnUserCreate()) bAtomActive = false;
-        for (auto& ext : vExtensions) ext->OnAfterUserCreate();
+		// Create user resources as part of this thread
+		for (auto& ext : vExtensions) ext->OnBeforeUserCreate();
+		if (!OnUserCreate()) bAtomActive = false;
+		for (auto& ext : vExtensions) ext->OnAfterUserCreate();
 
 
-        //while (bAtomActive)
-        //{
-            // Run as fast as possible
-        //    while (bAtomActive) { olc_CoreUpdate(); }
+		//while (bAtomActive)
+		//{
+			// Run as fast as possible
+		//    while (bAtomActive) { olc_CoreUpdate(); }
 
-            // Allow the user to free resources if they have overrided the destroy function
-        //    if (!OnUserDestroy())
-        //    {
-                // User denied destroy for some reason, so continue running
-        //        bAtomActive = true;
-        //    }
-       // }
+			// Allow the user to free resources if they have overrided the destroy function
+		//    if (!OnUserDestroy())
+		//    {
+				// User denied destroy for some reason, so continue running
+		//        bAtomActive = true;
+		//    }
+	   // }
 
-        //platform->ThreadCleanUp();
-    }
+		//platform->ThreadCleanUp();
+	}
 #endif
 
     olc::rcode PixelGameEngine::app_LoadFileFromAssets(const std::string& sFilePath, std::vector<char>* outBuffer)
@@ -7354,6 +7706,98 @@ namespace olc {
 
         m_tp2 = std::chrono::system_clock::now();
     }
+
+	// Advance
+	void PixelGameEngine::adv_ManualRenderEnable(const bool bEnable)
+	{
+		bManualRenderEnable = bEnable;
+	}
+
+	void PixelGameEngine::adv_HardwareClip(const bool bClipAndScale, const olc::vi2d& viewPos, const olc::vi2d& viewSize, const bool bClear)
+	{
+		olc::vf2d vNewSize = olc::vf2d(viewSize) / olc::vf2d(vScreenSize);
+		olc::vf2d vNewPos = olc::vf2d(viewPos) / olc::vf2d(vScreenSize);
+		renderer->UpdateViewport(vViewPos + vNewPos * vViewSize, vNewSize * vViewSize);
+
+		if (bClear)
+			renderer->ClearBuffer(olc::BLACK, true);
+
+		SetDecalMode(DecalMode::NORMAL);
+		renderer->PrepareDrawing();
+
+		if (!bClipAndScale)
+			vInvScreenSize = 1.0f / olc::vf2d(viewSize);
+		else
+			vInvScreenSize = 1.0f / olc::vf2d(vScreenSize);
+	}
+
+	void PixelGameEngine::adv_FlushLayer(const size_t nLayerID)
+	{
+		auto& layer = vLayers[nLayerID];
+
+		if (layer.bShow)
+		{
+			if (layer.funcHook == nullptr)
+			{
+				renderer->ApplyTexture(layer.pDrawTarget.Decal()->id);
+				if (!bSuspendTextureTransfer)
+				{
+					layer.pDrawTarget.Decal()->Update();
+					layer.bUpdate = false;
+				}
+
+				// Can't use this as it assumes full screen coords
+				// renderer->DrawLayerQuad(layer.vOffset, layer.vScale, layer.tint);
+				// Instead, render a textured decal
+
+				olc::vf2d vScreenSpacePos =
+				{
+					(layer.vOffset.x * vInvScreenSize.x) * 2.0f - 1.0f,
+					((layer.vOffset.y * vInvScreenSize.y) * 2.0f - 1.0f) * -1.0f
+				};
+
+				olc::vf2d vScreenSpaceDim =
+				{
+					vScreenSpacePos.x + (2.0f * (float(layer.pDrawTarget.Sprite()->width) * vInvScreenSize.x)) * layer.vScale.x,
+					vScreenSpacePos.y - (2.0f * (float(layer.pDrawTarget.Sprite()->height) * vInvScreenSize.y)) * layer.vScale.y
+				};
+
+				DecalInstance di;
+				di.decal = layer.pDrawTarget.Decal();
+				di.points = 4;
+				di.tint = { olc::WHITE, olc::WHITE, olc::WHITE, olc::WHITE };
+				di.pos = { { vScreenSpacePos.x, vScreenSpacePos.y }, { vScreenSpacePos.x, vScreenSpaceDim.y }, { vScreenSpaceDim.x, vScreenSpaceDim.y }, { vScreenSpaceDim.x, vScreenSpacePos.y } };
+				di.uv = { { 0.0f, 0.0f}, {0.0f, 1.0f}, {1.0f, 1.0f}, {1.0f, 0.0f} };
+				di.w = { 1, 1, 1, 1 };
+				di.mode = DecalMode::NORMAL;
+				di.structure = DecalStructure::FAN;
+				renderer->DrawDecal(di);
+			}
+			else
+			{
+				// Mwa ha ha.... Have Fun!!!
+				layer.funcHook();
+			}
+		}
+	}
+
+	void PixelGameEngine::adv_FlushLayerDecals(const size_t nLayerID)
+	{
+		// Display Decals in order for this layer
+		auto& layer = vLayers[nLayerID];
+		for (auto& decal : layer.vecDecalInstance)
+			renderer->DrawDecal(decal);
+		layer.vecDecalInstance.clear();
+	}
+
+	void PixelGameEngine::adv_FlushLayerGPUTasks(const size_t nLayerID)
+	{
+		// Display Decals in order for this layer
+		auto& layer = vLayers[nLayerID];
+		for (auto& decal : layer.vecGPUTasks)
+			renderer->DoGPUTask(decal);
+		layer.vecGPUTasks.clear();
+	}
 
 
     void PixelGameEngine::olc_CoreUpdate()
@@ -7481,6 +7925,12 @@ namespace olc {
 
                     renderer->DrawLayerQuad(layer->vOffset, layer->vScale, layer->tint);
 
+                    // Do GPU Tasks - 2D/3D Objects
+                    for (auto& task : layer->vecGPUTasks)
+                        renderer->DoGPUTask(task);
+                    layer->vecGPUTasks.clear();
+
+
                     // Display Decals in order for this layer
                     for (auto& decal : layer->vecDecalInstance)
                     {
@@ -7563,7 +8013,7 @@ namespace olc {
                                                                0x24,0x18,0x17,0x17,0x17,0x17,0x17,0x17,0x17,0x33,0x17,0x17,0x33,0x18,0x17,0x17,
                                                                0x17,0x17,0x17,0x17,0x07,0x17,0x17,0x18,0x18,0x17,0x17,0x07,0x33,0x07,0x08,0x00, } };
 
-        for (auto c : vSpacing) vFontSpacing.push_back({ c >> 4, c & 15 });
+        for (auto c : vSpacing) vFontSpacing.emplace_back( c >> 4, c & 15 );
 
         // UK Standard Layout
         vKeyboardMap =
@@ -7637,9 +8087,10 @@ namespace olc {
 
 #include <jni.h>
 
-#include <errno.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cerrno>
+#include <cstdlib>
+#include <cstring>
+#include <string>
 #include <unistd.h>
 #include <sys/resource.h>
 #include <android/log.h>
@@ -7661,9 +8112,9 @@ namespace olc {
 static void free_saved_state(struct android_app* android_app) {
 
     pthread_mutex_lock(&android_app->mutex);
-    if (android_app->savedState != NULL) {
+    if (android_app->savedState != nullptr) {
         free(android_app->savedState);
-        android_app->savedState = NULL;
+        android_app->savedState = nullptr;
         android_app->savedStateSize = 0;
     }
     pthread_mutex_unlock(&android_app->mutex);
@@ -7676,6 +8127,8 @@ int8_t android_app_read_cmd(struct android_app* android_app) {
         switch (cmd) {
             case APP_CMD_SAVE_STATE:
                 free_saved_state(android_app);
+                break;
+            default:
                 break;
         }
         return cmd;
@@ -7718,14 +8171,14 @@ void android_app_pre_exec_cmd(struct android_app* android_app, int8_t cmd) {
         case APP_CMD_INPUT_CHANGED:
             LOGV("APP_CMD_INPUT_CHANGED\n");
             pthread_mutex_lock(&android_app->mutex);
-            if (android_app->inputQueue != NULL) {
+            if (android_app->inputQueue != nullptr) {
                 AInputQueue_detachLooper(android_app->inputQueue);
             }
             android_app->inputQueue = android_app->pendingInputQueue;
-            if (android_app->inputQueue != NULL) {
+            if (android_app->inputQueue != nullptr) {
                 LOGV("Attaching input queue to looper");
                 AInputQueue_attachLooper(android_app->inputQueue,
-                                         android_app->looper, LOOPER_ID_INPUT, NULL,
+                                         android_app->looper, LOOPER_ID_INPUT, nullptr,
                                          &android_app->inputPollSource);
             }
             pthread_cond_broadcast(&android_app->cond);
@@ -7768,6 +8221,9 @@ void android_app_pre_exec_cmd(struct android_app* android_app, int8_t cmd) {
             LOGV("APP_CMD_DESTROY\n");
             android_app->destroyRequested = 1;
             break;
+
+        default:
+            break;
     }
 }
 
@@ -7777,7 +8233,7 @@ void android_app_post_exec_cmd(struct android_app* android_app, int8_t cmd) {
         case APP_CMD_TERM_WINDOW:
             LOGV("APP_CMD_TERM_WINDOW\n");
             pthread_mutex_lock(&android_app->mutex);
-            android_app->window = NULL;
+            android_app->window = nullptr;
             pthread_cond_broadcast(&android_app->cond);
             pthread_mutex_unlock(&android_app->mutex);
             break;
@@ -7793,6 +8249,9 @@ void android_app_post_exec_cmd(struct android_app* android_app, int8_t cmd) {
         case APP_CMD_RESUME:
             free_saved_state(android_app);
             break;
+
+        default:
+            break;
     }
 }
 
@@ -7801,7 +8260,7 @@ static void android_app_destroy(struct android_app* android_app) {
     LOGV("android_app_destroy!");
     free_saved_state(android_app);
     pthread_mutex_lock(&android_app->mutex);
-    if (android_app->inputQueue != NULL) {
+    if (android_app->inputQueue != nullptr) {
         AInputQueue_detachLooper(android_app->inputQueue);
     }
     AConfiguration_delete(android_app->config);
@@ -7813,14 +8272,14 @@ static void android_app_destroy(struct android_app* android_app) {
 
 static void process_input(struct android_app* app, struct android_poll_source* source) {
 
-    AInputEvent* event = NULL;
+    AInputEvent* event = nullptr;
     while (AInputQueue_getEvent(app->inputQueue, &event) >= 0) {
         LOGV("New input event: type=%d\n", AInputEvent_getType(event));
         if (AInputQueue_preDispatchEvent(app->inputQueue, event)) {
             continue;
         }
         int32_t handled = 0;
-        if (app->onInputEvent != NULL) handled = app->onInputEvent(app, event);
+        if (app->onInputEvent != nullptr) handled = app->onInputEvent(app, event);
         AInputQueue_finishEvent(app->inputQueue, event, handled);
     }
 }
@@ -7829,7 +8288,7 @@ static void process_cmd(struct android_app* app, struct android_poll_source* sou
 
     int8_t cmd = android_app_read_cmd(app);
     android_app_pre_exec_cmd(app, cmd);
-    if (app->onAppCmd != NULL) app->onAppCmd(app, cmd);
+    if (app->onAppCmd != nullptr) app->onAppCmd(app, cmd);
     android_app_post_exec_cmd(app, cmd);
 }
 
@@ -7861,11 +8320,11 @@ static void android_app_set_input(struct android_app* android_app, AInputQueue* 
 static void android_app_set_window(struct android_app* android_app, ANativeWindow* window) {
 
     pthread_mutex_lock(&android_app->mutex);
-    if (android_app->pendingWindow != NULL) {
+    if (android_app->pendingWindow != nullptr) {
         android_app_write_cmd(android_app, APP_CMD_TERM_WINDOW);
     }
     android_app->pendingWindow = window;
-    if (window != NULL) {
+    if (window != nullptr) {
         android_app_write_cmd(android_app, APP_CMD_INIT_WINDOW);
     }
     while (android_app->window != android_app->pendingWindow) {
@@ -7909,10 +8368,10 @@ static void android_app_free(struct android_app* android_app) {
 // --------------------------------------------------------------------
 
 /*
-    This is the pointer to the Android Engine Running your App
-    We use this pointer throughout the engine for when we need
-    to access the the Android Engine
-    This pointer maintains state
+	This is the pointer to the Android Engine Running your App
+	We use this pointer throughout the engine for when we need
+	to access the the Android Engine
+	This pointer maintains state
 */
 struct android_app* MyAndroidApp = nullptr;
 
@@ -7932,20 +8391,18 @@ struct saved_state {
 */
 struct engine {
 
-    struct android_app* app;
+    struct android_app* app = nullptr;
     int animating = 0;
     bool StartPGE = false;
-    EGLDisplay display;
-    EGLSurface surface;
-    EGLContext context;
+    EGLDisplay display = nullptr;
+    EGLSurface surface = nullptr;
+    EGLContext context = nullptr;
     int32_t viewWidth = 0;
     int32_t viewHeight = 0;
     int32_t screenWidth = 0;
     int32_t screenHeight = 0;
-
     struct saved_state state;
 
-    // Coming Soon...
     ASensorManager* sensorManager;
     const ASensor* accelerometerSensor;
     ASensorEventQueue* sensorEventQueue;
@@ -7954,15 +8411,15 @@ struct engine {
 
 
 /*
-    Engine Startup Step 3: We now create the app entry point for the PGE
-    In a PGE you would simply create a console application
-    and then create static void main() and off you go
-    This is kind of doing the same thing, but it will create an
-    void android_main(struct android_app* state) of which you
-    must place in your main class.
-    there is an extern void android_main(struct android_app* app)
-    that will ensure everything will work... I promise..ish.
-    NOTE: this method can be called more than once, try not to worry about it
+	Engine Startup Step 3: We now create the app entry point for the PGE
+	In a PGE you would simply create a console application
+	and then create static void main() and off you go
+	This is kind of doing the same thing, but it will create an
+	void android_main(struct android_app* state) of which you
+	must place in your main class.
+	there is an extern void android_main(struct android_app* app)
+	that will ensure everything will work... I promise..ish.
+	NOTE: this method can be called more than once, try not to worry about it
 
 */
 static void* android_app_entry(void* param) {
@@ -7996,7 +8453,7 @@ static void* android_app_entry(void* param) {
 
     // Prepare our threads to start looping!
     ALooper* looper = ALooper_prepare(ALOOPER_PREPARE_ALLOW_NON_CALLBACKS);
-    ALooper_addFd(looper, android_app->msgread, LOOPER_ID_MAIN, ALOOPER_EVENT_INPUT, nullptr,
+    ALooper_addFd(looper, android_app->msgread, LOOPER_ID_MAIN, ALOOPER_EVENT_INPUT, NULL,
                   &android_app->cmdPollSource);
     android_app->looper = looper;
 
@@ -8024,9 +8481,9 @@ static void* android_app_entry(void* param) {
 }
 
 /*
-    Engine Startup Step 2:
-    This creates the android_app object
-    We use this object to communicate with the Android
+	Engine Startup Step 2:
+	This creates the android_app object
+	We use this object to communicate with the Android
 */
 static struct android_app* android_app_create(ANativeActivity* activity, void* savedState, size_t savedStateSize) {
 
@@ -8068,10 +8525,10 @@ static struct android_app* android_app_create(ANativeActivity* activity, void* s
 }
 
 /*
-    Engine Startup Step 1:This is the Android entry point to the application
-    Here is where we start to link the Android to the PGE
-    And create the pOSEngine struct so we can get/send events
-    to and from the phone.
+	Engine Startup Step 1:This is the Android entry point to the application
+	Here is where we start to link the Android to the PGE
+	And create the pOSEngine struct so we can get/send events
+	to and from the phone.
 
 */
 void ANativeActivity_onCreate(ANativeActivity* activity, void* savedState, size_t savedStateSize) {
@@ -8096,27 +8553,6 @@ void ANativeActivity_onCreate(ANativeActivity* activity, void* savedState, size_
 }
 
 
-
-#endif
-
-#if defined (__APPLE__)
-
-/*
- * Copyright (C) 2023 JohnGalvin.net APPLE NATIVE GLUE
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
- */
 
 #endif
 
@@ -8160,7 +8596,7 @@ namespace olc {
             case APP_CMD_INIT_WINDOW:
             {
                 // The window is being shown, get it ready.
-                if (MyAndroidApp->window != nullptr) {
+                if (MyAndroidApp->window != NULL) {
 
                     // it is now safe for the PGE Engine to start!
                     platform->ptrPGE->pOsEngine.LostFocus = false;
@@ -8168,7 +8604,7 @@ namespace olc {
                     platform->ptrPGE->pOsEngine.animating = 1;
 
                     platform->ptrPGE->pOsEngine.sensorManager = ASensorManager_getInstance();
-                    platform->ptrPGE->pOsEngine.sensorEventQueue = ASensorManager_createEventQueue(platform->ptrPGE->pOsEngine.sensorManager, platform->ptrPGE->pOsEngine.app->looper, LOOPER_ID_USER, nullptr, nullptr);
+                    platform->ptrPGE->pOsEngine.sensorEventQueue = ASensorManager_createEventQueue(platform->ptrPGE->pOsEngine.sensorManager, platform->ptrPGE->pOsEngine.app->looper, LOOPER_ID_USER, NULL, NULL);
 
                 }
                 break;
@@ -8241,6 +8677,10 @@ namespace olc {
 
                 break;
             }
+
+            default:
+                break;
+
 
         }
     }
@@ -8500,7 +8940,7 @@ namespace olc {
     void* EventManager::onSaveInstanceState(ANativeActivity* activity, size_t* outLen)
     {
         struct android_app* android_app = (struct android_app*)activity->instance;
-        void* savedState = nullptr;
+        void* savedState = NULL;
 
         LOGV("SaveInstanceState: %p\n", activity);
         pthread_mutex_lock(&android_app->mutex);
@@ -8510,10 +8950,10 @@ namespace olc {
             pthread_cond_wait(&android_app->cond, &android_app->mutex);
         }
 
-        if (android_app->savedState != nullptr) {
+        if (android_app->savedState != NULL) {
             savedState = android_app->savedState;
             *outLen = android_app->savedStateSize;
-            android_app->savedState = nullptr;
+            android_app->savedState = NULL;
             android_app->savedStateSize = 0;
         }
 
@@ -8560,7 +9000,8 @@ namespace olc {
         android_app_write_cmd((struct android_app*)activity->instance,
                               focused ? APP_CMD_GAINED_FOCUS : APP_CMD_LOST_FOCUS);
 
-        platform->ptrPGE->SetFocused(focused != 0);
+        // Yep made it explicit, as focused is an int and I am not taking any chances with Android
+        platform->ptrPGE->SetFocused(focused ? true : false);
 
     }
 
@@ -8573,7 +9014,7 @@ namespace olc {
     void EventManager::onNativeWindowDestroyed(ANativeActivity* activity, ANativeWindow* window)
     {
         LOGV("NativeWindowDestroyed: %p -- %p\n", activity, window);
-        android_app_set_window((struct android_app*)activity->instance, nullptr);
+        android_app_set_window((struct android_app*)activity->instance, NULL);
     }
 
     void EventManager::onInputQueueCreated(ANativeActivity* activity, AInputQueue* queue)
@@ -8585,7 +9026,7 @@ namespace olc {
     void EventManager::onInputQueueDestroyed(ANativeActivity* activity, AInputQueue* queue)
     {
         LOGV("InputQueueDestroyed: %p -- %p\n", activity, queue);
-        android_app_set_input((struct android_app*)activity->instance, nullptr);
+        android_app_set_input((struct android_app*)activity->instance, NULL);
     }
 
 }
@@ -8593,101 +9034,116 @@ namespace olc {
 
 #if defined (__APPLE__)
 
+/*
+ * Copyright (C) 2023 JohnGalvin.net APPLE NATIVE GLUE
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 namespace olc {
 
-    EventManager& olc::EventManager::getInstance()
-    {
-        static EventManager instance;
-        return instance;
+	EventManager& olc::EventManager::getInstance()
+	{
+		static EventManager instance;
+		return instance;
+	}
 
+	EventManager::~EventManager() {}
 
-    }
+	EventManager::EventManager() {}
 
-    EventManager::~EventManager() {}
+	void EventManager::operator=(EventManager const&) {}
 
-    EventManager::EventManager() {}
+	void EventManager::HandleCommand(int8_t eventId)
+	{
+		switch (eventId)
+		{
+		case 0:
+		{
+			// FINISHED_LAUNCH
+			// TODO: Create some pre PGE Init methods here
+			break;
+		}
+		case 1:
+		{
+			// RESIGN_ACTIVE
+			platform->ptrPGE->pOsEngine.animating = 0;
+			platform->ptrPGE->pOsEngine.StartPGE = false;
+			platform->ptrPGE->SetFocused(false);
+			platform->ptrPGE->OnSaveStateRequested();
+			break;
+		}
+		case 2:
+		{
+			// ENTERED_BACKGROUND
+			platform->ptrPGE->pOsEngine.animating = 0;
+			platform->ptrPGE->pOsEngine.StartPGE = true;
+			platform->ptrPGE->SetFocused(false);
+			break;
+		}
+		case 3:
+		{
+			// ENTERED_FOREGROUND
+			platform->ptrPGE->pOsEngine.animating = 1;
+			platform->ptrPGE->pOsEngine.StartPGE = true;
+			platform->ptrPGE->SetFocused(true);
+			break;
+		}
+		case 4:
+		{
+			// BECOME_ACTIVE
+			platform->ptrPGE->pOsEngine.animating = 1;
+			platform->ptrPGE->pOsEngine.StartPGE = true;
+			platform->ptrPGE->SetFocused(true);
+			platform->ptrPGE->OnRestoreStateRequested();
+			break;
+		}
+		case 5:
+		{
+			// TERMINATE
+			// Note: when the iOS terminates your app it is terminate Fast very Fast
+			// Ensure you have your ducks in a row folks
+			platform->ptrPGE->pOsEngine.animating = 0;
+			platform->ptrPGE->pOsEngine.StartPGE = false;
+			platform->ptrPGE->SetFocused(false);
+			platform->ptrPGE->OnUserDestroy();
+			platform->ptrPGE->olc_Terminate();
+			break;
+		}
+		default:
+			break;
+		}
+	}
 
-    void EventManager::operator=(EventManager const&) {}
+	int32_t EventManager::HandleInput(int32_t cmd)
+	{
+		switch (cmd)
+		{
+		case 10:
+		{
+			platform->ptrPGE->olc_UpdateMouseState(1, true);
+			break;
+		}
+		default:
+		{
+			break;
+		}
 
-    void EventManager::HandleCommand(int8_t eventId)
-    {
-        switch (eventId)
-        {
-        case 0:
-        {
-            // FINISHED_LAUNCH
-            // TODO: Create some pre PGE Init methods here
-            break;
-        }
-        case 1:
-        {
-            // RESIGN_ACTIVE
-            platform->ptrPGE->pOsEngine.animating = 0;
-            platform->ptrPGE->pOsEngine.StartPGE = false;
-            platform->ptrPGE->SetFocused(false);
-            platform->ptrPGE->OnSaveStateRequested();
-            break;
-        }
-        case 2:
-        {
-            // ENTERED_BACKGROUND
-            platform->ptrPGE->pOsEngine.animating = 0;
-            platform->ptrPGE->pOsEngine.StartPGE = true;
-            platform->ptrPGE->SetFocused(false);
-            break;
-        }
-        case 3:
-        {
-            // ENTERED_FOREGROUND
-            platform->ptrPGE->pOsEngine.animating = 1;
-            platform->ptrPGE->pOsEngine.StartPGE = true;
-            platform->ptrPGE->SetFocused(true);
-            break;
-        }
-        case 4:
-        {
-            // BECOME_ACTIVE
-            platform->ptrPGE->pOsEngine.animating = 1;
-            platform->ptrPGE->pOsEngine.StartPGE = true;
-            platform->ptrPGE->SetFocused(true);
-            platform->ptrPGE->OnRestoreStateRequested();
-            break;
-        }
-        case 5:
-        {
-            // TERMINATE
-            // Note: when the iOS terminates your app it is terminate Fast very Fast
-            // Ensure you have your ducks in a row folks
-            platform->ptrPGE->pOsEngine.animating = 0;
-            platform->ptrPGE->pOsEngine.StartPGE = false;
-            platform->ptrPGE->SetFocused(false);
-            platform->ptrPGE->OnUserDestroy();
-            platform->ptrPGE->olc_Terminate();
-            break;
-        }
-        default:
-            break;
-        }
-    }
+		};
 
-    int32_t EventManager::HandleInput(int32_t cmd)
-    {
-        switch (cmd)
-        {
-        case 10:
-        {
-            platform->ptrPGE->olc_UpdateMouseState(1, true);
-            break;
-        }
-        default:
-        {
-            break;
-        }
-
-        };
-
-        return 0;
-    }
+		return 0;
+	}
 
 
 }
@@ -8774,76 +9230,76 @@ namespace olc {
 #if defined (__APPLE__)
 namespace olc {
 
-    class Platform_iOS : public olc::Platform
-    {
+	class Platform_iOS : public olc::Platform
+	{
 
-    public:
+	public:
 
-        virtual olc::rcode ApplicationStartUp() override
-        {
+		virtual olc::rcode ApplicationStartUp() override
+		{
 
-            return olc::rcode::OK;
-        }
+			return olc::rcode::OK;
+		}
 
-        virtual olc::rcode ApplicationCleanUp() override
-        {
-            return olc::rcode::OK;
-        }
+		virtual olc::rcode ApplicationCleanUp() override
+		{
+			return olc::rcode::OK;
+		}
 
-        virtual olc::rcode ThreadStartUp() override
-        {
-            return olc::rcode::OK;
-        }
+		virtual olc::rcode ThreadStartUp() override
+		{
+			return olc::rcode::OK;
+		}
 
-        virtual olc::rcode ThreadCleanUp() override
-        {
-            renderer->DestroyDevice();
+		virtual olc::rcode ThreadCleanUp() override
+		{
+			renderer->DestroyDevice();
 
-            return olc::OK;
-        }
+			return olc::OK;
+		}
 
-        virtual olc::rcode CreateGraphics(bool bFullScreen, bool bEnableVSYNC, const olc::vi2d& vViewPos, const olc::vi2d& vViewSize) override
-        {
-            if (renderer->CreateDevice({}, bFullScreen, bEnableVSYNC) == olc::rcode::OK)
-            {
-                renderer->UpdateViewport(vViewPos, vViewSize);
-                return olc::rcode::OK;
-            }
-            else
-                return olc::rcode::FAIL;
-            return olc::rcode::OK;
-        }
+		virtual olc::rcode CreateGraphics(bool bFullScreen, bool bEnableVSYNC, const olc::vi2d& vViewPos, const olc::vi2d& vViewSize) override
+		{
+			if (renderer->CreateDevice({}, bFullScreen, bEnableVSYNC) == olc::rcode::OK)
+			{
+				renderer->UpdateViewport(vViewPos, vViewSize);
+				return olc::rcode::OK;
+			}
+			else
+				return olc::rcode::FAIL;
+			return olc::rcode::OK;
+		}
 
-        virtual olc::rcode CreateWindowPane(const olc::vi2d& vWindowPos, olc::vi2d& vWindowSize, bool bFullScreen) override
-        {
+		virtual olc::rcode CreateWindowPane(const olc::vi2d& vWindowPos, olc::vi2d& vWindowSize, bool bFullScreen) override
+		{
 
-            renderer->PrepareDevice();
-            /*android_app* app = (android_app*)MyAndroidApp;
-            app->contentRect.left = vWindowPos.x;
-            app->contentRect.top = vWindowPos.y;
-            app->contentRect.right = vWindowSize.x;
-            app->contentRect.bottom = vWindowSize.y;*/
+			renderer->PrepareDevice();
+			/*android_app* app = (android_app*)MyAndroidApp;
+			app->contentRect.left = vWindowPos.x;
+			app->contentRect.top = vWindowPos.y;
+			app->contentRect.right = vWindowSize.x;
+			app->contentRect.bottom = vWindowSize.y;*/
 
-            return olc::rcode::OK;
-        }
+			return olc::rcode::OK;
+		}
 
-        virtual olc::rcode SetWindowTitle(const std::string& s) override
-        {
+		virtual olc::rcode SetWindowTitle(const std::string& s) override
+		{
 
-            return olc::OK;
-        }
+			return olc::OK;
+		}
 
-        virtual olc::rcode StartSystemEventLoop() override
-        {
-            return rcode::OK;
-        }
+		virtual olc::rcode StartSystemEventLoop() override
+		{
+			return rcode::OK;
+		}
 
-        virtual olc::rcode HandleSystemEvent() override
-        {
-            return olc::OK;
-        }
+		virtual olc::rcode HandleSystemEvent() override
+		{
+			return olc::OK;
+		}
 
-    };
+	};
 }
 #endif
 
@@ -8865,10 +9321,10 @@ namespace olc {
     {
 
     private:
-        EGLDisplay olc_Display = nullptr;
-        EGLConfig olc_Config = nullptr;
-        EGLContext olc_Context = nullptr;
-        EGLSurface olc_Surface = nullptr;
+        EGLDisplay olc_Display;
+        EGLConfig olc_Config;
+        EGLContext olc_Context;
+        EGLSurface olc_Surface;
 
     private:
         locCreateShader_t* locCreateShader = nullptr;
@@ -8889,6 +9345,10 @@ namespace olc {
         locGenVertexArrays_t* locGenVertexArrays = nullptr;
         //locSwapInterval_t* locSwapInterval = nullptr;
         locGetShaderInfoLog_t* locGetShaderInfoLog = nullptr;
+        locGetUniformLocation_t* locGetUniformLocation = nullptr;
+        locUniformMatrix4fv_t* locUniformMatrix4fv = nullptr;
+        locUniform1i_t* locUniform1i = nullptr;
+        locUniform4fv_t* locUniform4fv = nullptr;
 
         uint32_t m_nFS = 0;
         uint32_t m_nVS = 0;
@@ -8896,12 +9356,18 @@ namespace olc {
         uint32_t m_vbQuad = 0;
         uint32_t m_vaQuad = 0;
 
+        uint32_t m_uniMVP = 0;
+        uint32_t m_uniIs3D = 0;
+	uint32_t m_uniTint = 0;
+
         struct locVertex
         {
-            float pos[3] = {0.0f};
+            float pos[4];
             olc::vf2d tex;
             olc::Pixel col;
         };
+
+        std::array<float, 16> matProjection = { {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1} };
 
         locVertex pVertexMem[OLC_MAX_VERTS];
 
@@ -8922,14 +9388,16 @@ namespace olc {
             glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
             glEnable(GL_BLEND);
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
         }
 
-        olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen, bool bVSYNC, GLsizei nTextureCount) override
+        olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen = true, bool bVSYNC = false, GLsizei nTextureCount = 1) override
         {
             // This is a heavy going function, but must run in order to ensure the app loads
 
             // 1: Setup out OpenGLES settings (NOTE: these are not the same as in the PGE 2.0)
-            EGLint const attribute_list[] = { EGL_SURFACE_TYPE, EGL_OPENGL_ES2_BIT, EGL_RED_SIZE, 8, EGL_GREEN_SIZE, 8, EGL_BLUE_SIZE, 8, EGL_ALPHA_SIZE, 8, EGL_NONE };
+            EGLint const attribute_list[] = { EGL_SURFACE_TYPE, EGL_OPENGL_ES2_BIT, EGL_RED_SIZE, 8, EGL_GREEN_SIZE, 8,
+                                              EGL_BLUE_SIZE, 8, EGL_ALPHA_SIZE, 8, EGL_DEPTH_SIZE, 24, EGL_NONE };
             EGLint const context_config[] = { EGL_CONTEXT_CLIENT_VERSION, 2, EGL_NONE };
             EGLint num_config;
             EGLint w, h, format;
@@ -8988,6 +9456,10 @@ namespace olc {
             locEnableVertexAttribArray = OGL_LOAD(locEnableVertexAttribArray_t, glEnableVertexAttribArray);
             locUseProgram = OGL_LOAD(locUseProgram_t, glUseProgram);
             locGetShaderInfoLog = OGL_LOAD(locGetShaderInfoLog_t, glGetShaderInfoLog);
+            locUniform1i = OGL_LOAD(locUniform1i_t, glUniform1i);
+            locUniform4fv = OGL_LOAD(locUniform4fv_t, glUniform4fv);
+            locUniformMatrix4fv = OGL_LOAD(locUniformMatrix4fv_t, glUniformMatrix4fv);
+            locGetUniformLocation = OGL_LOAD(locGetUniformLocation_t, glGetUniformLocation);
 
             // 9: Bind our Arrays
             locBindVertexArray = glBindVertexArrayOES;
@@ -9006,14 +9478,14 @@ namespace olc {
             const GLchar* strFS =
 #if defined(__arm__) || defined(__aarch64__)
                     "#version 300 es\n"
-                "precision mediump float;"
+		    "precision mediump float;"
 #else
                     "#version 100 es\n"
                     "precision mediump float;"
                     #endif
                     "out vec4 pixel;\n""in vec2 oTex;\n"
                     "in vec4 oCol;\n""uniform sampler2D sprTex;\n""void main(){pixel = texture(sprTex, oTex) * oCol;}";
-            locShaderSource(m_nFS, 1, &strFS, nullptr);
+            locShaderSource(m_nFS, 1, &strFS, NULL);
             locCompileShader(m_nFS);
 
             // 0x8B31 = GL_VERTEX_SHADER
@@ -9021,22 +9493,37 @@ namespace olc {
             const GLchar* strVS =
 #if defined(__arm__) || defined(__aarch64__)
                     "#version 300 es\n"
-                "precision mediump float;"
+				"precision mediump float;"
 #else
                     "#version 100 es\n"
                     "precision mediump float;"
                     #endif
-                    "layout(location = 0) in vec3 aPos;\n""layout(location = 1) in vec2 aTex;\n"
-                    "layout(location = 2) in vec4 aCol;\n""out vec2 oTex;\n""out vec4 oCol;\n"
-                    "void main(){ float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex; oCol = aCol;}";
+                    "layout(location = 0) in vec3 aPos;\n"
+		    "layout(location = 1) in vec2 aTex;\n"
+                    "layout(location = 2) in vec4 aCol;\n"
+		    "uniform mat4 mvp;\n"
+                    "uniform int is3d;\n"
+		    "uniform vec4 tint;\n"
+		    "out vec2 oTex;\n"
+		    "out vec4 oCol;\n"
+		    "void main(){ if(is3d!=0) {gl_Position = mvp * vec4(aPos.x, aPos.y, aPos.z, 1.0); oTex = aTex;} else {float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex;} oCol = aCol * tint;}";
 
             // 12: Configure our Shaders, Buffers, Textures
-            locShaderSource(m_nVS, 1, &strVS, nullptr);
+            locShaderSource(m_nVS, 1, &strVS, NULL);
             locCompileShader(m_nVS);
             m_nQuadShader = locCreateProgram();
             locAttachShader(m_nQuadShader, m_nFS);
             locAttachShader(m_nQuadShader, m_nVS);
             locLinkProgram(m_nQuadShader);
+
+            //1?: Javid code
+            m_uniMVP = locGetUniformLocation(m_nQuadShader, "mvp");
+	    m_uniIs3D = locGetUniformLocation(m_nQuadShader, "is3d");
+	    m_uniTint = locGetUniformLocation(m_nQuadShader, "tint");
+	    locUniform1i(m_uniIs3D, 0);
+	    locUniformMatrix4fv(m_uniMVP, 16, false, matProjection.data());
+	    float f[4] = { 100.0f, 100.0f, 100.0f, 100.0f };
+	    locUniform4fv(m_uniTint, 4, f);
 
             // 14: Create Quads
             locGenBuffers(1, &m_vbQuad);
@@ -9047,9 +9534,9 @@ namespace olc {
             locVertex verts[OLC_MAX_VERTS];
             // 0x8892 == GL_ARRAY_BUFFER, 0x88E0 == GL_DRAW_STREAM of which is not supported, replaced with 0x88E4 GL_STATIC_DRAW
             locBufferData(GL_ARRAY_BUFFER, sizeof(locVertex) * OLC_MAX_VERTS, verts, GL_STATIC_DRAW);
-            locVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(locVertex), nullptr); locEnableVertexAttribArray(0);
-            locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(3 * sizeof(float))); locEnableVertexAttribArray(1);
-            locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(5 * sizeof(float)));	locEnableVertexAttribArray(2);
+            locVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(locVertex), 0); locEnableVertexAttribArray(0);
+            locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(4 * sizeof(float))); locEnableVertexAttribArray(1);
+            locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(6 * sizeof(float)));	locEnableVertexAttribArray(2);
             locBindBuffer(GL_ARRAY_BUFFER, 0);
             locBindVertexArray(0);
 
@@ -9115,7 +9602,7 @@ namespace olc {
         void DisplayFrame() override
         {
 
-            if (olc_Display == nullptr)
+            if (olc_Display == NULL)
             {
                 // Nothing is displaying just return
                 return;
@@ -9137,10 +9624,17 @@ namespace olc {
             glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
             locUseProgram(m_nQuadShader);
             locBindVertexArray(m_vaQuad);
+	    float f[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	    locUniform4fv(m_uniTint, 1, f);
 
-            locVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(locVertex), nullptr); locEnableVertexAttribArray(0);
+            locVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(locVertex), 0); locEnableVertexAttribArray(0);
             locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(3 * sizeof(float))); locEnableVertexAttribArray(1);
             locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(5 * sizeof(float)));	locEnableVertexAttribArray(2);
+
+            locUniform1i(m_uniIs3D, 0);
+            locUniformMatrix4fv(m_uniMVP, 1, false, matProjection.data());
+	    glDisable(GL_CULL_FACE);
+	    glDepthFunc(GL_LESS);
 
         }
 
@@ -9186,40 +9680,48 @@ namespace olc {
             };
 
             locBufferData(GL_ARRAY_BUFFER, sizeof(locVertex) * 4, verts, GL_STATIC_DRAW);
-            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+            locUniform1i(m_uniIs3D, 0);
+	    float f[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	    locUniform4fv(m_uniTint, 1, f);
+	    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
-
-        }
+	}
 
         void DrawDecal(const olc::DecalInstance& decal) override
         {
             // 0x8892 == GL_ARRAY_BUFFER, 0x88E0 == GL_DRAW_STREAM of which is not supported, replaced with 0x88E4 GL_STATIC_DRAW
             // 0x8892 == GL_ARRAY_BUFFER,
+		glDisable(GL_CULL_FACE);
+		SetDecalMode(decal.mode);
+		if (decal.decal == nullptr)
+			glBindTexture(GL_TEXTURE_2D, rendBlankQuad.Decal()->id);
+		else
+			glBindTexture(GL_TEXTURE_2D, decal.decal->id);
 
-            SetDecalMode(decal.mode);
-            if (decal.decal == nullptr)
-                glBindTexture(GL_TEXTURE_2D, rendBlankQuad.Decal()->id);
-            else
-                glBindTexture(GL_TEXTURE_2D, decal.decal->id);
+		locBindBuffer(0x8892, m_vbQuad);
 
-            locBindBuffer(GL_ARRAY_BUFFER, m_vbQuad);
+		for (uint32_t i = 0; i < decal.points; i++)
+			pVertexMem[i] = { { decal.pos[i].x, decal.pos[i].y, decal.w[i], 0.0 }, { decal.uv[i].x, decal.uv[i].y }, decal.tint[i] };
 
-            for (uint32_t i = 0; i < decal.points; i++)
-                pVertexMem[i] = { { decal.pos[i].x, decal.pos[i].y, decal.w[i] }, { decal.uv[i].x, decal.uv[i].y }, decal.tint[i] };
+		locBufferData(0x8892, sizeof(locVertex) * decal.points, pVertexMem, 0x88E0);
+		locUniform1i(m_uniIs3D, 0);
 
-            locBufferData(GL_ARRAY_BUFFER, sizeof(locVertex) * decal.points, pVertexMem, GL_STATIC_DRAW);
+		float f[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		locUniform4fv(m_uniTint, 1, f);
 
-            if (nDecalMode == DecalMode::WIREFRAME)
-                glDrawArrays(GL_LINE_LOOP, 0, decal.points);
-            else
-            {
-                if (decal.structure == olc::DecalStructure::FAN)
-                    glDrawArrays(GL_TRIANGLE_FAN, 0, decal.points);
-                else if (decal.structure == olc::DecalStructure::STRIP)
-                    glDrawArrays(GL_TRIANGLE_STRIP, 0, decal.points);
-                else if (decal.structure == olc::DecalStructure::LIST)
-                    glDrawArrays(GL_TRIANGLES, 0, decal.points);
-            }
+		if (nDecalMode == DecalMode::WIREFRAME)
+			glDrawArrays(GL_LINE_LOOP, 0, decal.points);
+		else
+		{
+			if (decal.structure == olc::DecalStructure::FAN)
+				glDrawArrays(GL_TRIANGLE_FAN, 0, decal.points);
+			else if (decal.structure == olc::DecalStructure::STRIP)
+				glDrawArrays(GL_TRIANGLE_STRIP, 0, decal.points);
+			else if (decal.structure == olc::DecalStructure::LIST)
+				glDrawArrays(GL_TRIANGLES, 0, decal.points);
+			else if (decal.structure == olc::DecalStructure::LINE)
+				glDrawArrays(GL_LINES, 0, decal.points);
+		}
 
 
         }
@@ -9293,6 +9795,87 @@ namespace olc {
             glViewport(pos.x, pos.y, size.x, size.y);
         }
 
+        void Set3DProjection(const std::array<float, 16>& mat) override
+        {
+            matProjection = mat;
+        }
+
+
+	void DoGPUTask(const olc::GPUTask& task) override
+	{
+		SetDecalMode(task.mode);
+		if (task.decal == nullptr)
+			glBindTexture(GL_TEXTURE_2D, rendBlankQuad.Decal()->id);
+		else
+			glBindTexture(GL_TEXTURE_2D, task.decal->id);
+
+		locBindBuffer(0x8892, m_vbQuad);
+
+		//for (uint32_t i = 0; i < task.vb.size; i++)
+		// pVertexMem[i] = { { decal.pos[i].x, decal.pos[i].y, decal.w[i] }, { decal.uv[i].x, decal.uv[i].y }, decal.tint[i] };
+
+		// ooooof... f^%ing win!!! B) [planned of course]
+		locBufferData(0x8892, sizeof(GPUTask::Vertex) * task.vb.size(), task.vb.data(), 0x88E0);
+
+		// Use 3D Shader
+		locUniform1i(m_uniIs3D, 1);
+
+		// Use MVP Matrix - yeah, but this needs to happen somewhere
+		// and at least its per object which makes sense
+		std::array<float, 16> matMVP;
+		for (size_t c = 0; c < 4; c++)
+			for (size_t r = 0; r < 4; r++)
+				matMVP[c * 4 + r] =
+				+ matProjection[0 * 4 + r] * task.mvp[c * 4 + 0]
+				+ matProjection[1 * 4 + r] * task.mvp[c * 4 + 1]
+				+ matProjection[2 * 4 + r] * task.mvp[c * 4 + 2]
+				+ matProjection[3 * 4 + r] * task.mvp[c * 4 + 3];
+		locUniformMatrix4fv(m_uniMVP, 1, false, matMVP.data());
+
+		float f[4] = { float(task.tint.r) / 255.0f, float(task.tint.g) / 255.0f, float(task.tint.b) / 255.0f, float(task.tint.a) / 255.0f };
+		locUniform4fv(m_uniTint, 1, f);
+
+
+		if (task.cull == olc::CullMode::NONE)
+		{
+			glCullFace(GL_FRONT);
+			glDisable(GL_CULL_FACE);
+		}
+		else if(task.cull == olc::CullMode::CW)
+		{
+			glCullFace(GL_FRONT);
+			glEnable(GL_CULL_FACE);
+		}
+		else if (task.cull == olc::CullMode::CCW)
+		{
+			glCullFace(GL_BACK);
+			glEnable(GL_CULL_FACE);
+		}
+
+		if(task.depth)
+			glEnable(GL_DEPTH_TEST);
+
+
+
+		if (nDecalMode == DecalMode::WIREFRAME)
+			glDrawArrays(GL_LINE_LOOP, 0, (GLsizei)task.vb.size());
+		else
+		{
+			if (task.structure == olc::DecalStructure::FAN)
+				glDrawArrays(GL_TRIANGLE_FAN, 0, (GLsizei)task.vb.size());
+			else if (task.structure == olc::DecalStructure::STRIP)
+				glDrawArrays(GL_TRIANGLE_STRIP, 0, (GLsizei)task.vb.size());
+			else if (task.structure == olc::DecalStructure::LIST)
+				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)task.vb.size());
+			else if (task.structure == olc::DecalStructure::LINE)
+				glDrawArrays(GL_LINES, 0, (GLsizei)task.vb.size());
+		}
+
+		if(task.depth)
+			glDisable(GL_DEPTH_TEST);
+	}
+
+
 
     };
 
@@ -9306,10 +9889,10 @@ namespace olc {
     {
 
     private:
-        EGLDisplay olc_Display = nullptr;
-        EGLConfig olc_Config = nullptr;
-        EGLContext olc_Context = nullptr;
-        EGLSurface olc_Surface = nullptr;
+        EGLDisplay olc_Display;
+        EGLConfig olc_Config;
+        EGLContext olc_Context;
+        EGLSurface olc_Surface;
 
     private:
         locCreateShader_t* locCreateShader = nullptr;
@@ -9330,6 +9913,10 @@ namespace olc {
         locGenVertexArrays_t* locGenVertexArrays = nullptr;
         //locSwapInterval_t* locSwapInterval = nullptr;
         locGetShaderInfoLog_t* locGetShaderInfoLog = nullptr;
+        locGetUniformLocation_t* locGetUniformLocation = nullptr;
+        locUniformMatrix4fv_t* locUniformMatrix4fv = nullptr;
+        locUniform1i_t* locUniform1i = nullptr;
+        locUniform4fv_t* locUniform4fv = nullptr;
 
         uint32_t m_nFS = 0;
         GLsizei m_nShaderSourceCount = 1;
@@ -9339,13 +9926,18 @@ namespace olc {
         GLsizei m_nGenVerTexArraysSize = 1;
         GLuint  m_vbQuad = 0;
         GLuint  m_vaQuad = 0;
+
+        GLuint m_uniMVP = 0;
+        GLuint m_uniIs3D = 0;
+	GLuint m_uniTint = 0;
+
 #if defined (__ANDROID__)
         GLuint m_nBlankTextureWidth = 1;
         GLuint m_nBlankTextureHeight = 2;
 #endif
 #if defined (__APPLE__)
         uint32_t m_nBlankTextureWidth = 1;
-        uint32_t m_nBlankTextureHeight = 2;
+	uint32_t m_nBlankTextureHeight = 2;
 #endif
 
 
@@ -9354,14 +9946,14 @@ namespace olc {
         int32_t m_nRectRight = 0; // Width
         int32_t m_nRectButtom = 0; // Height
 
-
-
         struct locVertex
         {
-            float pos[3] = {0.0f};
+            float pos[4];
             olc::vf2d tex;
             olc::Pixel col;
         };
+
+        std::array<float, 16> matProjection = { {1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1} };
 
         locVertex pVertexMem[OLC_MAX_VERTS];
 
@@ -9389,7 +9981,7 @@ namespace olc {
 #if defined (__ANDROID__)
 
 
-        olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen, bool bVSYNC, GLsizei nTextureCount) override
+        olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen = true, bool bVSYNC = false, GLsizei nTextureCount = 1) override
         {
             // This is a heavy going function, but must run in order to ensure the app loads
             //EGLint w, h; // format;
@@ -9407,6 +9999,7 @@ namespace olc {
                     EGL_GREEN_SIZE, 8,
                     EGL_BLUE_SIZE, 8,
                     EGL_ALPHA_SIZE, 8,
+                    EGL_DEPTH_SIZE, 24,
                     EGL_NONE };
 
             // The default display is probably what you want on Android
@@ -9426,13 +10019,15 @@ namespace olc {
                     supportedConfigs.get(),
                     supportedConfigs.get() + numConfigs,
                     [&display](const EGLConfig& config) {
-                        EGLint red, green, blue, alpha;
+                        EGLint red, green, blue, alpha, depth;
                         if (eglGetConfigAttrib(display, config, EGL_RED_SIZE, &red)
                             && eglGetConfigAttrib(display, config, EGL_GREEN_SIZE, &green)
                             && eglGetConfigAttrib(display, config, EGL_BLUE_SIZE, &blue)
-                            && eglGetConfigAttrib(display, config, EGL_ALPHA_SIZE, &alpha)) {
+                            && eglGetConfigAttrib(display, config, EGL_ALPHA_SIZE, &alpha)
+                               && eglGetConfigAttrib(display, config, EGL_DEPTH_SIZE, &depth)
+                            ) {
 
-                            return red == 8 && green == 8 && blue == 8 && alpha == 8;
+                            return red == 8 && green == 8 && blue == 8 && alpha == 8 && depth == 24;
                         }
                         return false;
                     });
@@ -9495,6 +10090,10 @@ namespace olc {
             locEnableVertexAttribArray = OGL_LOAD(locEnableVertexAttribArray_t, glEnableVertexAttribArray);
             locUseProgram = OGL_LOAD(locUseProgram_t, glUseProgram);
             locGetShaderInfoLog = OGL_LOAD(locGetShaderInfoLog_t, glGetShaderInfoLog);
+            locUniform1i = OGL_LOAD(locUniform1i_t, glUniform1i);
+            locUniform4fv = OGL_LOAD(locUniform4fv_t, glUniform4fv);
+            locUniformMatrix4fv = OGL_LOAD(locUniformMatrix4fv_t, glUniformMatrix4fv);
+            locGetUniformLocation = OGL_LOAD(locGetUniformLocation_t, glGetUniformLocation);
 
             // 11: Bind our Arrays
             locBindVertexArray = glBindVertexArrayOES;
@@ -9513,11 +10112,12 @@ namespace olc {
             const GLchar* strFS =
                     "#version 300 es\n"
                     "precision mediump float;\n"
-                    "out vec4 pixel;\n""in vec2 oTex;\n"
+                    "out vec4 pixel;\n"
+                    "in vec2 oTex;\n"
                     "in vec4 oCol;\n"
                     "uniform sampler2D sprTex;\n"
                     "void main(){pixel = texture(sprTex, oTex) * oCol;}";
-            locShaderSource(m_nFS, m_nShaderSourceCount, &strFS, nullptr);
+            locShaderSource(m_nFS, m_nShaderSourceCount, &strFS, NULL);
 
             locCompileShader(m_nFS);
 
@@ -9530,17 +10130,29 @@ namespace olc {
                     "layout(location = 0) in vec3 aPos;\n"
                     "layout(location = 1) in vec2 aTex;\n"
                     "layout(location = 2) in vec4 aCol;\n"
+                    "uniform mat4 mvp;\n"
+                    "uniform int is3d;\n"
+		    "uniform vec4 tint;\n"
                     "out vec2 oTex;\n"
                     "out vec4 oCol;\n"
-                    "void main(){ float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex; oCol = aCol;}";
+                    "void main(){ if(is3d!=0) {gl_Position = mvp * vec4(aPos.x, aPos.y, aPos.z, 1.0); oTex = aTex;} else {float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex;} oCol = aCol * tint;}";
 
             // 13: Configure our Shaders, Buffers, Textures
-            locShaderSource(m_nVS, m_nShaderSourceCount, &strVS, nullptr);
+            locShaderSource(m_nVS, m_nShaderSourceCount, &strVS, NULL);
             locCompileShader(m_nVS);
             m_nQuadShader = locCreateProgram();
             locAttachShader(m_nQuadShader, m_nFS);
             locAttachShader(m_nQuadShader, m_nVS);
             locLinkProgram(m_nQuadShader);
+
+            //1?: Javid code
+            m_uniMVP = locGetUniformLocation(m_nQuadShader, "mvp");
+	    m_uniIs3D = locGetUniformLocation(m_nQuadShader, "is3d");
+	    m_uniTint = locGetUniformLocation(m_nQuadShader, "tint");
+	    locUniform1i(m_uniIs3D, 0);
+	    locUniformMatrix4fv(m_uniMVP, 16, false, matProjection.data());
+	    float f[4] = { 100.0f, 100.0f, 100.0f, 100.0f };
+	    locUniform4fv(m_uniTint, 4, f);
 
             // 14: Create Quads
             locGenBuffers(m_nGenBufferSize, &m_vbQuad);
@@ -9551,9 +10163,9 @@ namespace olc {
             locVertex verts[OLC_MAX_VERTS];
             // 0x8892 == GL_ARRAY_BUFFER, 0x88E0 == GL_DRAW_STREAM of which is not supported, replaced with 0x88E4 GL_STATIC_DRAW
             locBufferData(GL_ARRAY_BUFFER, sizeof(locVertex) * OLC_MAX_VERTS, verts, GL_STATIC_DRAW);
-            locVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(locVertex), nullptr); locEnableVertexAttribArray(0);
-            locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(3 * sizeof(float))); locEnableVertexAttribArray(1);
-            locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(5 * sizeof(float)));	locEnableVertexAttribArray(2);
+            locVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(locVertex), 0); locEnableVertexAttribArray(0);
+            locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(4 * sizeof(float))); locEnableVertexAttribArray(1);
+            locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(6 * sizeof(float))); locEnableVertexAttribArray(2);
             locBindBuffer(GL_ARRAY_BUFFER, m_vbQuad);
             locBindVertexArray(m_vaQuad);
 
@@ -9634,260 +10246,281 @@ namespace olc {
 
 #if defined (__APPLE__)
         olc::rcode CreateDevice(std::vector<void*> params, bool bFullScreen = true, bool bVSYNC = false, GLsizei nTextureCount = 1) override
-        {
-            // This is a heavy going function, but must run in order to ensure the app loads
+		{
+			// This is a heavy going function, but must run in order to ensure the app loads
 
-            // 1: Get a pointer to our App (Android = MyAndroidApp, iOS = MyiOSApp), get our screen size
-            //auto* app = renderer->ptrPGE->pOsEngine.app;
-
-
-            // 7: Configure our display for FullScreen | Viewport
-            olc::vi2d vSize = renderer->ptrPGE->GetScreenSize();
-            int32_t nScreenWidth = vSize.x;
-            int32_t nScreenHeight = vSize.y;
-            mFullScreen = bFullScreen;
+			// 1: Get a pointer to our App (Android = MyAndroidApp, iOS = MyiOSApp), get our screen size
+			//auto* app = renderer->ptrPGE->pOsEngine.app;
 
 
-            // 10: Setup Linkage to OpenGLES Command
-            locCreateShader = OGL_LOAD(locCreateShader_t, glCreateShader);
-            locCompileShader = OGL_LOAD(locCompileShader_t, glCompileShader);
-            locShaderSource = OGL_LOAD(locShaderSource_t, glShaderSource);
-            locDeleteShader = OGL_LOAD(locDeleteShader_t, glDeleteShader);
-            locCreateProgram = OGL_LOAD(locCreateProgram_t, glCreateProgram);
-            locDeleteProgram = OGL_LOAD(locDeleteProgram_t, glDeleteProgram);
-            locLinkProgram = OGL_LOAD(locLinkProgram_t, glLinkProgram);
-            locAttachShader = OGL_LOAD(locAttachShader_t, glAttachShader);
-            locBindBuffer = OGL_LOAD(locBindBuffer_t, glBindBuffer);
-            locBufferData = OGL_LOAD(locBufferData_t, glBufferData);
-            locGenBuffers = OGL_LOAD(locGenBuffers_t, glGenBuffers);
-            locVertexAttribPointer = OGL_LOAD(locVertexAttribPointer_t, glVertexAttribPointer);
-            locEnableVertexAttribArray = OGL_LOAD(locEnableVertexAttribArray_t, glEnableVertexAttribArray);
-            locUseProgram = OGL_LOAD(locUseProgram_t, glUseProgram);
-            locGetShaderInfoLog = OGL_LOAD(locGetShaderInfoLog_t, glGetShaderInfoLog);
-
-            // 11: Bind our Arrays
-            locBindVertexArray = glBindVertexArrayOES;
-            locGenVertexArrays = glGenVertexArraysOES;
-
-            // 12: Load & Compile Quad Shader - assumes no errors
-            // 0x8B30 = GL_FRAGMENT_SHADER
-            m_nFS = locCreateShader(GL_FRAGMENT_SHADER);
-
-            //*************************************************************
-            // Now we need to create a program that will link the PGE
-            // To OPENGLES Engine:
-            // TODO: To be updated in a future release: JG 21-Oct-2023
-            // TODO: Temp set "#version 200 es\n" as x86_64 simulators do not support OpenGLES 3
-            //*************************************************************
-
-            GLint majVers = 0, minVers = 0;
-            glGetIntegerv(GL_MAJOR_VERSION, &majVers);
-            glGetIntegerv(GL_MINOR_VERSION, &minVers);
-
-            const GLchar* strFS;
-            if (majVers > 0x2)
-            {
-                strFS =
-                    "#version 300 es\n"
-                    "precision mediump float;\n"
-                    "out vec4 pixel;\n"
-                    "in vec2 oTex;\n"
-                    "in vec4 oCol;\n"
-                    "uniform sampler2D sprTex;\n"
-                    "void main(){pixel = texture(sprTex, oTex) * oCol;}";
-            }
-            else
-            {
-                strFS =
-                    "#version 100 es\n"
-                    "precision mediump float;\n"
-                    "varying vec4 pixel;\n"
-                    "varying vec2 oTex;\n"
-                    "varying vec4 oCol;\n"
-                    "uniform sampler2D sprTex;\n"
-                    "void main(){pixel = texture2D(sprTex, oTex) * oCol;}";
-            }
+			// 7: Configure our display for FullScreen | Viewport
+			olc::vi2d vSize = renderer->ptrPGE->GetScreenSize();
+			int32_t nScreenWidth = vSize.x;
+			int32_t nScreenHeight = vSize.y;
+			mFullScreen = bFullScreen;
 
 
-            locShaderSource(m_nFS, m_nShaderSourceCount, &strFS, NULL);
+			// 10: Setup Linkage to OpenGLES Command
+			locCreateShader = OGL_LOAD(locCreateShader_t, glCreateShader);
+			locCompileShader = OGL_LOAD(locCompileShader_t, glCompileShader);
+			locShaderSource = OGL_LOAD(locShaderSource_t, glShaderSource);
+			locDeleteShader = OGL_LOAD(locDeleteShader_t, glDeleteShader);
+			locCreateProgram = OGL_LOAD(locCreateProgram_t, glCreateProgram);
+			locDeleteProgram = OGL_LOAD(locDeleteProgram_t, glDeleteProgram);
+			locLinkProgram = OGL_LOAD(locLinkProgram_t, glLinkProgram);
+			locAttachShader = OGL_LOAD(locAttachShader_t, glAttachShader);
+			locBindBuffer = OGL_LOAD(locBindBuffer_t, glBindBuffer);
+			locBufferData = OGL_LOAD(locBufferData_t, glBufferData);
+			locGenBuffers = OGL_LOAD(locGenBuffers_t, glGenBuffers);
+			locVertexAttribPointer = OGL_LOAD(locVertexAttribPointer_t, glVertexAttribPointer);
+			locEnableVertexAttribArray = OGL_LOAD(locEnableVertexAttribArray_t, glEnableVertexAttribArray);
+			locUseProgram = OGL_LOAD(locUseProgram_t, glUseProgram);
+			locGetShaderInfoLog = OGL_LOAD(locGetShaderInfoLog_t, glGetShaderInfoLog);
+			locUniform1i = OGL_LOAD(locUniform1i_t, glUniform1i);
+            locUniform4fv = OGL_LOAD(locUniform4fv_t, glUniform4fv);
+			locUniformMatrix4fv = OGL_LOAD(locUniformMatrix4fv_t, glUniformMatrix4fv);
+			locGetUniformLocation = OGL_LOAD(locGetUniformLocation_t, glGetUniformLocation);
 
-            locCompileShader(m_nFS);
+			// 11: Bind our Arrays
+			locBindVertexArray = glBindVertexArrayOES;
+			locGenVertexArrays = glGenVertexArraysOES;
 
-            // 0x8B31 = GL_VERTEX_SHADER
-            m_nVS = locCreateShader(GL_VERTEX_SHADER);
+			// 12: Load & Compile Quad Shader - assumes no errors
+			// 0x8B30 = GL_FRAGMENT_SHADER
+			m_nFS = locCreateShader(GL_FRAGMENT_SHADER);
 
-            const GLchar* strVS;
-            if (majVers > 0x2)
-            {
-                strVS =
-                    "#version 300 es\n"
-                    "precision mediump float;\n"
-                    "layout(location = 0) in vec3 aPos;\n"
-                    "layout(location = 1) in vec2 aTex;\n"
-                    "layout(location = 2) in vec4 aCol;\n"
-                    "out vec2 oTex;\n"
-                    "out vec4 oCol;\n"
-                    "void main(){ float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex; oCol = aCol;}";
-            }
-            else
-            {
-                strVS =
-                    "#version 100 es\n"
-                    "precision mediump float;\n"
-                    "attribute mediump vec3 aPos;\n"
-                    "attribute mediump vec2 aTex;\n"
-                    "attribute mediump vec4 aCol;\n"
-                    "varying vec2 oTex;\n"
-                    "varying vec4 oCol;\n"
-                    "void main(){ float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex; oCol = aCol;}";
-            }
+			//*************************************************************
+			// Now we need to create a program that will link the PGE
+			// To OPENGLES Engine:
+			// TODO: To be updated in a future release: JG 21-Oct-2023
+			// TODO: Temp set "#version 200 es\n" as x86_64 simulators do not support OpenGLES 3
+			//*************************************************************
 
+			GLint majVers = 0, minVers = 0;
+			glGetIntegerv(GL_MAJOR_VERSION, &majVers);
+			glGetIntegerv(GL_MINOR_VERSION, &minVers);
 
-            // 13: Configure our Shaders, Buffers, Textures
-            locShaderSource(m_nVS, m_nShaderSourceCount, &strVS, NULL);
-            locCompileShader(m_nVS);
-            m_nQuadShader = locCreateProgram();
-            locAttachShader(m_nQuadShader, m_nFS);
-            locAttachShader(m_nQuadShader, m_nVS);
-            locLinkProgram(m_nQuadShader);
-
-            // 14: Create Quads
-            locGenBuffers(m_nGenBufferSize, &m_vbQuad);
-            locGenVertexArrays(m_nGenVerTexArraysSize, &m_vaQuad);
-            locBindVertexArray(m_vaQuad);
-            locBindBuffer(GL_ARRAY_BUFFER, m_vbQuad);
-
-            locVertex verts[OLC_MAX_VERTS];
-            // 0x8892 == GL_ARRAY_BUFFER, 0x88E0 == GL_DRAW_STREAM of which is not supported, replaced with 0x88E4 GL_STATIC_DRAW
-            locBufferData(GL_ARRAY_BUFFER, sizeof(locVertex) * OLC_MAX_VERTS, verts, GL_STATIC_DRAW);
-            locVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(locVertex), 0); locEnableVertexAttribArray(0);
-            locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(3 * sizeof(float))); locEnableVertexAttribArray(1);
-            locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(5 * sizeof(float)));	locEnableVertexAttribArray(2);
-            locBindBuffer(GL_ARRAY_BUFFER, m_vbQuad);
-            locBindVertexArray(m_vaQuad);
-
-
-            // 15: Create blank texture for no sprite decals
-            rendBlankQuad.Create(m_nBlankTextureWidth, m_nBlankTextureHeight);
-            rendBlankQuad.Sprite()->GetData()[0] = olc::WHITE;
-            rendBlankQuad.Decal()->Update();
-
-            // 16: Update the pOSEngine struct, so we can use it later
-          /*  eglQuerySurface(olc_Display, olc_Surface, EGL_WIDTH, &m_nRectRight);
-            eglQuerySurface(olc_Display, olc_Surface, EGL_HEIGHT, &m_nRectButtom);*/
-
-            renderer->ptrPGE->pOsEngine.display = olc_Display;
-            renderer->ptrPGE->pOsEngine.surface = olc_Surface;
-            renderer->ptrPGE->pOsEngine.context = olc_Context;
-            renderer->ptrPGE->pOsEngine.viewHeight = m_nRectButtom;
-            renderer->ptrPGE->pOsEngine.viewWidth = m_nRectRight;
-            renderer->ptrPGE->pOsEngine.screenHeight = nScreenHeight;
-            renderer->ptrPGE->pOsEngine.screenWidth = nScreenWidth;
-
-            // Create the content RECT, this is where your game graphics live
-            /*app->contentRect.left = m_nRectLeft;
-            app->contentRect.top = m_nRectTop;
-            app->contentRect.right = m_nRectRight;
-            app->contentRect.bottom = m_nRectButtom;
-            olc::vi2d vWindowSize = { m_nRectRight, m_nRectButtom };*/
-
-            olc::vi2d vWindowSize = { nScreenWidth, nScreenHeight };
-
-            // 17: Create plane and update
-            if (platform->CreateWindowPane({ 0, 0 }, vWindowSize, bFullScreen) != olc::OK) return olc::FAIL;
-            platform->ptrPGE->olc_UpdateWindowSize(vWindowSize.x, vWindowSize.y);
-
-            return olc::rcode::OK;
-        }
-
-        olc::rcode DestroyDevice() override
-        {
-            renderer->ptrPGE->pOsEngine.animating = 0;
-            return olc::rcode::OK;
-        }
-
-        void DisplayFrame() override
-        {
-            CheckForGLError();
-        }
-
-        GLuint CompileShader(GLenum type, const std::string& source)
-        {
-            GLuint shader = glCreateShader(type);
+			const GLchar* strFS;
+			if (majVers > 0x2)
+			{
+				strFS =
+					"#version 300 es\n"
+					"precision mediump float;\n"
+					"out vec4 pixel;\n"
+					"in vec2 oTex;\n"
+					"in vec4 oCol;\n"
+					"uniform sampler2D sprTex;\n"
+					"void main(){pixel = texture(sprTex, oTex) * oCol;}";
+			}
+			else
+			{
+				strFS =
+					"#version 100 es\n"
+					"precision mediump float;\n"
+					"varying vec4 pixel;\n"
+					"varying vec2 oTex;\n"
+					"varying vec4 oCol;\n"
+					"uniform sampler2D sprTex;\n"
+					"void main(){pixel = texture2D(sprTex, oTex) * oCol;}";
+			}
 
 
-            const char* sourceArray[1] = { source.c_str() };
-            glShaderSource(shader, 1, sourceArray, NULL);
-            glCompileShader(shader);
+			locShaderSource(m_nFS, m_nShaderSourceCount, &strFS, NULL);
 
-            GLint compileResult;
-            glGetShaderiv(shader, GL_COMPILE_STATUS, &compileResult);
+			locCompileShader(m_nFS);
 
-            if (compileResult == 0)
-            {
-                GLint infoLogLength;
-                glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
+			// 0x8B31 = GL_VERTEX_SHADER
+			m_nVS = locCreateShader(GL_VERTEX_SHADER);
 
-                std::vector<GLchar> infoLog(infoLogLength);
-                glGetShaderInfoLog(shader, (GLsizei)infoLog.size(), NULL, infoLog.data());
+			const GLchar* strVS;
+			if (majVers > 0x2)
+			{
+				strVS =
+					"#version 300 es\n"
+					"precision mediump float;\n"
+					"layout(location = 0) in vec3 aPos;\n"
+					"layout(location = 1) in vec2 aTex;\n"
+					"layout(location = 2) in vec4 aCol;\n"
+					"uniform mat4 mvp;\n"
+					"uniform int is3d;\n"
+					"uniform vec4 tint;\n"
+					"out vec2 oTex;\n"
+					"out vec4 oCol;\n"
+					"void main(){ if(is3d!=0) {gl_Position = mvp * vec4(aPos.x, aPos.y, aPos.z, 1.0); oTex = aTex;} else {float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex;} oCol = aCol * tint;}";
+			}
+			else
+			{
+				strVS =
+					"#version 100 es\n"
+					"precision mediump float;\n"
+					"attribute mediump vec3 aPos;\n"
+					"attribute mediump vec2 aTex;\n"
+					"attribute mediump vec4 aCol;\n"
+					"uniform mat4 mvp;\n"
+					"uniform int is3d;\n"
+					"uniform vec4 tint;\n"
+					"varying vec2 oTex;\n"
+					"varying vec4 oCol;\n"
+					"void main(){ if(is3d!=0) {gl_Position = mvp * vec4(aPos.x, aPos.y, aPos.z, 1.0); oTex = aTex;} else {float p = 1.0 / aPos.z; gl_Position = p * vec4(aPos.x, aPos.y, 0.0, 1.0); oTex = p * aTex;} oCol = aCol * tint;}";
+			}
 
-                std::string errorMessage = std::string("Shader compilation failed: ");
-                errorMessage += std::string(infoLog.begin(), infoLog.end());
 
-                throw std::runtime_error(errorMessage.c_str());
-            }
+			// 13: Configure our Shaders, Buffers, Textures
+			locShaderSource(m_nVS, m_nShaderSourceCount, &strVS, NULL);
+			locCompileShader(m_nVS);
 
-            return shader;
-        }
+			// Javid Code
+			m_uniMVP = locGetUniformLocation(m_nQuadShader, "mvp");
+			m_uniIs3D = locGetUniformLocation(m_nQuadShader, "is3d");
+			m_uniTint = locGetUniformLocation(m_nQuadShader, "tint");
+			locUniform1i(m_uniIs3D, 0);
+			locUniformMatrix4fv(m_uniMVP, 16, false, matProjection.data());
+			float f[4] = { 100.0f, 100.0f, 100.0f, 100.0f };
+			locUniform4fv(m_uniTint, 4, f);
 
-        GLuint CompileProgram(const std::string& vsSource, const std::string& fsSource)
-        {
+			m_nQuadShader = locCreateProgram();
+			locAttachShader(m_nQuadShader, m_nFS);
+			locAttachShader(m_nQuadShader, m_nVS);
+			locLinkProgram(m_nQuadShader);
 
-            GLuint program = glCreateProgram();
+			// Javid Code
+			m_uniMVP = locGetUniformLocation(m_nQuadShader, "mvp");
+			m_uniIs3D = locGetUniformLocation(m_nQuadShader, "is3d");
+			m_uniTint = locGetUniformLocation(m_nQuadShader, "tint");
+			locUniform1i(m_uniIs3D, 0);
+			locUniformMatrix4fv(m_uniMVP, 16, false, matProjection.data());
+			float f[4] = { 100.0f, 100.0f, 100.0f, 100.0f };
+			locUniform4fv(m_uniTint, 4, f);
 
-            if (program == 0)
-            {
-                throw std::runtime_error("Program creation failed");
-            }
+			// 14: Create Quads
+			locGenBuffers(m_nGenBufferSize, &m_vbQuad);
+			locGenVertexArrays(m_nGenVerTexArraysSize, &m_vaQuad);
+			locBindVertexArray(m_vaQuad);
+			locBindBuffer(GL_ARRAY_BUFFER, m_vbQuad);
 
-            GLuint vs = CompileShader(GL_VERTEX_SHADER, vsSource);
-            GLuint fs = CompileShader(GL_FRAGMENT_SHADER, fsSource);
+			locVertex verts[OLC_MAX_VERTS];
+			// 0x8892 == GL_ARRAY_BUFFER, 0x88E0 == GL_DRAW_STREAM of which is not supported, replaced with 0x88E4 GL_STATIC_DRAW
+			locBufferData(GL_ARRAY_BUFFER, sizeof(locVertex) * OLC_MAX_VERTS, verts, GL_STATIC_DRAW);
+			locVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(locVertex), 0); locEnableVertexAttribArray(0);
+			locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(4 * sizeof(float))); locEnableVertexAttribArray(1);
+			locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(6 * sizeof(float)));	locEnableVertexAttribArray(2);
+			locBindBuffer(GL_ARRAY_BUFFER, m_vbQuad);
+			locBindVertexArray(m_vaQuad);
 
-            if (vs == 0 || fs == 0)
-            {
-                glDeleteShader(fs);
-                glDeleteShader(vs);
-                glDeleteProgram(program);
-                return 0;
-            }
 
-            glAttachShader(program, vs);
-            glDeleteShader(vs);
+			// 15: Create blank texture for no sprite decals
+			rendBlankQuad.Create(m_nBlankTextureWidth, m_nBlankTextureHeight);
+			rendBlankQuad.Sprite()->GetData()[0] = olc::WHITE;
+			rendBlankQuad.Decal()->Update();
 
-            glAttachShader(program, fs);
-            glDeleteShader(fs);
+			// 16: Update the pOSEngine struct, so we can use it later
+			renderer->ptrPGE->pOsEngine.display = olc_Display;
+			renderer->ptrPGE->pOsEngine.surface = olc_Surface;
+			renderer->ptrPGE->pOsEngine.context = olc_Context;
+			renderer->ptrPGE->pOsEngine.viewHeight = m_nRectButtom;
+			renderer->ptrPGE->pOsEngine.viewWidth = m_nRectRight;
+			renderer->ptrPGE->pOsEngine.screenHeight = nScreenHeight;
+			renderer->ptrPGE->pOsEngine.screenWidth = nScreenWidth;
 
-            glLinkProgram(program);
+			// Create the content RECT, this is where your game graphics live
 
-            GLint linkStatus;
-            glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
+			olc::vi2d vWindowSize = { nScreenWidth, nScreenHeight };
 
-            if (linkStatus == 0)
-            {
-                GLint infoLogLength;
-                glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
+			// 17: Create plane and update
+			if (platform->CreateWindowPane({ 0, 0 }, vWindowSize, bFullScreen) != olc::OK) return olc::FAIL;
+			platform->ptrPGE->olc_UpdateWindowSize(vWindowSize.x, vWindowSize.y);
 
-                std::vector<GLchar> infoLog(infoLogLength);
-                glGetProgramInfoLog(program, (GLsizei)infoLog.size(), NULL, infoLog.data());
+			return olc::rcode::OK;
+		}
 
-                std::string errorMessage = std::string("Program link failed: ");
-                errorMessage += std::string(infoLog.begin(), infoLog.end());
+		olc::rcode DestroyDevice() override
+		{
+			renderer->ptrPGE->pOsEngine.animating = 0;
+			return olc::rcode::OK;
+		}
 
-                throw std::runtime_error(errorMessage.c_str());
-            }
+		void DisplayFrame() override
+		{
+			CheckForGLError();
+		}
 
-            return program;
-        }
+		GLuint CompileShader(GLenum type, const std::string& source)
+		{
+			GLuint shader = glCreateShader(type);
+
+
+			const char* sourceArray[1] = { source.c_str() };
+			glShaderSource(shader, 1, sourceArray, NULL);
+			glCompileShader(shader);
+
+			GLint compileResult;
+			glGetShaderiv(shader, GL_COMPILE_STATUS, &compileResult);
+
+			if (compileResult == 0)
+			{
+				GLint infoLogLength;
+				glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &infoLogLength);
+
+				std::vector<GLchar> infoLog(infoLogLength);
+				glGetShaderInfoLog(shader, (GLsizei)infoLog.size(), NULL, infoLog.data());
+
+				std::string errorMessage = std::string("Shader compilation failed: ");
+				errorMessage += std::string(infoLog.begin(), infoLog.end());
+
+				throw std::runtime_error(errorMessage.c_str());
+			}
+
+			return shader;
+		}
+
+		GLuint CompileProgram(const std::string& vsSource, const std::string& fsSource)
+		{
+
+			GLuint program = glCreateProgram();
+
+			if (program == 0)
+			{
+				throw std::runtime_error("Program creation failed");
+			}
+
+			GLuint vs = CompileShader(GL_VERTEX_SHADER, vsSource);
+			GLuint fs = CompileShader(GL_FRAGMENT_SHADER, fsSource);
+
+			if (vs == 0 || fs == 0)
+			{
+				glDeleteShader(fs);
+				glDeleteShader(vs);
+				glDeleteProgram(program);
+				return 0;
+			}
+
+			glAttachShader(program, vs);
+			glDeleteShader(vs);
+
+			glAttachShader(program, fs);
+			glDeleteShader(fs);
+
+			glLinkProgram(program);
+
+			GLint linkStatus;
+			glGetProgramiv(program, GL_LINK_STATUS, &linkStatus);
+
+			if (linkStatus == 0)
+			{
+				GLint infoLogLength;
+				glGetProgramiv(program, GL_INFO_LOG_LENGTH, &infoLogLength);
+
+				std::vector<GLchar> infoLog(infoLogLength);
+				glGetProgramInfoLog(program, (GLsizei)infoLog.size(), NULL, infoLog.data());
+
+				std::string errorMessage = std::string("Program link failed: ");
+				errorMessage += std::string(infoLog.begin(), infoLog.end());
+
+				throw std::runtime_error(errorMessage.c_str());
+			}
+
+			return program;
+		}
 
 #endif
 
@@ -9935,13 +10568,17 @@ namespace olc {
             //CheckForGLError();
             locBindVertexArray(m_vaQuad);
 
-            locVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(locVertex), 0);
+            locVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, sizeof(locVertex), 0);
             locEnableVertexAttribArray(0);
-            locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(3 * sizeof(float)));
+            locVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(locVertex), (void*)(4 * sizeof(float)));
             locEnableVertexAttribArray(1);
-            locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(5 * sizeof(float)));
+            locVertexAttribPointer(2, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(locVertex), (void*)(6 * sizeof(float)));
             locEnableVertexAttribArray(2);
 
+	    locUniform1i(m_uniIs3D, 0);
+	    locUniformMatrix4fv(m_uniMVP, 1, false, matProjection.data());
+	    glDisable(GL_CULL_FACE);
+	    glDepthFunc(GL_LESS);
 
         }
 
@@ -9980,6 +10617,7 @@ namespace olc {
 
         void DrawLayerQuad(const olc::vf2d& offset, const olc::vf2d& scale, const olc::Pixel tint) override
         {
+	    glDisable(GL_CULL_FACE);
             locBindBuffer(GL_ARRAY_BUFFER, m_vbQuad);
             locVertex verts[4] = {
                     {{-1.0f, -1.0f, 1.0}, {0.0f * scale.x + offset.x, 1.0f * scale.y + offset.y}, tint},
@@ -9990,7 +10628,10 @@ namespace olc {
 
             locBufferData(GL_ARRAY_BUFFER, sizeof(locVertex) * 4, verts, GL_STATIC_DRAW);
 
-            glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+            locUniform1i(m_uniIs3D, 0);
+	    float f[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	    locUniform4fv(m_uniTint, 1, f);
+	    glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 
 
         }
@@ -9999,6 +10640,7 @@ namespace olc {
         {
             // 0x8892 == GL_ARRAY_BUFFER, 0x88E0 == GL_DRAW_STREAM of which is not supported, replaced with 0x88E4 GL_STATIC_DRAW
             // 0x8892 == GL_ARRAY_BUFFER,
+	    glDisable(GL_CULL_FACE);
             SetDecalMode(decal.mode);
             if (decal.decal == nullptr)
             {
@@ -10013,27 +10655,33 @@ namespace olc {
 
             for (uint32_t i = 0; i < decal.points; i++)
             {
-                pVertexMem[i] = { { decal.pos[i].x, decal.pos[i].y, decal.w[i] }, { decal.uv[i].x, decal.uv[i].y }, decal.tint[i] };
+                pVertexMem[i] = { { decal.pos[i].x, decal.pos[i].y, decal.w[i], 0.0 }, { decal.uv[i].x, decal.uv[i].y }, decal.tint[i] };
             }
 
             locBufferData(GL_ARRAY_BUFFER, sizeof(locVertex) * decal.points, pVertexMem, GL_STATIC_DRAW);
+	    locUniform1i(m_uniIs3D, 0);
 
-            if (nDecalMode == DecalMode::WIREFRAME)
-            {
-                glDrawArrays(GL_LINE_LOOP, 0, decal.points);
-            }
-            else
-            {
-                if (decal.structure == olc::DecalStructure::FAN)
-                    glDrawArrays(GL_TRIANGLE_FAN, 0, decal.points);
-                else if (decal.structure == olc::DecalStructure::STRIP)
-                    glDrawArrays(GL_TRIANGLE_STRIP, 0, decal.points);
-                else if (decal.structure == olc::DecalStructure::LIST)
-                    glDrawArrays(GL_TRIANGLES, 0, decal.points);
-            }
+	    float f[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	    locUniform4fv(m_uniTint, 1, f);
+
+	   if (nDecalMode == DecalMode::WIREFRAME)
+		   glDrawArrays(GL_LINE_LOOP, 0, decal.points);
+	   else
+	   {
+		if (decal.structure == olc::DecalStructure::FAN)
+			glDrawArrays(GL_TRIANGLE_FAN, 0, decal.points);
+		else if (decal.structure == olc::DecalStructure::STRIP)
+			glDrawArrays(GL_TRIANGLE_STRIP, 0, decal.points);
+		else if (decal.structure == olc::DecalStructure::LIST)
+			glDrawArrays(GL_TRIANGLES, 0, decal.points);
+		else if (decal.structure == olc::DecalStructure::LINE)
+			glDrawArrays(GL_LINES, 0, decal.points);
+	   }
 
 
         }
+
+
 
         uint32_t CreateTexture(const uint32_t width, const uint32_t height, const bool filtered, const bool clamp, GLsizei nTextureCount) override
         {
@@ -10108,6 +10756,84 @@ namespace olc {
 
         }
 
+        void Set3DProjection(const std::array<float, 16>& mat) override
+        {
+            matProjection = mat;
+        }
+
+        void DoGPUTask(const olc::GPUTask& task) override
+        {
+                SetDecalMode(task.mode);
+		if (task.decal == nullptr)
+			glBindTexture(GL_TEXTURE_2D, rendBlankQuad.Decal()->id);
+		else
+			glBindTexture(GL_TEXTURE_2D, task.decal->id);
+
+		locBindBuffer(0x8892, m_vbQuad);
+
+		//for (uint32_t i = 0; i < task.vb.size; i++)
+		// pVertexMem[i] = { { decal.pos[i].x, decal.pos[i].y, decal.w[i] }, { decal.uv[i].x, decal.uv[i].y }, decal.tint[i] };
+
+		// ooooof... f^%ing win!!! B) [planned of course]
+		locBufferData(0x8892, sizeof(GPUTask::Vertex) * task.vb.size(), task.vb.data(), 0x88E0);
+
+		// Use 3D Shader
+		locUniform1i(m_uniIs3D, 1);
+
+		// Use MVP Matrix - yeah, but this needs to happen somewhere
+		// and at least its per object which makes sense
+		std::array<float, 16> matMVP;
+		for (size_t c = 0; c < 4; c++)
+			for (size_t r = 0; r < 4; r++)
+				matMVP[c * 4 + r] =
+				+ matProjection[0 * 4 + r] * task.mvp[c * 4 + 0]
+				+ matProjection[1 * 4 + r] * task.mvp[c * 4 + 1]
+				+ matProjection[2 * 4 + r] * task.mvp[c * 4 + 2]
+				+ matProjection[3 * 4 + r] * task.mvp[c * 4 + 3];
+		locUniformMatrix4fv(m_uniMVP, 1, false, matMVP.data());
+
+		float f[4] = { float(task.tint.r) / 255.0f, float(task.tint.g) / 255.0f, float(task.tint.b) / 255.0f, float(task.tint.a) / 255.0f };
+		locUniform4fv(m_uniTint, 1, f);
+
+
+		if (task.cull == olc::CullMode::NONE)
+		{
+			glCullFace(GL_FRONT);
+			glDisable(GL_CULL_FACE);
+		}
+		else if(task.cull == olc::CullMode::CW)
+		{
+			glCullFace(GL_FRONT);
+			glEnable(GL_CULL_FACE);
+		}
+		else if (task.cull == olc::CullMode::CCW)
+		{
+			glCullFace(GL_BACK);
+			glEnable(GL_CULL_FACE);
+		}
+
+		if(task.depth)
+			glEnable(GL_DEPTH_TEST);
+
+
+
+		if (nDecalMode == DecalMode::WIREFRAME)
+			glDrawArrays(GL_LINE_LOOP, 0, (GLsizei)task.vb.size());
+		else
+		{
+			if (task.structure == olc::DecalStructure::FAN)
+				glDrawArrays(GL_TRIANGLE_FAN, 0, (GLsizei)task.vb.size());
+			else if (task.structure == olc::DecalStructure::STRIP)
+				glDrawArrays(GL_TRIANGLE_STRIP, 0, (GLsizei)task.vb.size());
+			else if (task.structure == olc::DecalStructure::LIST)
+				glDrawArrays(GL_TRIANGLES, 0, (GLsizei)task.vb.size());
+			else if (task.structure == olc::DecalStructure::LINE)
+				glDrawArrays(GL_LINES, 0, (GLsizei)task.vb.size());
+		}
+
+		if(task.depth)
+			glDisable(GL_DEPTH_TEST);
+        }
 
     };
 
@@ -10139,7 +10865,8 @@ namespace olc
     {
     public:
         ImageLoader_STB_ANDROID() : ImageLoader()
-        {}
+        {
+        }
 
         olc::rcode LoadImageResource(olc::Sprite* spr, const std::string& sImageFile, olc::ResourcePack* pack) override
         {
@@ -10218,7 +10945,6 @@ namespace olc
                 {
                     currChunk = remaining;
                 }
-
                 char chunk[currChunk];
 
                 // Read data chunk...
@@ -10250,7 +10976,8 @@ namespace olc
     {
     public:
         FileHandler_ANDROID() : FileHandler()
-        {}
+        {
+        }
 
         virtual olc::rcode LoadFileFromAssets(const std::string& sFilePath, std::vector<char>* outBuffer) override
         {
@@ -10404,104 +11131,106 @@ namespace olc
 #include "stb_image.h"
 namespace olc
 {
-    class ImageLoader_STB_iOS : public olc::ImageLoader
-    {
-    public:
-        ImageLoader_STB_iOS() : ImageLoader()
-        {}
+	class ImageLoader_STB_iOS : public olc::ImageLoader
+	{
+	public:
+		ImageLoader_STB_iOS() : ImageLoader()
+		{
+		}
 
-        olc::rcode LoadImageResource(olc::Sprite* spr, const std::string& sImageFile, olc::ResourcePack* pack) override
-        {
-            UNUSED(pack);
-            // clear out existing sprite
-            spr->pColData.clear();
-            std::vector<char> buffer;
-            std::string sAssestFile;
-            sAssestFile = (sImageFile[0] == '/') ? sAssestFile = sImageFile : sAssestFile = '/' + sImageFile;
+		olc::rcode LoadImageResource(olc::Sprite* spr, const std::string& sImageFile, olc::ResourcePack* pack) override
+		{
+			UNUSED(pack);
+			// clear out existing sprite
+			spr->pColData.clear();
+			std::vector<char> buffer;
+			std::string sAssestFile;
+			sAssestFile = (sImageFile[0] == '/') ? sAssestFile = sImageFile : sAssestFile = '/' + sImageFile;
 
-            // Open file
-            stbi_uc* bytes = nullptr;
-            int w = 0, h = 0, cmp = 0;
-            if (pack != nullptr)
-            {
-                /*ResourceBuffer rb = pack->GetFileBuffer(sImageFile);
-                bytes = stbi_load_from_memory((unsigned char*)rb.vMemory.data(), rb.vMemory.size(), &w, &h, &cmp, 4);*/
-            }
-            else
-            {
-                // Check file exists
-                std::string test = platform->ptrPGE->pOsEngine.strInternalAppStorage + sAssestFile;
-                //bytes = stbi_load(sImageFile.c_str(), &w, &h, &cmp, STBI_rgb_alpha);
-                bytes = stbi_load(test.c_str(), &w, &h, &cmp, 4);
-            }
+			// Open file
+			stbi_uc* bytes = nullptr;
+			int w = 0, h = 0, cmp = 0;
+			if (pack != nullptr)
+			{
+				/*ResourceBuffer rb = pack->GetFileBuffer(sImageFile);
+				bytes = stbi_load_from_memory((unsigned char*)rb.vMemory.data(), rb.vMemory.size(), &w, &h, &cmp, 4);*/
+			}
+			else
+			{
+				// Check file exists
+				std::string test = platform->ptrPGE->pOsEngine.strInternalAppStorage + sAssestFile;
+				//bytes = stbi_load(sImageFile.c_str(), &w, &h, &cmp, STBI_rgb_alpha);
+				bytes = stbi_load(test.c_str(), &w, &h, &cmp, 4);
+			}
 
-            if (!bytes) return olc::rcode::FAIL;
-            spr->width = w; spr->height = h;
-            spr->pColData.resize(spr->width * spr->height);
-            std::memcpy(spr->pColData.data(), bytes, spr->width * spr->height * 4);
-            delete[] bytes;
-            return olc::rcode::OK;
-        }
+			if (!bytes) return olc::rcode::FAIL;
+			spr->width = w; spr->height = h;
+			spr->pColData.resize(spr->width * spr->height);
+			std::memcpy(spr->pColData.data(), bytes, spr->width * spr->height * 4);
+			delete[] bytes;
+			return olc::rcode::OK;
+		}
 
-        olc::rcode GetImageBuffer(olc::Sprite* spr, const std::string& sImageFile, std::vector<char>* buffer) override
-        {
+		olc::rcode GetImageBuffer(olc::Sprite* spr, const std::string& sImageFile, std::vector<char>* buffer) override
+		{
 
-            return olc::rcode::OK;
-        }
+			return olc::rcode::OK;
+		}
 
-        olc::rcode SaveImageResource(olc::Sprite* spr, const std::string& sImageFile) override
-        {
-            return olc::rcode::OK;
-        }
+		olc::rcode SaveImageResource(olc::Sprite* spr, const std::string& sImageFile) override
+		{
+			return olc::rcode::OK;
+		}
 
-    };
+	};
 
-    class FileHandler_IOS : public olc::FileHandler
-    {
-    public:
-        FileHandler_IOS() : FileHandler()
-        {}
+	class FileHandler_IOS : public olc::FileHandler
+	{
+	public:
+		FileHandler_IOS() : FileHandler()
+		{
+		}
 
-        virtual olc::rcode LoadFileFromAssets(const std::string& sFilePath, std::vector<char>* outBuffer) override
-        {
-            //Pre Checks
-            if (sFilePath.length() < 1) return rcode::NO_FILE;
+		virtual olc::rcode LoadFileFromAssets(const std::string& sFilePath, std::vector<char>* outBuffer) override
+		{
+			//Pre Checks
+			if (sFilePath.length() < 1) return rcode::NO_FILE;
 
-            //5: done
-            return rcode::NO_FILE;
+			//5: done
+			return rcode::NO_FILE;
 
-        }
+		}
 
-        virtual olc::rcode ExtractFileFromAssets(const std::string& sAssetFilePath, const std::string& sAppStorageFilePath) override
-        {
-            std::ifstream file(sAppStorageFilePath, std::ios::in | std::ios::binary);
+		virtual olc::rcode ExtractFileFromAssets(const std::string& sAssetFilePath, const std::string& sAppStorageFilePath) override
+		{
+			std::ifstream file(sAppStorageFilePath, std::ios::in | std::ios::binary);
 
-            if (file)
-            {
-                file.close();
-                return rcode::OK;
-            }
+			if (file)
+			{
+				file.close();
+				return rcode::OK;
+			}
 
-            return rcode::FAIL;
-        }
+			return rcode::FAIL;
+		}
 
-        virtual const char* GetInternalAppStorage() override
-        {
-            return platform->ptrPGE->pOsEngine.strInternalAppStorage.c_str();
+		virtual const char* GetInternalAppStorage() override
+		{
+			return platform->ptrPGE->pOsEngine.strInternalAppStorage.c_str();
 
-        }
+		}
 
-        virtual const char* GetExternalAppStorage() override
-        {
-            return platform->ptrPGE->pOsEngine.strExternalAppStorage.c_str();
-        }
+		virtual const char* GetExternalAppStorage() override
+		{
+			return platform->ptrPGE->pOsEngine.strExternalAppStorage.c_str();
+		}
 
-        virtual const char* GetPublicAppStorage() override
-        {
-            return platform->ptrPGE->pOsEngine.strPublicAppStorage.c_str();
-        }
+		virtual const char* GetPublicAppStorage() override
+		{
+			return platform->ptrPGE->pOsEngine.strPublicAppStorage.c_str();
+		}
 
-    };
+	};
 }
 
 #endif // __APPLE
@@ -10514,7 +11243,7 @@ namespace olc
 #pragma region PGE_SIMD
 
 /*
-    Default methods should SIMD not be supported or NO_SIMD Defined
+	Default methods should SIMD not be supported or NO_SIMD Defined
 */
 
 namespace olc
@@ -10949,1012 +11678,1012 @@ namespace olc
 
 namespace olc
 {
-    class SIMD_NEON_ARM : public olc::SIMDDrawRoutines
-    {
-        virtual olc::rcode Clear_SIMD(Pixel p, olc::Sprite* pDrawTarget) override
-        {
-            if (pDrawTarget == nullptr) return rcode::FAIL;
-
-            int VecEndIndex = (int)pDrawTarget->pColData.size();
-
-            int nVecA = 0;
-
-            int nReplacePixel = (int)p.n; // Get the int value of the pixel
-
-            __m128i _replacepixel; // instance a 128bit register which can hold 4 uint32_t slots
-
-            //_replacepixel = | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel |... 4 slots
-            _replacepixel = _mm_set1_epi32(nReplacePixel);
-
-            int i = 0;
-            int j = 0;
-            for (i = 0; i < VecEndIndex; i += 4, nVecA += 4)
-            {
-                j = i;
-                _mm_store1_ps((float*)pDrawTarget->pColData.data() + nVecA, _replacepixel);
-            }
+	class SIMD_NEON_ARM : public olc::SIMDDrawRoutines
+	{
+		virtual olc::rcode Clear_SIMD(Pixel p, olc::Sprite* pDrawTarget) override
+		{
+			if (pDrawTarget == nullptr) return rcode::FAIL;
+
+			int VecEndIndex = (int)pDrawTarget->pColData.size();
+
+			int nVecA = 0;
+
+			int nReplacePixel = (int)p.n; // Get the int value of the pixel
+
+			__m128i _replacepixel; // instance a 128bit register which can hold 4 uint32_t slots
+
+			//_replacepixel = | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel |... 4 slots
+			_replacepixel = _mm_set1_epi32(nReplacePixel);
+
+			int i = 0;
+			int j = 0;
+			for (i = 0; i < VecEndIndex; i += 4, nVecA += 4)
+			{
+				j = i;
+				_mm_store1_ps((float*)pDrawTarget->pColData.data() + nVecA, _replacepixel);
+			}
 
-            // Clean up left over pixels
-            for (; j < VecEndIndex; j++)
-            {
-                pDrawTarget->pColData[j] = p;
-            }
-
-            return olc::OK;
-        }
-
-        virtual olc::rcode DrawFillLine(int sx, int ex, int ny, Pixel p, olc::Sprite* pDrawTarget) override
-        {
-            if (pDrawTarget == nullptr) return rcode::FAIL;
-            // Some optimisation
-            if (ex < sx) std::swap(sx, ex);
-            if (ny < 0 || ny > pDrawTarget->height - 1) return rcode::OK;	// The line is above/below the viewable screen, no use in drawing it
-            if (ex < 0 || sx > pDrawTarget->width - 1) return rcode::OK;	// The line is outside the left/right side of the view screen, no use in drawing it
-
-            // Crop line to fit within draw target
-            ny = (ny < 0) ? 0 : ny;
-            sx = (sx < 0) ? 0 : sx;
-            ex = (ex >= pDrawTarget->width) ? ex = pDrawTarget->width - 1 : ex;
-
-            // Lets get any left over pixels to be processed
-            int nOffSet = ex % 16;
-            int nTempVecEnd = ex - nOffSet;
-            int setPixel = (int)p.n;	// Set the pixel colour
-
-            __m128i _setpixel;
-            _setpixel = _mm_set1_epi32(setPixel);
-
-            float* nVecA = (float*)pDrawTarget->pColData.data(); // Get the start pointer of the vector
-
-            nVecA += (ny * pDrawTarget->width) + sx; // Move the start pointer to the location where we want to start drawing
-
-            int i = sx;
-            int j = sx;
-            for (i = sx; i < nTempVecEnd; i += 4, nVecA += 4)
-            {
-                j = i;
-                _mm_store1_ps(nVecA, _setpixel);
-
-            }
-
-
-            // Clean up left over pixels
-            int pos = 0;
-            size_t vecSize = pDrawTarget->pColData.size();
-
-            for (; j <= ex; j++)
-            {
-                pos = (ny * pDrawTarget->width) + j;
-                if (pos < vecSize) pDrawTarget->pColData[pos] = p; // fixed a small
-            }
-
-
-            return olc::OK;
-        }
-
-        virtual olc::rcode FillCircle_SIMD(int32_t x, int32_t y, int32_t radius, Pixel p, olc::Sprite* pDrawTarget) override
-        {
-
-            if (radius < 0 || x < -radius || y < -radius || x - pDrawTarget->width > radius || y - pDrawTarget->height > radius)
-                return rcode::FAIL;
-
-            if (radius > 0)
-            {
-                int x0 = 0;
-                int y0 = radius;
-                int d = 3 - 2 * radius;
-
-                while (y0 >= x0)
-                {
-                    DrawFillLine(x - y0, x + y0, y - x0, p, pDrawTarget);
-                    if (x0 > 0)	DrawFillLine(x - y0, x + y0, y + x0, p, pDrawTarget);
-
-                    if (d < 0)
-                        d += 4 * x0++ + 6;
-                    else
-                    {
-                        if (x0 != y0)
-                        {
-                            DrawFillLine(x - x0, x + x0, y - y0, p, pDrawTarget);
-                            DrawFillLine(x - x0, x + x0, y + y0, p, pDrawTarget);
-                        }
-                        d += 4 * (x0++ - y0--) + 10;
-                    }
-                }
-            }
-            else
-                platform->ptrPGE->Draw(x, y, p);
-
-
-
-            return rcode::OK;
-
-        }
-
-        virtual olc::rcode FillTriangle_SIMD(int32_t x1, int32_t y1, int32_t x2, int32_t y2, int32_t x3, int32_t y3, Pixel p, olc::Sprite* pDrawTarget) override
-        {
-            int t1x, t2x, y, minx, maxx, t1xp, t2xp;
-            bool changed1 = false;
-            bool changed2 = false;
-            int signx1, signx2, dx1, dy1, dx2, dy2;
-            int e1, e2;
-            // Sort vertices
-            if (y1 > y2) { std::swap(y1, y2); std::swap(x1, x2); }
-            if (y1 > y3) { std::swap(y1, y3); std::swap(x1, x3); }
-            if (y2 > y3) { std::swap(y2, y3); std::swap(x2, x3); }
-
-            t1x = t2x = x1; y = y1;   // Starting points
-            dx1 = (int)(x2 - x1);
-            if (dx1 < 0) { dx1 = -dx1; signx1 = -1; }
-            else signx1 = 1;
-            dy1 = (int)(y2 - y1);
-
-            dx2 = (int)(x3 - x1);
-            if (dx2 < 0) { dx2 = -dx2; signx2 = -1; }
-            else signx2 = 1;
-            dy2 = (int)(y3 - y1);
-
-            if (dy1 > dx1) { std::swap(dx1, dy1); changed1 = true; }
-            if (dy2 > dx2) { std::swap(dy2, dx2); changed2 = true; }
-
-            e2 = (int)(dx2 >> 1);
-            // Flat top, just process the second half
-            if (y1 == y2) goto next;
-            e1 = (int)(dx1 >> 1);
-
-            /// End Setup
-
-            for (int i = 0; i < dx1;) {
-                t1xp = 0; t2xp = 0;
-                if (t1x < t2x) { minx = t1x; maxx = t2x; }
-                else { minx = t2x; maxx = t1x; }
-                // process first line until y value is about to change
-                while (i < dx1) {
-                    i++;
-                    e1 += dy1;
-                    while (e1 >= dx1) {
-                        e1 -= dx1;
-                        if (changed1) t1xp = signx1;//t1x += signx1;
-                        else          goto next1;
-                    }
-                    if (changed1) break;
-                    else t1x += signx1;
-                }
-                // Move line
-            next1:
-                // process second line until y value is about to change
-                while (1) {
-                    e2 += dy2;
-                    while (e2 >= dx2) {
-                        e2 -= dx2;
-                        if (changed2) t2xp = signx2;//t2x += signx2;
-                        else          goto next2;
-                    }
-                    if (changed2)     break;
-                    else              t2x += signx2;
-                }
-            next2:
-                if (minx > t1x) minx = t1x;
-                if (minx > t2x) minx = t2x;
-                if (maxx < t1x) maxx = t1x;
-                if (maxx < t2x) maxx = t2x;
-                simddrawer->DrawFillLine(minx, maxx, y, p, pDrawTarget); // Draw line from min to max points found on the y using SIMD, // John Galvin added missing 'p'
-                // Now increase y
-                if (!changed1) t1x += signx1;
-                t1x += t1xp;
-                if (!changed2) t2x += signx2;
-                t2x += t2xp;
-                y += 1;
-                if (y == y2) break;
-            }
-
-        next:
-            // Second half
-            dx1 = (int)(x3 - x2); if (dx1 < 0) { dx1 = -dx1; signx1 = -1; }
-            else signx1 = 1;
-            dy1 = (int)(y3 - y2);
-            t1x = x2;
-
-            if (dy1 > dx1) {   // swap values
-                std::swap(dy1, dx1);
-                changed1 = true;
-            }
-            else changed1 = false;
-
-            e1 = (int)(dx1 >> 1);
-
-            for (int i = 0; i <= dx1; i++) {
-                t1xp = 0; t2xp = 0;
-                if (t1x < t2x) { minx = t1x; maxx = t2x; }
-                else { minx = t2x; maxx = t1x; }
-                // process first line until y value is about to change
-                while (i < dx1) {
-                    e1 += dy1;
-                    while (e1 >= dx1) {
-                        e1 -= dx1;
-                        if (changed1) { t1xp = signx1; break; }//t1x += signx1;
-                        else          goto next3;
-                    }
-                    if (changed1) break;
-                    else   	   	  t1x += signx1;
-                    if (i < dx1) i++;
-                }
-            next3:
-                // process second line until y value is about to change
-                while (t2x != x3) {
-                    e2 += dy2;
-                    while (e2 >= dx2) {
-                        e2 -= dx2;
-                        if (changed2) t2xp = signx2;
-                        else          goto next4;
-                    }
-                    if (changed2)     break;
-                    else              t2x += signx2;
-                }
-            next4:
-
-                if (minx > t1x) minx = t1x;
-                if (minx > t2x) minx = t2x;
-                if (maxx < t1x) maxx = t1x;
-                if (maxx < t2x) maxx = t2x;
-                simddrawer->DrawFillLine(minx, maxx, y, p, pDrawTarget); // Draw line from min to max points found on the y using SIMD. // John Galvin added missing 'p'
-                if (!changed1) t1x += signx1;
-                t1x += t1xp;
-                if (!changed2) t2x += signx2;
-                t2x += t2xp;
-                y += 1;
-                if (y > y3) return rcode::OK;
-            }
-
-            return rcode::OK;
-        }
-
-        virtual olc::rcode FillRect_SIMD(int32_t x, int32_t y, int32_t w, int32_t h, Pixel p, olc::Sprite* pDrawTarget) override
-        {
-            int32_t x2 = x + w;
-            int32_t y2 = y + h;
-
-            if (x < 0) x = 0;
-            if (x >= (int32_t)pDrawTarget->width) x = (int32_t)pDrawTarget->width;
-            if (y < 0) y = 0;
-            if (y >= (int32_t)pDrawTarget->height) y = (int32_t)pDrawTarget->height;
-
-            if (x2 < 0) x2 = 0;
-            if (x2 >= (int32_t)pDrawTarget->width) x2 = (int32_t)pDrawTarget->width;
-            if (y2 < 0) y2 = 0;
-            if (y2 >= (int32_t)pDrawTarget->height) y2 = (int32_t)pDrawTarget->height;
-
-            for (int j = y; j < y2; j++)
-            {
-                simddrawer->DrawFillLine(x, x2, j, p, pDrawTarget);
-            }
-
-            return rcode::OK;
-        }
-
-        virtual olc::rcode DrawSprite_SIMD(int32_t x, int32_t y, Sprite* sprite, uint32_t scale, uint8_t flip, olc::Sprite* pDrawTarget) override
-        {
-            if (sprite == nullptr) return rcode::FAIL;
-            olc::vi2d vPos = { x, y };
-
-            // Lets check if the sprite all ready exist?
-            olc::vi2d vStartPos = { 0,0 };
-            olc::vi2d vScaleSize = { sprite->width * (int)scale, sprite->height * (int)scale };
-            olc::Decal* dec = (olc::Decal*)sprite->GetStoredSubDecal(vStartPos, vScaleSize, scale, (olc::Sprite::Flip)flip, pDrawTarget);
-            if (dec == nullptr)
-            {
-                //1: Lets flip it (if Store Sub Sprites has a copy it will be returned)
-                olc::Sprite* sprFlipped = sprite->Duplicate((olc::Sprite::Flip)flip);
-
-                //2: Lets scale it (if Store Sub Sprites has a copy it will be returned)
-                olc::Sprite* sprScaled = sprFlipped->Duplicate(scale);
-
-                //3: Store the SubSprite, a Decal will also be created
-                if (!sprite->StoreSubSprite(sprScaled, vStartPos, scale, (olc::Sprite::Flip)flip, pDrawTarget))
-                {
-                    // OK the vector is full or sub sprites disabled
-                    // We Cannot Store the sub sprite, lets draw it
-                    DuplicateMerge_SIMD(vStartPos, pDrawTarget, olc::BLANK, sprScaled);
-                    delete sprScaled;
-                    delete sprFlipped;
-                    return rcode::OK;
-                }
-                else
-                {
-                    //4: Get the newly created Decal
-                    dec = (olc::Decal*)sprite->GetStoredSubDecal(vStartPos, vScaleSize, scale, (olc::Sprite::Flip)flip, pDrawTarget);
-
-                    //5: Clean up
-                    delete sprFlipped;
-
-                }
-
-            }
-
-            renderer->ptrPGE->DrawDecal(vPos, dec);
-            return rcode::OK;
-        }
-
-        virtual olc::rcode DrawPartialSprite_SIMD(const olc::vi2d& vPos, olc::Sprite* pSource, const olc::vi2d& vStartPos, const olc::vi2d& vSize, uint32_t scale, olc::Sprite::Flip flip, olc::Sprite* pDrawTarget) override
-        {
-
-            // Lets check if the sprite all ready exist?
-            scale = (scale < 1) ? 1 : scale;
-
-            olc::vi2d vScaleSize = { vSize.x * (int)scale, vSize.y * (int)scale };
-            olc::Decal* dec = (olc::Decal*)pSource->GetStoredSubDecal(vStartPos, vScaleSize, scale, flip, pDrawTarget);
-            if (dec == nullptr)
-            {
-
-                //1: lets get the partial;
-                olc::Sprite* sprPartial = pSource->Duplicate(vStartPos, vSize);
-
-                //2: Lets flip it (if Store Sub Sprites has a copy it will be returned)
-                olc::Sprite* sprFlipped = sprPartial->Duplicate((olc::Sprite::Flip)flip);
-
-                //3: Lets scale it (if Store Sub Sprites has a copy it will be returned)
-                olc::Sprite* sprScaled = sprFlipped->Duplicate(scale);
-
-
-                //4: Store the SubSprite, a Decal will also be created
-                if (!pSource->StoreSubSprite(sprScaled, vStartPos, scale, flip))
-                {
-                    // OK the vector is full or sub sprites disabled
-                    // We Cannot Store the sub sprite, lets draw it
-                    DuplicateMerge_SIMD(vStartPos, pDrawTarget, olc::BLANK, sprScaled);
-                    delete sprScaled;
-                    delete sprFlipped;
-                    return rcode::OK;
-                }
-                else
-                {
-                    //5: Get the Decal
-                    dec = (olc::Decal*)pSource->GetStoredSubDecal(vStartPos, vScaleSize, scale, flip, pDrawTarget);
-
-                    //6: Clean up
-                    delete sprPartial;
-                    delete sprFlipped;
-
-                }
-
-            }
-
-            renderer->ptrPGE->DrawDecal(vPos, dec);
-            return rcode::OK;
-        }
-
-        virtual olc::rcode DrawMergeSprite_SIMD(int32_t vPosx, int32_t vPosy, Sprite* pFromSprite, int32_t vToSpritePosx, int32_t vToSpritePosy, Sprite* pToSprite, Pixel blendPixel, uint32_t scale, olc::Sprite::Flip flip, olc::Sprite* pDrawTarget) override
-        {
-
-            olc::vi2d vPos = { vPosx , vPosy };
-            olc::vi2d vSize = { pToSprite->width * (int32_t)scale ,  pToSprite->height * (int32_t)scale };
-
-            olc::vi2d vToSpritePos = { vToSpritePosx ,vToSpritePosy };
-
-            olc::Decal* dec = (olc::Decal*)pFromSprite->GetStoredSubDecal(vToSpritePos, vSize, scale, flip, pToSprite);
-            if (dec == nullptr)
-            {
-                olc::Sprite* pMergeSprite = nullptr;
-                olc::Sprite* pMergeScaleSprite = nullptr;
-                olc::Sprite* pMergeFilpSprite = nullptr;
-
-                pMergeSprite = pFromSprite->DuplicateMerge(vToSpritePos, pToSprite, blendPixel);
-                pMergeScaleSprite = pMergeSprite->Duplicate(scale);
-                pMergeFilpSprite = pMergeScaleSprite->Duplicate((olc::Sprite::Flip)flip);
-
-                //4: Store the SubSprite, a Decal will also be created
-                if (!pFromSprite->StoreSubSprite(pMergeFilpSprite, vToSpritePos, scale, flip, pToSprite))
-                {
-                    // OK the vector is full or sub sprites disabled
-                    // We Cannot Store the sub sprite, lets draw it
-                    DuplicateMerge_SIMD(vToSpritePos, pDrawTarget, olc::BLANK, pMergeFilpSprite);
-                    delete pMergeSprite;
-                    delete pMergeScaleSprite;
-                    delete pMergeFilpSprite;
-                    return rcode::OK;
-                }
-                else
-                {
-                    //5: Get the Decal
-                    dec = (olc::Decal*)pFromSprite->GetStoredSubDecal(vToSpritePos, vSize, scale, flip, pToSprite);
-
-                    //6: Clean up
-                    delete pMergeSprite;
-                    delete pMergeScaleSprite;
-                    renderer->ptrPGE->DrawDecal(vPos, dec);
-                }
-
-            }
-
-            renderer->ptrPGE->DrawDecal(vPos, dec);
-            return rcode::OK;
-        }
-
-        virtual olc::Sprite* Duplicate_SIMD(olc::Sprite* pSource) override
-        {
-            // This is the fastest way of duplicating, I say this is not required, keep for testing
-            olc::Sprite* spr = new olc::Sprite(pSource->width, pSource->height);
-            std::memcpy(spr->GetData(), pSource->GetData(), pSource->width * pSource->height * sizeof(olc::Pixel));
-            spr->modeSample = pSource->modeSample;
-            return spr;
-
-        }
-
-        virtual olc::Sprite* Duplicate_SIMD(const olc::vi2d& vPos, const olc::vi2d& vSize, olc::Sprite* pSource) override
-        {
-
-            // Some Maths, to ensure the partial sprite is created correctly
-            int newSizeX = vSize.x;
-            int newSizeY = vSize.y;
-
-            int maxX = vPos.x + vSize.x;
-            int maxY = vPos.y + vSize.y;
-
-            if (maxX > pSource->width) newSizeX = pSource->width - vPos.x;
-            if (maxY > pSource->height) newSizeY = pSource->height - vPos.y;
-
-
-            olc::Sprite* spr = new olc::Sprite(newSizeX, newSizeX);
-            Clear_SIMD(olc::BLANK, spr);
-            int sx = 0;
-            int ex = newSizeX;
-            int nOffSet = ex % 4;
-
-            if (nOffSet > 0)
-            {
-                // We need to work out what is the next muliple of 4 pixels
-                nOffSet = (ex / 4) + 1;
-                nOffSet = (nOffSet * 4);
-                nOffSet = nOffSet - ex;
-
-            }
-            bool bUseHighSpeed = (nOffSet == 0) ? true : false;
-
-            int nVecTarget = 0;
-            float* pTargetVector = (float*)spr->pColData.data();
-            size_t nVecTLen = spr->pColData.size();
-
-            size_t nVecRead = (vPos.y * pSource->width) + vPos.x; // Start position of read vector
-            size_t nVecRLen = pSource->pColData.size();
-
-            __m128 _sx, _ex, _result, _vecRead;
-
-            _sx = _mm_set1_ps(sx);
-            _ex = _mm_set1_ps(ex);
-            _result = _mm_set1_ps(0xFF); // 0xFF = -1 -> True, 0x00 = 0 -> False;
-
-            // NOTE: We write out the full for-->loop for both High & Low speed
-            // If we put the condional statement between the for Y for loop we get a 'branch' in our assembly and lose any gains in proformance
-            if (bUseHighSpeed)
-            {
-                // High speed (up too 2times faster as we have no offset to manage)
-                for (int y = 0; y < newSizeY; y++)
-                {
-                    if (nVecRead > nVecRLen)
-                    {
-                        break; // Break if we reached the end of the read vector
-                    }
-                    if (nVecTarget > nVecTLen) {
-                        break; // break if we reached the end of the target vector
-                    }
-
-                    // Get the next position of the read vector
-                    // Take note of (y + vPos.y), we need the position of y + the next row of y for the read vector (nVecRead)
-                    nVecRead = ((y + vPos.y) * pSource->width) + vPos.x;
-                    for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
-                    {
-                        // Load in the read vector
-                        _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                        _mm_storeu_ps(pTargetVector, _vecRead);
-
-                    }
-
-
-                }
-
-            }
-            else
-            {
-                // We have an offset to manage
-                for (int y = 0; y < newSizeY; y++)
-                {
-                    if (nVecRead > nVecRLen)
-                    {
-                        break; // Break if we reached the end of the read vector
-                    }
-                    if (nVecTarget > nVecTLen) {
-                        break; // break if we reached the end of the target vector
-                    }
-
-                    // Get the next position of the read vector
-                    // Take note of (y + vPos.y), we need the position of y + the next row of y for the read vector (nVecRead)
-                    nVecRead = ((y + vPos.y) * pSource->width) + vPos.x;
-                    for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
-                    {
-                        // Load in the read vector
-                        _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-
-                        // We compare if the all the pixels ly within sx->ex, and pixel greater then ex are not process
-                        _sx = _mm_set_ps(x + 3, x + 2, x + 1, x);
-
-                        // Take note there is 'no less than or equals', but if you just reverse the operands and use 'greater than' you get the excat same affect
-                        _result = _mm_cmpgt_ps(_ex, _sx);
-
-                        // Store only the pixels that are between sx-->ex
-                        _mm_maskmoveu_si128(_vecRead, _result, (char*)pTargetVector);
-
-                    }
-
-                    // Shift the ptr for pTargetVector by the offset
-                    // This ensures the ptr is always in the correct position for the next row of y
-                    // Debug it to understand better
-                    pTargetVector -= nOffSet;
-                    nVecTarget -= nOffSet;
-
-                }
-
-            }
-
-            //Clean up any left over pixels
-            for (size_t x = nVecTarget; x < (size_t)nVecTLen; x++, nVecRead++)
-            {
-                if (nVecRead > nVecRLen)
-                {
-                    break; // Break if we reached the end of the read vector
-                }
-                if (nVecTarget > nVecTLen) {
-                    break; // break if we reached the end of the target vector
-                }
-
-                spr->pColData[x] = pSource->pColData[nVecRead];
-
-
-            }
-
-            return spr;
-
-        }
-
-        /*-------------- New Methods John Galvin --------------*/
-
-        virtual olc::Sprite* Duplicate_SIMD(olc::Sprite::Flip flip, olc::Sprite* pSource) override
-        {
-            if (pSource == nullptr) return nullptr;
-
-            olc::Sprite* spr = nullptr;
-
-            // Some optimisations, if we are not flipping just return a duplicate
-            if ((uint8_t)flip < 1)
-            {
-                spr = pSource->Duplicate();
-                return spr;
-            }
-
-            olc::vi2d vStartPos = { 0, 0 };
-            olc::vi2d vSize = { pSource->width, pSource->height };
-
-            spr = new olc::Sprite(pSource->width, pSource->height);
-
-            int sx = 0;
-            int ex = pSource->width;
-            int nOffSet = ex % 4;
-
-            if (nOffSet > 0)
-            {
-                // we need to work out what is the next muliple of 8 pixels
-                // Example: vSize.x = 270
-                nOffSet = (ex / 4) + 1; // 270 / 4 = 67. + 1 = 68
-                nOffSet = (nOffSet * 4); // 68 * 4 = 272
-                nOffSet = nOffSet - ex; // therefore the offset is 2
-
-            }
-
-            int nVecTarget = 0;
-            float* pTargetVector = (float*)spr->pColData.data();
-            size_t nVecTLen = spr->pColData.size();
-
-            size_t nVecRead = 0; // Start position of read vector
-            size_t nVecRLen = pSource->pColData.size();
-
-            __m128i _sx, _ex, _result, _vecRead;
-
-            _sx = _mm_set1_epi32(sx);
-            _ex = _mm_set1_epi32(ex);
-            _result = _mm_set1_epi32(0xFF); // 0xFF = -1 -> True, 0x00 = 0 -> False;
-
-            if (flip & olc::Sprite::Flip::HORIZ)
-            {
-                nVecRead = nVecRLen;
-                for (int y = 1; y <= pSource->height; y++)
-                {
-                    if (y == 0) y = 1;
-                    nVecRead = (y * pSource->width) - 4;
-                    for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += -4, nVecTarget += 4)
-                    {
-
-                        _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                        _mm_storer_ps(pTargetVector, _vecRead);
-
-                    }
-
-                    pTargetVector -= nOffSet;
-                    nVecTarget -= nOffSet;
-
-                }
-
-
-            }
-
-            if (flip & olc::Sprite::Flip::VERT)
-            {
-                nVecRead = nVecRLen;
-                for (int y = pSource->height; y > 0; y--)
-                {
-                    if (nVecTarget + 4 > nVecTLen) break;
-                    nVecRead = (y * pSource->width) + 0;
-                    for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
-                    {
-                        _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                        _mm_storeu_ps(pTargetVector, _vecRead);
-
-                    }
-                    pTargetVector -= nOffSet;
-                    nVecTarget -= nOffSet;
-
-                }
-
-
-            }
-
-            // There MAY be a few left over sprites we just clear them
-            // This is a little cheat, you could write some very complex code to ensure all left pixels are matched, but this will be very slow.
-            // Therefore we just hide (Aphla) them, at most there could be 1 line of pixels at the top/buttom/top, in most cases it will be a few pixels
-            // The end user cannot see that this 1 line of pixels is missing, it will be so small
-            for (size_t x = nVecTarget; x < (size_t)nVecTLen; x++)
-            {
-                spr->pColData[x] = olc::BLANK;
-
-            }
-
-            return spr;
-
-        }
-
-        virtual olc::Sprite* Duplicate_SIMD(uint32_t scale, olc::Sprite* pSource) override
-        {
-            if (pSource == nullptr) return nullptr;
-
-            scale = (scale < 1) ? 1 : scale;
-            if ((uint32_t)scale == 1) return pSource->Duplicate();
-            olc::Sprite* spr = new olc::Sprite(pSource->width * scale, pSource->height * scale);
-
-            int nVecTarget = 0;										// Target vector position
-            float* pTargetVector = (float*)spr->pColData.data();	// Target vector pointer
-            size_t nVecTLen = spr->pColData.size();					// Target vector size
-
-            uint32_t nVecRead = 0;									// Start position of read vector
-            size_t nVecRLen = pSource->pColData.size();				// Read vector size
-
-            int nReadCount = std::max(int(4 / scale), 1);			// Number of pixels to be read in
-
-            int nOffSet = 4 % scale;								// Offset for left over pixels
-            uint32_t nScaleCount = 0;								// Scale count used when the scale is greater than the register
-            if (scale > 4)
-            {
-                nOffSet = 0;
-                nScaleCount = scale - 4;
-            }
-
-            int nsuffle[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };	// Suffle Pixels
-            int nPos = 0;
-            if (scale > 1)
-            {
-                // If Scale 2 the it is double 1 pixel becomes 2 pixels
-                // {0, 1, 2, 3, 4, 5, 6 >> 16} --> {0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7, 4, 5, 6, 7 etc >> 16};
-                // There are fancy ways to do this, but you can debug the below to see how it works
-                int i = 0;
-                while (nPos < 16)
-                {
-                    for (int j = 0; j < scale; j++)
-                    {
-                        if (nPos > 15) break;
-                        for (int k = 0; k < 4; k++)
-                        {
-                            if (nPos > 15) break;
-                            nsuffle[nPos] = i + k;
-                            nPos++;
-                        }
-                    }
-                    i += 4;
-                }
-
-            }
-
-            __m128i _shufflePixels;
-            __m128 _result, _vecRead;
-
-            // Lets do the Suffle Suffle baby
-            _shufflePixels = _mm_set_epi8(nsuffle[15], nsuffle[14], nsuffle[13], nsuffle[12],
-                nsuffle[11], nsuffle[10], nsuffle[9], nsuffle[8],
-                nsuffle[7], nsuffle[6], nsuffle[5], nsuffle[4],
-                nsuffle[3], nsuffle[2], nsuffle[1], nsuffle[0]
-            );
-
-            int y = 0; int x = 0; int yS = 0;
-            uint32_t nTottle = scale;
-
-            for (y = 0; y < pSource->height; y++, yS++)
-            {
-                // Added extra Y Lines of x values
-                nTottle++;
-                if (nTottle < scale) y--;
-                if (nTottle >= scale) nTottle = 0;
-
-                nVecRead = (y * pSource->width) + 0;
-                nVecTarget = (yS * spr->width) + 0;
-                pTargetVector += nVecTarget;
-                for (x = 0; x < pSource->width; x += nReadCount, nVecRead += nReadCount, pTargetVector += 4, nVecTarget += 4)
-                {
-                    _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                    _result = _mm_shuffle_epi8(_vecRead, _shufflePixels);
-                    _mm_storeu_ps(pTargetVector, _result);
-
-                    // If out scale is greater than 4 times, i.e.10 then we need repeat the pixels
-                    if (nScaleCount > 0)
-                    {
-                        for (int i = 1; i < (int)nScaleCount; i += 4)
-                        {
-                            pTargetVector += 4;
-                            nVecTarget += 4;
-                            nOffSet = (i * 4) - (int)nScaleCount;
-                            _mm_storeu_ps(pTargetVector, _result);
-
-                        }
-                    }
-
-                    // Move back the pointer and vectors to get the offset bytes
-                    pTargetVector -= nOffSet;
-                    nVecTarget -= nOffSet;
-
-                }
-
-                pTargetVector -= nVecTarget;
-
-            }
-
-            // There can be some pixels on the target sprite left over
-            int nYPos = ((y - scale) * pSource->width);
-            int nYTarPos = (yS * (pSource->width * scale));
-
-            // Check is there are left over pixels
-            if (nYTarPos < nVecTLen)
-            {
-                // If so process them
-                for (int i = nYPos; i < nVecRLen; i++)
-                {
-                    for (size_t j = 0; j < scale; j++, nYTarPos++)
-                    {
-                        if (nYTarPos >= nVecTLen) break;
-                        spr->pColData[nYTarPos] = pSource->pColData[i];
-                    }
-                }
-            }
-
-
-            return spr;
-
-        }
-
-        virtual olc::Sprite* DuplicateMerge_SIMD(const olc::vi2d& vTargetPos, olc::Sprite* pTargetSprite, olc::Pixel p, olc::Sprite* pSource) override
-        {
-            if (pTargetSprite == nullptr) return nullptr;
-
-            /*---- Non-SIMD Vs SIMD*/
-
-
-            /*
-                There is no real performance gain using either of the executions (Non-SIMD, SIMD)
-                Always remember it is near impossible to beat the complier. You might ask then why write it in SIMD at all?
-                Well, when you are developing low level code, it is difficult to jump between languages.
-                Most developers prefer to stay with one language within a method.
-                As these methods are SIMD executions, then write it all in SIMD, therefore there is no surprises later when another developer
-                needs to debug.
-                They are expecting SIMD, then they get SIMD
-                Finally the SIMD code below should be a tiny bit faster, but it would be impossible to measure
-            */
-            /*
-            Non SIMD Code :
-
-            // Ok we need to ensure the sprite can fit on the layer (pdrawTarget)
-            // Work out if the sprite is out of bounds and crop the sprite to fit into the bounds
-
-            int nFullWidth = vPos.x + pSource->width;
-            int nFullHeight = vPos.y + pSource->height;
-            int nWidth = pSource->width; //std::min(nFullWidth, pdrawTarget->width);
-            int nHeight = pSource->height; // std::min(nFullHeight, pdrawTarget->height);
-
-            if (nFullWidth >= pdrawTarget->width)
-            {
-                // Get the new width for off layer sprite
-                nWidth = nFullWidth - pdrawTarget->width;
-                nWidth = pSource->width - nWidth;
-            }
-
-            if (nFullHeight >= pdrawTarget->height)
-            {
-                // Get the new height for off layer sprite
-                nHeight = nFullHeight - pdrawTarget->height;
-                nHeight = pSource->height - nHeight;
-            }
-
-            // Get the new Start Position for off layer sprite
-            int nXStart = (vPos.x < 0) ? vPos.x * -1 : 0;
-            int nYStart = (vPos.y < 0) ? vPos.y * -1 : 0;
-
-            // Get the new vPosition for off layer sprite
-            int nXPos = (vPos.x < 0) ? 0 : vPos.x;
-            int nYPos = (vPos.y < 0) ? 0 : vPos.y;
-
-            std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
-            */
-
-
-            /*
-                Ok we need to ensure the sprite can fit the sprite on the layer (pdrawTarget)
-                Work out if the sprite is out of bounds and crop the sprite to fit into the bounds
-
-                Vector of position: Order is important, SIMD will read the vector in backwards, (right to left) <--- */
-
-                /*---- END Non-SIMD Vs SIMD ---*/
-
-            std::vector<int> vecPositions = { vTargetPos.y, vTargetPos.x, pSource->height, pSource->width, vTargetPos.y, vTargetPos.x, 0, 0 };
-            int* pPositions = vecPositions.data();
-
-            __m128i _reg1, _reg2, _reg3, _reg4, _reg5, _compare;
-
-            _reg1 = _mm_set_epi32(pSource->width, pSource->height, 0, 0);			// Holds width and height
-            _reg2 = _mm_set_epi32(vTargetPos.x, vTargetPos.y, 0, 0);				// Holds vPos.x and vPos.y
-            _reg3 = _mm_add_epi32(_reg1, _reg2);									// nFullWidth = vPos.x + width, nFullHeight = vPos.y + height;
-            _reg4 = _mm_set_epi32(pTargetSprite->width, pTargetSprite->height, 0, 0);	// Holds pdrawTarget->width, pdrawTarget->height
-            _compare = _mm_cmpgt_epi32(_reg3, _reg4);								// if (nFullWidth >= pdrawTarget->width) (true false)
-            _reg5 = _mm_sub_epi32(_reg3, _reg4);									// nWidth = nFullWidth - pdrawTarget->width, nheight = nheight - pdrawTarget->height,
-            _reg5 = _mm_sub_epi32(_reg1, _reg5);									// nWidth = width - nWidth, nHeight = height - nHeight;
-            _mm_maskmoveu_si128(_reg5, _compare, (char*)pPositions);				// We only store the computed values of reg5, if _comp is set. i.e. nFullWidth is greater than pdrawTarget->width
-
-            // Now lets get the nXStart, nYStart
-                                                                                    // Note the vector is read in backwards, (right to left) <---    <---    <---
-            pPositions += 4;														// Move our pionter down by 4 so we are pointing to {... vPos.y, vPos.x, 0, 0}
-            _reg1 = _mm_set1_epi32(0);												// Clear reg1 to 0, (vPos.x < 0) ? vPos.x * -1 : 0 <- this zero
-            _compare = _mm_cmpgt_epi32(_reg1, _reg2);								//(vPos.x < 0)?,  (vPos.y < 0)?
-            _reg5 = _mm_abs_epi32(_reg2);											// vPos.x * -1, vPos.y * -1. Abs will resturn positive absolute numbers, we do not need to muliply
-            _mm_maskmoveu_si128(_reg5, _compare, (char*)pPositions);				// We only change the values of nXStart & nYStart if _comp is set (nXStart = (vPos.x < 0) ? vPos.x * -1)
-
-            // Now lets get the nXPos, nYPso
-
-            _reg2 = _mm_set_epi32(0, 0, vTargetPos.x, vTargetPos.y);				// Tottle the reg2 so that 0's will cause nXStart & nYStart results not to be affected
-            _compare = _mm_cmpgt_epi32(_reg1, _reg2);								// (vPos.x < 0)?,  (vPos.y < 0)? . We reuse _reg1 as it is already set to 0's
-            _mm_maskmoveu_si128(_reg1, _compare, (char*)pPositions);				// We only change the values of nXPos & nYPos if _comp is set (vPos.x < 0) ? 0 : vPos.x;
-
-
-            return DrawToTarget(vTargetPos, pTargetSprite, vecPositions, pSource);
-
-
-        }
-
-        virtual olc::Sprite* DrawToTarget(const olc::vi2d& vPos, olc::Sprite* pdrawTarget, std::vector<int> vecPositions, olc::Sprite* pSource)
-        {
-            // Create ints to represent the vector positions
-            // makes life easier for debugging and creation of the for loop for SIMD
-            // std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
-
-            // Create ints to represent the vector positions
-            // makes life easier for debugging and creation of the for loop for SIMD
-            // std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
-            int nHeight = vecPositions[2];
-            int nWidth = vecPositions[3];
-            int nYPos = vecPositions[4];
-            int nXPos = vecPositions[5];
-            int nYStart = vecPositions[6];
-            int nXStart = vecPositions[7];
-
-
-            // Get the target layer vector pointer
-            int nVecTarget = (nYPos * pdrawTarget->width) + nXPos;
-            float* pTargetVector = (float*)pdrawTarget->pColData.data();
-
-            size_t nVecTLen = pdrawTarget->pColData.size();
-            int nTargetY = 0;
-
-            // Get the local sprite vector detals
-            size_t nVecRead = 0; // Start position of read vector
-
-            // Set up counters
-            int ex = nWidth;
-
-            // Get if we have an offset to manage
-            // Try to keep your spites width in even mulitples of 4/8 (4, 8, 16, 24, 32, 40... 80, 88, 96, 104)
-            // In this way most of your sprites will fall into the the "high speed" processing
-            int nOffSet = nWidth % 4;
-            bool bUseHighSpeed = (nOffSet == 0) ? true : false;
-
-
-            // Set up registers
-            __m128i _sx, _ex, _compare, _comparePixel, _blendpixel;
-            __m128  _vecRead, _vecTargetRead, _vecOutPut;
-
-            Pixel p = olc::BLANK;
-            _blendpixel = _mm_set1_epi32(p.n);
-            _sx = _mm_set1_epi32(0);
-            _ex = _mm_set1_epi32(ex);
-
-            // NOTE: We write out the full for-->loop for both High & Low speed
-            // If we put the condional statement between the Y for loop we get a 'branch' in our assembly
-            // and lose any gains in proformance
-            if (bUseHighSpeed)
-            {
-                // High speed (up too 2times faster as we have no offset to manage)
-                for (int y = nYStart; y < nHeight; y++, nTargetY++)
-                {
-                    // Get next Target Vector position, but if we are out of bounds on the target we break
-                    nVecTarget = ((nTargetY + nYPos) * pdrawTarget->width) + nXPos;
-                    if (nVecTarget >= nVecTLen) break;
-                    pTargetVector += nVecTarget;
-
-                    // Get next read Position
-                    nVecRead = (y * pSource->width) + nXStart;
-
-                    for (int x = nXStart; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
-                    {
-                        _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                        _comparePixel = _mm_cmpgt_epi32(_blendpixel, _vecRead);
-                        _mm_maskmoveu_si128(_vecRead, _comparePixel, (char*)pTargetVector);
-
-                    }
-
-                    pTargetVector -= nVecTarget; // reset the pointer to 0 position
-
-                }
-            }
-            else
-            {
-                // Low speed as we have an offset to manage
-                for (int y = nYStart; y < nHeight; y++, nTargetY++)
-                {
-                    // Get next Target Vector position, but if we are out of bounds on the target we break
-                    nVecTarget = ((nTargetY + nYPos) * pdrawTarget->width) + nXPos;
-                    if (nVecTarget >= nVecTLen) break;
-                    pTargetVector += nVecTarget;
-
-                    // Get next read Position
-                    nVecRead = (y * pSource->width) + nXStart;
-
-                    for (int x = nXStart; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
-                    {
-                        _sx = _mm_set_epi32(x + 3, x + 2, x + 1, x);
-
-                        _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                        _vecTargetRead = _mm_load_ps((const float*)((olc::Pixel*)pdrawTarget->pColData.data() + nVecTarget));
-
-                        _comparePixel = _mm_cmpgt_epi32(_blendpixel, _vecRead);
-                        _vecOutPut = _mm_blendv_epi8(_vecTargetRead, _vecRead, _comparePixel);
-
-                        _compare = _mm_cmpgt_epi32(_ex, _sx);
-                        _mm_maskmoveu_si128(_vecOutPut, _compare, (char*)pTargetVector);
-
-                    }
-
-                    pTargetVector -= nVecTarget; // reset the pointer to 0 position
-
-
-                }
-            }
-
-            return pdrawTarget;
-
-
-        }
-
-    };
+			// Clean up left over pixels
+			for (; j < VecEndIndex; j++)
+			{
+				pDrawTarget->pColData[j] = p;
+			}
+
+			return olc::OK;
+		}
+
+		virtual olc::rcode DrawFillLine(int sx, int ex, int ny, Pixel p, olc::Sprite* pDrawTarget) override
+		{
+			if (pDrawTarget == nullptr) return rcode::FAIL;
+			// Some optimisation
+			if (ex < sx) std::swap(sx, ex);
+			if (ny < 0 || ny > pDrawTarget->height - 1) return rcode::OK;	// The line is above/below the viewable screen, no use in drawing it
+			if (ex < 0 || sx > pDrawTarget->width - 1) return rcode::OK;	// The line is outside the left/right side of the view screen, no use in drawing it
+
+			// Crop line to fit within draw target
+			ny = (ny < 0) ? 0 : ny;
+			sx = (sx < 0) ? 0 : sx;
+			ex = (ex >= pDrawTarget->width) ? ex = pDrawTarget->width - 1 : ex;
+
+			// Lets get any left over pixels to be processed
+			int nOffSet = ex % 16;
+			int nTempVecEnd = ex - nOffSet;
+			int setPixel = (int)p.n;	// Set the pixel colour
+
+			__m128i _setpixel;
+			_setpixel = _mm_set1_epi32(setPixel);
+
+			float* nVecA = (float*)pDrawTarget->pColData.data(); // Get the start pointer of the vector
+
+			nVecA += (ny * pDrawTarget->width) + sx; // Move the start pointer to the location where we want to start drawing
+
+			int i = sx;
+			int j = sx;
+			for (i = sx; i < nTempVecEnd; i += 4, nVecA += 4)
+			{
+				j = i;
+				_mm_store1_ps(nVecA, _setpixel);
+
+			}
+
+
+			// Clean up left over pixels
+			int pos = 0;
+			size_t vecSize = pDrawTarget->pColData.size();
+
+			for (; j <= ex; j++)
+			{
+				pos = (ny * pDrawTarget->width) + j;
+				if (pos < vecSize) pDrawTarget->pColData[pos] = p; // fixed a small
+			}
+
+
+			return olc::OK;
+		}
+
+		virtual olc::rcode FillCircle_SIMD(int32_t x, int32_t y, int32_t radius, Pixel p, olc::Sprite* pDrawTarget) override
+		{
+
+			if (radius < 0 || x < -radius || y < -radius || x - pDrawTarget->width > radius || y - pDrawTarget->height > radius)
+				return rcode::FAIL;
+
+			if (radius > 0)
+			{
+				int x0 = 0;
+				int y0 = radius;
+				int d = 3 - 2 * radius;
+
+				while (y0 >= x0)
+				{
+					DrawFillLine(x - y0, x + y0, y - x0, p, pDrawTarget);
+					if (x0 > 0)	DrawFillLine(x - y0, x + y0, y + x0, p, pDrawTarget);
+
+					if (d < 0)
+						d += 4 * x0++ + 6;
+					else
+					{
+						if (x0 != y0)
+						{
+							DrawFillLine(x - x0, x + x0, y - y0, p, pDrawTarget);
+							DrawFillLine(x - x0, x + x0, y + y0, p, pDrawTarget);
+						}
+						d += 4 * (x0++ - y0--) + 10;
+					}
+				}
+			}
+			else
+				platform->ptrPGE->Draw(x, y, p);
+
+
+
+			return rcode::OK;
+
+		}
+
+		virtual olc::rcode FillTriangle_SIMD(int32_t x1, int32_t y1, int32_t x2, int32_t y2, int32_t x3, int32_t y3, Pixel p, olc::Sprite* pDrawTarget) override
+		{
+			int t1x, t2x, y, minx, maxx, t1xp, t2xp;
+			bool changed1 = false;
+			bool changed2 = false;
+			int signx1, signx2, dx1, dy1, dx2, dy2;
+			int e1, e2;
+			// Sort vertices
+			if (y1 > y2) { std::swap(y1, y2); std::swap(x1, x2); }
+			if (y1 > y3) { std::swap(y1, y3); std::swap(x1, x3); }
+			if (y2 > y3) { std::swap(y2, y3); std::swap(x2, x3); }
+
+			t1x = t2x = x1; y = y1;   // Starting points
+			dx1 = (int)(x2 - x1);
+			if (dx1 < 0) { dx1 = -dx1; signx1 = -1; }
+			else signx1 = 1;
+			dy1 = (int)(y2 - y1);
+
+			dx2 = (int)(x3 - x1);
+			if (dx2 < 0) { dx2 = -dx2; signx2 = -1; }
+			else signx2 = 1;
+			dy2 = (int)(y3 - y1);
+
+			if (dy1 > dx1) { std::swap(dx1, dy1); changed1 = true; }
+			if (dy2 > dx2) { std::swap(dy2, dx2); changed2 = true; }
+
+			e2 = (int)(dx2 >> 1);
+			// Flat top, just process the second half
+			if (y1 == y2) goto next;
+			e1 = (int)(dx1 >> 1);
+
+			/// End Setup
+
+			for (int i = 0; i < dx1;) {
+				t1xp = 0; t2xp = 0;
+				if (t1x < t2x) { minx = t1x; maxx = t2x; }
+				else { minx = t2x; maxx = t1x; }
+				// process first line until y value is about to change
+				while (i < dx1) {
+					i++;
+					e1 += dy1;
+					while (e1 >= dx1) {
+						e1 -= dx1;
+						if (changed1) t1xp = signx1;//t1x += signx1;
+						else          goto next1;
+					}
+					if (changed1) break;
+					else t1x += signx1;
+				}
+				// Move line
+			next1:
+				// process second line until y value is about to change
+				while (1) {
+					e2 += dy2;
+					while (e2 >= dx2) {
+						e2 -= dx2;
+						if (changed2) t2xp = signx2;//t2x += signx2;
+						else          goto next2;
+					}
+					if (changed2)     break;
+					else              t2x += signx2;
+				}
+			next2:
+				if (minx > t1x) minx = t1x;
+				if (minx > t2x) minx = t2x;
+				if (maxx < t1x) maxx = t1x;
+				if (maxx < t2x) maxx = t2x;
+				simddrawer->DrawFillLine(minx, maxx, y, p, pDrawTarget); // Draw line from min to max points found on the y using SIMD, // John Galvin added missing 'p'
+				// Now increase y
+				if (!changed1) t1x += signx1;
+				t1x += t1xp;
+				if (!changed2) t2x += signx2;
+				t2x += t2xp;
+				y += 1;
+				if (y == y2) break;
+			}
+
+		next:
+			// Second half
+			dx1 = (int)(x3 - x2); if (dx1 < 0) { dx1 = -dx1; signx1 = -1; }
+			else signx1 = 1;
+			dy1 = (int)(y3 - y2);
+			t1x = x2;
+
+			if (dy1 > dx1) {   // swap values
+				std::swap(dy1, dx1);
+				changed1 = true;
+			}
+			else changed1 = false;
+
+			e1 = (int)(dx1 >> 1);
+
+			for (int i = 0; i <= dx1; i++) {
+				t1xp = 0; t2xp = 0;
+				if (t1x < t2x) { minx = t1x; maxx = t2x; }
+				else { minx = t2x; maxx = t1x; }
+				// process first line until y value is about to change
+				while (i < dx1) {
+					e1 += dy1;
+					while (e1 >= dx1) {
+						e1 -= dx1;
+						if (changed1) { t1xp = signx1; break; }//t1x += signx1;
+						else          goto next3;
+					}
+					if (changed1) break;
+					else   	   	  t1x += signx1;
+					if (i < dx1) i++;
+				}
+			next3:
+				// process second line until y value is about to change
+				while (t2x != x3) {
+					e2 += dy2;
+					while (e2 >= dx2) {
+						e2 -= dx2;
+						if (changed2) t2xp = signx2;
+						else          goto next4;
+					}
+					if (changed2)     break;
+					else              t2x += signx2;
+				}
+			next4:
+
+				if (minx > t1x) minx = t1x;
+				if (minx > t2x) minx = t2x;
+				if (maxx < t1x) maxx = t1x;
+				if (maxx < t2x) maxx = t2x;
+				simddrawer->DrawFillLine(minx, maxx, y, p, pDrawTarget); // Draw line from min to max points found on the y using SIMD. // John Galvin added missing 'p'
+				if (!changed1) t1x += signx1;
+				t1x += t1xp;
+				if (!changed2) t2x += signx2;
+				t2x += t2xp;
+				y += 1;
+				if (y > y3) return rcode::OK;
+			}
+
+			return rcode::OK;
+		}
+
+		virtual olc::rcode FillRect_SIMD(int32_t x, int32_t y, int32_t w, int32_t h, Pixel p, olc::Sprite* pDrawTarget) override
+		{
+			int32_t x2 = x + w;
+			int32_t y2 = y + h;
+
+			if (x < 0) x = 0;
+			if (x >= (int32_t)pDrawTarget->width) x = (int32_t)pDrawTarget->width;
+			if (y < 0) y = 0;
+			if (y >= (int32_t)pDrawTarget->height) y = (int32_t)pDrawTarget->height;
+
+			if (x2 < 0) x2 = 0;
+			if (x2 >= (int32_t)pDrawTarget->width) x2 = (int32_t)pDrawTarget->width;
+			if (y2 < 0) y2 = 0;
+			if (y2 >= (int32_t)pDrawTarget->height) y2 = (int32_t)pDrawTarget->height;
+
+			for (int j = y; j < y2; j++)
+			{
+				simddrawer->DrawFillLine(x, x2, j, p, pDrawTarget);
+			}
+
+			return rcode::OK;
+		}
+
+		virtual olc::rcode DrawSprite_SIMD(int32_t x, int32_t y, Sprite* sprite, uint32_t scale, uint8_t flip, olc::Sprite* pDrawTarget) override
+		{
+			if (sprite == nullptr) return rcode::FAIL;
+			olc::vi2d vPos = { x, y };
+
+			// Lets check if the sprite all ready exist?
+			olc::vi2d vStartPos = { 0,0 };
+			olc::vi2d vScaleSize = { sprite->width * (int)scale, sprite->height * (int)scale };
+			olc::Decal* dec = (olc::Decal*)sprite->GetStoredSubDecal(vStartPos, vScaleSize, scale, (olc::Sprite::Flip)flip, pDrawTarget);
+			if (dec == nullptr)
+			{
+				//1: Lets flip it (if Store Sub Sprites has a copy it will be returned)
+				olc::Sprite* sprFlipped = sprite->Duplicate((olc::Sprite::Flip)flip);
+
+				//2: Lets scale it (if Store Sub Sprites has a copy it will be returned)
+				olc::Sprite* sprScaled = sprFlipped->Duplicate(scale);
+
+				//3: Store the SubSprite, a Decal will also be created
+				if (!sprite->StoreSubSprite(sprScaled, vStartPos, scale, (olc::Sprite::Flip)flip, pDrawTarget))
+				{
+					// OK the vector is full or sub sprites disabled
+					// We Cannot Store the sub sprite, lets draw it
+					DuplicateMerge_SIMD(vStartPos, pDrawTarget, olc::BLANK, sprScaled);
+					delete sprScaled;
+					delete sprFlipped;
+					return rcode::OK;
+				}
+				else
+				{
+					//4: Get the newly created Decal
+					dec = (olc::Decal*)sprite->GetStoredSubDecal(vStartPos, vScaleSize, scale, (olc::Sprite::Flip)flip, pDrawTarget);
+
+					//5: Clean up
+					delete sprFlipped;
+
+				}
+
+			}
+
+			renderer->ptrPGE->DrawDecal(vPos, dec);
+			return rcode::OK;
+		}
+
+		virtual olc::rcode DrawPartialSprite_SIMD(const olc::vi2d& vPos, olc::Sprite* pSource, const olc::vi2d& vStartPos, const olc::vi2d& vSize, uint32_t scale, olc::Sprite::Flip flip, olc::Sprite* pDrawTarget) override
+		{
+
+			// Lets check if the sprite all ready exist?
+			scale = (scale < 1) ? 1 : scale;
+
+			olc::vi2d vScaleSize = { vSize.x * (int)scale, vSize.y * (int)scale };
+			olc::Decal* dec = (olc::Decal*)pSource->GetStoredSubDecal(vStartPos, vScaleSize, scale, flip, pDrawTarget);
+			if (dec == nullptr)
+			{
+
+				//1: lets get the partial;
+				olc::Sprite* sprPartial = pSource->Duplicate(vStartPos, vSize);
+
+				//2: Lets flip it (if Store Sub Sprites has a copy it will be returned)
+				olc::Sprite* sprFlipped = sprPartial->Duplicate((olc::Sprite::Flip)flip);
+
+				//3: Lets scale it (if Store Sub Sprites has a copy it will be returned)
+				olc::Sprite* sprScaled = sprFlipped->Duplicate(scale);
+
+
+				//4: Store the SubSprite, a Decal will also be created
+				if (!pSource->StoreSubSprite(sprScaled, vStartPos, scale, flip))
+				{
+					// OK the vector is full or sub sprites disabled
+					// We Cannot Store the sub sprite, lets draw it
+					DuplicateMerge_SIMD(vStartPos, pDrawTarget, olc::BLANK, sprScaled);
+					delete sprScaled;
+					delete sprFlipped;
+					return rcode::OK;
+				}
+				else
+				{
+					//5: Get the Decal
+					dec = (olc::Decal*)pSource->GetStoredSubDecal(vStartPos, vScaleSize, scale, flip, pDrawTarget);
+
+					//6: Clean up
+					delete sprPartial;
+					delete sprFlipped;
+
+				}
+
+			}
+
+			renderer->ptrPGE->DrawDecal(vPos, dec);
+			return rcode::OK;
+		}
+
+		virtual olc::rcode DrawMergeSprite_SIMD(int32_t vPosx, int32_t vPosy, Sprite* pFromSprite, int32_t vToSpritePosx, int32_t vToSpritePosy, Sprite* pToSprite, Pixel blendPixel, uint32_t scale, olc::Sprite::Flip flip, olc::Sprite* pDrawTarget) override
+		{
+
+			olc::vi2d vPos = { vPosx , vPosy };
+			olc::vi2d vSize = { pToSprite->width * (int32_t)scale ,  pToSprite->height * (int32_t)scale };
+
+			olc::vi2d vToSpritePos = { vToSpritePosx ,vToSpritePosy };
+
+			olc::Decal* dec = (olc::Decal*)pFromSprite->GetStoredSubDecal(vToSpritePos, vSize, scale, flip, pToSprite);
+			if (dec == nullptr)
+			{
+				olc::Sprite* pMergeSprite = nullptr;
+				olc::Sprite* pMergeScaleSprite = nullptr;
+				olc::Sprite* pMergeFilpSprite = nullptr;
+
+				pMergeSprite = pFromSprite->DuplicateMerge(vToSpritePos, pToSprite, blendPixel);
+				pMergeScaleSprite = pMergeSprite->Duplicate(scale);
+				pMergeFilpSprite = pMergeScaleSprite->Duplicate((olc::Sprite::Flip)flip);
+
+				//4: Store the SubSprite, a Decal will also be created
+				if (!pFromSprite->StoreSubSprite(pMergeFilpSprite, vToSpritePos, scale, flip, pToSprite))
+				{
+					// OK the vector is full or sub sprites disabled
+					// We Cannot Store the sub sprite, lets draw it
+					DuplicateMerge_SIMD(vToSpritePos, pDrawTarget, olc::BLANK, pMergeFilpSprite);
+					delete pMergeSprite;
+					delete pMergeScaleSprite;
+					delete pMergeFilpSprite;
+					return rcode::OK;
+				}
+				else
+				{
+					//5: Get the Decal
+					dec = (olc::Decal*)pFromSprite->GetStoredSubDecal(vToSpritePos, vSize, scale, flip, pToSprite);
+
+					//6: Clean up
+					delete pMergeSprite;
+					delete pMergeScaleSprite;
+					renderer->ptrPGE->DrawDecal(vPos, dec);
+				}
+
+			}
+
+			renderer->ptrPGE->DrawDecal(vPos, dec);
+			return rcode::OK;
+		}
+
+		virtual olc::Sprite* Duplicate_SIMD(olc::Sprite* pSource) override
+		{
+			// This is the fastest way of duplicating, I say this is not required, keep for testing
+			olc::Sprite* spr = new olc::Sprite(pSource->width, pSource->height);
+			std::memcpy(spr->GetData(), pSource->GetData(), pSource->width * pSource->height * sizeof(olc::Pixel));
+			spr->modeSample = pSource->modeSample;
+			return spr;
+
+		}
+
+		virtual olc::Sprite* Duplicate_SIMD(const olc::vi2d& vPos, const olc::vi2d& vSize, olc::Sprite* pSource) override
+		{
+
+			// Some Maths, to ensure the partial sprite is created correctly
+			int newSizeX = vSize.x;
+			int newSizeY = vSize.y;
+
+			int maxX = vPos.x + vSize.x;
+			int maxY = vPos.y + vSize.y;
+
+			if (maxX > pSource->width) newSizeX = pSource->width - vPos.x;
+			if (maxY > pSource->height) newSizeY = pSource->height - vPos.y;
+
+
+			olc::Sprite* spr = new olc::Sprite(newSizeX, newSizeX);
+			Clear_SIMD(olc::BLANK, spr);
+			int sx = 0;
+			int ex = newSizeX;
+			int nOffSet = ex % 4;
+
+			if (nOffSet > 0)
+			{
+				// We need to work out what is the next muliple of 4 pixels
+				nOffSet = (ex / 4) + 1;
+				nOffSet = (nOffSet * 4);
+				nOffSet = nOffSet - ex;
+
+			}
+			bool bUseHighSpeed = (nOffSet == 0) ? true : false;
+
+			int nVecTarget = 0;
+			float* pTargetVector = (float*)spr->pColData.data();
+			size_t nVecTLen = spr->pColData.size();
+
+			size_t nVecRead = (vPos.y * pSource->width) + vPos.x; // Start position of read vector
+			size_t nVecRLen = pSource->pColData.size();
+
+			__m128 _sx, _ex, _result, _vecRead;
+
+			_sx = _mm_set1_ps(sx);
+			_ex = _mm_set1_ps(ex);
+			_result = _mm_set1_ps(0xFF); // 0xFF = -1 -> True, 0x00 = 0 -> False;
+
+			// NOTE: We write out the full for-->loop for both High & Low speed
+			// If we put the condional statement between the for Y for loop we get a 'branch' in our assembly and lose any gains in proformance
+			if (bUseHighSpeed)
+			{
+				// High speed (up too 2times faster as we have no offset to manage)
+				for (int y = 0; y < newSizeY; y++)
+				{
+					if (nVecRead > nVecRLen)
+					{
+						break; // Break if we reached the end of the read vector
+					}
+					if (nVecTarget > nVecTLen) {
+						break; // break if we reached the end of the target vector
+					}
+
+					// Get the next position of the read vector
+					// Take note of (y + vPos.y), we need the position of y + the next row of y for the read vector (nVecRead)
+					nVecRead = ((y + vPos.y) * pSource->width) + vPos.x;
+					for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
+					{
+						// Load in the read vector
+						_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+						_mm_storeu_ps(pTargetVector, _vecRead);
+
+					}
+
+
+				}
+
+			}
+			else
+			{
+				// We have an offset to manage
+				for (int y = 0; y < newSizeY; y++)
+				{
+					if (nVecRead > nVecRLen)
+					{
+						break; // Break if we reached the end of the read vector
+					}
+					if (nVecTarget > nVecTLen) {
+						break; // break if we reached the end of the target vector
+					}
+
+					// Get the next position of the read vector
+					// Take note of (y + vPos.y), we need the position of y + the next row of y for the read vector (nVecRead)
+					nVecRead = ((y + vPos.y) * pSource->width) + vPos.x;
+					for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
+					{
+						// Load in the read vector
+						_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+
+						// We compare if the all the pixels ly within sx->ex, and pixel greater then ex are not process
+						_sx = _mm_set_ps(x + 3, x + 2, x + 1, x);
+
+						// Take note there is 'no less than or equals', but if you just reverse the operands and use 'greater than' you get the excat same affect
+						_result = _mm_cmpgt_ps(_ex, _sx);
+
+						// Store only the pixels that are between sx-->ex
+						_mm_maskmoveu_si128(_vecRead, _result, (char*)pTargetVector);
+
+					}
+
+					// Shift the ptr for pTargetVector by the offset
+					// This ensures the ptr is always in the correct position for the next row of y
+					// Debug it to understand better
+					pTargetVector -= nOffSet;
+					nVecTarget -= nOffSet;
+
+				}
+
+			}
+
+			//Clean up any left over pixels
+			for (size_t x = nVecTarget; x < (size_t)nVecTLen; x++, nVecRead++)
+			{
+				if (nVecRead > nVecRLen)
+				{
+					break; // Break if we reached the end of the read vector
+				}
+				if (nVecTarget > nVecTLen) {
+					break; // break if we reached the end of the target vector
+				}
+
+				spr->pColData[x] = pSource->pColData[nVecRead];
+
+
+			}
+
+			return spr;
+
+		}
+
+		/*-------------- New Methods John Galvin --------------*/
+
+		virtual olc::Sprite* Duplicate_SIMD(olc::Sprite::Flip flip, olc::Sprite* pSource) override
+		{
+			if (pSource == nullptr) return nullptr;
+
+			olc::Sprite* spr = nullptr;
+
+			// Some optimisations, if we are not flipping just return a duplicate
+			if ((uint8_t)flip < 1)
+			{
+				spr = pSource->Duplicate();
+				return spr;
+			}
+
+			olc::vi2d vStartPos = { 0, 0 };
+			olc::vi2d vSize = { pSource->width, pSource->height };
+
+			spr = new olc::Sprite(pSource->width, pSource->height);
+
+			int sx = 0;
+			int ex = pSource->width;
+			int nOffSet = ex % 4;
+
+			if (nOffSet > 0)
+			{
+				// we need to work out what is the next muliple of 8 pixels
+				// Example: vSize.x = 270
+				nOffSet = (ex / 4) + 1; // 270 / 4 = 67. + 1 = 68
+				nOffSet = (nOffSet * 4); // 68 * 4 = 272
+				nOffSet = nOffSet - ex; // therefore the offset is 2
+
+			}
+
+			int nVecTarget = 0;
+			float* pTargetVector = (float*)spr->pColData.data();
+			size_t nVecTLen = spr->pColData.size();
+
+			size_t nVecRead = 0; // Start position of read vector
+			size_t nVecRLen = pSource->pColData.size();
+
+			__m128i _sx, _ex, _result, _vecRead;
+
+			_sx = _mm_set1_epi32(sx);
+			_ex = _mm_set1_epi32(ex);
+			_result = _mm_set1_epi32(0xFF); // 0xFF = -1 -> True, 0x00 = 0 -> False;
+
+			if (flip & olc::Sprite::Flip::HORIZ)
+			{
+				nVecRead = nVecRLen;
+				for (int y = 1; y <= pSource->height; y++)
+				{
+					if (y == 0) y = 1;
+					nVecRead = (y * pSource->width) - 4;
+					for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += -4, nVecTarget += 4)
+					{
+
+						_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+						_mm_storer_ps(pTargetVector, _vecRead);
+
+					}
+
+					pTargetVector -= nOffSet;
+					nVecTarget -= nOffSet;
+
+				}
+
+
+			}
+
+			if (flip & olc::Sprite::Flip::VERT)
+			{
+				nVecRead = nVecRLen;
+				for (int y = pSource->height; y > 0; y--)
+				{
+					if (nVecTarget + 4 > nVecTLen) break;
+					nVecRead = (y * pSource->width) + 0;
+					for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
+					{
+						_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+						_mm_storeu_ps(pTargetVector, _vecRead);
+
+					}
+					pTargetVector -= nOffSet;
+					nVecTarget -= nOffSet;
+
+				}
+
+
+			}
+
+			// There MAY be a few left over sprites we just clear them
+			// This is a little cheat, you could write some very complex code to ensure all left pixels are matched, but this will be very slow.
+			// Therefore we just hide (Aphla) them, at most there could be 1 line of pixels at the top/buttom/top, in most cases it will be a few pixels
+			// The end user cannot see that this 1 line of pixels is missing, it will be so small
+			for (size_t x = nVecTarget; x < (size_t)nVecTLen; x++)
+			{
+				spr->pColData[x] = olc::BLANK;
+
+			}
+
+			return spr;
+
+		}
+
+		virtual olc::Sprite* Duplicate_SIMD(uint32_t scale, olc::Sprite* pSource) override
+		{
+			if (pSource == nullptr) return nullptr;
+
+			scale = (scale < 1) ? 1 : scale;
+			if ((uint32_t)scale == 1) return pSource->Duplicate();
+			olc::Sprite* spr = new olc::Sprite(pSource->width * scale, pSource->height * scale);
+
+			int nVecTarget = 0;										// Target vector position
+			float* pTargetVector = (float*)spr->pColData.data();	// Target vector pointer
+			size_t nVecTLen = spr->pColData.size();					// Target vector size
+
+			uint32_t nVecRead = 0;									// Start position of read vector
+			size_t nVecRLen = pSource->pColData.size();				// Read vector size
+
+			int nReadCount = std::max(int(4 / scale), 1);			// Number of pixels to be read in
+
+			int nOffSet = 4 % scale;								// Offset for left over pixels
+			uint32_t nScaleCount = 0;								// Scale count used when the scale is greater than the register
+			if (scale > 4)
+			{
+				nOffSet = 0;
+				nScaleCount = scale - 4;
+			}
+
+			int nsuffle[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };	// Suffle Pixels
+			int nPos = 0;
+			if (scale > 1)
+			{
+				// If Scale 2 the it is double 1 pixel becomes 2 pixels
+				// {0, 1, 2, 3, 4, 5, 6 >> 16} --> {0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7, 4, 5, 6, 7 etc >> 16};
+				// There are fancy ways to do this, but you can debug the below to see how it works
+				int i = 0;
+				while (nPos < 16)
+				{
+					for (int j = 0; j < scale; j++)
+					{
+						if (nPos > 15) break;
+						for (int k = 0; k < 4; k++)
+						{
+							if (nPos > 15) break;
+							nsuffle[nPos] = i + k;
+							nPos++;
+						}
+					}
+					i += 4;
+				}
+
+			}
+
+			__m128i _shufflePixels;
+			__m128 _result, _vecRead;
+
+			// Lets do the Suffle Suffle baby
+			_shufflePixels = _mm_set_epi8(nsuffle[15], nsuffle[14], nsuffle[13], nsuffle[12],
+				nsuffle[11], nsuffle[10], nsuffle[9], nsuffle[8],
+				nsuffle[7], nsuffle[6], nsuffle[5], nsuffle[4],
+				nsuffle[3], nsuffle[2], nsuffle[1], nsuffle[0]
+			);
+
+			int y = 0; int x = 0; int yS = 0;
+			uint32_t nTottle = scale;
+
+			for (y = 0; y < pSource->height; y++, yS++)
+			{
+				// Added extra Y Lines of x values
+				nTottle++;
+				if (nTottle < scale) y--;
+				if (nTottle >= scale) nTottle = 0;
+
+				nVecRead = (y * pSource->width) + 0;
+				nVecTarget = (yS * spr->width) + 0;
+				pTargetVector += nVecTarget;
+				for (x = 0; x < pSource->width; x += nReadCount, nVecRead += nReadCount, pTargetVector += 4, nVecTarget += 4)
+				{
+					_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+					_result = _mm_shuffle_epi8(_vecRead, _shufflePixels);
+					_mm_storeu_ps(pTargetVector, _result);
+
+					// If out scale is greater than 4 times, i.e.10 then we need repeat the pixels
+					if (nScaleCount > 0)
+					{
+						for (int i = 1; i < (int)nScaleCount; i += 4)
+						{
+							pTargetVector += 4;
+							nVecTarget += 4;
+							nOffSet = (i * 4) - (int)nScaleCount;
+							_mm_storeu_ps(pTargetVector, _result);
+
+						}
+					}
+
+					// Move back the pointer and vectors to get the offset bytes
+					pTargetVector -= nOffSet;
+					nVecTarget -= nOffSet;
+
+				}
+
+				pTargetVector -= nVecTarget;
+
+			}
+
+			// There can be some pixels on the target sprite left over
+			int nYPos = ((y - scale) * pSource->width);
+			int nYTarPos = (yS * (pSource->width * scale));
+
+			// Check is there are left over pixels
+			if (nYTarPos < nVecTLen)
+			{
+				// If so process them
+				for (int i = nYPos; i < nVecRLen; i++)
+				{
+					for (size_t j = 0; j < scale; j++, nYTarPos++)
+					{
+						if (nYTarPos >= nVecTLen) break;
+						spr->pColData[nYTarPos] = pSource->pColData[i];
+					}
+				}
+			}
+
+
+			return spr;
+
+		}
+
+		virtual olc::Sprite* DuplicateMerge_SIMD(const olc::vi2d& vTargetPos, olc::Sprite* pTargetSprite, olc::Pixel p, olc::Sprite* pSource) override
+		{
+			if (pTargetSprite == nullptr) return nullptr;
+
+			/*---- Non-SIMD Vs SIMD*/
+
+
+			/*
+				There is no real performance gain using either of the executions (Non-SIMD, SIMD)
+				Always remember it is near impossible to beat the complier. You might ask then why write it in SIMD at all?
+				Well, when you are developing low level code, it is difficult to jump between languages.
+				Most developers prefer to stay with one language within a method.
+				As these methods are SIMD executions, then write it all in SIMD, therefore there is no surprises later when another developer
+				needs to debug.
+				They are expecting SIMD, then they get SIMD
+				Finally the SIMD code below should be a tiny bit faster, but it would be impossible to measure
+			*/
+			/*
+			Non SIMD Code :
+
+			// Ok we need to ensure the sprite can fit on the layer (pdrawTarget)
+			// Work out if the sprite is out of bounds and crop the sprite to fit into the bounds
+
+			int nFullWidth = vPos.x + pSource->width;
+			int nFullHeight = vPos.y + pSource->height;
+			int nWidth = pSource->width; //std::min(nFullWidth, pdrawTarget->width);
+			int nHeight = pSource->height; // std::min(nFullHeight, pdrawTarget->height);
+
+			if (nFullWidth >= pdrawTarget->width)
+			{
+				// Get the new width for off layer sprite
+				nWidth = nFullWidth - pdrawTarget->width;
+				nWidth = pSource->width - nWidth;
+			}
+
+			if (nFullHeight >= pdrawTarget->height)
+			{
+				// Get the new height for off layer sprite
+				nHeight = nFullHeight - pdrawTarget->height;
+				nHeight = pSource->height - nHeight;
+			}
+
+			// Get the new Start Position for off layer sprite
+			int nXStart = (vPos.x < 0) ? vPos.x * -1 : 0;
+			int nYStart = (vPos.y < 0) ? vPos.y * -1 : 0;
+
+			// Get the new vPosition for off layer sprite
+			int nXPos = (vPos.x < 0) ? 0 : vPos.x;
+			int nYPos = (vPos.y < 0) ? 0 : vPos.y;
+
+			std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
+			*/
+
+
+			/*
+				Ok we need to ensure the sprite can fit the sprite on the layer (pdrawTarget)
+				Work out if the sprite is out of bounds and crop the sprite to fit into the bounds
+
+				Vector of position: Order is important, SIMD will read the vector in backwards, (right to left) <--- */
+
+				/*---- END Non-SIMD Vs SIMD ---*/
+
+			std::vector<int> vecPositions = { vTargetPos.y, vTargetPos.x, pSource->height, pSource->width, vTargetPos.y, vTargetPos.x, 0, 0 };
+			int* pPositions = vecPositions.data();
+
+			__m128i _reg1, _reg2, _reg3, _reg4, _reg5, _compare;
+
+			_reg1 = _mm_set_epi32(pSource->width, pSource->height, 0, 0);			// Holds width and height
+			_reg2 = _mm_set_epi32(vTargetPos.x, vTargetPos.y, 0, 0);				// Holds vPos.x and vPos.y
+			_reg3 = _mm_add_epi32(_reg1, _reg2);									// nFullWidth = vPos.x + width, nFullHeight = vPos.y + height;
+			_reg4 = _mm_set_epi32(pTargetSprite->width, pTargetSprite->height, 0, 0);	// Holds pdrawTarget->width, pdrawTarget->height
+			_compare = _mm_cmpgt_epi32(_reg3, _reg4);								// if (nFullWidth >= pdrawTarget->width) (true false)
+			_reg5 = _mm_sub_epi32(_reg3, _reg4);									// nWidth = nFullWidth - pdrawTarget->width, nheight = nheight - pdrawTarget->height,
+			_reg5 = _mm_sub_epi32(_reg1, _reg5);									// nWidth = width - nWidth, nHeight = height - nHeight;
+			_mm_maskmoveu_si128(_reg5, _compare, (char*)pPositions);				// We only store the computed values of reg5, if _comp is set. i.e. nFullWidth is greater than pdrawTarget->width
+
+			// Now lets get the nXStart, nYStart
+																					// Note the vector is read in backwards, (right to left) <---    <---    <---
+			pPositions += 4;														// Move our pionter down by 4 so we are pointing to {... vPos.y, vPos.x, 0, 0}
+			_reg1 = _mm_set1_epi32(0);												// Clear reg1 to 0, (vPos.x < 0) ? vPos.x * -1 : 0 <- this zero
+			_compare = _mm_cmpgt_epi32(_reg1, _reg2);								//(vPos.x < 0)?,  (vPos.y < 0)?
+			_reg5 = _mm_abs_epi32(_reg2);											// vPos.x * -1, vPos.y * -1. Abs will resturn positive absolute numbers, we do not need to muliply
+			_mm_maskmoveu_si128(_reg5, _compare, (char*)pPositions);				// We only change the values of nXStart & nYStart if _comp is set (nXStart = (vPos.x < 0) ? vPos.x * -1)
+
+			// Now lets get the nXPos, nYPso
+
+			_reg2 = _mm_set_epi32(0, 0, vTargetPos.x, vTargetPos.y);				// Tottle the reg2 so that 0's will cause nXStart & nYStart results not to be affected
+			_compare = _mm_cmpgt_epi32(_reg1, _reg2);								// (vPos.x < 0)?,  (vPos.y < 0)? . We reuse _reg1 as it is already set to 0's
+			_mm_maskmoveu_si128(_reg1, _compare, (char*)pPositions);				// We only change the values of nXPos & nYPos if _comp is set (vPos.x < 0) ? 0 : vPos.x;
+
+
+			return DrawToTarget(vTargetPos, pTargetSprite, vecPositions, pSource);
+
+
+		}
+
+		virtual olc::Sprite* DrawToTarget(const olc::vi2d& vPos, olc::Sprite* pdrawTarget, std::vector<int> vecPositions, olc::Sprite* pSource)
+		{
+			// Create ints to represent the vector positions
+			// makes life easier for debugging and creation of the for loop for SIMD
+			// std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
+
+			// Create ints to represent the vector positions
+			// makes life easier for debugging and creation of the for loop for SIMD
+			// std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
+			int nHeight = vecPositions[2];
+			int nWidth = vecPositions[3];
+			int nYPos = vecPositions[4];
+			int nXPos = vecPositions[5];
+			int nYStart = vecPositions[6];
+			int nXStart = vecPositions[7];
+
+
+			// Get the target layer vector pointer
+			int nVecTarget = (nYPos * pdrawTarget->width) + nXPos;
+			float* pTargetVector = (float*)pdrawTarget->pColData.data();
+
+			size_t nVecTLen = pdrawTarget->pColData.size();
+			int nTargetY = 0;
+
+			// Get the local sprite vector detals
+			size_t nVecRead = 0; // Start position of read vector
+
+			// Set up counters
+			int ex = nWidth;
+
+			// Get if we have an offset to manage
+			// Try to keep your spites width in even mulitples of 4/8 (4, 8, 16, 24, 32, 40... 80, 88, 96, 104)
+			// In this way most of your sprites will fall into the the "high speed" processing
+			int nOffSet = nWidth % 4;
+			bool bUseHighSpeed = (nOffSet == 0) ? true : false;
+
+
+			// Set up registers
+			__m128i _sx, _ex, _compare, _comparePixel, _blendpixel;
+			__m128  _vecRead, _vecTargetRead, _vecOutPut;
+
+			Pixel p = olc::BLANK;
+			_blendpixel = _mm_set1_epi32(p.n);
+			_sx = _mm_set1_epi32(0);
+			_ex = _mm_set1_epi32(ex);
+
+			// NOTE: We write out the full for-->loop for both High & Low speed
+			// If we put the condional statement between the Y for loop we get a 'branch' in our assembly
+			// and lose any gains in proformance
+			if (bUseHighSpeed)
+			{
+				// High speed (up too 2times faster as we have no offset to manage)
+				for (int y = nYStart; y < nHeight; y++, nTargetY++)
+				{
+					// Get next Target Vector position, but if we are out of bounds on the target we break
+					nVecTarget = ((nTargetY + nYPos) * pdrawTarget->width) + nXPos;
+					if (nVecTarget >= nVecTLen) break;
+					pTargetVector += nVecTarget;
+
+					// Get next read Position
+					nVecRead = (y * pSource->width) + nXStart;
+
+					for (int x = nXStart; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
+					{
+						_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+						_comparePixel = _mm_cmpgt_epi32(_blendpixel, _vecRead);
+						_mm_maskmoveu_si128(_vecRead, _comparePixel, (char*)pTargetVector);
+
+					}
+
+					pTargetVector -= nVecTarget; // reset the pointer to 0 position
+
+				}
+			}
+			else
+			{
+				// Low speed as we have an offset to manage
+				for (int y = nYStart; y < nHeight; y++, nTargetY++)
+				{
+					// Get next Target Vector position, but if we are out of bounds on the target we break
+					nVecTarget = ((nTargetY + nYPos) * pdrawTarget->width) + nXPos;
+					if (nVecTarget >= nVecTLen) break;
+					pTargetVector += nVecTarget;
+
+					// Get next read Position
+					nVecRead = (y * pSource->width) + nXStart;
+
+					for (int x = nXStart; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
+					{
+						_sx = _mm_set_epi32(x + 3, x + 2, x + 1, x);
+
+						_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+						_vecTargetRead = _mm_load_ps((const float*)((olc::Pixel*)pdrawTarget->pColData.data() + nVecTarget));
+
+						_comparePixel = _mm_cmpgt_epi32(_blendpixel, _vecRead);
+						_vecOutPut = _mm_blendv_epi8(_vecTargetRead, _vecRead, _comparePixel);
+
+						_compare = _mm_cmpgt_epi32(_ex, _sx);
+						_mm_maskmoveu_si128(_vecOutPut, _compare, (char*)pTargetVector);
+
+					}
+
+					pTargetVector -= nVecTarget; // reset the pointer to 0 position
+
+
+				}
+			}
+
+			return pdrawTarget;
+
+
+		}
+
+	};
 }
 #endif
 
@@ -11964,1028 +12693,1028 @@ namespace olc
 
 namespace olc
 {
-    class SIMD_SSE : public olc::SIMDDrawRoutines
-    {
+	class SIMD_SSE : public olc::SIMDDrawRoutines
+	{
 
-        virtual olc::rcode Clear_SIMD(Pixel p, olc::Sprite* pDrawTarget) override
-        {
-            if (pDrawTarget == nullptr) return rcode::FAIL;
+		virtual olc::rcode Clear_SIMD(Pixel p, olc::Sprite* pDrawTarget) override
+		{
+			if (pDrawTarget == nullptr) return rcode::FAIL;
 
-            int VecEndIndex = (int)pDrawTarget->pColData.size();
+			int VecEndIndex = (int)pDrawTarget->pColData.size();
 
-            // Lets get any left over pixels to be processed
-            // Lets get any left over pixels to be processed
-            int nOffSet = VecEndIndex % 4;
+			// Lets get any left over pixels to be processed
+			// Lets get any left over pixels to be processed
+			int nOffSet = VecEndIndex % 4;
 
-            if (nOffSet > 0)
-            {
-                // we need to work out what is the next multiple of 4 pixels
-                nOffSet = (VecEndIndex / 4) + 1;
-                nOffSet = (nOffSet * 4);
-                nOffSet = nOffSet - VecEndIndex;
+			if (nOffSet > 0)
+			{
+				// we need to work out what is the next multiple of 4 pixels
+				nOffSet = (VecEndIndex / 4) + 1;
+				nOffSet = (nOffSet * 4);
+				nOffSet = nOffSet - VecEndIndex;
 
-            }
+			}
 
 
-            int nTempVecEnd = (VecEndIndex - nOffSet) - 4;
+			int nTempVecEnd = (VecEndIndex - nOffSet) - 4;
 
-            int nReplacePixel = (int)p.n; // Get the int value of the pixel
+			int nReplacePixel = (int)p.n; // Get the int value of the pixel
 
-            int* nVecA = (int*)pDrawTarget->pColData.data();
+			int* nVecA = (int*)pDrawTarget->pColData.data();
 
-            //_replacepixel = | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel |... 4 slots
-            __m128i _replacepixel = _mm_setr_epi32(nReplacePixel, nReplacePixel, nReplacePixel, nReplacePixel);
+			//_replacepixel = | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel |... 4 slots
+			__m128i _replacepixel = _mm_setr_epi32(nReplacePixel, nReplacePixel, nReplacePixel, nReplacePixel);
 
-            int i = 0;
-            int j = 0;
-            for (i = 0; i < nTempVecEnd; i += 4, nVecA += 4)
-            {
-                j = i;
-                _mm_storeu_si128((__m128i*)nVecA, _replacepixel);
-            }
+			int i = 0;
+			int j = 0;
+			for (i = 0; i < nTempVecEnd; i += 4, nVecA += 4)
+			{
+				j = i;
+				_mm_storeu_si128((__m128i*)nVecA, _replacepixel);
+			}
 
 
-            // Clean up left over pixels
-            for (; j < VecEndIndex; j++)
-            {
-                pDrawTarget->pColData[j] = p;
-            }
+			// Clean up left over pixels
+			for (; j < VecEndIndex; j++)
+			{
+				pDrawTarget->pColData[j] = p;
+			}
 
-            return olc::OK;
-        }
+			return olc::OK;
+		}
 
-        virtual olc::rcode DrawFillLine(int sx, int ex, int ny, Pixel p, olc::Sprite* pDrawTarget) override
-        {
-            if (pDrawTarget == nullptr) return rcode::FAIL;
-            // Some optimisation
-            if (ex < sx) std::swap(sx, ex);
-            if (ny < 0 || ny > pDrawTarget->height) return rcode::OK;	// The line is above/below the viewable screen, no use in drawing it
-            if (ex < 0 || sx > pDrawTarget->width - 1) return rcode::OK;	// The line is outside the left/right side of the view screen, no use in drawing it
+		virtual olc::rcode DrawFillLine(int sx, int ex, int ny, Pixel p, olc::Sprite* pDrawTarget) override
+		{
+			if (pDrawTarget == nullptr) return rcode::FAIL;
+			// Some optimisation
+			if (ex < sx) std::swap(sx, ex);
+			if (ny < 0 || ny > pDrawTarget->height) return rcode::OK;	// The line is above/below the viewable screen, no use in drawing it
+			if (ex < 0 || sx > pDrawTarget->width - 1) return rcode::OK;	// The line is outside the left/right side of the view screen, no use in drawing it
 
-            // Crop line to fit within draw target
-            ny = (ny < 0) ? 0 : ny;
-            sx = (sx < 0) ? 0 : sx;
-            ex = (ex > pDrawTarget->width) ? ex = pDrawTarget->width : ex;
-
-            // Lets get any left over pixels to be processed
-            int nOffSet = ex % 16;
-            int nTempVecEnd = ex - nOffSet;
-            int nReplacePixel = (int)p.n; // Get the int value of the pixel
-
-            int i = sx;
-            int j = sx;
-
-            int nLineLength = ex - sx;
-            if (nLineLength > 8)
-            {
-
-                //_replacepixel = | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel |... 4 slots
-                __m128i _replacepixel = _mm_setr_epi32(nReplacePixel, nReplacePixel, nReplacePixel, nReplacePixel);
-
-                int* nVecA = (int*)pDrawTarget->pColData.data(); // Get the start pointer of the vector
+			// Crop line to fit within draw target
+			ny = (ny < 0) ? 0 : ny;
+			sx = (sx < 0) ? 0 : sx;
+			ex = (ex > pDrawTarget->width) ? ex = pDrawTarget->width : ex;
+
+			// Lets get any left over pixels to be processed
+			int nOffSet = ex % 16;
+			int nTempVecEnd = ex - nOffSet;
+			int nReplacePixel = (int)p.n; // Get the int value of the pixel
+
+			int i = sx;
+			int j = sx;
+
+			int nLineLength = ex - sx;
+			if (nLineLength > 8)
+			{
+
+				//_replacepixel = | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel | uint32_t nReplacePixel |... 4 slots
+				__m128i _replacepixel = _mm_setr_epi32(nReplacePixel, nReplacePixel, nReplacePixel, nReplacePixel);
+
+				int* nVecA = (int*)pDrawTarget->pColData.data(); // Get the start pointer of the vector
 
-                // Move to correct poistion, as we are using __m128i we need to divide by 4
-                nVecA += ((ny * pDrawTarget->width) + sx);
-
-                for (i = sx; i < nTempVecEnd; i += 4, nVecA += 4)
-                {
-                    j = i;
-                    _mm_storeu_si128((__m128i*)nVecA, _replacepixel);
-
-                }
-
-            }
-
-            // Clean up left over pixels
-            int pos = 0;
-            size_t vecSize = pDrawTarget->pColData.size();
-
-            for (; j <= ex; j++)
-            {
-                pos = (ny * pDrawTarget->width) + j;
-                if (pos < vecSize) pDrawTarget->pColData[pos] = p; // fixed a small
-            }
-
-
-            return olc::OK;
-        }
-
-        virtual olc::rcode FillCircle_SIMD(int32_t x, int32_t y, int32_t radius, Pixel p, olc::Sprite* pDrawTarget) override
-        {
-
-            if (radius < 0 || x < -radius || y < -radius || x - pDrawTarget->width > radius || y - pDrawTarget->height > radius)
-                return rcode::FAIL;
-
-            if (radius > 0)
-            {
-                int x0 = 0;
-                int y0 = radius;
-                int d = 3 - 2 * radius;
-
-                while (y0 >= x0)
-                {
-                    DrawFillLine(x - y0, x + y0, y - x0, p, pDrawTarget);
-                    if (x0 > 0)	DrawFillLine(x - y0, x + y0, y + x0, p, pDrawTarget);
-
-                    if (d < 0)
-                        d += 4 * x0++ + 6;
-                    else
-                    {
-                        if (x0 != y0)
-                        {
-                            DrawFillLine(x - x0, x + x0, y - y0, p, pDrawTarget);
-                            DrawFillLine(x - x0, x + x0, y + y0, p, pDrawTarget);
-                        }
-                        d += 4 * (x0++ - y0--) + 10;
-                    }
-                }
-            }
-            else
-                platform->ptrPGE->Draw(x, y, p);
-
-
-
-            return rcode::OK;
-
-        }
-
-        virtual olc::rcode FillTriangle_SIMD(int32_t x1, int32_t y1, int32_t x2, int32_t y2, int32_t x3, int32_t y3, Pixel p, olc::Sprite* pDrawTarget) override
-        {
-            int t1x, t2x, y, minx, maxx, t1xp, t2xp;
-            bool changed1 = false;
-            bool changed2 = false;
-            int signx1, signx2, dx1, dy1, dx2, dy2;
-            int e1, e2;
-            // Sort vertices
-            if (y1 > y2) { std::swap(y1, y2); std::swap(x1, x2); }
-            if (y1 > y3) { std::swap(y1, y3); std::swap(x1, x3); }
-            if (y2 > y3) { std::swap(y2, y3); std::swap(x2, x3); }
-
-            t1x = t2x = x1; y = y1;   // Starting points
-            dx1 = (int)(x2 - x1);
-            if (dx1 < 0) { dx1 = -dx1; signx1 = -1; }
-            else signx1 = 1;
-            dy1 = (int)(y2 - y1);
-
-            dx2 = (int)(x3 - x1);
-            if (dx2 < 0) { dx2 = -dx2; signx2 = -1; }
-            else signx2 = 1;
-            dy2 = (int)(y3 - y1);
-
-            if (dy1 > dx1) { std::swap(dx1, dy1); changed1 = true; }
-            if (dy2 > dx2) { std::swap(dy2, dx2); changed2 = true; }
-
-            e2 = (int)(dx2 >> 1);
-            // Flat top, just process the second half
-            if (y1 == y2) goto next;
-            e1 = (int)(dx1 >> 1);
-
-            /// End Setup
-
-            for (int i = 0; i < dx1;) {
-                t1xp = 0; t2xp = 0;
-                if (t1x < t2x) { minx = t1x; maxx = t2x; }
-                else { minx = t2x; maxx = t1x; }
-                // process first line until y value is about to change
-                while (i < dx1) {
-                    i++;
-                    e1 += dy1;
-                    while (e1 >= dx1) {
-                        e1 -= dx1;
-                        if (changed1) t1xp = signx1;//t1x += signx1;
-                        else          goto next1;
-                    }
-                    if (changed1) break;
-                    else t1x += signx1;
-                }
-                // Move line
-            next1:
-                // process second line until y value is about to change
-                while (1) {
-                    e2 += dy2;
-                    while (e2 >= dx2) {
-                        e2 -= dx2;
-                        if (changed2) t2xp = signx2;//t2x += signx2;
-                        else          goto next2;
-                    }
-                    if (changed2)     break;
-                    else              t2x += signx2;
-                }
-            next2:
-                if (minx > t1x) minx = t1x;
-                if (minx > t2x) minx = t2x;
-                if (maxx < t1x) maxx = t1x;
-                if (maxx < t2x) maxx = t2x;
-                simddrawer->DrawFillLine(minx, maxx, y, p, pDrawTarget); // Draw line from min to max points found on the y using SIMD, // John Galvin added missing 'p'
-                // Now increase y
-                if (!changed1) t1x += signx1;
-                t1x += t1xp;
-                if (!changed2) t2x += signx2;
-                t2x += t2xp;
-                y += 1;
-                if (y == y2) break;
-            }
-
-        next:
-            // Second half
-            dx1 = (int)(x3 - x2); if (dx1 < 0) { dx1 = -dx1; signx1 = -1; }
-            else signx1 = 1;
-            dy1 = (int)(y3 - y2);
-            t1x = x2;
-
-            if (dy1 > dx1) {   // swap values
-                std::swap(dy1, dx1);
-                changed1 = true;
-            }
-            else changed1 = false;
-
-            e1 = (int)(dx1 >> 1);
-
-            for (int i = 0; i <= dx1; i++) {
-                t1xp = 0; t2xp = 0;
-                if (t1x < t2x) { minx = t1x; maxx = t2x; }
-                else { minx = t2x; maxx = t1x; }
-                // process first line until y value is about to change
-                while (i < dx1) {
-                    e1 += dy1;
-                    while (e1 >= dx1) {
-                        e1 -= dx1;
-                        if (changed1) { t1xp = signx1; break; }//t1x += signx1;
-                        else          goto next3;
-                    }
-                    if (changed1) break;
-                    else   	   	  t1x += signx1;
-                    if (i < dx1) i++;
-                }
-            next3:
-                // process second line until y value is about to change
-                while (t2x != x3) {
-                    e2 += dy2;
-                    while (e2 >= dx2) {
-                        e2 -= dx2;
-                        if (changed2) t2xp = signx2;
-                        else          goto next4;
-                    }
-                    if (changed2)     break;
-                    else              t2x += signx2;
-                }
-            next4:
-
-                if (minx > t1x) minx = t1x;
-                if (minx > t2x) minx = t2x;
-                if (maxx < t1x) maxx = t1x;
-                if (maxx < t2x) maxx = t2x;
-                simddrawer->DrawFillLine(minx, maxx, y, p, pDrawTarget); // Draw line from min to max points found on the y using SIMD.
-                if (!changed1) t1x += signx1;
-                t1x += t1xp;
-                if (!changed2) t2x += signx2;
-                t2x += t2xp;
-                y += 1;
-                if (y > y3) return rcode::OK;
-            }
-
-            return rcode::OK;
-        }
-
-        virtual olc::rcode FillRect_SIMD(int32_t x, int32_t y, int32_t w, int32_t h, Pixel p, olc::Sprite* pDrawTarget) override
-        {
-            int32_t x2 = x + w;
-            int32_t y2 = y + h;
-
-            if (x < 0) x = 0;
-            if (x >= (int32_t)pDrawTarget->width) x = (int32_t)pDrawTarget->width;
-            if (y < 0) y = 0;
-            if (y >= (int32_t)pDrawTarget->height) y = (int32_t)pDrawTarget->height;
-
-            if (x2 < 0) x2 = 0;
-            if (x2 >= (int32_t)pDrawTarget->width) x2 = (int32_t)pDrawTarget->width;
-            if (y2 < 0) y2 = 0;
-            if (y2 >= (int32_t)pDrawTarget->height) y2 = (int32_t)pDrawTarget->height;
-
-            for (int j = y; j < y2; j++)
-            {
-                simddrawer->DrawFillLine(x, x2, j, p, pDrawTarget);
-            }
-
-            return rcode::OK;
-        }
-
-        virtual olc::rcode DrawSprite_SIMD(int32_t x, int32_t y, Sprite* sprite, uint32_t scale, uint8_t flip, olc::Sprite* pDrawTarget) override
-        {
-            if (sprite == nullptr) return rcode::FAIL;
-            olc::vi2d vPos = { x, y };
-
-            // Lets check if the sprite all ready exist?
-            olc::vi2d vStartPos = { 0,0 };
-            olc::vi2d vScaleSize = { sprite->width * (int)scale, sprite->height * (int)scale };
-            olc::Decal* dec = (olc::Decal*)sprite->GetStoredSubDecal(vStartPos, vScaleSize, scale, (olc::Sprite::Flip)flip, pDrawTarget);
-            if (dec == nullptr)
-            {
-                //1: Lets flip it (if Store Sub Sprites has a copy it will be returned)
-                olc::Sprite* sprFlipped = sprite->Duplicate((olc::Sprite::Flip)flip);
-
-                //2: Lets scale it (if Store Sub Sprites has a copy it will be returned)
-                olc::Sprite* sprScaled = sprFlipped->Duplicate(scale);
-
-                //3: Store the SubSprite, a Decal will also be created
-                if (!sprite->StoreSubSprite(sprScaled, vStartPos, scale, (olc::Sprite::Flip)flip, pDrawTarget))
-                {
-                    // OK the vector is full or sub sprites disabled
-                    // We Cannot Store the sub sprite, lets draw it
-                    DuplicateMerge_SIMD(vStartPos, pDrawTarget, olc::BLANK, sprScaled);
-                    delete sprScaled;
-                    delete sprFlipped;
-                    return rcode::OK;
-                }
-                else
-                {
-                    //4: Get the newly created Decal
-                    dec = (olc::Decal*)sprite->GetStoredSubDecal(vStartPos, vScaleSize, scale, (olc::Sprite::Flip)flip, pDrawTarget);
-
-                    //5: Clean up
-                    delete sprFlipped;
-
-                }
-
-            }
-
-            renderer->ptrPGE->DrawDecal(vPos, dec);
-            return rcode::OK;
-        }
-
-        virtual olc::rcode DrawPartialSprite_SIMD(const olc::vi2d& vPos, olc::Sprite* pSource, const olc::vi2d& vStartPos, const olc::vi2d& vSize, uint32_t scale, olc::Sprite::Flip flip, olc::Sprite* pDrawTarget) override
-        {
-
-            // Lets check if the sprite all ready exist?
-            scale = (scale < 1) ? 1 : scale;
-
-            olc::vi2d vScaleSize = { vSize.x * (int)scale, vSize.y * (int)scale };
-            olc::Decal* dec = (olc::Decal*)pSource->GetStoredSubDecal(vStartPos, vScaleSize, scale, flip, pDrawTarget);
-            if (dec == nullptr)
-            {
-
-                //1: lets get the partial;
-                olc::Sprite* sprPartial = pSource->Duplicate(vStartPos, vSize);
-
-                //2: Lets flip it (if Store Sub Sprites has a copy it will be returned)
-                olc::Sprite* sprFlipped = sprPartial->Duplicate((olc::Sprite::Flip)flip);
-
-                //3: Lets scale it (if Store Sub Sprites has a copy it will be returned)
-                olc::Sprite* sprScaled = sprFlipped->Duplicate(scale);
-
-
-                //4: Store the SubSprite, a Decal will also be created
-                if (!pSource->StoreSubSprite(sprScaled, vStartPos, scale, flip))
-                {
-                    // OK the vector is full or sub sprites disabled
-                    // We Cannot Store the sub sprite, lets draw it
-                    DuplicateMerge_SIMD(vStartPos, pDrawTarget, olc::BLANK, sprScaled);
-                    delete sprScaled;
-                    delete sprFlipped;
-                    return rcode::OK;
-                }
-                else
-                {
-                    //5: Get the Decal
-                    dec = (olc::Decal*)pSource->GetStoredSubDecal(vStartPos, vScaleSize, scale, flip, pDrawTarget);
-
-                    //6: Clean up
-                    delete sprPartial;
-                    delete sprFlipped;
-
-                }
-
-            }
-
-            renderer->ptrPGE->DrawDecal(vPos, dec);
-            return rcode::OK;
-        }
-
-        virtual olc::rcode DrawMergeSprite_SIMD(int32_t vPosx, int32_t vPosy, Sprite* pFromSprite, int32_t vToSpritePosx, int32_t vToSpritePosy, Sprite* pToSprite, Pixel blendPixel, uint32_t scale, olc::Sprite::Flip flip, olc::Sprite* pDrawTarget) override
-        {
-
-            olc::vi2d vPos = { vPosx , vPosy };
-            olc::vi2d vSize = { pToSprite->width * (int32_t)scale ,  pToSprite->height * (int32_t)scale };
-
-            olc::vi2d vToSpritePos = { vToSpritePosx ,vToSpritePosy };
-
-            olc::Decal* dec = (olc::Decal*)pFromSprite->GetStoredSubDecal(vToSpritePos, vSize, scale, flip, pToSprite);
-            if (dec == nullptr)
-            {
-                olc::Sprite* pMergeSprite = nullptr;
-                olc::Sprite* pMergeScaleSprite = nullptr;
-                olc::Sprite* pMergeFilpSprite = nullptr;
-
-                pMergeSprite = pFromSprite->DuplicateMerge(vToSpritePos, pToSprite, blendPixel);
-                pMergeScaleSprite = pMergeSprite->Duplicate(scale);
-                pMergeFilpSprite = pMergeScaleSprite->Duplicate((olc::Sprite::Flip)flip);
-
-                //4: Store the SubSprite, a Decal will also be created
-                if (!pFromSprite->StoreSubSprite(pMergeFilpSprite, vToSpritePos, scale, flip, pToSprite))
-                {
-                    // OK the vector is full or sub sprites disabled
-                    // We Cannot Store the sub sprite, lets draw it
-                    DuplicateMerge_SIMD(vToSpritePos, pDrawTarget, olc::BLANK, pMergeFilpSprite);
-                    delete pMergeSprite;
-                    delete pMergeScaleSprite;
-                    delete pMergeFilpSprite;
-                    return rcode::OK;
-                }
-                else
-                {
-                    //5: Get the Decal
-                    dec = (olc::Decal*)pFromSprite->GetStoredSubDecal(vToSpritePos, vSize, scale, flip, pToSprite);
-
-                    //6: Clean up
-                    delete pMergeSprite;
-                    delete pMergeScaleSprite;
-                    renderer->ptrPGE->DrawDecal(vPos, dec);
-                }
-
-            }
-
-            renderer->ptrPGE->DrawDecal(vPos, dec);
-            return rcode::OK;
-        }
-
-        virtual olc::Sprite* Duplicate_SIMD(olc::Sprite* pSource) override
-        {
-            // This is the fastest way of duplicating, I say this is not required, kept for testing
-            olc::Sprite* spr = new olc::Sprite(pSource->width, pSource->height);
-            std::memcpy(spr->GetData(), pSource->GetData(), pSource->width * pSource->height * sizeof(olc::Pixel));
-            spr->modeSample = pSource->modeSample;
-            return spr;
-
-        }
-
-        virtual olc::Sprite* Duplicate_SIMD(const olc::vi2d& vPos, const olc::vi2d& vSize, olc::Sprite* pSource) override
-        {
-
-            // Some Maths, to ensure the partial sprite is created correctly
-            int newSizeX = vSize.x;
-            int newSizeY = vSize.y;
-
-            int maxX = vPos.x + vSize.x;
-            int maxY = vPos.y + vSize.y;
-
-            if (maxX > pSource->width) newSizeX = pSource->width - vPos.x;
-            if (maxY > pSource->height) newSizeY = pSource->height - vPos.y;
-
-
-            olc::Sprite* spr = new olc::Sprite(newSizeX, newSizeX);
-            Clear_SIMD(olc::BLANK, spr);
-            int sx = 0;
-            int ex = newSizeX;
-            int nOffSet = ex % 4;
-
-            if (nOffSet > 0)
-            {
-                // we need to work out what is the next multiple of 4 pixels
-                nOffSet = (ex / 4) + 1;
-                nOffSet = (nOffSet * 4);
-                nOffSet = nOffSet - ex;
-
-            }
-            bool bUseHighSpeed = (nOffSet == 0) ? true : false;
-
-            int nVecTarget = 0;
-            float* pTargetVector = (float*)spr->pColData.data();
-            size_t nVecTLen = spr->pColData.size();
-
-            size_t nVecRead = (vPos.y * pSource->width) + vPos.x; // Start position of read vector
-            size_t nVecRLen = pSource->pColData.size();
-
-            __m128i _sx, _ex, _result, _vecReadi;
-            __m128 _vecReadp;
-
-            _sx = _mm_set1_epi32(sx);
-            _ex = _mm_set1_epi32(ex);
-            _result = _mm_set1_epi32(0xFF); // 0xFF = -1 -> True, 0x00 = 0 -> False;
-
-            // NOTE: We write out the full for-->loop for both High & Low speed
-            // If we put the conditional statement between the for Y for loop we get a 'branch' in our assembly
-            // and lose any gains in performance
-            if (bUseHighSpeed)
-            {
-                // High speed (up too 2times faster as we have no offset to manage)
-                for (int y = 0; y < newSizeY; y++)
-                {
-                    if (nVecRead > nVecRLen)
-                    {
-                        break; // Break if we reached the end of the read vector
-                    }
-                    if (nVecTarget > nVecTLen) {
-                        break; // break if we reached the end of the target vector
-                    }
-
-                    // Get the next position of the read vector
-                    // Take note of (y + vPos.y), we need the position of y + the next row of y for the read vector (nVecRead)
-                    nVecRead = ((y + vPos.y) * pSource->width) + vPos.x;
-                    for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
-                    {
-                        // Load in the read vector
-                        _vecReadp = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                        _mm_storeu_ps(pTargetVector, _vecReadp);
-
-                    }
-
-
-                }
-
-            }
-            else
-            {
-                // We have an offset to manage
-                for (int y = 0; y < newSizeY; y++)
-                {
-                    if (nVecRead > nVecRLen)
-                    {
-                        break; // Break if we reached the end of the read vector
-                    }
-                    if (nVecTarget > nVecTLen) {
-                        break; // break if we reached the end of the target vector
-                    }
-
-                    // Get the next position of the read vector
-                    // Take note of (y + vPos.y), we need the position of y + the next row of y for the read vector (nVecRead)
-                    nVecRead = ((y + vPos.y) * pSource->width) + vPos.x;
-                    for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
-                    {
-                        // Load in the read vector
-                        _vecReadi = _mm_load_si128((const __m128i*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-
-                        // We compare if the all the pixels ly within sx->ex, and pixel greater then ex are not process
-                        _sx = _mm_set_epi32(x + 3, x + 2, x + 1, x);
-
-                        // Take note there is 'no less than or equals', but if you just reverse the operands and use 'greater than' you get the excat same affect
-                        _result = _mm_cmpgt_epi32(_ex, _sx);
-
-                        // Store only the pixels that are between sx-->ex
-                        _mm_maskmoveu_si128(_vecReadi, _result, (char*)pTargetVector);
-
-                    }
-
-                    // Shift the ptr for pTargetVector by the offset
-                    // This ensures the ptr is always in the correct position for the next row of y
-                    // Debug it to understand better
-                    pTargetVector -= nOffSet;
-                    nVecTarget -= nOffSet;
-
-
-                }
-
-            }
-
-
-            //Clean up any left over pixels
-            for (size_t x = nVecTarget; x < (size_t)nVecTLen; x++, nVecRead++)
-            {
-                if (nVecRead > nVecRLen)
-                {
-                    break; // Break if we reached the end of the read vector
-                }
-                if (nVecTarget > nVecTLen) {
-                    break; // break if we reached the end of the target vector
-                }
-
-                spr->pColData[x] = pSource->pColData[nVecRead];
-
-
-            }
-
-
-            return spr;
-
-        }
-
-        /*-------------- New Methods John Galvin --------------*/
-
-        virtual olc::Sprite* Duplicate_SIMD(olc::Sprite::Flip flip, olc::Sprite* pSource) override
-        {
-            if (pSource == nullptr) return nullptr;
-
-            olc::Sprite* spr = nullptr;
-
-            // Some optimisations, if we are not flipping return a duplicate
-            if ((uint8_t)flip < 1)
-            {
-                spr = pSource->Duplicate();
-                return spr;
-            }
-
-            olc::vi2d vStartPos = { 0, 0 };
-            olc::vi2d vSize = { pSource->width, pSource->height };
-
-            spr = new olc::Sprite(pSource->width, pSource->height);
-
-            int ex = pSource->width;
-            int nOffSet = ex % 4;
-
-            if (nOffSet > 0)
-            {
-                // we need to work out what is the next multiple of 4 pixels
-                // Example: vSize.x = 270
-                nOffSet = (ex / 4) + 1; // 270 / 4 = 67. + 1 = 68
-                nOffSet = (nOffSet * 4); // 68 * 4 = 272
-                nOffSet = nOffSet - ex; // therefore the offset is 2
-
-            }
-
-            int nVecTarget = 0;
-            float* pTargetVector = (float*)spr->pColData.data();
-            size_t nVecTLen = spr->pColData.size();
-
-            size_t nVecRead = 0; // Start position of read vector
-            size_t nVecRLen = pSource->pColData.size();
-
-            __m128 _vecRead;
-
-            if (flip & olc::Sprite::Flip::HORIZ)
-            {
-                nVecRead = nVecRLen;
-                for (int y = 1; y <= pSource->height; y++)
-                {
-                    if (y == 0) y = 1;
-                    nVecRead = (y * pSource->width) - 4;
-                    for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += -4, nVecTarget += 4)
-                    {
-
-                        _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                        _mm_storer_ps(pTargetVector, _vecRead);
-
-                    }
-
-                    pTargetVector -= nOffSet;
-                    nVecTarget -= nOffSet;
-
-                }
-
-            }
-
-            if (flip & olc::Sprite::Flip::VERT)
-            {
-                nVecRead = nVecRLen;
-                for (int y = pSource->height; y > 0; y--)
-                {
-                    if (nVecTarget + 4 > nVecTLen) break;
-                    nVecRead = (y * pSource->width) + 0;
-                    for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
-                    {
-                        _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                        _mm_storeu_ps(pTargetVector, _vecRead);
-
-                    }
-                    pTargetVector -= nOffSet;
-                    nVecTarget -= nOffSet;
-
-                }
-
-            }
-
-            // There MAY be a few left over sprites we just clear them
-            // This is a little cheat, you could write some very complex code to ensure all left pixels are matched, but this will be very slow.
-            // Therefore we just hide (Alpha) them, at most there could be 1 line of pixels at the top/bottom/top, in most cases it will be a few pixels
-            // The end user cannot see that this 1 line of pixels is missing, it will be so small
-            for (size_t x = nVecTarget; x < (size_t)nVecTLen; x++)
-            {
-
-                spr->pColData[x] = olc::BLANK;
-
-            }
-
-            return spr;
-
-        }
-
-        virtual olc::Sprite* Duplicate_SIMD(uint32_t scale, olc::Sprite* pSource) override
-        {
-            if (pSource == nullptr) return nullptr;
-
-            scale = (scale < 1) ? 1 : scale;
-            if ((uint32_t)scale == 1) return pSource->Duplicate();
-            olc::Sprite* spr = new olc::Sprite(pSource->width * scale, pSource->height * scale);
-
-            int nVecTarget = 0;										// Target vector position
-            float* pTargetVector = (float*)spr->pColData.data();	// Target vector pointer
-            size_t nVecTLen = spr->pColData.size();					// Target vector size
-
-            uint32_t nVecRead = 0;									// Start position of read vector
-            size_t nVecRLen = pSource->pColData.size();				// Read vector size
-
-            int nReadCount = std::max(int(4 / scale), 1);			// Number of pixels to be read in
-
-            int nOffSet = 4 % scale;								// Offset for left over pixels
-            uint32_t nScaleCount = 0;								// Scale count used when the scale is greater than the register
-            if (scale > 4)
-            {
-                nOffSet = 0;
-                nScaleCount = scale - 4;
-            }
-
-            int nsuffle[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };	// Suffle Pixels
-            int nPos = 0;
-            if (scale > 1)
-            {
-                // If Scale 2 the it is double 1 pixel becomes 2 pixels
-                // {0, 1, 2, 3, 4, 5, 6 >> 16} --> {0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7, 4, 5, 6, 7,  etc >> 16};
-                // I know there are fancy ways of doing this, but at least this way you can debug it and see what is happening
-                int i = 0;
-                while (nPos < 16)
-                {
-                    for (int j = 0; j < scale; j++)
-                    {
-                        if (nPos > 15) break;
-                        for (int k = 0; k < 4; k++)
-                        {
-                            if (nPos > 15) break;
-                            nsuffle[nPos] = i + k;
-                            nPos++;
-                        }
-                    }
-                    i += 4;
-                }
-
-            }
-
-            __m128i _shufflePixels, _vecRead;
-            __m128 _result;
-
-            // 'Lets do the shuffle, shuffle baby...'
-            _shufflePixels = _mm_set_epi8(nsuffle[15], nsuffle[14], nsuffle[13], nsuffle[12],
-                nsuffle[11], nsuffle[10], nsuffle[9], nsuffle[8],
-                nsuffle[7], nsuffle[6], nsuffle[5], nsuffle[4],
-                nsuffle[3], nsuffle[2], nsuffle[1], nsuffle[0]
-            );
-
-            int y = 0; int x = 0; int yS = 0;
-            uint32_t nTottle = scale;
-
-            for (y = 0; y < pSource->height; y++, yS++)
-            {
-                // Added extra Y Lines of x values
-                nTottle++;
-                if (nTottle < scale) y--;
-                if (nTottle >= scale) nTottle = 0;
-
-                nVecRead = (y * pSource->width) + 0;
-                nVecTarget = (yS * spr->width) + 0;
-                pTargetVector += nVecTarget;
-                for (x = 0; x < pSource->width; x += nReadCount, nVecRead += nReadCount, pTargetVector += 4, nVecTarget += 4)
-                {
-                    _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                    _result = _mm_shuffle_epi8(_vecRead, _shufflePixels);
-                    _mm_storeu_ps(pTargetVector, _result);
-
-                    // If out scale is greater than 4 times, i.e.10 then we need repeat the pixels
-                    if (nScaleCount > 0)
-                    {
-                        for (int i = 1; i < (int)nScaleCount; i += 4)
-                        {
-                            pTargetVector += 4;
-                            nVecTarget += 4;
-                            nOffSet = (i * 4) - (int)nScaleCount;
-                            _mm_storeu_ps(pTargetVector, _result);
-
-                        }
-                    }
-
-                    // Move back the pointer and vectors to get the offset bytes
-                    pTargetVector -= nOffSet;
-                    nVecTarget -= nOffSet;
-
-                }
-
-                pTargetVector -= nVecTarget;
-
-            }
-
-            // There can be some pixels on the target sprite left over
-            // the formula p = (y * width) + x is always perfect, it just how I am executing this I do not like
-            int nYPos = ((y - scale) * pSource->width);
-            int nYTarPos = (yS * (pSource->width * scale));
-
-            // Check is there are left over pixels
-            if (nYTarPos < nVecTLen)
-            {
-                // If so process them
-                for (int i = nYPos; i < nVecRLen; i++)
-                {
-                    for (size_t j = 0; j < scale; j++, nYTarPos++)
-                    {
-                        if (nYTarPos >= nVecTLen) break;
-                        spr->pColData[nYTarPos] = pSource->pColData[i];
-                    }
-                }
-            }
-
-
-            return spr;
-
-        }
-
-        virtual olc::Sprite* DuplicateMerge_SIMD(const olc::vi2d& vTargetPos, olc::Sprite* pTargetSprite, olc::Pixel p, olc::Sprite* pSource) override
-        {
-            if (pTargetSprite == nullptr) return nullptr;
-
-            /*---- Non-SIMD Vs SIMD*/
-
-
-            /*
-                There is no real performance gain using either of the executions (Non-SIMD, SIMD)
-                Always remember it is near impossible to beat the complier. You might ask then why write it in SIMD at all?
-                Well, when you are developing low level code, it is difficult to jump between languages.
-                Most developers prefer to stay with one language within a method.
-                As these methods are SIMD executions, then write it all in SIMD, therefore there is no surprises later when another developer
-                needs to debug.
-                They are expecting SIMD, then they get SIMD
-                Finally the SIMD code below should be a tiny bit faster, but it would be impossible to measure
-            */
-            /*
-            Non SIMD Code :
-
-            // Ok we need to ensure the sprite can fit on the layer (pdrawTarget)
-            // Work out if the sprite is out of bounds and crop the sprite to fit into the bounds
-
-            int nFullWidth = vPos.x + pSource->width;
-            int nFullHeight = vPos.y + pSource->height;
-            int nWidth = pSource->width; //std::min(nFullWidth, pdrawTarget->width);
-            int nHeight = pSource->height; // std::min(nFullHeight, pdrawTarget->height);
-
-            if (nFullWidth >= pdrawTarget->width)
-            {
-                // Get the new width for off layer sprite
-                nWidth = nFullWidth - pdrawTarget->width;
-                nWidth = pSource->width - nWidth;
-            }
-
-            if (nFullHeight >= pdrawTarget->height)
-            {
-                // Get the new height for off layer sprite
-                nHeight = nFullHeight - pdrawTarget->height;
-                nHeight = pSource->height - nHeight;
-            }
-
-            // Get the new Start Position for off layer sprite
-            int nXStart = (vPos.x < 0) ? vPos.x * -1 : 0;
-            int nYStart = (vPos.y < 0) ? vPos.y * -1 : 0;
-
-            // Get the new vPosition for off layer sprite
-            int nXPos = (vPos.x < 0) ? 0 : vPos.x;
-            int nYPos = (vPos.y < 0) ? 0 : vPos.y;
-
-            std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
-            */
-
-            /*---- END Non-SIMD Vs SIMD ---*/
-
-            /* Ok we need to ensure the sprite can fit the sprite on the layer (pdrawTarget)
-                Work out if the sprite is out of bounds and crop the sprite to fit into the bounds
-            */
-
-            // Vector of position: Order is important, SIMD will read the vector in backwards, (right to left) <---
-            std::vector<int> vecPositions = { vTargetPos.y, vTargetPos.x, pSource->height, pSource->width, vTargetPos.y, vTargetPos.x, 0, 0 };
-            int* pPositions = vecPositions.data();
-
-            __m128i _reg1, _reg2, _reg3, _reg4, _reg5, _compare;
-
-            _reg1 = _mm_set_epi32(pSource->width, pSource->height, 0, 0);			// Holds width and height
-            _reg2 = _mm_set_epi32(vTargetPos.x, vTargetPos.y, 0, 0);				// Holds vPos.x and vPos.y
-            _reg3 = _mm_add_epi32(_reg1, _reg2);									// nFullWidth = vPos.x + width, nFullHeight = vPos.y + height;
-            _reg4 = _mm_set_epi32(pTargetSprite->width, pTargetSprite->height, 0, 0);	// Holds pdrawTarget->width, pdrawTarget->height
-            _compare = _mm_cmpgt_epi32(_reg3, _reg4);								// if (nFullWidth >= pdrawTarget->width) (true false)
-            _reg5 = _mm_sub_epi32(_reg3, _reg4);									// nWidth = nFullWidth - pdrawTarget->width, nheight = nheight - pdrawTarget->height,
-            _reg5 = _mm_sub_epi32(_reg1, _reg5);									// nWidth = width - nWidth, nHeight = height - nHeight;
-            _mm_maskmoveu_si128(_reg5, _compare, (char*)pPositions);				// We only store the computed values of reg5, if _comp is set. i.e. nFullWidth is greater than pdrawTarget->width
-
-            // Now lets get the nXStart, nYStart
-                                                                                    // Note the vector is read in backwards, (right to left) <---    <---    <---
-            pPositions += 4;														// Move our pointer down by 4 so we are pointing to {... vPos.y, vPos.x, 0, 0}
-            _reg1 = _mm_set1_epi32(0);												// Clear reg1 to 0, (vPos.x < 0) ? vPos.x * -1 : 0 <- this zero
-            _compare = _mm_cmpgt_epi32(_reg1, _reg2);								//(vPos.x < 0)?,  (vPos.y < 0)?
-            _reg5 = _mm_abs_epi32(_reg2);											// vPos.x * -1, vPos.y * -1. Abs will return positive absolute numbers, we do not need to multiply
-            _mm_maskmoveu_si128(_reg5, _compare, (char*)pPositions);				// We only change the values of nXStart & nYStart if _comp is set (nXStart = (vPos.x < 0) ? vPos.x * -1)
-
-            // Now lets get the nXPos, nYPso
-
-            _reg2 = _mm_set_epi32(0, 0, vTargetPos.x, vTargetPos.y);				// Toddle the reg2 so that 0's will cause nXStart & nYStart results not to be affected
-            _compare = _mm_cmpgt_epi32(_reg1, _reg2);								// (vPos.x < 0)?,  (vPos.y < 0)? . We reuse _reg1 as it is already set to 0's
-            _mm_maskmoveu_si128(_reg1, _compare, (char*)pPositions);				// We only change the values of nXPos & nYPos if _comp is set (vPos.x < 0) ? 0 : vPos.x;
-
-
-            return DrawToTarget(vTargetPos, pTargetSprite, vecPositions, pSource);
-
-
-        }
-
-        virtual olc::Sprite* DrawToTarget(const olc::vi2d& vPos, olc::Sprite* pdrawTarget, std::vector<int> vecPositions, olc::Sprite* pSource)
-        {
-            // Create ints to represent the vector positions
-            // makes life easier for debugging and creation of the for loop for SIMD
-            // std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
-
-            // Create ints to represent the vector positions
-            // makes life easier for debugging and creation of the for loop for SIMD
-            // std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
-            int nHeight = vecPositions[2];
-            int nWidth = vecPositions[3];
-            int nYPos = vecPositions[4];
-            int nXPos = vecPositions[5];
-            int nYStart = vecPositions[6];
-            int nXStart = vecPositions[7];
-
-
-            // Get the target layer vector pointer
-            int nVecTarget = (nYPos * pdrawTarget->width) + nXPos;
-            float* pTargetVector = (float*)pdrawTarget->pColData.data();
-
-            size_t nVecTLen = pdrawTarget->pColData.size();
-            int nTargetY = 0;
-
-            // Get the local sprite vector details
-            size_t nVecRead = 0; // Start position of read vector
-            int ex = nWidth;
-
-            // Get if we have an offset to manage
-            // Try to keep your spites width in even multiples of 4/8 (4, 8, 16, 24, 32, 40... 80, 88, 96, 104)
-            // In this way most of your sprites will fall into the the "high speed" processing
-            int nOffSet = nWidth % 4;
-            bool bUseHighSpeed = (nOffSet == 0) ? true : false;
-
-            // Set up registers
-            __m128i _sx, _ex, _compare, _comparePixel, _blendpixel, _vecRead, _vecTargetRead, _vecOutPut;
-
-            Pixel p = olc::BLANK;
-            _blendpixel = _mm_set1_epi32(p.n);
-            _sx = _mm_set1_epi32(0);
-            _ex = _mm_set1_epi32(ex);
-
-            // NOTE: We write out the full for-->loop for both High & Low speed
-            // If we put the conditional statement between the Y for loop we get a 'branch' in our assembly
-            // and lose any gains in performance
-            if (bUseHighSpeed)
-            {
-                // High speed (up too 2times faster as we have no offset to manage)
-                for (int y = nYStart; y < nHeight; y++, nTargetY++)
-                {
-                    // Get next Target Vector position, but if we are out of bounds on the target we break
-                    nVecTarget = ((nTargetY + nYPos) * pdrawTarget->width) + nXPos;
-                    if (nVecTarget >= nVecTLen) break;
-                    pTargetVector += nVecTarget;
-
-                    // Get next read Position
-                    nVecRead = (y * pSource->width) + nXStart;
-
-                    for (int x = nXStart; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
-                    {
-                        _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                        _comparePixel = _mm_cmpgt_epi32(_blendpixel, _vecRead);
-                        _mm_maskmoveu_si128(_vecRead, _comparePixel, (char*)pTargetVector);
-
-                    }
-
-                    pTargetVector -= nVecTarget; // reset the pointer to 0 position
-
-                }
-            }
-            else
-            {
-                // Low speed as we have an offset to manage
-                for (int y = nYStart; y < nHeight; y++, nTargetY++)
-                {
-                    // Get next Target Vector position, but if we are out of bounds on the target we break
-                    nVecTarget = ((nTargetY + nYPos) * pdrawTarget->width) + nXPos;
-                    if (nVecTarget >= nVecTLen) break;
-                    pTargetVector += nVecTarget;
-
-                    // Get next read Position
-                    nVecRead = (y * pSource->width) + nXStart;
-
-                    for (int x = nXStart; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
-                    {
-                        _sx = _mm_set_epi32(x + 3, x + 2, x + 1, x);
-
-                        _vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
-                        _vecTargetRead = _mm_load_ps((const float*)((olc::Pixel*)pdrawTarget->pColData.data() + nVecTarget));
-
-                        _comparePixel = _mm_cmpgt_epi32(_blendpixel, _vecRead);
-                        _vecOutPut = _mm_blendv_epi8(_vecTargetRead, _vecRead, _comparePixel);
-
-                        _compare = _mm_cmpgt_epi32(_ex, _sx);
-                        _mm_maskmoveu_si128(_vecOutPut, _compare, (char*)pTargetVector);
-
-                    }
-
-                    pTargetVector -= nVecTarget; // reset the pointer to 0 position
-
-
-                }
-            }
-
-            return pdrawTarget;
-
-        }
-
-    };
+				// Move to correct poistion, as we are using __m128i we need to divide by 4
+				nVecA += ((ny * pDrawTarget->width) + sx);
+
+				for (i = sx; i < nTempVecEnd; i += 4, nVecA += 4)
+				{
+					j = i;
+					_mm_storeu_si128((__m128i*)nVecA, _replacepixel);
+
+				}
+
+			}
+
+			// Clean up left over pixels
+			int pos = 0;
+			size_t vecSize = pDrawTarget->pColData.size();
+
+			for (; j <= ex; j++)
+			{
+				pos = (ny * pDrawTarget->width) + j;
+				if (pos < vecSize) pDrawTarget->pColData[pos] = p; // fixed a small
+			}
+
+
+			return olc::OK;
+		}
+
+		virtual olc::rcode FillCircle_SIMD(int32_t x, int32_t y, int32_t radius, Pixel p, olc::Sprite* pDrawTarget) override
+		{
+
+			if (radius < 0 || x < -radius || y < -radius || x - pDrawTarget->width > radius || y - pDrawTarget->height > radius)
+				return rcode::FAIL;
+
+			if (radius > 0)
+			{
+				int x0 = 0;
+				int y0 = radius;
+				int d = 3 - 2 * radius;
+
+				while (y0 >= x0)
+				{
+					DrawFillLine(x - y0, x + y0, y - x0, p, pDrawTarget);
+					if (x0 > 0)	DrawFillLine(x - y0, x + y0, y + x0, p, pDrawTarget);
+
+					if (d < 0)
+						d += 4 * x0++ + 6;
+					else
+					{
+						if (x0 != y0)
+						{
+							DrawFillLine(x - x0, x + x0, y - y0, p, pDrawTarget);
+							DrawFillLine(x - x0, x + x0, y + y0, p, pDrawTarget);
+						}
+						d += 4 * (x0++ - y0--) + 10;
+					}
+				}
+			}
+			else
+				platform->ptrPGE->Draw(x, y, p);
+
+
+
+			return rcode::OK;
+
+		}
+
+		virtual olc::rcode FillTriangle_SIMD(int32_t x1, int32_t y1, int32_t x2, int32_t y2, int32_t x3, int32_t y3, Pixel p, olc::Sprite* pDrawTarget) override
+		{
+			int t1x, t2x, y, minx, maxx, t1xp, t2xp;
+			bool changed1 = false;
+			bool changed2 = false;
+			int signx1, signx2, dx1, dy1, dx2, dy2;
+			int e1, e2;
+			// Sort vertices
+			if (y1 > y2) { std::swap(y1, y2); std::swap(x1, x2); }
+			if (y1 > y3) { std::swap(y1, y3); std::swap(x1, x3); }
+			if (y2 > y3) { std::swap(y2, y3); std::swap(x2, x3); }
+
+			t1x = t2x = x1; y = y1;   // Starting points
+			dx1 = (int)(x2 - x1);
+			if (dx1 < 0) { dx1 = -dx1; signx1 = -1; }
+			else signx1 = 1;
+			dy1 = (int)(y2 - y1);
+
+			dx2 = (int)(x3 - x1);
+			if (dx2 < 0) { dx2 = -dx2; signx2 = -1; }
+			else signx2 = 1;
+			dy2 = (int)(y3 - y1);
+
+			if (dy1 > dx1) { std::swap(dx1, dy1); changed1 = true; }
+			if (dy2 > dx2) { std::swap(dy2, dx2); changed2 = true; }
+
+			e2 = (int)(dx2 >> 1);
+			// Flat top, just process the second half
+			if (y1 == y2) goto next;
+			e1 = (int)(dx1 >> 1);
+
+			/// End Setup
+
+			for (int i = 0; i < dx1;) {
+				t1xp = 0; t2xp = 0;
+				if (t1x < t2x) { minx = t1x; maxx = t2x; }
+				else { minx = t2x; maxx = t1x; }
+				// process first line until y value is about to change
+				while (i < dx1) {
+					i++;
+					e1 += dy1;
+					while (e1 >= dx1) {
+						e1 -= dx1;
+						if (changed1) t1xp = signx1;//t1x += signx1;
+						else          goto next1;
+					}
+					if (changed1) break;
+					else t1x += signx1;
+				}
+				// Move line
+			next1:
+				// process second line until y value is about to change
+				while (1) {
+					e2 += dy2;
+					while (e2 >= dx2) {
+						e2 -= dx2;
+						if (changed2) t2xp = signx2;//t2x += signx2;
+						else          goto next2;
+					}
+					if (changed2)     break;
+					else              t2x += signx2;
+				}
+			next2:
+				if (minx > t1x) minx = t1x;
+				if (minx > t2x) minx = t2x;
+				if (maxx < t1x) maxx = t1x;
+				if (maxx < t2x) maxx = t2x;
+				simddrawer->DrawFillLine(minx, maxx, y, p, pDrawTarget); // Draw line from min to max points found on the y using SIMD, // John Galvin added missing 'p'
+				// Now increase y
+				if (!changed1) t1x += signx1;
+				t1x += t1xp;
+				if (!changed2) t2x += signx2;
+				t2x += t2xp;
+				y += 1;
+				if (y == y2) break;
+			}
+
+		next:
+			// Second half
+			dx1 = (int)(x3 - x2); if (dx1 < 0) { dx1 = -dx1; signx1 = -1; }
+			else signx1 = 1;
+			dy1 = (int)(y3 - y2);
+			t1x = x2;
+
+			if (dy1 > dx1) {   // swap values
+				std::swap(dy1, dx1);
+				changed1 = true;
+			}
+			else changed1 = false;
+
+			e1 = (int)(dx1 >> 1);
+
+			for (int i = 0; i <= dx1; i++) {
+				t1xp = 0; t2xp = 0;
+				if (t1x < t2x) { minx = t1x; maxx = t2x; }
+				else { minx = t2x; maxx = t1x; }
+				// process first line until y value is about to change
+				while (i < dx1) {
+					e1 += dy1;
+					while (e1 >= dx1) {
+						e1 -= dx1;
+						if (changed1) { t1xp = signx1; break; }//t1x += signx1;
+						else          goto next3;
+					}
+					if (changed1) break;
+					else   	   	  t1x += signx1;
+					if (i < dx1) i++;
+				}
+			next3:
+				// process second line until y value is about to change
+				while (t2x != x3) {
+					e2 += dy2;
+					while (e2 >= dx2) {
+						e2 -= dx2;
+						if (changed2) t2xp = signx2;
+						else          goto next4;
+					}
+					if (changed2)     break;
+					else              t2x += signx2;
+				}
+			next4:
+
+				if (minx > t1x) minx = t1x;
+				if (minx > t2x) minx = t2x;
+				if (maxx < t1x) maxx = t1x;
+				if (maxx < t2x) maxx = t2x;
+				simddrawer->DrawFillLine(minx, maxx, y, p, pDrawTarget); // Draw line from min to max points found on the y using SIMD.
+				if (!changed1) t1x += signx1;
+				t1x += t1xp;
+				if (!changed2) t2x += signx2;
+				t2x += t2xp;
+				y += 1;
+				if (y > y3) return rcode::OK;
+			}
+
+			return rcode::OK;
+		}
+
+		virtual olc::rcode FillRect_SIMD(int32_t x, int32_t y, int32_t w, int32_t h, Pixel p, olc::Sprite* pDrawTarget) override
+		{
+			int32_t x2 = x + w;
+			int32_t y2 = y + h;
+
+			if (x < 0) x = 0;
+			if (x >= (int32_t)pDrawTarget->width) x = (int32_t)pDrawTarget->width;
+			if (y < 0) y = 0;
+			if (y >= (int32_t)pDrawTarget->height) y = (int32_t)pDrawTarget->height;
+
+			if (x2 < 0) x2 = 0;
+			if (x2 >= (int32_t)pDrawTarget->width) x2 = (int32_t)pDrawTarget->width;
+			if (y2 < 0) y2 = 0;
+			if (y2 >= (int32_t)pDrawTarget->height) y2 = (int32_t)pDrawTarget->height;
+
+			for (int j = y; j < y2; j++)
+			{
+				simddrawer->DrawFillLine(x, x2, j, p, pDrawTarget);
+			}
+
+			return rcode::OK;
+		}
+
+		virtual olc::rcode DrawSprite_SIMD(int32_t x, int32_t y, Sprite* sprite, uint32_t scale, uint8_t flip, olc::Sprite* pDrawTarget) override
+		{
+			if (sprite == nullptr) return rcode::FAIL;
+			olc::vi2d vPos = { x, y };
+
+			// Lets check if the sprite all ready exist?
+			olc::vi2d vStartPos = { 0,0 };
+			olc::vi2d vScaleSize = { sprite->width * (int)scale, sprite->height * (int)scale };
+			olc::Decal* dec = (olc::Decal*)sprite->GetStoredSubDecal(vStartPos, vScaleSize, scale, (olc::Sprite::Flip)flip, pDrawTarget);
+			if (dec == nullptr)
+			{
+				//1: Lets flip it (if Store Sub Sprites has a copy it will be returned)
+				olc::Sprite* sprFlipped = sprite->Duplicate((olc::Sprite::Flip)flip);
+
+				//2: Lets scale it (if Store Sub Sprites has a copy it will be returned)
+				olc::Sprite* sprScaled = sprFlipped->Duplicate(scale);
+
+				//3: Store the SubSprite, a Decal will also be created
+				if (!sprite->StoreSubSprite(sprScaled, vStartPos, scale, (olc::Sprite::Flip)flip, pDrawTarget))
+				{
+					// OK the vector is full or sub sprites disabled
+					// We Cannot Store the sub sprite, lets draw it
+					DuplicateMerge_SIMD(vStartPos, pDrawTarget, olc::BLANK, sprScaled);
+					delete sprScaled;
+					delete sprFlipped;
+					return rcode::OK;
+				}
+				else
+				{
+					//4: Get the newly created Decal
+					dec = (olc::Decal*)sprite->GetStoredSubDecal(vStartPos, vScaleSize, scale, (olc::Sprite::Flip)flip, pDrawTarget);
+
+					//5: Clean up
+					delete sprFlipped;
+
+				}
+
+			}
+
+			renderer->ptrPGE->DrawDecal(vPos, dec);
+			return rcode::OK;
+		}
+
+		virtual olc::rcode DrawPartialSprite_SIMD(const olc::vi2d& vPos, olc::Sprite* pSource, const olc::vi2d& vStartPos, const olc::vi2d& vSize, uint32_t scale, olc::Sprite::Flip flip, olc::Sprite* pDrawTarget) override
+		{
+
+			// Lets check if the sprite all ready exist?
+			scale = (scale < 1) ? 1 : scale;
+
+			olc::vi2d vScaleSize = { vSize.x * (int)scale, vSize.y * (int)scale };
+			olc::Decal* dec = (olc::Decal*)pSource->GetStoredSubDecal(vStartPos, vScaleSize, scale, flip, pDrawTarget);
+			if (dec == nullptr)
+			{
+
+				//1: lets get the partial;
+				olc::Sprite* sprPartial = pSource->Duplicate(vStartPos, vSize);
+
+				//2: Lets flip it (if Store Sub Sprites has a copy it will be returned)
+				olc::Sprite* sprFlipped = sprPartial->Duplicate((olc::Sprite::Flip)flip);
+
+				//3: Lets scale it (if Store Sub Sprites has a copy it will be returned)
+				olc::Sprite* sprScaled = sprFlipped->Duplicate(scale);
+
+
+				//4: Store the SubSprite, a Decal will also be created
+				if (!pSource->StoreSubSprite(sprScaled, vStartPos, scale, flip))
+				{
+					// OK the vector is full or sub sprites disabled
+					// We Cannot Store the sub sprite, lets draw it
+					DuplicateMerge_SIMD(vStartPos, pDrawTarget, olc::BLANK, sprScaled);
+					delete sprScaled;
+					delete sprFlipped;
+					return rcode::OK;
+				}
+				else
+				{
+					//5: Get the Decal
+					dec = (olc::Decal*)pSource->GetStoredSubDecal(vStartPos, vScaleSize, scale, flip, pDrawTarget);
+
+					//6: Clean up
+					delete sprPartial;
+					delete sprFlipped;
+
+				}
+
+			}
+
+			renderer->ptrPGE->DrawDecal(vPos, dec);
+			return rcode::OK;
+		}
+
+		virtual olc::rcode DrawMergeSprite_SIMD(int32_t vPosx, int32_t vPosy, Sprite* pFromSprite, int32_t vToSpritePosx, int32_t vToSpritePosy, Sprite* pToSprite, Pixel blendPixel, uint32_t scale, olc::Sprite::Flip flip, olc::Sprite* pDrawTarget) override
+		{
+
+			olc::vi2d vPos = { vPosx , vPosy };
+			olc::vi2d vSize = { pToSprite->width * (int32_t)scale ,  pToSprite->height * (int32_t)scale };
+
+			olc::vi2d vToSpritePos = { vToSpritePosx ,vToSpritePosy };
+
+			olc::Decal* dec = (olc::Decal*)pFromSprite->GetStoredSubDecal(vToSpritePos, vSize, scale, flip, pToSprite);
+			if (dec == nullptr)
+			{
+				olc::Sprite* pMergeSprite = nullptr;
+				olc::Sprite* pMergeScaleSprite = nullptr;
+				olc::Sprite* pMergeFilpSprite = nullptr;
+
+				pMergeSprite = pFromSprite->DuplicateMerge(vToSpritePos, pToSprite, blendPixel);
+				pMergeScaleSprite = pMergeSprite->Duplicate(scale);
+				pMergeFilpSprite = pMergeScaleSprite->Duplicate((olc::Sprite::Flip)flip);
+
+				//4: Store the SubSprite, a Decal will also be created
+				if (!pFromSprite->StoreSubSprite(pMergeFilpSprite, vToSpritePos, scale, flip, pToSprite))
+				{
+					// OK the vector is full or sub sprites disabled
+					// We Cannot Store the sub sprite, lets draw it
+					DuplicateMerge_SIMD(vToSpritePos, pDrawTarget, olc::BLANK, pMergeFilpSprite);
+					delete pMergeSprite;
+					delete pMergeScaleSprite;
+					delete pMergeFilpSprite;
+					return rcode::OK;
+				}
+				else
+				{
+					//5: Get the Decal
+					dec = (olc::Decal*)pFromSprite->GetStoredSubDecal(vToSpritePos, vSize, scale, flip, pToSprite);
+
+					//6: Clean up
+					delete pMergeSprite;
+					delete pMergeScaleSprite;
+					renderer->ptrPGE->DrawDecal(vPos, dec);
+				}
+
+			}
+
+			renderer->ptrPGE->DrawDecal(vPos, dec);
+			return rcode::OK;
+		}
+
+		virtual olc::Sprite* Duplicate_SIMD(olc::Sprite* pSource) override
+		{
+			// This is the fastest way of duplicating, I say this is not required, kept for testing
+			olc::Sprite* spr = new olc::Sprite(pSource->width, pSource->height);
+			std::memcpy(spr->GetData(), pSource->GetData(), pSource->width * pSource->height * sizeof(olc::Pixel));
+			spr->modeSample = pSource->modeSample;
+			return spr;
+
+		}
+
+		virtual olc::Sprite* Duplicate_SIMD(const olc::vi2d& vPos, const olc::vi2d& vSize, olc::Sprite* pSource) override
+		{
+
+			// Some Maths, to ensure the partial sprite is created correctly
+			int newSizeX = vSize.x;
+			int newSizeY = vSize.y;
+
+			int maxX = vPos.x + vSize.x;
+			int maxY = vPos.y + vSize.y;
+
+			if (maxX > pSource->width) newSizeX = pSource->width - vPos.x;
+			if (maxY > pSource->height) newSizeY = pSource->height - vPos.y;
+
+
+			olc::Sprite* spr = new olc::Sprite(newSizeX, newSizeX);
+			Clear_SIMD(olc::BLANK, spr);
+			int sx = 0;
+			int ex = newSizeX;
+			int nOffSet = ex % 4;
+
+			if (nOffSet > 0)
+			{
+				// we need to work out what is the next multiple of 4 pixels
+				nOffSet = (ex / 4) + 1;
+				nOffSet = (nOffSet * 4);
+				nOffSet = nOffSet - ex;
+
+			}
+			bool bUseHighSpeed = (nOffSet == 0) ? true : false;
+
+			int nVecTarget = 0;
+			float* pTargetVector = (float*)spr->pColData.data();
+			size_t nVecTLen = spr->pColData.size();
+
+			size_t nVecRead = (vPos.y * pSource->width) + vPos.x; // Start position of read vector
+			size_t nVecRLen = pSource->pColData.size();
+
+			__m128i _sx, _ex, _result, _vecReadi;
+			__m128 _vecReadp;
+
+			_sx = _mm_set1_epi32(sx);
+			_ex = _mm_set1_epi32(ex);
+			_result = _mm_set1_epi32(0xFF); // 0xFF = -1 -> True, 0x00 = 0 -> False;
+
+			// NOTE: We write out the full for-->loop for both High & Low speed
+			// If we put the conditional statement between the for Y for loop we get a 'branch' in our assembly
+			// and lose any gains in performance
+			if (bUseHighSpeed)
+			{
+				// High speed (up too 2times faster as we have no offset to manage)
+				for (int y = 0; y < newSizeY; y++)
+				{
+					if (nVecRead > nVecRLen)
+					{
+						break; // Break if we reached the end of the read vector
+					}
+					if (nVecTarget > nVecTLen) {
+						break; // break if we reached the end of the target vector
+					}
+
+					// Get the next position of the read vector
+					// Take note of (y + vPos.y), we need the position of y + the next row of y for the read vector (nVecRead)
+					nVecRead = ((y + vPos.y) * pSource->width) + vPos.x;
+					for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
+					{
+						// Load in the read vector
+						_vecReadp = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+						_mm_storeu_ps(pTargetVector, _vecReadp);
+
+					}
+
+
+				}
+
+			}
+			else
+			{
+				// We have an offset to manage
+				for (int y = 0; y < newSizeY; y++)
+				{
+					if (nVecRead > nVecRLen)
+					{
+						break; // Break if we reached the end of the read vector
+					}
+					if (nVecTarget > nVecTLen) {
+						break; // break if we reached the end of the target vector
+					}
+
+					// Get the next position of the read vector
+					// Take note of (y + vPos.y), we need the position of y + the next row of y for the read vector (nVecRead)
+					nVecRead = ((y + vPos.y) * pSource->width) + vPos.x;
+					for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
+					{
+						// Load in the read vector
+						_vecReadi = _mm_load_si128((const __m128i*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+
+						// We compare if the all the pixels ly within sx->ex, and pixel greater then ex are not process
+						_sx = _mm_set_epi32(x + 3, x + 2, x + 1, x);
+
+						// Take note there is 'no less than or equals', but if you just reverse the operands and use 'greater than' you get the excat same affect
+						_result = _mm_cmpgt_epi32(_ex, _sx);
+
+						// Store only the pixels that are between sx-->ex
+						_mm_maskmoveu_si128(_vecReadi, _result, (char*)pTargetVector);
+
+					}
+
+					// Shift the ptr for pTargetVector by the offset
+					// This ensures the ptr is always in the correct position for the next row of y
+					// Debug it to understand better
+					pTargetVector -= nOffSet;
+					nVecTarget -= nOffSet;
+
+
+				}
+
+			}
+
+
+			//Clean up any left over pixels
+			for (size_t x = nVecTarget; x < (size_t)nVecTLen; x++, nVecRead++)
+			{
+				if (nVecRead > nVecRLen)
+				{
+					break; // Break if we reached the end of the read vector
+				}
+				if (nVecTarget > nVecTLen) {
+					break; // break if we reached the end of the target vector
+				}
+
+				spr->pColData[x] = pSource->pColData[nVecRead];
+
+
+			}
+
+
+			return spr;
+
+		}
+
+		/*-------------- New Methods John Galvin --------------*/
+
+		virtual olc::Sprite* Duplicate_SIMD(olc::Sprite::Flip flip, olc::Sprite* pSource) override
+		{
+			if (pSource == nullptr) return nullptr;
+
+			olc::Sprite* spr = nullptr;
+
+			// Some optimisations, if we are not flipping return a duplicate
+			if ((uint8_t)flip < 1)
+			{
+				spr = pSource->Duplicate();
+				return spr;
+			}
+
+			olc::vi2d vStartPos = { 0, 0 };
+			olc::vi2d vSize = { pSource->width, pSource->height };
+
+			spr = new olc::Sprite(pSource->width, pSource->height);
+
+			int ex = pSource->width;
+			int nOffSet = ex % 4;
+
+			if (nOffSet > 0)
+			{
+				// we need to work out what is the next multiple of 4 pixels
+				// Example: vSize.x = 270
+				nOffSet = (ex / 4) + 1; // 270 / 4 = 67. + 1 = 68
+				nOffSet = (nOffSet * 4); // 68 * 4 = 272
+				nOffSet = nOffSet - ex; // therefore the offset is 2
+
+			}
+
+			int nVecTarget = 0;
+			float* pTargetVector = (float*)spr->pColData.data();
+			size_t nVecTLen = spr->pColData.size();
+
+			size_t nVecRead = 0; // Start position of read vector
+			size_t nVecRLen = pSource->pColData.size();
+
+			__m128 _vecRead;
+
+			if (flip & olc::Sprite::Flip::HORIZ)
+			{
+				nVecRead = nVecRLen;
+				for (int y = 1; y <= pSource->height; y++)
+				{
+					if (y == 0) y = 1;
+					nVecRead = (y * pSource->width) - 4;
+					for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += -4, nVecTarget += 4)
+					{
+
+						_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+						_mm_storer_ps(pTargetVector, _vecRead);
+
+					}
+
+					pTargetVector -= nOffSet;
+					nVecTarget -= nOffSet;
+
+				}
+
+			}
+
+			if (flip & olc::Sprite::Flip::VERT)
+			{
+				nVecRead = nVecRLen;
+				for (int y = pSource->height; y > 0; y--)
+				{
+					if (nVecTarget + 4 > nVecTLen) break;
+					nVecRead = (y * pSource->width) + 0;
+					for (int x = 0; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
+					{
+						_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+						_mm_storeu_ps(pTargetVector, _vecRead);
+
+					}
+					pTargetVector -= nOffSet;
+					nVecTarget -= nOffSet;
+
+				}
+
+			}
+
+			// There MAY be a few left over sprites we just clear them
+			// This is a little cheat, you could write some very complex code to ensure all left pixels are matched, but this will be very slow.
+			// Therefore we just hide (Alpha) them, at most there could be 1 line of pixels at the top/bottom/top, in most cases it will be a few pixels
+			// The end user cannot see that this 1 line of pixels is missing, it will be so small
+			for (size_t x = nVecTarget; x < (size_t)nVecTLen; x++)
+			{
+
+				spr->pColData[x] = olc::BLANK;
+
+			}
+
+			return spr;
+
+		}
+
+		virtual olc::Sprite* Duplicate_SIMD(uint32_t scale, olc::Sprite* pSource) override
+		{
+			if (pSource == nullptr) return nullptr;
+
+			scale = (scale < 1) ? 1 : scale;
+			if ((uint32_t)scale == 1) return pSource->Duplicate();
+			olc::Sprite* spr = new olc::Sprite(pSource->width * scale, pSource->height * scale);
+
+			int nVecTarget = 0;										// Target vector position
+			float* pTargetVector = (float*)spr->pColData.data();	// Target vector pointer
+			size_t nVecTLen = spr->pColData.size();					// Target vector size
+
+			uint32_t nVecRead = 0;									// Start position of read vector
+			size_t nVecRLen = pSource->pColData.size();				// Read vector size
+
+			int nReadCount = std::max(int(4 / scale), 1);			// Number of pixels to be read in
+
+			int nOffSet = 4 % scale;								// Offset for left over pixels
+			uint32_t nScaleCount = 0;								// Scale count used when the scale is greater than the register
+			if (scale > 4)
+			{
+				nOffSet = 0;
+				nScaleCount = scale - 4;
+			}
+
+			int nsuffle[16] = { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 };	// Suffle Pixels
+			int nPos = 0;
+			if (scale > 1)
+			{
+				// If Scale 2 the it is double 1 pixel becomes 2 pixels
+				// {0, 1, 2, 3, 4, 5, 6 >> 16} --> {0, 1, 2, 3, 0, 1, 2, 3, 4, 5, 6, 7, 4, 5, 6, 7,  etc >> 16};
+				// I know there are fancy ways of doing this, but at least this way you can debug it and see what is happening
+				int i = 0;
+				while (nPos < 16)
+				{
+					for (int j = 0; j < scale; j++)
+					{
+						if (nPos > 15) break;
+						for (int k = 0; k < 4; k++)
+						{
+							if (nPos > 15) break;
+							nsuffle[nPos] = i + k;
+							nPos++;
+						}
+					}
+					i += 4;
+				}
+
+			}
+
+			__m128i _shufflePixels, _vecRead;
+			__m128 _result;
+
+			// 'Lets do the shuffle, shuffle baby...'
+			_shufflePixels = _mm_set_epi8(nsuffle[15], nsuffle[14], nsuffle[13], nsuffle[12],
+				nsuffle[11], nsuffle[10], nsuffle[9], nsuffle[8],
+				nsuffle[7], nsuffle[6], nsuffle[5], nsuffle[4],
+				nsuffle[3], nsuffle[2], nsuffle[1], nsuffle[0]
+			);
+
+			int y = 0; int x = 0; int yS = 0;
+			uint32_t nTottle = scale;
+
+			for (y = 0; y < pSource->height; y++, yS++)
+			{
+				// Added extra Y Lines of x values
+				nTottle++;
+				if (nTottle < scale) y--;
+				if (nTottle >= scale) nTottle = 0;
+
+				nVecRead = (y * pSource->width) + 0;
+				nVecTarget = (yS * spr->width) + 0;
+				pTargetVector += nVecTarget;
+				for (x = 0; x < pSource->width; x += nReadCount, nVecRead += nReadCount, pTargetVector += 4, nVecTarget += 4)
+				{
+					_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+					_result = _mm_shuffle_epi8(_vecRead, _shufflePixels);
+					_mm_storeu_ps(pTargetVector, _result);
+
+					// If out scale is greater than 4 times, i.e.10 then we need repeat the pixels
+					if (nScaleCount > 0)
+					{
+						for (int i = 1; i < (int)nScaleCount; i += 4)
+						{
+							pTargetVector += 4;
+							nVecTarget += 4;
+							nOffSet = (i * 4) - (int)nScaleCount;
+							_mm_storeu_ps(pTargetVector, _result);
+
+						}
+					}
+
+					// Move back the pointer and vectors to get the offset bytes
+					pTargetVector -= nOffSet;
+					nVecTarget -= nOffSet;
+
+				}
+
+				pTargetVector -= nVecTarget;
+
+			}
+
+			// There can be some pixels on the target sprite left over
+			// the formula p = (y * width) + x is always perfect, it just how I am executing this I do not like
+			int nYPos = ((y - scale) * pSource->width);
+			int nYTarPos = (yS * (pSource->width * scale));
+
+			// Check is there are left over pixels
+			if (nYTarPos < nVecTLen)
+			{
+				// If so process them
+				for (int i = nYPos; i < nVecRLen; i++)
+				{
+					for (size_t j = 0; j < scale; j++, nYTarPos++)
+					{
+						if (nYTarPos >= nVecTLen) break;
+						spr->pColData[nYTarPos] = pSource->pColData[i];
+					}
+				}
+			}
+
+
+			return spr;
+
+		}
+
+		virtual olc::Sprite* DuplicateMerge_SIMD(const olc::vi2d& vTargetPos, olc::Sprite* pTargetSprite, olc::Pixel p, olc::Sprite* pSource) override
+		{
+			if (pTargetSprite == nullptr) return nullptr;
+
+			/*---- Non-SIMD Vs SIMD*/
+
+
+			/*
+				There is no real performance gain using either of the executions (Non-SIMD, SIMD)
+				Always remember it is near impossible to beat the complier. You might ask then why write it in SIMD at all?
+				Well, when you are developing low level code, it is difficult to jump between languages.
+				Most developers prefer to stay with one language within a method.
+				As these methods are SIMD executions, then write it all in SIMD, therefore there is no surprises later when another developer
+				needs to debug.
+				They are expecting SIMD, then they get SIMD
+				Finally the SIMD code below should be a tiny bit faster, but it would be impossible to measure
+			*/
+			/*
+			Non SIMD Code :
+
+			// Ok we need to ensure the sprite can fit on the layer (pdrawTarget)
+			// Work out if the sprite is out of bounds and crop the sprite to fit into the bounds
+
+			int nFullWidth = vPos.x + pSource->width;
+			int nFullHeight = vPos.y + pSource->height;
+			int nWidth = pSource->width; //std::min(nFullWidth, pdrawTarget->width);
+			int nHeight = pSource->height; // std::min(nFullHeight, pdrawTarget->height);
+
+			if (nFullWidth >= pdrawTarget->width)
+			{
+				// Get the new width for off layer sprite
+				nWidth = nFullWidth - pdrawTarget->width;
+				nWidth = pSource->width - nWidth;
+			}
+
+			if (nFullHeight >= pdrawTarget->height)
+			{
+				// Get the new height for off layer sprite
+				nHeight = nFullHeight - pdrawTarget->height;
+				nHeight = pSource->height - nHeight;
+			}
+
+			// Get the new Start Position for off layer sprite
+			int nXStart = (vPos.x < 0) ? vPos.x * -1 : 0;
+			int nYStart = (vPos.y < 0) ? vPos.y * -1 : 0;
+
+			// Get the new vPosition for off layer sprite
+			int nXPos = (vPos.x < 0) ? 0 : vPos.x;
+			int nYPos = (vPos.y < 0) ? 0 : vPos.y;
+
+			std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
+			*/
+
+			/*---- END Non-SIMD Vs SIMD ---*/
+
+			/* Ok we need to ensure the sprite can fit the sprite on the layer (pdrawTarget)
+				Work out if the sprite is out of bounds and crop the sprite to fit into the bounds
+			*/
+
+			// Vector of position: Order is important, SIMD will read the vector in backwards, (right to left) <---
+			std::vector<int> vecPositions = { vTargetPos.y, vTargetPos.x, pSource->height, pSource->width, vTargetPos.y, vTargetPos.x, 0, 0 };
+			int* pPositions = vecPositions.data();
+
+			__m128i _reg1, _reg2, _reg3, _reg4, _reg5, _compare;
+
+			_reg1 = _mm_set_epi32(pSource->width, pSource->height, 0, 0);			// Holds width and height
+			_reg2 = _mm_set_epi32(vTargetPos.x, vTargetPos.y, 0, 0);				// Holds vPos.x and vPos.y
+			_reg3 = _mm_add_epi32(_reg1, _reg2);									// nFullWidth = vPos.x + width, nFullHeight = vPos.y + height;
+			_reg4 = _mm_set_epi32(pTargetSprite->width, pTargetSprite->height, 0, 0);	// Holds pdrawTarget->width, pdrawTarget->height
+			_compare = _mm_cmpgt_epi32(_reg3, _reg4);								// if (nFullWidth >= pdrawTarget->width) (true false)
+			_reg5 = _mm_sub_epi32(_reg3, _reg4);									// nWidth = nFullWidth - pdrawTarget->width, nheight = nheight - pdrawTarget->height,
+			_reg5 = _mm_sub_epi32(_reg1, _reg5);									// nWidth = width - nWidth, nHeight = height - nHeight;
+			_mm_maskmoveu_si128(_reg5, _compare, (char*)pPositions);				// We only store the computed values of reg5, if _comp is set. i.e. nFullWidth is greater than pdrawTarget->width
+
+			// Now lets get the nXStart, nYStart
+																					// Note the vector is read in backwards, (right to left) <---    <---    <---
+			pPositions += 4;														// Move our pointer down by 4 so we are pointing to {... vPos.y, vPos.x, 0, 0}
+			_reg1 = _mm_set1_epi32(0);												// Clear reg1 to 0, (vPos.x < 0) ? vPos.x * -1 : 0 <- this zero
+			_compare = _mm_cmpgt_epi32(_reg1, _reg2);								//(vPos.x < 0)?,  (vPos.y < 0)?
+			_reg5 = _mm_abs_epi32(_reg2);											// vPos.x * -1, vPos.y * -1. Abs will return positive absolute numbers, we do not need to multiply
+			_mm_maskmoveu_si128(_reg5, _compare, (char*)pPositions);				// We only change the values of nXStart & nYStart if _comp is set (nXStart = (vPos.x < 0) ? vPos.x * -1)
+
+			// Now lets get the nXPos, nYPso
+
+			_reg2 = _mm_set_epi32(0, 0, vTargetPos.x, vTargetPos.y);				// Toddle the reg2 so that 0's will cause nXStart & nYStart results not to be affected
+			_compare = _mm_cmpgt_epi32(_reg1, _reg2);								// (vPos.x < 0)?,  (vPos.y < 0)? . We reuse _reg1 as it is already set to 0's
+			_mm_maskmoveu_si128(_reg1, _compare, (char*)pPositions);				// We only change the values of nXPos & nYPos if _comp is set (vPos.x < 0) ? 0 : vPos.x;
+
+
+			return DrawToTarget(vTargetPos, pTargetSprite, vecPositions, pSource);
+
+
+		}
+
+		virtual olc::Sprite* DrawToTarget(const olc::vi2d& vPos, olc::Sprite* pdrawTarget, std::vector<int> vecPositions, olc::Sprite* pSource)
+		{
+			// Create ints to represent the vector positions
+			// makes life easier for debugging and creation of the for loop for SIMD
+			// std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
+
+			// Create ints to represent the vector positions
+			// makes life easier for debugging and creation of the for loop for SIMD
+			// std::vector<int> vecPositions = { vPos.y, vPos.x, nHeight, nWidth, nYPos, nXPos, nYStart, nXStart };
+			int nHeight = vecPositions[2];
+			int nWidth = vecPositions[3];
+			int nYPos = vecPositions[4];
+			int nXPos = vecPositions[5];
+			int nYStart = vecPositions[6];
+			int nXStart = vecPositions[7];
+
+
+			// Get the target layer vector pointer
+			int nVecTarget = (nYPos * pdrawTarget->width) + nXPos;
+			float* pTargetVector = (float*)pdrawTarget->pColData.data();
+
+			size_t nVecTLen = pdrawTarget->pColData.size();
+			int nTargetY = 0;
+
+			// Get the local sprite vector details
+			size_t nVecRead = 0; // Start position of read vector
+			int ex = nWidth;
+
+			// Get if we have an offset to manage
+			// Try to keep your spites width in even multiples of 4/8 (4, 8, 16, 24, 32, 40... 80, 88, 96, 104)
+			// In this way most of your sprites will fall into the the "high speed" processing
+			int nOffSet = nWidth % 4;
+			bool bUseHighSpeed = (nOffSet == 0) ? true : false;
+
+			// Set up registers
+			__m128i _sx, _ex, _compare, _comparePixel, _blendpixel, _vecRead, _vecTargetRead, _vecOutPut;
+
+			Pixel p = olc::BLANK;
+			_blendpixel = _mm_set1_epi32(p.n);
+			_sx = _mm_set1_epi32(0);
+			_ex = _mm_set1_epi32(ex);
+
+			// NOTE: We write out the full for-->loop for both High & Low speed
+			// If we put the conditional statement between the Y for loop we get a 'branch' in our assembly
+			// and lose any gains in performance
+			if (bUseHighSpeed)
+			{
+				// High speed (up too 2times faster as we have no offset to manage)
+				for (int y = nYStart; y < nHeight; y++, nTargetY++)
+				{
+					// Get next Target Vector position, but if we are out of bounds on the target we break
+					nVecTarget = ((nTargetY + nYPos) * pdrawTarget->width) + nXPos;
+					if (nVecTarget >= nVecTLen) break;
+					pTargetVector += nVecTarget;
+
+					// Get next read Position
+					nVecRead = (y * pSource->width) + nXStart;
+
+					for (int x = nXStart; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
+					{
+						_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+						_comparePixel = _mm_cmpgt_epi32(_blendpixel, _vecRead);
+						_mm_maskmoveu_si128(_vecRead, _comparePixel, (char*)pTargetVector);
+
+					}
+
+					pTargetVector -= nVecTarget; // reset the pointer to 0 position
+
+				}
+			}
+			else
+			{
+				// Low speed as we have an offset to manage
+				for (int y = nYStart; y < nHeight; y++, nTargetY++)
+				{
+					// Get next Target Vector position, but if we are out of bounds on the target we break
+					nVecTarget = ((nTargetY + nYPos) * pdrawTarget->width) + nXPos;
+					if (nVecTarget >= nVecTLen) break;
+					pTargetVector += nVecTarget;
+
+					// Get next read Position
+					nVecRead = (y * pSource->width) + nXStart;
+
+					for (int x = nXStart; x < ex; x += 4, pTargetVector += 4, nVecRead += 4, nVecTarget += 4)
+					{
+						_sx = _mm_set_epi32(x + 3, x + 2, x + 1, x);
+
+						_vecRead = _mm_load_ps((const float*)((olc::Pixel*)pSource->pColData.data() + nVecRead));
+						_vecTargetRead = _mm_load_ps((const float*)((olc::Pixel*)pdrawTarget->pColData.data() + nVecTarget));
+
+						_comparePixel = _mm_cmpgt_epi32(_blendpixel, _vecRead);
+						_vecOutPut = _mm_blendv_epi8(_vecTargetRead, _vecRead, _comparePixel);
+
+						_compare = _mm_cmpgt_epi32(_ex, _sx);
+						_mm_maskmoveu_si128(_vecOutPut, _compare, (char*)pTargetVector);
+
+					}
+
+					pTargetVector -= nVecTarget; // reset the pointer to 0 position
+
+
+				}
+			}
+
+			return pdrawTarget;
+
+		}
+
+	};
 }
 
 #endif
@@ -13056,16 +13785,16 @@ namespace olc
 
 #if defined(__x86_64__)
         /*
-            64 bit Processor
-            Use SSE4 128bit
-            Note: most Android devices use Intel Atom, which supports SSE3/4 only
-            Chromebooks however can use iCore processors (AVX2)
-            I have never hear of a Chromebook using Xeon processors (AVX512)
+			64 bit Processor
+			Use SSE4 128bit
+			Note: most Android devices use Intel Atom, which supports SSE3/4 only
+			Chromebooks however can use iCore processors (AVX2)
+			I have never hear of a Chromebook using Xeon processors (AVX512)
 
-            NOTE: Simulators can often break when using SEE, it is best to
-            use a real phone if possible
-        */
-        simddrawer = std::make_unique<olc::SIMD_NONE>();
+			NOTE: Simulators can often break when using SEE, it is best to
+			use a real phone if possible
+		*/
+		simddrawer = std::make_unique<olc::SIMD_NONE>();
 #else
         //32 bit Processor Use SIMD NONE, will update this later (defined(__i386__))
         // There should now be many of these around
@@ -13084,17 +13813,17 @@ namespace olc
 
 #if defined(__APPLE__)
         platform = std::make_unique<olc::Platform_iOS>();
-        renderer = std::make_unique<olc::Renderer_OGLES20>();
+		renderer = std::make_unique<olc::Renderer_OGLES20>();
 
-        olc::Sprite::loader = std::make_unique<olc::ImageLoader_STB_iOS>();
-        filehandler = std::make_unique<olc::FileHandler_IOS>();
+		olc::Sprite::loader = std::make_unique<olc::ImageLoader_STB_iOS>();
+		filehandler = std::make_unique<olc::FileHandler_IOS>();
 
 #if defined (__arm__) || (__aarch64__)
 
-        simddrawer = std::make_unique<olc::SIMD_NEON_ARM>();
+		simddrawer = std::make_unique<olc::SIMD_NEON_ARM>();
 
 #else
-        simddrawer = std::make_unique<olc::SIMD_NONE>();
+		simddrawer = std::make_unique<olc::SIMD_NONE>();
 
 #endif // __arm__ || __aarch64__
 
