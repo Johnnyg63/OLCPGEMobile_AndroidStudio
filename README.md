@@ -1,6 +1,6 @@
 # OLC Pixel Game Engine Mobile 2.2.9 for Android Studio
 <p>
-	<b>Now with 3D Support</b><br/>
+	<b>Now with Lightweight 3D Support</b><br/>
 	<b>See <a href="https://github.com/Johnnyg63/PGEMob3DMountains_AS/">3D Demo Here</a></b>
 </p>
 <p>
