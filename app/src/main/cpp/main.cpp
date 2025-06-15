@@ -1,7 +1,7 @@
 //////////////////////////////////////////////////////////////////
-// Pixel Game Engine Mobile Release 2.2.8,                      //
-// John Galvin aka Johnngy63: 18-Jun-2024                       //
-// New Support for iOS beta. iOS sensors not supported yet      //
+// Pixel Game Engine Mobile Release 2.2.9,                      //
+// John Galvin aka Johnngy63: 15-Jun-2025                       //
+// New Lightweight 3d Support. iOS sensors not supported yet    //
 // Please report all bugs to https://discord.com/invite/WhwHUMV //
 // Or on Github: https://github.com/Johnnyg63					//
 //////////////////////////////////////////////////////////////////
